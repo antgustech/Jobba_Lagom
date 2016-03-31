@@ -20,7 +20,7 @@ import java.net.Socket;
 public class MainActivity extends AppCompatActivity {
     //jfhdhfjd
     private TextView textView2;
-    // hej
+    // hej på dig
     private Button btnCalc;
     private ButtonListener bl = new ButtonListener();
 
