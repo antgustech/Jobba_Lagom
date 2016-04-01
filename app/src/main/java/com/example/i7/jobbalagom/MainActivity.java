@@ -1,6 +1,7 @@
-package com.example.i7.jobbalagom;
+package com.example.antongustafsson.csnappen;
 
 import android.os.AsyncTask;
+import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -16,39 +17,34 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.Socket;
 
+import Server.Server;
 
 public class MainActivity extends AppCompatActivity {
-    
+
     private TextView textView2;
-    // hej på dig
-    //hej
-    // hej på dig din korv
     private Button btnCalc;
     private ButtonListener bl = new ButtonListener();
 
-    private ServerConnection serverConnection;
-    // private DataInputStream dis;
-    // private DataOutputStream dos;
+   // private MessageListener listener;
 
-   // private ServerConnection connection;
-
-    //private Controller ctrl = new Controller();
-    //private Server server = new Server(port);
+    private Controller ctrl;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
 
+        ctrl = new Controller();
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        textView2 =(TextView) findViewById(R.id.textView2);
-        btnCalc = (Button) findViewById(R.id.btnCalc);
+        textView2 = (TextView) findViewById(R.id.textView2);
+        btnCalc =  (Button) findViewById(R.id.btnCalc);
         btnCalc.setOnClickListener(bl);
 
         //connection = new ServerConnection();
+       // listener = new MessageListener();
 
-        serverConnection = new ServerConnection();
 
 
     }
@@ -106,11 +102,15 @@ public class MainActivity extends AppCompatActivity {
 
     //När knappen blir klickad händer detta
     //Här borde vi alltså hämta en siffra från servern och visa.
+
     private class ButtonListener implements View.OnClickListener {
         @Override
         public void onClick(View v) {
-            btnCalc.setText("Klickad");
-            serverConnection.sendMessage("hej");
+
+            btnCalc.setText(ctrl.getCurrentTax() + " ");
+
+           // serverConnection.sendMessage("hej");
+            //ctrl.sendMessage("");
                 //connection.sendMessage("ehlo");
               //  textView2.setText(connection.readMessage());
 

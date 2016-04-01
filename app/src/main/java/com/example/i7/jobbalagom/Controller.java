@@ -1,4 +1,4 @@
-package com.example.i7.jobbalagom;
+package com.example.antongustafsson.csnappen;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -11,18 +11,29 @@ import java.net.Socket;
  */
 public class Controller  {
 
-    //private CSNActivity viewer;
+    private final String IP = "192.168.0.194";
+    private final int PORT = 4545;
+
     private Calculator calc;
-    private Socket socket;
+    private ServerConnection serverConnection;
+    private MessageListener listener;
+
 
     public Controller(){
-        //viewer = new CSNActivity();
+        listener = new MessageListener();
         calc = new Calculator();
-
+        serverConnection = new ServerConnection(listener,IP,PORT);
     }
 
-    public float calculatePercentage(float earned){
-        return calc.calculatePercentage(earned);
+    public float getCurrentTax(){
+        return calc.getTax();
     }
 
+    private class MessageListener implements MessageCallback{
+
+        @Override
+        public void updateMessage(float tax) {
+            calc.setTax(tax);
+        }
+    }
 }

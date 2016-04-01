@@ -1,4 +1,4 @@
-package com.example.i7.jobbalagom;
+package com.example.antongustafsson.csnappen;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
@@ -13,39 +13,43 @@ import java.net.Socket;
  */
 public class ServerConnection extends Thread {
 
-    private String ip = "10.2.22.133";
-    private int port = 4545;
     private Socket socket;
     private DataInputStream dis;
-    private DataOutputStream dos;
 
-    public ServerConnection(){
+   // private DataOutputStream dos;
+    private MessageCallback messageCallback;
+
+    private String IP;
+    private int PORT;
+
+    public ServerConnection(MessageCallback messageCallback, String ip,int port){
+        this.IP = ip;
+        this.PORT = port;
+        this.messageCallback = messageCallback;
         start();
     }
 
     public void connect(String ip, int port){
-
         try{
             socket = new Socket(ip,port);
             dis = new DataInputStream(new BufferedInputStream(socket.getInputStream()));
-            dos = new DataOutputStream((new BufferedOutputStream(socket.getOutputStream())));
+            //dos = new DataOutputStream((new BufferedOutputStream(socket.getOutputStream())));
         }catch(IOException e){}
-
     }
 
-    public String sendMessage(String str){
-        try{
-            dos.writeUTF(str);
-            dos.flush();
-
-            return dis.readUTF();
-        }catch(IOException e){}
-
-        return "Could not get Estimates";
-
+    public void closeConnection(){
+        Thread.interrupted();
     }
 
     public void run(){
-        connect(ip,port);
+        boolean done = false;
+        connect(IP,PORT);
+        while(!done){
+            try{
+               messageCallback.updateMessage(dis.readFloat());
+                done = true;
+            }catch(IOException e){}
+        }
+        closeConnection();
     }
 }
