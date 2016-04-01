@@ -1,4 +1,4 @@
-package com.example.antongustafsson.csnappen;
+package com.example.i7.jobbalagom;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;

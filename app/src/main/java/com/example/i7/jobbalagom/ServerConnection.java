@@ -1,4 +1,4 @@
-package com.example.antongustafsson.csnappen;
+package com.example.i7.jobbalagom;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
@@ -45,10 +45,10 @@ public class ServerConnection extends Thread {
         boolean done = false;
         connect(IP,PORT);
         while(!done){
-            try{
-               messageCallback.updateMessage(dis.readFloat());
-                done = true;
-            }catch(IOException e){}
+            //try{
+             //  messageCallback.updateMessage(dis.readFloat());
+           //     done = true;
+         //   }catch(IOException e){}
         }
         closeConnection();
     }

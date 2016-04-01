@@ -1,4 +1,4 @@
-package com.example.antongustafsson.csnappen;
+package com.example.i7.jobbalagom;
 
 import android.os.AsyncTask;
 import android.os.Message;
@@ -17,7 +17,6 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.Socket;
 
-import Server.Server;
 
 public class MainActivity extends AppCompatActivity {
 
