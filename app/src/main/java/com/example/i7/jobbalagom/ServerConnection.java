@@ -45,10 +45,10 @@ public class ServerConnection extends Thread {
         boolean done = false;
         connect(IP,PORT);
         while(!done){
-            //try{
-             //  messageCallback.updateMessage(dis.readFloat());
-           //     done = true;
-         //   }catch(IOException e){}
+            try{
+               messageCallback.updateMessage(dis.readFloat());
+                done = true;
+            }catch(IOException e){}
         }
         closeConnection();
     }
