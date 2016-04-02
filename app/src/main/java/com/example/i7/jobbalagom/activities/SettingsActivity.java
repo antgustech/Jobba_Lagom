@@ -19,6 +19,7 @@ import android.preference.PreferenceManager;
 import android.preference.RingtonePreference;
 import android.text.TextUtils;
 import android.view.MenuItem;
+import android.view.Window;
 
 import com.example.i7.jobbalagom.R;
 
@@ -120,6 +121,9 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        //Hotfix för att fixa statusbarens färg, borde inte behövas egentligen!
+        Window window = this.getWindow();
+        window.setStatusBarColor(getResources().getColor(R.color.colorPrimaryDark));
         super.onCreate(savedInstanceState);
         setupActionBar();
     }

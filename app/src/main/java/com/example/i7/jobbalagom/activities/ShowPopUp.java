@@ -10,7 +10,10 @@ import android.view.Gravity;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup.LayoutParams;
+import android.view.Window;
 import android.widget.*;
+
+import com.example.i7.jobbalagom.R;
 
 public class ShowPopUp extends Activity {
 
@@ -24,6 +27,9 @@ public class ShowPopUp extends Activity {
 
 
     public void onCreate(Bundle savedInstanceState) {
+        //Hotfix för att fixa statusbarens färg, borde inte behövas egentligen!
+        Window window = this.getWindow();
+        window.setStatusBarColor(getResources().getColor(R.color.colorPrimaryDark));
         super.onCreate(savedInstanceState);
         popUp = new PopupWindow(this);
         layout = new LinearLayout(this);

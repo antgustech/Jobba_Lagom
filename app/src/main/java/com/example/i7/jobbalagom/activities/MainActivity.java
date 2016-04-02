@@ -35,7 +35,7 @@ public class MainActivity extends AppCompatActivity {
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        //Hotfix för att fixa statusbarens färg
+        //Hotfix för att fixa statusbarens färg, borde inte behövas egentligen!
         Window window = this.getWindow();
         window.setStatusBarColor(getResources().getColor(R.color.colorPrimaryDark));
 
@@ -73,6 +73,9 @@ public class MainActivity extends AppCompatActivity {
             startActivity(new Intent(getApplicationContext(), SettingsActivity.class));
             return true;
 
+        }else if(id == R.id.action_about){
+            startActivity(new Intent(getApplicationContext(), AboutActivity.class));
+            return true;
         }
         return super.onOptionsItemSelected(item);
     }
