@@ -13,6 +13,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -22,6 +23,7 @@ import com.getbase.floatingactionbutton.FloatingActionButton;
 import com.getbase.floatingactionbutton.FloatingActionsMenu;
 
 public class MainActivity extends AppCompatActivity {
+    private int progress = 20;
     private TextView textView2;
     private View btnTax;
     private View btnTime;
@@ -32,7 +34,6 @@ public class MainActivity extends AppCompatActivity {
     private Controller ctrl;
 
 
-    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         //Hotfix för att fixa statusbarens färg, borde inte behövas egentligen!
@@ -40,11 +41,12 @@ public class MainActivity extends AppCompatActivity {
         window.setStatusBarColor(getResources().getColor(R.color.colorPrimaryDark));
 
         ctrl = new Controller();
+
         //setIconActionBar(); //Lägger till ikon i actionbar, dock med för mycket margin.
         //floatingButton();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        textView2 = (TextView) findViewById(R.id.textView2);
+        textView2 = (TextView) findViewById(R.id.textView);
         btnTax = (View) findViewById(R.id.action_b);
         btnTime = (View) findViewById(R.id.action_a);
         btnTax.setOnClickListener(bl);
@@ -119,6 +121,9 @@ public class MainActivity extends AppCompatActivity {
         public void onClick(View v) {
 
             textView2.setText(ctrl.getCurrentTax() + " ");
+            ProgressBar pb = (ProgressBar) findViewById(R.id.progressBar);
+            pb.setProgress(progress);
+            progress++;
 
            // serverConnection.sendMessage("hej");
             //ctrl.sendMessage("");
