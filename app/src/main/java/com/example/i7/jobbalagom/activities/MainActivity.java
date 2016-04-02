@@ -115,7 +115,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
     }
-
+    //Ny kommentar
     //När knappen blir klickad händer detta
     //Här borde vi alltså hämta en siffra från servern och visa.
 
