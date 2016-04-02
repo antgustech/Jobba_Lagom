@@ -25,9 +25,7 @@
             android:layout_alignParentBottom="true"
             android:layout_alignParentRight="true"
             android:layout_alignParentEnd="true"
-            android:layout_toEndOf="@+id/normal_plus"
-            android:layout_alignTop="@+id/action_b"
-            android:layout_toRightOf="@+id/normal_plus">
+      >
 
             <com.getbase.floatingactionbutton.FloatingActionButton
                 android:id="@+id/action_a"
