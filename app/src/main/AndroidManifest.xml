@@ -21,6 +21,7 @@
             android:name=".activities.SettingsActivity"
             android:label="@string/title_activity_settings" />
         <activity android:name=".activities.AboutActivity"></activity>
+        <activity android:name=".activities.PopUpActivity"></activity>
     </application>
 
 </manifest>

@@ -1,33 +1,34 @@
 package com.example.i7.jobbalagom.activities;
 
-import android.annotation.TargetApi;
-import android.content.Context;
+import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.graphics.drawable.ShapeDrawable;
 import android.graphics.drawable.shapes.OvalShape;
-import android.os.Build;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
-import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
+import android.widget.TimePicker;
 
 import com.example.i7.jobbalagom.client.Controller;
 import com.example.i7.jobbalagom.R;
 import com.getbase.floatingactionbutton.FloatingActionButton;
 import com.getbase.floatingactionbutton.FloatingActionsMenu;
 
+import java.util.Calendar;
+
 public class MainActivity extends AppCompatActivity {
+
     private int progress = 20;
     private TextView textView2;
     private View btnTax;
     private View btnTime;
     private ButtonListener bl = new ButtonListener();
+    private FloatingButtonListenerA bl1 = new FloatingButtonListenerA();
 
    // private MessageListener listener;
 
@@ -42,6 +43,7 @@ public class MainActivity extends AppCompatActivity {
 
         ctrl = new Controller();
 
+
         //setIconActionBar(); //Lägger till ikon i actionbar, dock med för mycket margin.
         //floatingButton();
         super.onCreate(savedInstanceState);
@@ -51,6 +53,7 @@ public class MainActivity extends AppCompatActivity {
         btnTime = (View) findViewById(R.id.action_a);
         btnTax.setOnClickListener(bl);
         btnTime.setOnClickListener(bl);
+
         //connection = new ServerConnection();
        // listener = new MessageListener();
 
@@ -129,6 +132,14 @@ public class MainActivity extends AppCompatActivity {
             //ctrl.sendMessage("");
                 //connection.sendMessage("ehlo");
               //  textView2.setText(connection.readMessage());
+
+        }
+    }
+
+    private class FloatingButtonListenerA implements View.OnClickListener {
+        @Override
+        public void onClick(View v) {
+
 
         }
     }

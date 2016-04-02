@@ -15,7 +15,7 @@ import android.widget.*;
 
 import com.example.i7.jobbalagom.R;
 
-public class ShowPopUp extends Activity {
+public class PopUpActivity extends Activity {
 
     PopupWindow popUp;
     LinearLayout layout;
