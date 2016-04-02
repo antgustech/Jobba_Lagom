@@ -9,7 +9,10 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.example.antongustafsson.csnappen.MainActivity">
+    android:label="Jobba Lagom"
+    android:icon="@drawable/appicon"
+    tools:context="com.example.antongustafsson.csnappen.MainActivity"
+    >
     <!--
     Flytande knappen, ta ej bort
         <com.getbase.floatingactionbutton.FloatingActionsMenu
