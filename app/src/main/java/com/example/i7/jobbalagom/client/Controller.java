@@ -21,6 +21,7 @@ public class Controller  {
     }
 
     public float getCurrentTax(){
+
         return calc.getTax();
     }
 
@@ -28,6 +29,7 @@ public class Controller  {
 
         @Override
         public void updateMessage(float tax) {
+
             calc.setTax(tax);
         }
     }

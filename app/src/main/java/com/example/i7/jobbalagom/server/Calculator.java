@@ -8,6 +8,7 @@ public class Calculator {
     private TaxContainer taxContainer;
 
     public Calculator(){
+
         taxContainer = new TaxContainer();
     }
 

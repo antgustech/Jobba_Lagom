@@ -2,6 +2,8 @@ package com.example.i7.jobbalagom.activities;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.drawable.ShapeDrawable;
+import android.graphics.drawable.shapes.OvalShape;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -13,13 +15,14 @@ import android.widget.Toast;
 
 import com.example.i7.jobbalagom.client.Controller;
 import com.example.i7.jobbalagom.R;
+import com.getbase.floatingactionbutton.FloatingActionButton;
+import com.getbase.floatingactionbutton.FloatingActionsMenu;
 
 public class MainActivity extends AppCompatActivity {
 
     private TextView textView2;
     private Button btnCalc;
     private ButtonListener bl = new ButtonListener();
-    Context context = getApplicationContext();
 
    // private MessageListener listener;
 
@@ -30,26 +33,21 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
 
 
-                ctrl = new Controller();
+        ctrl = new Controller();
         //setIconActionBar(); //Lägger till ikon i actionbar, dock med för mycket margin.
+        floatingButton();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         textView2 = (TextView) findViewById(R.id.textView2);
         btnCalc =  (Button) findViewById(R.id.btnCalc);
         btnCalc.setOnClickListener(bl);
 
+
         //connection = new ServerConnection();
        // listener = new MessageListener();
 
     }
-    public void disconnectToast(){
-        Toast toast = Toast.makeText(context, "Server Disconnected", Toast.LENGTH_LONG);
-        toast.show();
-    }
-    public void connectedToast(){
-        Toast toast = Toast.makeText(context, "Server Connected", Toast.LENGTH_LONG);
-        toast.show();
-    }
+
 
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -75,7 +73,7 @@ public class MainActivity extends AppCompatActivity {
 
     //Funktionen visar den flytande knappen, ta inte bort!
     private void floatingButton(){
-       /* final View actionB = findViewById(R.id.action_b);
+        final View actionB = findViewById(R.id.action_b);
 
         FloatingActionButton actionC = new FloatingActionButton(getBaseContext());
         actionC.setTitle("Hide/Show Action above");
@@ -98,10 +96,10 @@ public class MainActivity extends AppCompatActivity {
         actionA.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                actionA.setTitle("Något händer");
+
             }
         });
-*/
+
     }
 
     //När knappen blir klickad händer detta

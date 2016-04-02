@@ -13,15 +13,14 @@
     android:icon="@drawable/appicon"
     tools:context="com.example.antongustafsson.csnappen.MainActivity"
     >
-    <!--
-    Flytande knappen, ta ej bort
+
         <com.getbase.floatingactionbutton.FloatingActionsMenu
             android:id="@+id/multiple_actions"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            fab:fab_addButtonColorNormal="@color/white"
-            fab:fab_addButtonColorPressed="@color/white_pressed"
-            fab:fab_addButtonPlusIconColor="@color/half_black"
+            fab:fab_addButtonColorNormal="@color/colorPrimary"
+            fab:fab_addButtonColorPressed="@color/half_black"
+            fab:fab_addButtonPlusIconColor="@color/white"
             fab:fab_labelStyle="@style/menu_labels_style"
             android:layout_alignParentBottom="true"
             android:layout_alignParentRight="true"
@@ -34,12 +33,21 @@
                 android:id="@+id/action_a"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                fab:fab_colorNormal="@color/white"
-                fab:fab_title="Action A"
+                fab:fab_colorNormal="@color/colorPrimary"
+                fab:fab_icon="@drawable/ic_alarm_white_24dp"
+                fab:fab_title="Lägg till tid"
+                fab:fab_colorPressed="@color/white_pressed"/>
+            <com.getbase.floatingactionbutton.FloatingActionButton
+                android:id="@+id/action_b"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                fab:fab_icon="@drawable/ic_assignment_turned_in_white_24dp"
+                fab:fab_colorNormal="@color/colorPrimary"
+                fab:fab_title="Ändra skattesats"
                 fab:fab_colorPressed="@color/white_pressed"/>
 
         </com.getbase.floatingactionbutton.FloatingActionsMenu>
-    -->
+
         <ProgressBar
             style="?android:attr/progressBarStyleHorizontal"
             android:layout_width="wrap_content"
@@ -68,8 +76,10 @@
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:text="Ange arbetade timmar"
             android:id="@+id/textView2"
-            android:layout_centerVertical="true"
-            android:layout_centerHorizontal="true" />
+            android:layout_below="@+id/progressBar"
+            android:layout_alignLeft="@+id/progressBar"
+            android:layout_alignStart="@+id/progressBar"
+            android:layout_marginTop="40dp" />
 
         <EditText
             android:layout_width="wrap_content"
