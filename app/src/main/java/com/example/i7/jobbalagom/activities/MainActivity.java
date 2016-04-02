@@ -35,7 +35,7 @@ public class MainActivity extends AppCompatActivity {
 
         ctrl = new Controller();
         //setIconActionBar(); //Lägger till ikon i actionbar, dock med för mycket margin.
-        floatingButton();
+        //floatingButton();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         textView2 = (TextView) findViewById(R.id.textView2);
