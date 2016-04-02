@@ -1,14 +1,17 @@
 package com.example.i7.jobbalagom.activities;
 
+import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.ShapeDrawable;
 import android.graphics.drawable.shapes.OvalShape;
+import android.os.Build;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -19,9 +22,9 @@ import com.getbase.floatingactionbutton.FloatingActionButton;
 import com.getbase.floatingactionbutton.FloatingActionsMenu;
 
 public class MainActivity extends AppCompatActivity {
-
     private TextView textView2;
-    private Button btnCalc;
+    private View btnTax;
+    private View btnTime;
     private ButtonListener bl = new ButtonListener();
 
    // private MessageListener listener;
@@ -29,9 +32,12 @@ public class MainActivity extends AppCompatActivity {
     private Controller ctrl;
 
 
+    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
+        //Hotfix för att fixa statusbarens färg
+        Window window = this.getWindow();
+        window.setStatusBarColor(getResources().getColor(R.color.colorPrimaryDark));
 
         ctrl = new Controller();
         //setIconActionBar(); //Lägger till ikon i actionbar, dock med för mycket margin.
@@ -39,10 +45,10 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         textView2 = (TextView) findViewById(R.id.textView2);
-        btnCalc =  (Button) findViewById(R.id.btnCalc);
-        btnCalc.setOnClickListener(bl);
-
-
+        btnTax = (View) findViewById(R.id.action_b);
+        btnTime = (View) findViewById(R.id.action_a);
+        btnTax.setOnClickListener(bl);
+        btnTime.setOnClickListener(bl);
         //connection = new ServerConnection();
        // listener = new MessageListener();
 
@@ -71,7 +77,7 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    //Funktionen visar den flytande knappen, ta inte bort!
+    //Funktionen kan behövas för flytande knapp. Ta inte bort
     private void floatingButton(){
         final View actionB = findViewById(R.id.action_b);
 
@@ -109,7 +115,7 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public void onClick(View v) {
 
-            btnCalc.setText(ctrl.getCurrentTax() + " ");
+            textView2.setText(ctrl.getCurrentTax() + " ");
 
            // serverConnection.sendMessage("hej");
             //ctrl.sendMessage("");
