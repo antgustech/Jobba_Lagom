@@ -1,4 +1,4 @@
-package server;
+package com.example.i7.jobbalagom.server;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
