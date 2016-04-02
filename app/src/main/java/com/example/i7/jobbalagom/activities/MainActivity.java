@@ -1,5 +1,6 @@
 package com.example.i7.jobbalagom.activities;
 
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
@@ -35,7 +36,6 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
-
         ctrl = new Controller();
         //setIconActionBar(); //Lägger till ikon i actionbar, dock med för mycket margin.
         super.onCreate(savedInstanceState);
@@ -43,11 +43,8 @@ public class MainActivity extends AppCompatActivity {
         textView2 = (TextView) findViewById(R.id.textView2);
         btnCalc =  (Button) findViewById(R.id.btnCalc);
         btnCalc.setOnClickListener(bl);
-
         //connection = new ServerConnection();
        // listener = new MessageListener();
-
-
 
     }
 
@@ -66,7 +63,9 @@ public class MainActivity extends AppCompatActivity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
+            startActivity(new Intent(getApplicationContext(), SettingsActivity.class));
             return true;
+
         }
         return super.onOptionsItemSelected(item);
     }
