@@ -1,4 +1,4 @@
-package com.example.i7.jobbalagom;
+package com.example.i7.jobbalagom.server;
 
 /**
  * Created by Strandberg95 on 2016-04-01.

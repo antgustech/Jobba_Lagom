@@ -1,10 +1,6 @@
-package com.example.i7.jobbalagom;
+package com.example.i7.jobbalagom.client;
 
-import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
-
-import java.io.IOException;
-import java.net.Socket;
+import com.example.i7.jobbalagom.server.Calculator;
 
 /**
  * Created by Strandberg95 on 2016-03-21.
@@ -13,7 +9,6 @@ public class Controller  {
 
     private final String IP = "192.168.0.194";
     private final int PORT = 4545;
-
     private Calculator calc;
     private ServerConnection serverConnection;
     private MessageListener listener;

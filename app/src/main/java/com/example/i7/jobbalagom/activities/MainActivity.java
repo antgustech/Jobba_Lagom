@@ -1,8 +1,7 @@
 package com.example.i7.jobbalagom.activities;
 
+import android.content.Context;
 import android.content.Intent;
-import android.os.AsyncTask;
-import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -10,23 +9,17 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
-import com.example.i7.jobbalagom.Controller;
+import com.example.i7.jobbalagom.client.Controller;
 import com.example.i7.jobbalagom.R;
-
-import java.io.BufferedInputStream;
-import java.io.BufferedOutputStream;
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
-import java.io.IOException;
-import java.net.Socket;
-
 
 public class MainActivity extends AppCompatActivity {
 
     private TextView textView2;
     private Button btnCalc;
     private ButtonListener bl = new ButtonListener();
+    Context context = getApplicationContext();
 
    // private MessageListener listener;
 
@@ -36,16 +29,26 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
-        ctrl = new Controller();
+
+                ctrl = new Controller();
         //setIconActionBar(); //Lägger till ikon i actionbar, dock med för mycket margin.
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         textView2 = (TextView) findViewById(R.id.textView2);
         btnCalc =  (Button) findViewById(R.id.btnCalc);
         btnCalc.setOnClickListener(bl);
+
         //connection = new ServerConnection();
        // listener = new MessageListener();
 
+    }
+    public void disconnectToast(){
+        Toast toast = Toast.makeText(context, "Server Disconnected", Toast.LENGTH_LONG);
+        toast.show();
+    }
+    public void connectedToast(){
+        Toast toast = Toast.makeText(context, "Server Connected", Toast.LENGTH_LONG);
+        toast.show();
     }
 
     public boolean onCreateOptionsMenu(Menu menu) {
