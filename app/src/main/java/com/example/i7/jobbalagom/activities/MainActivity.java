@@ -1,5 +1,6 @@
 package com.example.i7.jobbalagom.activities;
 
+import android.app.DialogFragment;
 import android.content.Intent;
 import android.graphics.drawable.ShapeDrawable;
 import android.graphics.drawable.shapes.OvalShape;
@@ -15,6 +16,7 @@ import android.widget.TextView;
 
 import com.example.i7.jobbalagom.local.Controller;
 import com.example.i7.jobbalagom.R;
+import com.example.i7.jobbalagom.local.TimePickerFragment;
 import com.getbase.floatingactionbutton.FloatingActionButton;
 import com.getbase.floatingactionbutton.FloatingActionsMenu;
 
@@ -26,6 +28,7 @@ public class MainActivity extends AppCompatActivity {
     private View btnTime;
     private ButtonListener bl = new ButtonListener();
     private FloatingButtonListenerA bl1 = new FloatingButtonListenerA();
+    private TimePickerListener timePickerListener = new TimePickerListener();
 
    // private MessageListener listener;
 
@@ -48,7 +51,7 @@ public class MainActivity extends AppCompatActivity {
         btnTax = (View) findViewById(R.id.action_b);
         btnTime = (View) findViewById(R.id.action_a);
         btnTax.setOnClickListener(bl);
-        btnTime.setOnClickListener(bl);
+        btnTime.setOnClickListener(timePickerListener);
 
         //connection = new ServerConnection();
        // listener = new MessageListener();
@@ -138,10 +141,20 @@ public class MainActivity extends AppCompatActivity {
 
         }
     }
+    private class TimePickerListener implements  View.OnClickListener{
+
+        @Override
+        public void onClick(View v) {
+            DialogFragment newFragment;
+            newFragment = new TimePickerFragment();
+            newFragment.show(getFragmentManager(), "timePicker");
+        }
+    }
 
     private class FloatingButtonListenerA implements View.OnClickListener {
         @Override
         public void onClick(View v) {
+
 
 
         }

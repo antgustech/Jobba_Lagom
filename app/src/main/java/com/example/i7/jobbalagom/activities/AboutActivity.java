@@ -1,5 +1,9 @@
 package com.example.i7.jobbalagom.activities;
 
+/**
+ * Created by Anton Gustafsson on 2016-04-03.
+ */
+
 import android.os.Build;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
@@ -12,7 +16,7 @@ public class AboutActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-       setStatusbarColor();
+        setStatusbarColor();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_about);
         setupActionBar();

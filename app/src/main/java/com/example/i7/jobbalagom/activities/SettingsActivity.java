@@ -1,5 +1,8 @@
 package com.example.i7.jobbalagom.activities;
 
+/**
+ * Created by Anton Gustafsson on 2016-04-02.
+ */
 
 import android.annotation.TargetApi;
 import android.content.Context;
