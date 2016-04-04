@@ -144,10 +144,4 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    private void setIconActionBar(){
-        getSupportActionBar().setDisplayShowHomeEnabled(true);
-        getSupportActionBar().setLogo(R.drawable.appicon);
-        getSupportActionBar().setDisplayUseLogoEnabled(true);
-        setContentView(R.layout.activity_main);
-    }
 }

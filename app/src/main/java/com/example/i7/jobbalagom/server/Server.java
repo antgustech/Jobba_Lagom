@@ -19,6 +19,7 @@ public class Server extends Thread {
 	
 	public Server(){
 		try {
+
 			serverSocket = new ServerSocket(4545);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
