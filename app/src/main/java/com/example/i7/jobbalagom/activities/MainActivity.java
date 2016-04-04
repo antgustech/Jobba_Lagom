@@ -4,6 +4,7 @@ import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.graphics.drawable.ShapeDrawable;
 import android.graphics.drawable.shapes.OvalShape;
+import android.os.Build;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -37,9 +38,8 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        //Hotfix för att fixa statusbarens färg, borde inte behövas egentligen!
-        Window window = this.getWindow();
-        window.setStatusBarColor(getResources().getColor(R.color.colorPrimaryDark));
+        setStatusbarColor();
+
 
         ctrl = new Controller();
 
@@ -57,6 +57,13 @@ public class MainActivity extends AppCompatActivity {
         //connection = new ServerConnection();
        // listener = new MessageListener();
 
+    }
+
+    private  void setStatusbarColor(){
+        Window window = this.getWindow();
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            window.setStatusBarColor(getResources().getColor(R.color.colorPrimaryDark));
+        }
     }
 
 

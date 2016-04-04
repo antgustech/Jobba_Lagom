@@ -121,11 +121,15 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        //Hotfix för att fixa statusbarens färg, borde inte behövas egentligen!
-        Window window = this.getWindow();
-        window.setStatusBarColor(getResources().getColor(R.color.colorPrimaryDark));
+        setStatusbarColor();
         super.onCreate(savedInstanceState);
         setupActionBar();
+    }
+    private  void setStatusbarColor(){
+        Window window = this.getWindow();
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            window.setStatusBarColor(getResources().getColor(R.color.colorPrimaryDark));
+        }
     }
 
     /**

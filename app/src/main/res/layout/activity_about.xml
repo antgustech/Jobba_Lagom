@@ -13,7 +13,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="Disclaimer! Vi tar inget ansvar för felaktiga beräkningar! "
+        android:text="@string/action_about_disclaimer"
         android:id="@+id/textView3"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"

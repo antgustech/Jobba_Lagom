@@ -2,12 +2,14 @@
     <string name="app_name">Jobba Lagom</string>
     <string name="action_settings">Inställningar</string>
     <string name="title_activity_settings">Settings</string>
+    <string name="title_activity_about">Om</string>
+    <string name="title_activity_">Settings</string>
     <string name="action_vote">Rösta</string>
     <string name="action_about">Om</string>
-
+    <string name="action_about_disclaimer">Disclaimer: Vi tar inget ansvar för felaktiga beräkningar</string>
     <!-- Strings related to Settings -->
 
-    <!-- Example General settings -->
+    <!-- General settings -->
     <string name="pref_header_general">Generella</string>
 
     <string name="pref_title_social_recommendations">Sätt på rekommendationer</string>

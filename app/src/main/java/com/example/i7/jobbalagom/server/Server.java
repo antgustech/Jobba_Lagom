@@ -81,7 +81,7 @@ public class Server extends Thread {
 		
 	}
 	
-	public static void main(String[] args){
-		Server server = new Server();
-	}
+	//public static void main(String[] args){
+	//	Server server = new Server();
+	//}
 }

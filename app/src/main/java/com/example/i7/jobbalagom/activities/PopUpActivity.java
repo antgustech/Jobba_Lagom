@@ -5,6 +5,7 @@ package com.example.i7.jobbalagom.activities;
  */
 
 import android.app.*;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.View;
@@ -27,9 +28,7 @@ public class PopUpActivity extends Activity {
 
 
     public void onCreate(Bundle savedInstanceState) {
-        //Hotfix för att fixa statusbarens färg, borde inte behövas egentligen!
-        Window window = this.getWindow();
-        window.setStatusBarColor(getResources().getColor(R.color.colorPrimaryDark));
+        setStatusbarColor();
         super.onCreate(savedInstanceState);
         popUp = new PopupWindow(this);
         layout = new LinearLayout(this);
@@ -60,6 +59,13 @@ public class PopUpActivity extends Activity {
         // popUp.showAtLocation(layout, Gravity.BOTTOM, 10, 10);
         mainLayout.addView(but, params);
         setContentView(mainLayout);
+    }
+
+    private  void setStatusbarColor(){
+        Window window = this.getWindow();
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            window.setStatusBarColor(getResources().getColor(R.color.colorPrimaryDark));
+        }
     }
 }
 

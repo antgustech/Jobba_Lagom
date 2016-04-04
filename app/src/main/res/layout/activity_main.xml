@@ -9,7 +9,7 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    android:label="Jobba Lagom"
+    android:label="@string/app_name"
     tools:context="com.example.antongustafsson.csnappen.MainActivity"
     >
 
