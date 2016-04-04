@@ -1,4 +1,4 @@
-package com.example.i7.jobbalagom.client;
+package com.example.i7.jobbalagom.local;
 
 import java.io.BufferedInputStream;
 import java.io.DataInputStream;

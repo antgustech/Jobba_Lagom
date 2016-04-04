@@ -1,4 +1,4 @@
-package com.example.i7.jobbalagom.server;
+package com.example.i7.jobbalagom.local;
 
 import java.io.IOException;
 import java.net.Socket;

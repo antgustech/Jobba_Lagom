@@ -1,6 +1,5 @@
 package com.example.i7.jobbalagom.activities;
 
-import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.graphics.drawable.ShapeDrawable;
 import android.graphics.drawable.shapes.OvalShape;
@@ -13,14 +12,11 @@ import android.view.View;
 import android.view.Window;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.TimePicker;
 
-import com.example.i7.jobbalagom.client.Controller;
+import com.example.i7.jobbalagom.local.Controller;
 import com.example.i7.jobbalagom.R;
 import com.getbase.floatingactionbutton.FloatingActionButton;
 import com.getbase.floatingactionbutton.FloatingActionsMenu;
-
-import java.util.Calendar;
 
 public class MainActivity extends AppCompatActivity {
 
