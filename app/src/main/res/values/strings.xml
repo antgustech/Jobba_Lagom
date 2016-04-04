@@ -6,6 +6,11 @@
     <string name="title_activity_">Settings</string>
     <string name="action_vote">Rösta</string>
     <string name="action_about">Om</string>
+    <string name="start_time">Starttid</string>
+    <string name="end_time">Sluttid</string>
+    <string name="worked_hours">Ange arbetad tid</string>
+    <string name="cancel">Avbryt</string>
+    <string name="add">Klar</string>
     <string name="action_about_disclaimer">Disclaimer: Vi tar inget ansvar för felaktiga beräkningar</string>
     <!-- Strings related to Settings -->
 

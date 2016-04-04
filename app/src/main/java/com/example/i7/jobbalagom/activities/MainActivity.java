@@ -1,6 +1,7 @@
 package com.example.i7.jobbalagom.activities;
 
 import android.app.DialogFragment;
+import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.graphics.drawable.ShapeDrawable;
 import android.graphics.drawable.shapes.OvalShape;
@@ -13,9 +14,11 @@ import android.view.View;
 import android.view.Window;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.TimePicker;
 
 import com.example.i7.jobbalagom.local.Controller;
 import com.example.i7.jobbalagom.R;
+import com.example.i7.jobbalagom.local.TimePickerDialogFragment;
 import com.example.i7.jobbalagom.local.TimePickerFragment;
 import com.getbase.floatingactionbutton.FloatingActionButton;
 import com.getbase.floatingactionbutton.FloatingActionsMenu;
@@ -29,6 +32,7 @@ public class MainActivity extends AppCompatActivity {
     private ButtonListener bl = new ButtonListener();
     private FloatingButtonListenerA bl1 = new FloatingButtonListenerA();
     private TimePickerListener timePickerListener = new TimePickerListener();
+    private TimePickerDialog timePickerDialog;
 
    // private MessageListener listener;
 
@@ -48,8 +52,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         textView2 = (TextView) findViewById(R.id.textView);
-        btnTax = (View) findViewById(R.id.action_b);
-        btnTime = (View) findViewById(R.id.action_a);
+        btnTax =  findViewById(R.id.action_b);
+        btnTime = findViewById(R.id.action_a);
         btnTax.setOnClickListener(bl);
         btnTime.setOnClickListener(timePickerListener);
 
@@ -146,8 +150,12 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public void onClick(View v) {
             DialogFragment newFragment;
-            newFragment = new TimePickerFragment();
+            newFragment = new TimePickerDialogFragment();
             newFragment.show(getFragmentManager(), "timePicker");
+
+           // DialogFragment newFragment;
+          //  newFragment = new TimePickerFragment();
+           // newFragment.show(getFragmentManager(), "timePicker");
         }
     }
 
