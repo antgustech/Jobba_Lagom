@@ -1,11 +1,9 @@
 package com.example.i7.jobbalagom.activities;
 
-import android.app.DialogFragment;
 import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.graphics.drawable.ShapeDrawable;
 import android.graphics.drawable.shapes.OvalShape;
-import android.os.Build;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -16,12 +14,12 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.TimePicker;
 
-import com.example.i7.jobbalagom.local.Controller;
+import com.example.i7.jobbalagom.client.Controller;
 import com.example.i7.jobbalagom.R;
-import com.example.i7.jobbalagom.local.TimePickerDialogFragment;
-import com.example.i7.jobbalagom.local.TimePickerFragment;
 import com.getbase.floatingactionbutton.FloatingActionButton;
 import com.getbase.floatingactionbutton.FloatingActionsMenu;
+
+import java.util.Calendar;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -31,8 +29,6 @@ public class MainActivity extends AppCompatActivity {
     private View btnTime;
     private ButtonListener bl = new ButtonListener();
     private FloatingButtonListenerA bl1 = new FloatingButtonListenerA();
-    private TimePickerListener timePickerListener = new TimePickerListener();
-    private TimePickerDialog timePickerDialog;
 
    // private MessageListener listener;
 
@@ -41,8 +37,9 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        setStatusbarColor();
-
+        //Hotfix för att fixa statusbarens färg, borde inte behövas egentligen!
+        Window window = this.getWindow();
+        //window.setStatusBarColor(getResources().getColor(R.color.colorPrimaryDark));
 
         ctrl = new Controller();
 
@@ -52,21 +49,14 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         textView2 = (TextView) findViewById(R.id.textView);
-        btnTax =  findViewById(R.id.action_b);
-        btnTime = findViewById(R.id.action_a);
+        btnTax = (View) findViewById(R.id.action_b);
+        btnTime = (View) findViewById(R.id.action_a);
         btnTax.setOnClickListener(bl);
-        btnTime.setOnClickListener(timePickerListener);
+        btnTime.setOnClickListener(bl);
 
         //connection = new ServerConnection();
        // listener = new MessageListener();
 
-    }
-
-    private  void setStatusbarColor(){
-        Window window = this.getWindow();
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            window.setStatusBarColor(getResources().getColor(R.color.colorPrimaryDark));
-        }
     }
 
 
@@ -145,27 +135,19 @@ public class MainActivity extends AppCompatActivity {
 
         }
     }
-    private class TimePickerListener implements  View.OnClickListener{
-
-        @Override
-        public void onClick(View v) {
-            DialogFragment newFragment;
-            newFragment = new TimePickerDialogFragment();
-            newFragment.show(getFragmentManager(), "timePicker");
-
-           // DialogFragment newFragment;
-          //  newFragment = new TimePickerFragment();
-           // newFragment.show(getFragmentManager(), "timePicker");
-        }
-    }
 
     private class FloatingButtonListenerA implements View.OnClickListener {
         @Override
         public void onClick(View v) {
 
 
-
         }
     }
 
+    private void setIconActionBar(){
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        //getSupportActionBar().setLogo(R.drawable.appicon);
+        getSupportActionBar().setDisplayUseLogoEnabled(true);
+        setContentView(R.layout.activity_main);
+    }
 }

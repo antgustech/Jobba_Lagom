@@ -30,7 +30,6 @@ public class ServerConnection extends Thread {
             socket = new Socket(ip,port);
             dis = new DataInputStream(new BufferedInputStream(socket.getInputStream()));
             //dos = new DataOutputStream((new BufferedOutputStream(socket.getOutputStream())));
-
         }catch(IOException e){}
     }
 
@@ -43,7 +42,7 @@ public class ServerConnection extends Thread {
         connect(IP, PORT);
         while(!done){
             try{
-               messageCallback.updateMessage(dis.readFloat());
+                messageCallback.updateMessage(dis.readFloat());
                 done = true;
             }catch(IOException e){}
         }

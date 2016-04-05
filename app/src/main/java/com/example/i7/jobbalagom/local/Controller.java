@@ -1,13 +1,13 @@
-package com.example.i7.jobbalagom.local;
+package com.example.i7.jobbalagom.client;
 
-import com.example.i7.jobbalagom.remote.Calculator;
+import com.example.i7.jobbalagom.server.Calculator;
 
 /**
  * Created by Strandberg95 on 2016-03-21.
  */
 public class Controller  {
 
-    private final String IP = "localhost";
+    private final String IP = "10.2.22.133";
     private final int PORT = 4545;
     private Calculator calc;
     private ServerConnection serverConnection;
@@ -21,7 +21,6 @@ public class Controller  {
     }
 
     public float getCurrentTax(){
-
         return calc.getTax();
     }
 
