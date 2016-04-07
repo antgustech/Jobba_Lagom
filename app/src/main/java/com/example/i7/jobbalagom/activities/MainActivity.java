@@ -12,14 +12,14 @@ import android.view.View;
 import android.view.Window;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.TimePicker;
+
 
 import com.example.i7.jobbalagom.local.Controller;
 import com.example.i7.jobbalagom.R;
 import com.getbase.floatingactionbutton.FloatingActionButton;
 import com.getbase.floatingactionbutton.FloatingActionsMenu;
 
-import java.util.Calendar;
+
 
 public class MainActivity extends AppCompatActivity {
 
