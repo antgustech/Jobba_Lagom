@@ -27,8 +27,10 @@ public class MainActivity extends AppCompatActivity {
     private TextView textView2;
     private View btnTax;
     private View btnTime;
+    private View workButton;
     private ButtonListener bl = new ButtonListener();
     private FloatingButtonListenerA bl1 = new FloatingButtonListenerA();
+    private ButtonListenerWork blW = new ButtonListenerWork();
 
    // private MessageListener listener;
 
@@ -49,8 +51,10 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         textView2 = (TextView) findViewById(R.id.textView);
+        workButton = (View) findViewById(R.id.workButton);
         btnTax = (View) findViewById(R.id.action_b);
         btnTime = (View) findViewById(R.id.action_a);
+        workButton.setOnClickListener(blW);
         btnTax.setOnClickListener(bl);
         btnTime.setOnClickListener(bl);
 
@@ -132,6 +136,18 @@ public class MainActivity extends AppCompatActivity {
             //ctrl.sendMessage("");
                 //connection.sendMessage("ehlo");
               //  textView2.setText(connection.readMessage());
+
+        }
+    }
+    private class ButtonListenerWork implements View.OnClickListener {
+        @Override
+        public void onClick(View v) {
+            startActivity(new Intent(getApplicationContext(), TimeReg.class));
+
+            // serverConnection.sendMessage("hej");
+            //ctrl.sendMessage("");
+            //connection.sendMessage("ehlo");
+            //  textView2.setText(connection.readMessage());
 
         }
     }

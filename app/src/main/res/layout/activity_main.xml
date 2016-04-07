@@ -86,7 +86,14 @@
             android:layout_alignRight="@+id/progressBar"
             android:layout_alignEnd="@+id/progressBar" />
 
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Lägg till pass"
+        android:id="@+id/workButton"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
 
 
-
-    </RelativeLayout>
+</RelativeLayout>

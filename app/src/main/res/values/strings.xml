@@ -71,4 +71,5 @@
 
     <string name="title_activity_setup">SetupActivity</string>
     <string name="dummy_content">Kom igång!</string>
+    <string name="title_activity_time_reg">TimeReg</string>
 </resources>

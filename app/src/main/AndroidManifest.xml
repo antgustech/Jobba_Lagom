@@ -17,17 +17,14 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <activity
             android:name=".activities.SettingsActivity"
             android:label="@string/title_activity_settings" />
-        <activity
-            android:name=".activities.AboutActivity"
+
+        <activity android:name=".activities.AboutActivity"
             android:label="@string/title_activity_about" />
-        <activity
-            android:name=".activities.SetupActivity"
-            android:configChanges="orientation|keyboardHidden|screenSize"
-            android:label="@string/title_activity_setup"
-            android:theme="@style/FullscreenTheme"></activity>
+
     </application>
 
 </manifest>
