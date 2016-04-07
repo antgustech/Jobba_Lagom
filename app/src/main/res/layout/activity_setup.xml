@@ -3,7 +3,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#FFFFFF"
-    tools:context="com.example.i7.jobbalagom.activities.SetupActivity">
+    tools:context="com.example.i7.jobbalagom.activities.SetupActivity"
+    android:id="@+id/it">
 
     <!-- The primary full-screen view. This can be replaced with whatever view
          is needed to present your content, e.g. VideoView, SurfaceView,
@@ -127,5 +128,15 @@
         android:layout_alignParentStart="true"
         android:textSize="25dp"
         android:paddingTop="10dp" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Nästa"
+        android:id="@+id/EndSetupButton"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:padding="30dp" />
 
 </RelativeLayout>
