@@ -39,6 +39,22 @@
                 fab:fab_colorNormal="@color/colorPrimary"
                 fab:fab_title="Ändra skattesats"
                 fab:fab_colorPressed="@color/white_pressed"/>
+            <com.getbase.floatingactionbutton.FloatingActionButton
+                android:id="@+id/action_f"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                fab:fab_icon="@drawable/ic_assignment_turned_in_white_24dp"
+                fab:fab_colorNormal="@color/colorPrimary"
+                fab:fab_title="Budgetöversikt"
+                fab:fab_colorPressed="@color/white_pressed"/>
+            <com.getbase.floatingactionbutton.FloatingActionButton
+                android:id="@+id/action_e"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                fab:fab_icon="@drawable/ic_assignment_turned_in_white_24dp"
+                fab:fab_colorNormal="@color/colorPrimary"
+                fab:fab_title="Tid Registrerare"
+                fab:fab_colorPressed="@color/white_pressed"/>
 
         </com.getbase.floatingactionbutton.FloatingActionsMenu>
 
@@ -86,14 +102,7 @@
             android:layout_alignRight="@+id/progressBar"
             android:layout_alignEnd="@+id/progressBar" />
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Lägg till pass"
-        android:id="@+id/workButton"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+
 
 
 </RelativeLayout>
