@@ -1,6 +1,6 @@
-package com.example.i7.jobbalagom.client;
+package com.example.i7.jobbalagom.local;
 
-import com.example.i7.jobbalagom.server.Calculator;
+import com.example.i7.jobbalagom.remote.Calculator;
 
 /**
  * Created by Strandberg95 on 2016-03-21.
