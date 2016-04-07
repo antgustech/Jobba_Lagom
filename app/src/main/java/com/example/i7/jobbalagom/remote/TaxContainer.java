@@ -12,7 +12,6 @@ public class TaxContainer {
 
     public synchronized float getTax(){
         tax++;
-
         return tax;
     }
 

@@ -21,8 +21,9 @@ import android.preference.PreferenceFragment;
 import android.preference.PreferenceManager;
 import android.preference.RingtonePreference;
 import android.text.TextUtils;
-import android.view.MenuItem;
-import android.view.Window;
+//import android.view.MenuItem;
+//import android.view.Window;
+import android.view.*;
 
 import com.example.i7.jobbalagom.R;
 
@@ -44,6 +45,9 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
      * A preference value change listener that updates the preference's summary
      * to reflect its new value.
      */
+
+    private View userName;
+
     private static Preference.OnPreferenceChangeListener sBindPreferenceSummaryToValueListener = new Preference.OnPreferenceChangeListener() {
         @Override
         public boolean onPreferenceChange(Preference preference, Object value) {
@@ -124,6 +128,9 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+        userName = findViewById(R.id.nameTextSetup);
+
         setStatusbarColor();
         super.onCreate(savedInstanceState);
         setupActionBar();
