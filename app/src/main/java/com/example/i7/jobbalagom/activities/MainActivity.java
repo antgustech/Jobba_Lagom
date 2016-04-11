@@ -32,43 +32,23 @@ public class MainActivity extends AppCompatActivity {
     private View btnWork;
     private View btnBudget;
     private ButtonListener bl = new ButtonListener();
-
-
-   // private MessageListener listener;
-
     private TimePickerDialog timePickerDialog;
     private Controller ctrl;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        //Hotfix för att fixa statusbarens färg, borde inte behövas egentligen!
-        Window window = this.getWindow();
-        //window.setStatusBarColor(getResources().getColor(R.color.colorPrimaryDark));
-
         setStatusbarColor();
         ctrl = new Controller();
-
-
-        //setIconActionBar(); //Lägger till ikon i actionbar, dock med för mycket margin.
-        //floatingButton();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         textView2 = (TextView) findViewById(R.id.textView);
-        btnWork = (View) findViewById(R.id.workButton);
-        btnTax = (View) findViewById(R.id.action_b);
         btnTime = (View) findViewById(R.id.action_a);
+        btnTax = (View) findViewById(R.id.action_b);
+        btnWork = (View) findViewById(R.id.action_e);
+        btnBudget =(View) findViewById(R.id.action_f);
         btnWork.setOnClickListener(bl);
-        btnTax =  findViewById(R.id.action_b);
-        btnTime = findViewById(R.id.action_a);
-        btnBudget = findViewById(R.id.action_f);
         btnBudget.setOnClickListener(bl);
         btnTax.setOnClickListener(bl);
-        btnTime.setOnClickListener(bl);
-
-        //connection = new ServerConnection();
-       // listener = new MessageListener();
-
         btnTime.setOnClickListener(bl);
     }
 
@@ -79,12 +59,11 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
-    }//En kommentar
+    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -134,8 +113,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
     }
-
-
+    //Klick listemer för den flytande knappens alternativ.
     private class ButtonListener implements View.OnClickListener {
         @Override
         public void onClick(View v) {
@@ -159,7 +137,6 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(new Intent(getApplicationContext(), TimeReg.class));
             }
     }
-
     }
 
 
