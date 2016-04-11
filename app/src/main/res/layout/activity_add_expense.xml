@@ -23,7 +23,7 @@
         android:layout_height="wrap_content"
         android:inputType="date"
         android:ems="10"
-        android:id="@+id/editText"
+        android:id="@+id/inDate"
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
@@ -35,25 +35,25 @@
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/editText2"
-        android:layout_below="@+id/editText"
-        android:layout_alignLeft="@+id/editText"
-        android:layout_alignStart="@+id/editText"
+        android:id="@+id/inTitle"
+        android:layout_below="@+id/inDate"
+        android:layout_alignLeft="@+id/inDate"
+        android:layout_alignStart="@+id/inDate"
         android:layout_marginTop="32dp"
-        android:layout_alignRight="@+id/editText"
-        android:layout_alignEnd="@+id/editText"
+        android:layout_alignRight="@+id/inDate"
+        android:layout_alignEnd="@+id/inDate"
         android:paddingTop="10px"
         android:padding="10px" />
 
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/editText3"
+        android:id="@+id/inSum"
         android:layout_centerVertical="true"
-        android:layout_alignLeft="@+id/editText2"
-        android:layout_alignStart="@+id/editText2"
-        android:layout_alignRight="@+id/editText2"
-        android:layout_alignEnd="@+id/editText2"
+        android:layout_alignLeft="@+id/inTitle"
+        android:layout_alignStart="@+id/inTitle"
+        android:layout_alignRight="@+id/inTitle"
+        android:layout_alignEnd="@+id/inTitle"
         android:padding="10px" />
 
     <CheckBox
@@ -62,7 +62,7 @@
         android:text="Lägg till som återkommande utgift varje månad."
         android:id="@+id/checkBox"
         android:layout_marginTop="31dp"
-        android:layout_below="@+id/editText3"
+        android:layout_below="@+id/inSum"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
 
@@ -70,27 +70,28 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Datum"
-        android:id="@+id/textView7"
-        android:layout_alignBottom="@+id/editText"
-        android:layout_alignLeft="@+id/editText"
-        android:layout_alignStart="@+id/editText"
+        android:id="@+id/tvDate"
+        android:layout_alignBottom="@+id/inDate"
+        android:layout_alignLeft="@+id/inDate"
+        android:layout_alignStart="@+id/inDate"
         android:layout_marginBottom="34dp" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Titel"
-        android:id="@+id/textView10"
-        android:layout_below="@+id/editText"
-        android:layout_alignLeft="@+id/editText2"
-        android:layout_alignStart="@+id/editText2" />
+        android:id="@+id/tvTitle"
+        android:layout_below="@+id/inDate"
+        android:layout_alignLeft="@+id/inTitle"
+        android:layout_alignStart="@+id/inTitle" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Summa"
-        android:id="@+id/textView11"
-        android:layout_below="@+id/editText2"
-        android:layout_alignLeft="@+id/editText2"
-        android:layout_alignStart="@+id/editText2" />
+        android:id="@+id/tvSum"
+        android:layout_below="@+id/inTitle"
+        android:layout_alignLeft="@+id/inTitle"
+        android:layout_alignStart="@+id/inTitle" />
+
 </RelativeLayout>
