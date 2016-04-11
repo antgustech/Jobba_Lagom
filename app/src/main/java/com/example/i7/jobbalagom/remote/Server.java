@@ -77,8 +77,19 @@ public class Server extends Thread {
 				
 			}
 		}
+
+
+		private void XLSFileReader(){
+
+
+		}
+
+
 		
 	}
+
+
+
 	
 	//public static void main(String[] args){
 	//	Server server = new Server();

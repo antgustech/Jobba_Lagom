@@ -24,6 +24,12 @@
             android:name=".activities.AboutActivity"
             android:label="@string/title_activity_about" />
         <activity android:name=".AddExpenseActivity"></activity>
+        <activity
+            android:name=".activities.BudgetAcitivity"
+            android:label="@string/actionbarTitleBudget"
+            ></activity>
+        <activity android:name=".activities.TimeReg"
+            ></activity>
     </application>
 
 </manifest>
