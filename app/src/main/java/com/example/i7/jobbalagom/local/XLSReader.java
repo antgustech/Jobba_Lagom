@@ -29,7 +29,7 @@ public class XLSReader {
     }
 
 
-    //Reads XLSX files
+    //Reads XLSX files by each cell.
         private void XLSFileReader(){
                         try {
                             FileInputStream file = new FileInputStream(new File(xlsFilePath));

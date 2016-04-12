@@ -7,7 +7,7 @@ import com.example.i7.jobbalagom.remote.Calculator;
  */
 public class Controller  {
 
-    private final String IP = "10.2.12.211";
+    private final String IP = "192.168.1.136";//ÄNDRA IP VID TESTNING!!!!!!
     private final int PORT = 4545;
     private Calculator calc;
     private ServerConnection serverConnection;
