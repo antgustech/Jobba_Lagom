@@ -1,4 +1,4 @@
-package com.example.i7.jobbalagom.local;
+package com.example.i7.jobbalagom.XLSManager;
 
 import android.util.Log;
 
@@ -16,15 +16,15 @@ import java.util.Iterator;
 
 
 /**
- * Should receive an xls file to read and convert to a list...?
+ * Should receive an xls file to read and add these to a... database?
  * Created by Anton Gustafsson on 2016-04-11.
  */
-public class XLSReader {
+public class XlsToDatabase {
 
     private ArrayList taxTables = new ArrayList();
     private String xlsFilePath = "files/skatt16.xls";
 
-    public XLSReader(){
+    public XlsToDatabase(){
         Log.d("filereader","Startar" + "\t");
         XLSFileReader();
 

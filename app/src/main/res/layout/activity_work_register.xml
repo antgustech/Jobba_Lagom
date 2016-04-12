@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:context="com.example.i7.jobbalagom.activities.TimeReg">
+    tools:context=".activities.WorkRegisterActivity">
 
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
@@ -21,6 +21,6 @@
 
     </android.support.design.widget.AppBarLayout>
 
-    <include layout="@layout/content_time_reg" />
+    <include layout="@layout/content_work_register" />
 
 </android.support.design.widget.CoordinatorLayout>

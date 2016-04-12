@@ -13,18 +13,6 @@
     <!-- This FrameLayout insets its children based on system windows using
          android:fitsSystemWindows. -->
 
-    <TextView
-        android:id="@+id/textView4"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:keepScreenOn="true"
-        android:text="@string/dummy_content"
-        android:textSize="50sp"
-        android:textStyle="bold"
-        android:textColor="@color/colorAccent"
-        android:layout_gravity="center_horizontal|top" />
-
     <EditText
         android:layout_width="287dp"
         android:layout_height="wrap_content"
@@ -91,7 +79,6 @@
         android:text="Användarnamn"
         android:id="@+id/textView5"
         android:textSize="25dp"
-        android:layout_below="@+id/textView4"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:paddingTop="0dp" />

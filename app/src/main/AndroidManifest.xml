@@ -13,7 +13,6 @@
         <activity android:name=".activities.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -23,13 +22,22 @@
         <activity
             android:name=".activities.AboutActivity"
             android:label="@string/title_activity_about" />
-        <activity android:name=".AddExpenseActivity"></activity>
+        <activity
+            android:name=".activities.AddExpenseActivity"
+            android:label="@string/title_activity_expense">
+        </activity>
         <activity
             android:name=".activities.BudgetAcitivity"
-            android:label="@string/actionbarTitleBudget"
-            ></activity>
-        <activity android:name=".activities.TimeReg"
-            ></activity>
+            android:label="@string/actionbarTitleBudget">
+        </activity>
+        <activity
+            android:name=".activities.WorkRegisterActivity"
+            android:label="@string/title_activity_work">
+        </activity>
+        <activity
+            android:name=".activities.SetupActivity"
+            android:label="@string/title_activity_setup">
+        </activity>
     </application>
 
 </manifest>

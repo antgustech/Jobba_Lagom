@@ -27,16 +27,18 @@
         <ListView
             android:layout_width="179dp"
             android:layout_height="394dp"
-            android:id="@+id/listView"
+            android:id="@+id/listExpense"
             android:layout_row="0"
-            android:layout_column="0" />
+            android:layout_column="0"
+            android:choiceMode="singleChoice" />
 
         <ListView
             android:layout_width="174dp"
             android:layout_height="370dp"
-            android:id="@+id/listView2"
+            android:id="@+id/listIncome"
             android:layout_row="0"
-            android:layout_column="6" />
+            android:layout_column="6"
+            android:choiceMode="singleChoice" />
 
         <TextView
             android:layout_width="wrap_content"

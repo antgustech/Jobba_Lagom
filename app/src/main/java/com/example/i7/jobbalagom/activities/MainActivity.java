@@ -1,26 +1,21 @@
 package com.example.i7.jobbalagom.activities;
 
-import android.app.DialogFragment;
 import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.graphics.drawable.ShapeDrawable;
 import android.graphics.drawable.shapes.OvalShape;
 import android.os.Build;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.TimePicker;
 
-import com.example.i7.jobbalagom.local.Controller;
 import com.example.i7.jobbalagom.R;
-import com.example.i7.jobbalagom.local.TimePickerDialogFragment;
-import com.example.i7.jobbalagom.local.TimePickerFragment;
-import com.example.i7.jobbalagom.local.XLSReader;
+import com.example.i7.jobbalagom.local.Controller;
 import com.getbase.floatingactionbutton.FloatingActionButton;
 import com.getbase.floatingactionbutton.FloatingActionsMenu;
 
@@ -43,10 +38,10 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         textView2 = (TextView) findViewById(R.id.textView);
-        btnTime = (View) findViewById(R.id.action_a);
-        btnTax = (View) findViewById(R.id.action_b);
-        btnWork = (View) findViewById(R.id.action_e);
-        btnBudget =(View) findViewById(R.id.action_f);
+        btnTime = findViewById(R.id.action_a);
+        btnTax = findViewById(R.id.action_b);
+        btnWork = findViewById(R.id.action_e);
+        btnBudget = findViewById(R.id.action_f);
         btnWork.setOnClickListener(bl);
         btnBudget.setOnClickListener(bl);
         btnTax.setOnClickListener(bl);
@@ -118,7 +113,6 @@ public class MainActivity extends AppCompatActivity {
     private class ButtonListener implements View.OnClickListener {
         @Override
         public void onClick(View v) {
-
             if (v.getId() == R.id.action_b) {
                 textView2.setText(ctrl.getCurrentTax() + " ");
                 ProgressBar pb = (ProgressBar) findViewById(R.id.progressBar);
@@ -127,15 +121,10 @@ public class MainActivity extends AppCompatActivity {
             }else if(v.getId() == R.id.action_f){
                 startActivity(new Intent(getApplicationContext(), BudgetAcitivity.class));
             }else if(v.getId() == R.id.action_a){
-                DialogFragment newFragment;
-                newFragment = new TimePickerDialogFragment();
-                newFragment.show(getFragmentManager(), "timePicker");
-                // DialogFragment newFragment;
-                //  newFragment = new TimePickerFragment();
-                // newFragment.show(getFragmentManager(), "timePicker");
+                startActivity(new Intent(getApplicationContext(), AddExpenseActivity.class));
 
             }else if(v.getId() == R.id.action_e){
-                startActivity(new Intent(getApplicationContext(), TimeReg.class));
+                startActivity(new Intent(getApplicationContext(), WorkRegisterActivity.class));
             }
     }
     }

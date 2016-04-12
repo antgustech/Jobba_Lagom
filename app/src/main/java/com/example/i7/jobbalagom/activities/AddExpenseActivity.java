@@ -1,15 +1,16 @@
-package com.example.i7.jobbalagom;
+package com.example.i7.jobbalagom.activities;
 
-import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
+import android.os.Build;
 import android.os.Bundle;
-import android.text.Editable;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 
-import com.example.i7.jobbalagom.activities.MainActivity;
+import com.example.i7.jobbalagom.R;
+import com.example.i7.jobbalagom.XLSManager.Expense;
 
 
 public class AddExpenseActivity extends AppCompatActivity {
@@ -26,6 +27,8 @@ public class AddExpenseActivity extends AppCompatActivity {
         inSum = (EditText)findViewById(R.id.inSum);
         button = (Button)findViewById(R.id.button);
         button.setOnClickListener(new ButtonListener());
+        setupActionBar();
+        setStatusbarColor();
     }
 
     private class ButtonListener implements View.OnClickListener{
@@ -37,6 +40,21 @@ public class AddExpenseActivity extends AppCompatActivity {
                 }else{
 
             }
+        }
+    }
+
+    private void setupActionBar() {
+        ActionBar actionBar = getSupportActionBar();
+        if (actionBar != null) {
+            // Show the Up button in the action bar.
+            actionBar.setDisplayHomeAsUpEnabled(true);
+        }
+    }
+
+    private  void setStatusbarColor(){
+        Window window = this.getWindow();
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            window.setStatusBarColor(getResources().getColor(R.color.colorPrimaryDark));
         }
     }
 }

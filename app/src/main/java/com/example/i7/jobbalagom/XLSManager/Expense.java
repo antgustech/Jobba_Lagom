@@ -1,4 +1,4 @@
-package com.example.i7.jobbalagom;
+package com.example.i7.jobbalagom.XLSManager;
 
 /**
  * Created by Jakup on 2016-04-11.

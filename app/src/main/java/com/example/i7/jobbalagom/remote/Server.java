@@ -17,6 +17,7 @@ import java.net.Socket;
 public class Server extends Thread {
 
 	private ServerSocket serverSocket;
+	private float number = 0.5f;
 
 	public Server() {
 		try {
@@ -61,29 +62,16 @@ public class Server extends Thread {
 			while (true) {
 
 				try {
-					//System.out.println(dis.readUTF());
-
-					dos.writeFloat(0.1f);
+					dos.writeFloat(number);
 					dos.flush();
-//					System.out.println("Sent message");
+					//(System.out.println("Sent message");
 				} catch (IOException e) {
-//					System.out.println("Could not send message");
+					 System.out.println("Could not send message");
 				}
-
-//				try {
-////					System.out.println(dis.read());
-////					dos.writeUTF("hej");
-//				} catch (IOException e) {
-//					// TODO Auto-generated catch block
-//					e.printStackTrace();
-//				}
-
 			}
 		}
-
-
-		//public static void main(String[] args){
-		//	Server server = new Server();
-		//}
+	}
+	public static void main(String[] args) {
+		Server server = new Server();
 	}
 }

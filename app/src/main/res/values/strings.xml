@@ -2,9 +2,11 @@
     <string name="app_name">Jobba Lagom</string>
     <string name="action_settings">Inställningar</string>
     <string name="actionbarTitleBudget">Budgetöversikt</string>
-    <string name="title_activity_settings">Settings</string>
+    <string name="title_activity_settings">Inställningar</string>
     <string name="title_activity_about">Om</string>
-    <string name="title_activity_">Settings</string>
+    <string name="title_activity_work">Arbetspass registreraren</string>
+    <string name="title_activity_expense">Utgifts registreraren</string>
+    <string name="title_activity_setup">Kom igång</string>
     <string name="action_vote">Rösta</string>
     <string name="action_about">Om</string>
     <string name="start_time">Starttid</string>
@@ -13,6 +15,17 @@
     <string name="cancel">Avbryt</string>
     <string name="add">Klar</string>
     <string name="action_about_disclaimer">Disclaimer: Vi tar inget ansvar för felaktiga beräkningar</string>
+
+    <!--Floating button strings-->
+    <string name="fButtonExpanse">Lägg till utgift</string>
+    <string name="fButtonTax">Ändra skattesats</string>
+    <string name="fButtonBudget">Se budgetöversikt</string>
+    <string name="fButtonTime">Se tidsregistreraren</string>
+
+
+
+
+
     <!-- Strings related to Settings -->
 
     <!-- General settings -->
@@ -71,7 +84,4 @@
     <string name="pref_title_vibrate">Vibration</string>
     <string name="title_activity_budget">BudgetActivity</string>
 
-    <string name="title_activity_setup">SetupActivity</string>
-    <string name="dummy_content">Kom igång!</string>
-    <string name="title_activity_time_reg">TimeReg</string>
 </resources>

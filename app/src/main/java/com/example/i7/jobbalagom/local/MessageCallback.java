@@ -5,5 +5,5 @@ package com.example.i7.jobbalagom.local;
  */
 public interface MessageCallback {
 
-    public void updateMessage(float tax);
+    void updateMessage(float tax);
 }

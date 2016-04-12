@@ -2,7 +2,8 @@ package com.example.i7.jobbalagom.local;
 
 import android.util.Log;
 
-import com.example.i7.jobbalagom.remote.Calculator;
+import com.example.i7.jobbalagom.XLSManager.Calculator;
+import com.example.i7.jobbalagom.XLSManager.XlsToDatabase;
 
 /**
  * Created by Strandberg95 on 2016-03-21.
@@ -23,7 +24,7 @@ public class Controller  {
         serverConnection = new ServerConnection(listener,IP,PORT);
 
         Log.d("filereader","Startar i controller" + "\t");
-        XLSReader reader = new XLSReader();
+        XlsToDatabase reader = new XlsToDatabase();
     }
 
     public float getCurrentTax(){

@@ -1,4 +1,6 @@
-package com.example.i7.jobbalagom.remote;
+package com.example.i7.jobbalagom.XLSManager;
+
+import com.example.i7.jobbalagom.remote.TaxContainer;
 
 /**
  * Created by Strandberg95 on 2016-03-21.

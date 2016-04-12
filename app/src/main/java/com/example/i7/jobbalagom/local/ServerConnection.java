@@ -37,17 +37,17 @@ public class ServerConnection extends Thread {
         Thread.interrupted();
     }
 
-  //  public void run(){
-    //    boolean done = false;
-      //  connect(IP, PORT);
-        //while(!done){
-          //  try{
-            //    messageCallback.updateMessage(dis.readFloat());
-              //  done = true;
-            //}catch(IOException e){}
-       // }
-        //closeConnection();
-    //}
+    public void run(){
+        boolean done = false;
+        connect(IP, PORT);
+        while(!done){
+            try{
+                messageCallback.updateMessage(dis.readFloat());
+                done = true;
+            }catch(IOException e){}
+        }
+        closeConnection();
+    }
 
 
 }

@@ -57,11 +57,11 @@ public class TimePickerDialogFragment extends DialogFragment {
 
     private class ButtonListener implements View.OnClickListener {
         public ButtonListener(){
-            log.d("Hej","lol");
+            Log.d("Hej","lol");
         }
         @Override
         public void onClick(View v) {
-            log.d("Hej","säger lol Timepicker");
+            Log.d("Hej","säger lol Timepicker");
             if (v.getId() == R.id.start) {
                  DialogFragment newFragment;
                 newFragment = new TimePickerFragment();
