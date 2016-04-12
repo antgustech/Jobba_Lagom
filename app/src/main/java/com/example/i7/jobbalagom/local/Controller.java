@@ -1,5 +1,7 @@
 package com.example.i7.jobbalagom.local;
 
+import android.util.Log;
+
 import com.example.i7.jobbalagom.remote.Calculator;
 
 /**
@@ -12,13 +14,16 @@ public class Controller  {
     private Calculator calc;
     private ServerConnection serverConnection;
     private MessageListener listener;
-    private XLSReader reader = new XLSReader();
+
 
 
     public Controller(){
         listener = new MessageListener();
         calc = new Calculator();
         serverConnection = new ServerConnection(listener,IP,PORT);
+
+        Log.d("filereader","Startar i controller" + "\t");
+        XLSReader reader = new XLSReader();
     }
 
     public float getCurrentTax(){
