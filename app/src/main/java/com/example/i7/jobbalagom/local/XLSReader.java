@@ -1,21 +1,78 @@
 package com.example.i7.jobbalagom.local;
 
+import android.util.Log;
+
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.xssf.usermodel.XSSFSheet;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+
+import java.io.File;
+import java.io.FileInputStream;
 import java.util.ArrayList;
+import java.util.Iterator;
+
+
+
 
 /**
- * Should receive an xs file from controller to read and convert to a list.
- * Created by i7 on 2016-04-11.
+ * Should receive an xls file to read and convert to a list...?
+ * Created by Anton Gustafsson on 2016-04-11.
  */
 public class XLSReader {
 
     private ArrayList taxTables = new ArrayList();
-    private XLSObject xlsFile;
+    private String xlsFilePath = "files/XLSReader.xlsx";
 
-    public XLSReader(XLSObject xlsFile){
-        this.xlsFile = xlsFile;
-        converter(xlsFile);
+    public void XLSReader(){
+        XLSFileReader();
     }
-    public void converter( XLSObject xlsFile){
-        //Convert XLSObject into a list....
-    }
+
+
+    //Reads XLSX files
+        private void XLSFileReader(){
+                        try {
+                            FileInputStream file = new FileInputStream(new File(xlsFilePath));
+
+                            //Create Workbook instance holding reference to .xlsx file
+                            XSSFWorkbook workbook = new XSSFWorkbook(file);
+
+                            //Get first/desired sheet from the workbook
+                            XSSFSheet sheet = workbook.getSheetAt(0);
+
+                            //Iterate through each rows one by one
+                            Iterator<Row> rowIterator = sheet.iterator();
+                            while (rowIterator.hasNext())
+                            {
+                                Row row = rowIterator.next();
+
+                                //For each row, iterate through all the columns
+                                Iterator<Cell> cellIterator = row.cellIterator();
+
+                                while (cellIterator.hasNext())
+                                {
+                                    Cell cell = cellIterator.next();
+                                    //Check the cell type and format accordingly
+                                    switch (cell.getCellType())
+                                    {
+                        //Logs to the window to confirm that it works
+                        case Cell.CELL_TYPE_NUMERIC:
+                            Log.d("Kolumn", cell.getNumericCellValue() + "\t");
+                            break;
+                        case Cell.CELL_TYPE_STRING:
+                            Log.d("Rad",cell.getStringCellValue() + "\t");
+                            break;
+                    }
+                }
+                System.out.println("");
+            }
+            file.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+
+
+}
+
 }

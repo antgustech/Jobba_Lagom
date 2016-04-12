@@ -20,11 +20,12 @@ import com.example.i7.jobbalagom.local.Controller;
 import com.example.i7.jobbalagom.R;
 import com.example.i7.jobbalagom.local.TimePickerDialogFragment;
 import com.example.i7.jobbalagom.local.TimePickerFragment;
+import com.example.i7.jobbalagom.local.XLSReader;
 import com.getbase.floatingactionbutton.FloatingActionButton;
 import com.getbase.floatingactionbutton.FloatingActionsMenu;
 
 public class MainActivity extends AppCompatActivity {
-
+    private XLSReader reader = new XLSReader();
     private int progress = 20;
     private TextView textView2;
     private View btnTax;
