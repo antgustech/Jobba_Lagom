@@ -22,10 +22,12 @@ import java.util.Iterator;
 public class XLSReader {
 
     private ArrayList taxTables = new ArrayList();
-    private String xlsFilePath = "files/XLSReader.xlsx";
+    private String xlsFilePath = "files/skatt16.xls";
 
-    public void XLSReader(){
+    public XLSReader(){
+        Log.d("filereader","Startar" + "\t");
         XLSFileReader();
+
     }
 
 
@@ -57,10 +59,10 @@ public class XLSReader {
                                     {
                         //Logs to the window to confirm that it works
                         case Cell.CELL_TYPE_NUMERIC:
-                            Log.d("Kolumn", cell.getNumericCellValue() + "\t");
+                            Log.d("kolumn", cell.getNumericCellValue() + "\t");
                             break;
                         case Cell.CELL_TYPE_STRING:
-                            Log.d("Rad",cell.getStringCellValue() + "\t");
+                            Log.d("rad",cell.getStringCellValue() + "\t");
                             break;
                     }
                 }

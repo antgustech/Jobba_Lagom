@@ -4,18 +4,12 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.DialogFragment;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.ProgressBar;
-import android.R.id;
+
 import com.example.i7.jobbalagom.R;
-import android.util.Log;
-
-
-import com.example.i7.jobbalagom.activities.SettingsActivity;
 
 /**
  * Created by Anton Gustafsson on 2016-04-04.
@@ -67,7 +61,7 @@ public class TimePickerDialogFragment extends DialogFragment {
         }
         @Override
         public void onClick(View v) {
-            log.d("Hej","lol");
+            log.d("Hej","säger lol Timepicker");
             if (v.getId() == R.id.start) {
                  DialogFragment newFragment;
                 newFragment = new TimePickerFragment();

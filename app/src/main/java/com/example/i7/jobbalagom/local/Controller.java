@@ -12,6 +12,7 @@ public class Controller  {
     private Calculator calc;
     private ServerConnection serverConnection;
     private MessageListener listener;
+    private XLSReader reader = new XLSReader();
 
 
     public Controller(){
