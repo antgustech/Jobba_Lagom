@@ -18,6 +18,10 @@ import com.example.i7.jobbalagom.R;
 import com.example.i7.jobbalagom.local.Controller;
 import com.getbase.floatingactionbutton.FloatingActionButton;
 import com.getbase.floatingactionbutton.FloatingActionsMenu;
+import com.jjoe64.graphview.GraphView;
+import com.jjoe64.graphview.series.BarGraphSeries;
+import com.jjoe64.graphview.series.DataPoint;
+import com.jjoe64.graphview.series.LineGraphSeries;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -46,6 +50,17 @@ public class MainActivity extends AppCompatActivity {
         btnBudget.setOnClickListener(bl);
         btnTax.setOnClickListener(bl);
         btnTime.setOnClickListener(bl);
+    }
+
+    private void setupGraph(){
+        GraphView graph = (GraphView) findViewById(R.id.graph);
+        BarGraphSeries<DataPoint> series = new BarGraphSeries<DataPoint>(new DataPoint[] {
+                new DataPoint(0, 1),
+                new DataPoint(1, 5),
+                new DataPoint(2, 3),
+                new DataPoint(3, 2),
+                new DataPoint(4, 6)
+        });
     }
 
     private  void setStatusbarColor(){
