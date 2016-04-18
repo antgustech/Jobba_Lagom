@@ -10,13 +10,11 @@ import com.example.i7.jobbalagom.XLSManager.XlsToDatabase;
  */
 public class Controller  {
 
-    private final String IP = "10.2.12.211";//ÄNDRA IP VID TESTNING!!!!!!
+    private final String IP = "10.2.22.133";//ÄNDRA IP VID TESTNING!!!!!!
     private final int PORT = 4545;
     private Calculator calc;
     private ServerConnection serverConnection;
     private MessageListener listener;
-
-
 
     public Controller(){
         listener = new MessageListener();

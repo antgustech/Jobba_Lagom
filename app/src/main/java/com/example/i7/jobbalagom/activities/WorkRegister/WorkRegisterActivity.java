@@ -1,14 +1,20 @@
-package com.example.i7.jobbalagom.activities;
+package com.example.i7.jobbalagom.activities.WorkRegister;
 
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Window;
+import android.widget.EditText;
 
 import com.example.i7.jobbalagom.R;
 
 public class WorkRegisterActivity extends AppCompatActivity {
+
+    private EditText dateText;
+    private Intent dateSelecter;
+    private String dateText_String;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -16,6 +22,15 @@ public class WorkRegisterActivity extends AppCompatActivity {
         setContentView(R.layout.activity_work_register);
         setStatusbarColor();
         setupActionBar();
+        dateText_String = "ayo";
+        dateText = (EditText) findViewById((R.id.dateText));
+        dateSelecter = new Intent(getApplicationContext(), DateChooser.class);
+        dateSelecter.putExtra("dateText_String", dateText_String);
+        startActivity(dateSelecter);
+
+        //dateText.setText(dateText_String);
+      //  new DateUpdater().start();
+        //dateSelecter.onAttachedToWindow();
     }
 
 
@@ -34,5 +49,12 @@ public class WorkRegisterActivity extends AppCompatActivity {
             actionBar.setDisplayHomeAsUpEnabled(true);
         }
     }
+
+  //  private class DateUpdater extends Thread {
+    //    public void run(){
+      //      while(true)
+        //    dateText.setText(dateText_String);
+        //}
+    //}
 
 }

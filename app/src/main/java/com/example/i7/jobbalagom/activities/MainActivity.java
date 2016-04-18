@@ -2,8 +2,6 @@ package com.example.i7.jobbalagom.activities;
 
 import android.app.TimePickerDialog;
 import android.content.Intent;
-import android.graphics.drawable.ShapeDrawable;
-import android.graphics.drawable.shapes.OvalShape;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -15,13 +13,11 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.example.i7.jobbalagom.R;
+import com.example.i7.jobbalagom.activities.WorkRegister.WorkRegisterActivity;
 import com.example.i7.jobbalagom.local.Controller;
-import com.getbase.floatingactionbutton.FloatingActionButton;
-import com.getbase.floatingactionbutton.FloatingActionsMenu;
 import com.jjoe64.graphview.GraphView;
 import com.jjoe64.graphview.series.BarGraphSeries;
 import com.jjoe64.graphview.series.DataPoint;
-import com.jjoe64.graphview.series.LineGraphSeries;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -50,6 +46,16 @@ public class MainActivity extends AppCompatActivity {
         btnBudget.setOnClickListener(bl);
         btnTax.setOnClickListener(bl);
         btnTime.setOnClickListener(bl);
+
+  //      FragmentManager fragmentManager = getFragmentManager();
+
+//        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+
+//        TimeRegisterFragment timeRegisterFragment = new TimeRegisterFragment();
+
+        //fragmentTransaction.replace(android.R.id.content, timeRegisterFragment);
+
+       // fragmentTransaction.commit();
     }
 
     private void setupGraph(){
