@@ -35,10 +35,6 @@
         <activity
             android:name=".activities.SetupActivity"
             android:label="@string/title_activity_setup"></activity>
-        <activity
-            android:name=".activities.WorkRegister.DateChooser"
-            android:label="@string/title_activity_date_picker"
-            android:theme="@style/PopupTheme"></activity>
     </application>
 
 </manifest>

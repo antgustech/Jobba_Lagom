@@ -37,11 +37,14 @@ public class MainActivity extends AppCompatActivity {
         ctrl = new Controller();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
         textView2 = (TextView) findViewById(R.id.textView);
+
         btnTime = findViewById(R.id.action_a);
         btnTax = findViewById(R.id.action_b);
         btnWork = findViewById(R.id.action_e);
         btnBudget = findViewById(R.id.action_f);
+
         btnWork.setOnClickListener(bl);
         btnBudget.setOnClickListener(bl);
         btnTax.setOnClickListener(bl);
