@@ -9,12 +9,10 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.List;
 
-import com.mysql.jdbc.Statement;
+//import com.mysql.jdbc.Statement;
 
 /*TODO hÃ¤mta aktuell skattesats
  * Skicka in skattesats till Samtliga ClientHandelers
@@ -120,23 +118,24 @@ public class Server extends Thread {
 	}
 
 	private String getKommun() throws SQLException {
-		String kommuner ="";
+	//	String kommuner ="";
 //		String query = "select Kommun" + "from " + "ad8284" + "skattapril16";
 
-		try (Statement s = (Statement) dbConnection.createStatement()) {
-			try (ResultSet rs = s.executeQuery("select name from employees order by id")) {
-				List<String> names = new ArrayList<String>();
+		//try (Statement s = (Statement) dbConnection.createStatement()) {
+		//	try (ResultSet rs = s.executeQuery("select name from employees order by id")) {
+				//List<String> names = new ArrayList<String>();
+//
+				//while (rs.next()) {
+				//	kommuner += rs.getString(1);
+			//		System.out.println("names");
+			//	}
 
-				while (rs.next()) {
-					kommuner += rs.getString(1);
-					System.out.println("names");
-				}
-
-				return kommuner;
-			}
-		}
+		//		return kommuner;
+		//	}
+		//}
 //		System.out.println(query);
 //		return query;
+		return null;
 	}
 
 	private String getCity(String choosenKommun) {
