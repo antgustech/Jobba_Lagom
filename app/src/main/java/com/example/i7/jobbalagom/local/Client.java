@@ -5,7 +5,9 @@ import java.io.BufferedOutputStream;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
+import java.io.ObjectInputStream;
 import java.net.Socket;
+import java.util.ArrayList;
 
 /**
  * Created by Strandberg95 on 2016-03-30.
@@ -14,6 +16,7 @@ public class Client extends Thread {
     private Socket socket;
     private DataInputStream dis;
     private DataOutputStream dos;
+    private ObjectInputStream ois;
     private Thread clientThread;
     private boolean connected = false;
 
@@ -45,7 +48,8 @@ public class Client extends Thread {
         try {
             socket = new Socket(IP, PORT);
             dis = new DataInputStream(new BufferedInputStream(socket.getInputStream()));
-            dos = new DataOutputStream((new BufferedOutputStream(socket.getOutputStream())));
+            dos = new DataOutputStream(new BufferedOutputStream(socket.getOutputStream()));
+            ois = new ObjectInputStream(new BufferedInputStream(socket.getInputStream()));
         } catch (IOException e) {
 
         }
@@ -53,18 +57,19 @@ public class Client extends Thread {
     }
 
 
-    public String getKommun() throws IOException {
+    public ArrayList<String> getKommun() throws IOException, ClassNotFoundException {
         try {
-            dos.writeUTF("getKommun");
-
+            dos.writeInt(1);
+            dos.flush();
         } catch (IOException e) {
             e.printStackTrace();
-        }  return (dis.readUTF());
+
+        }  return (ArrayList<String>)ois.readObject();
     }
 
     public void getCity() {
         try {
-            dos.writeUTF("getCity");
+            dos.writeInt(2);
             messageCallback.updateCities(dis.readUTF());
         } catch (IOException e) {
         }
@@ -72,7 +77,7 @@ public class Client extends Thread {
 
     public void getTax(){
         try {
-            dos.writeUTF("getTax");
+            dos.writeInt(3);
             messageCallback.updateTax(dis.readFloat());
         } catch (IOException e) {
         }

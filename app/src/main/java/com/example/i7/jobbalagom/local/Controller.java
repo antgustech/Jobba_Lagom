@@ -1,6 +1,7 @@
 package com.example.i7.jobbalagom.local;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 /**
  * Created by Strandberg95 on 2016-03-21.
@@ -39,12 +40,13 @@ public class Controller  {
     }
 
 
-    public String getKommun() {
-        String kommuner;
-        kommuner = null;
+    public ArrayList<String> getKommun() {
+        ArrayList<String> kommuner = null;
         try {
             kommuner = client.getKommun();
         } catch (IOException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
         return kommuner;

@@ -9,10 +9,12 @@ import android.widget.AutoCompleteTextView;
 import com.example.i7.jobbalagom.R;
 import com.example.i7.jobbalagom.local.Controller;
 
+import java.util.ArrayList;
 
-public class ChangeTaxActivity extends AppCompatActivity {
+
+public class ChangeTaxActivity extends AppCompatActivity implements  Runnable {
     private AutoCompleteTextView textViewKommun;
-    private String[] kommuner;
+    private ArrayList<String> kommuner;
     private Controller controller = new Controller();
 
     @Override
@@ -20,12 +22,8 @@ public class ChangeTaxActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_change_tax);
         textViewKommun = (AutoCompleteTextView) findViewById(R.id.autoCompleteKommun);
-
-        setKommun(controller.getKommun());
-        final ArrayAdapter<String> adapter;
-        adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, kommuner);
-        textViewKommun.setAdapter(adapter);
-
+        Thread thread = new Thread(new ChangeTaxActivity());
+        thread.start();
 
         textViewKommun.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -36,6 +34,15 @@ public class ChangeTaxActivity extends AppCompatActivity {
         });
     }
     public void setKommun(String kommun){
-        kommuner = kommun.split(" ");
+        //kommuner = kommun.split(" ");
+    }
+
+
+    @Override
+    public void run() {
+        controller.getKommun();
+        final ArrayAdapter<String> adapter;
+        adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, kommuner);
+        textViewKommun.setAdapter(adapter);
     }
 }
