@@ -15,11 +15,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-//import com.mysql.jdbc.Statement;
-
 /*TODO hÃ¤mta aktuell skattesats
- * Skicka in skattesats till Samtliga ClientHandelers
- * NÃ¤r klienter ansluter sig skall skattesatser skickas
+*SHOULD MAYBE BE REMOVED!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
  */
 public class Server extends Thread {
 

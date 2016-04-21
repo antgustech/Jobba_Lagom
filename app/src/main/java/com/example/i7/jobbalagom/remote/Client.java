@@ -1,4 +1,6 @@
-package com.example.i7.jobbalagom.local;
+package com.example.i7.jobbalagom.remote;
+
+import com.example.i7.jobbalagom.local.MessageCallback;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
@@ -7,10 +9,11 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.net.Socket;
+import java.sql.Connection;
 import java.util.ArrayList;
 
 /**
- * Created by Strandberg95 on 2016-03-30.
+ * Created by Anton Gustafsson on 2016-04-19.
  */
 public class Client extends Thread {
     private Socket socket;
@@ -19,6 +22,7 @@ public class Client extends Thread {
     private ObjectInputStream ois;
     private Thread clientThread;
     private boolean connected = false;
+    private Connection dbConnection;
 
    // private DataOutputStream dos;
     private MessageCallback messageCallback;
@@ -51,9 +55,7 @@ public class Client extends Thread {
             dos = new DataOutputStream(new BufferedOutputStream(socket.getOutputStream()));
             ois = new ObjectInputStream(new BufferedInputStream(socket.getInputStream()));
         } catch (IOException e) {
-
         }
-
     }
 
 
@@ -63,7 +65,6 @@ public class Client extends Thread {
             dos.flush();
         } catch (IOException e) {
             e.printStackTrace();
-
         }  return (ArrayList<String>)ois.readObject();
     }
 
@@ -82,4 +83,12 @@ public class Client extends Thread {
         } catch (IOException e) {
         }
     }
+
+
+
+
+
+
+
+
 }

@@ -1,5 +1,7 @@
 package com.example.i7.jobbalagom.local;
 
+import com.example.i7.jobbalagom.remote.Client;
+
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -40,15 +42,10 @@ public class Controller  {
     }
 
 
-    public ArrayList<String> getKommun() {
+    public ArrayList<String> getKommun() throws IOException, ClassNotFoundException {
         ArrayList<String> kommuner = null;
-        try {
             kommuner = client.getKommun();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        }
+
         return kommuner;
     }
     public void getCity(){

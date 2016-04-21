@@ -9,6 +9,7 @@ import android.widget.AutoCompleteTextView;
 import com.example.i7.jobbalagom.R;
 import com.example.i7.jobbalagom.local.Controller;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 
@@ -40,7 +41,13 @@ public class ChangeTaxActivity extends AppCompatActivity implements  Runnable {
 
     @Override
     public void run() {
-        controller.getKommun();
+        try {
+            controller.getKommun();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
         final ArrayAdapter<String> adapter;
         adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, kommuner);
         textViewKommun.setAdapter(adapter);
