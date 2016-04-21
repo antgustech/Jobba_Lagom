@@ -9,20 +9,12 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
-import android.widget.ProgressBar;
-import android.widget.TextView;
 
 import com.example.i7.jobbalagom.R;
 import com.example.i7.jobbalagom.activities.WorkRegister.WorkRegisterActivity;
 import com.example.i7.jobbalagom.local.Controller;
-import com.jjoe64.graphview.GraphView;
-import com.jjoe64.graphview.series.BarGraphSeries;
-import com.jjoe64.graphview.series.DataPoint;
 
 public class MainActivity extends AppCompatActivity {
-
-    private int progress = 20;
-    private TextView textView2;
     private View btnTax;
     private View btnTime;
     private View btnWork;
@@ -31,6 +23,7 @@ public class MainActivity extends AppCompatActivity {
     private TimePickerDialog timePickerDialog;
     private Controller ctrl;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         setStatusbarColor();
@@ -38,7 +31,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        textView2 = (TextView) findViewById(R.id.textView);
+
 
         btnTime = findViewById(R.id.action_a);
         btnTax = findViewById(R.id.action_b);
@@ -61,16 +54,7 @@ public class MainActivity extends AppCompatActivity {
        // fragmentTransaction.commit();
     }
 
-    private void setupGraph(){
-        GraphView graph = (GraphView) findViewById(R.id.graph);
-        BarGraphSeries<DataPoint> series = new BarGraphSeries<DataPoint>(new DataPoint[] {
-                new DataPoint(0, 1),
-                new DataPoint(1, 5),
-                new DataPoint(2, 3),
-                new DataPoint(3, 2),
-                new DataPoint(4, 6)
-        });
-    }
+
 
     private  void setStatusbarColor(){
         Window window = this.getWindow();
@@ -109,15 +93,11 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public void onClick(View v) {
             if (v.getId() == R.id.action_b) {
-                textView2.setText(ctrl.getCurrentTax() + " ");
-                ProgressBar pb = (ProgressBar) findViewById(R.id.progressBar);
-                pb.setProgress(progress);
-                progress++;
+                startActivity(new Intent(getApplicationContext(), ChangeTaxActivity.class));
             }else if(v.getId() == R.id.action_f){
                 startActivity(new Intent(getApplicationContext(), BudgetAcitivity.class));
             }else if(v.getId() == R.id.action_a){
                 startActivity(new Intent(getApplicationContext(), AddExpenseActivity.class));
-
             }else if(v.getId() == R.id.action_e){
                 startActivity(new Intent(getApplicationContext(), WorkRegisterActivity.class));
             }
