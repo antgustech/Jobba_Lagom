@@ -10,7 +10,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
-import android.view.WindowManager;
 
 import com.example.i7.jobbalagom.R;
 
@@ -115,18 +114,12 @@ public class WorkRegisterActivity extends AppCompatActivity {
     private class DateRegisterListener implements DateRegisterCallback{
         @Override
         public void UpdateRegisteredDate(int year, int month, int day) {
-            mainTimeRegisterFragment.setTextView(year + "-" + month + "-" + day);
-            Log.d("DateTag",year + "-" + month + "-" + day);
+            //Log.d("DateTag", year + "-" + month + "-" + day);
             changeFragment(mainTimeRegisterFragment);
+            mainTimeRegisterFragment.setTextContainer(year + "-" + month + "-" + day);
+
+
         }
     }
-
-
-  //  private class DateUpdater extends Thread {
-    //    public void run(){
-      //      while(true)
-        //    dateText.setText(dateText_String);
-        //}
-    //}
 
 }

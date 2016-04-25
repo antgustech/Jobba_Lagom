@@ -15,9 +15,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-/*TODO hÃ¤mta aktuell skattesats
-*SHOULD MAYBE BE REMOVED!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
- */
 public class Server extends Thread {
 
 	private ServerSocket serverSocket;
