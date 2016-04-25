@@ -65,5 +65,12 @@
         tools:layout="@layout/main_bar_fragment"
         android:layout_marginTop="130dp" />
 
+    <fragment
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:name="com.example.i7.jobbalagom.activities.WorkRegister.SetupFragment"
+        tools:layout="@layout/setup_fragment"
+        android:id="@+id/setupfragment"></fragment>
+
 
 </RelativeLayout>
