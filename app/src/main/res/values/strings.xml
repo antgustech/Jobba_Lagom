@@ -4,8 +4,8 @@
     <string name="actionbarTitleBudget">Budgetöversikt</string>
     <string name="title_activity_settings">Inställningar</string>
     <string name="title_activity_about">Om</string>
-    <string name="title_activity_work">Arbetspass registreraren</string>
-    <string name="title_activity_expense">Utgifts registreraren</string>
+    <string name="title_activity_work">Arbetspassregistreraren</string>
+    <string name="title_activity_expense">Utgiftsregistreraren</string>
     <string name="title_activity_setup">Kom igång</string>
     <string name="action_vote">Rösta</string>
     <string name="action_about">Om</string>
@@ -19,8 +19,8 @@
     <!--Floating button strings-->
     <string name="fButtonExpanse">Lägg till utgift</string>
     <string name="fButtonTax">Ändra skattesats</string>
-    <string name="fButtonBudget">Se budgetöversikt</string>
-    <string name="fButtonTime">Se tidsregistreraren</string>
+    <string name="fButtonBudget">Budgetöversikt</string>
+    <string name="fButtonTime">Tidsregistreraren</string>
 
 
     <!-- Strings related to Settings -->
