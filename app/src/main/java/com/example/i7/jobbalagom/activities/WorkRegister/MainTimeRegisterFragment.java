@@ -1,10 +1,12 @@
 package com.example.i7.jobbalagom.activities.WorkRegister;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 
 import android.util.Log;
@@ -32,8 +34,6 @@ public class MainTimeRegisterFragment extends Fragment {
 
     private MainTimeRegisterCallback btnCallback;
 
-
-
     @Override
     public View onCreateView(LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -53,19 +53,23 @@ public class MainTimeRegisterFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         this.mainView = view;
 
-        //btnView.setOnClickListener(new ButtonListener());
-
-        //textView_View = view.findViewById(R.id.dateTextView);
-       // textView_View.setOnClickListener(new ButtonListener());
         textView_Date = (EditText)view.findViewById(R.id.dateTextView);
         textView_Date.setOnClickListener(new ButtonListener());
+        textView_Date.setInputType(0);
 
         textView_TimeFrom = (EditText)view.findViewById(R.id.timeTextView_From);
         textView_TimeFrom.setOnClickListener(new ButtonListener());
+        textView_TimeFrom.setInputType(0);
 
         textView_TimeTo = (EditText)view.findViewById(R.id.timeTextView_To);
         textView_TimeTo.setOnClickListener(new ButtonListener());
+        textView_TimeTo.setInputType(0);
 
+    }
+
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
     }
 
     @Override
@@ -105,12 +109,11 @@ public class MainTimeRegisterFragment extends Fragment {
     }
 
     public void setCallback(MainTimeRegisterCallback btnCallback){
-
         this.btnCallback = btnCallback;
-
     }
 
     private void updateTextViews(){
+
         if(!date_TextContainer.getText().equals(textView_Date.getText() + "")){
             textView_Date.setText(date_TextContainer.getText());
         }
@@ -123,7 +126,6 @@ public class MainTimeRegisterFragment extends Fragment {
     }
 
     private class ButtonListener implements View.OnClickListener{
-
         @Override
         public void onClick(View v) {
             btnCallback.buttonPressed(v);

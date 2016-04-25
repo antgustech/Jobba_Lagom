@@ -2,6 +2,7 @@ package com.example.i7.jobbalagom.activities.WorkRegister;
 
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
+import android.content.Context;
 import android.os.Build;
 import android.os.Bundle;
 
@@ -12,6 +13,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
+import android.view.inputmethod.InputMethodManager;
 
 import com.example.i7.jobbalagom.R;
 
@@ -66,6 +68,7 @@ public class WorkRegisterActivity extends AppCompatActivity {
         setupActionBar();
         changeFragment(mainTimeRegisterFragment);
 
+
     }
 
     private void changeFragment(Fragment fragment){
@@ -99,11 +102,16 @@ public class WorkRegisterActivity extends AppCompatActivity {
             if(view.equals(view.findViewById(R.id.dateTextView)))
                 changeFragment(dateRegisterFragment);
 
-            if(view.equals(view.findViewById(R.id.timeTextView_From)))
+            if(view.equals(view.findViewById(R.id.timeTextView_From))){
                 changeFragment(timePickerFromFragment);
+                timePickerFromFragment.setHeadLine("Välj tid då du började jobba");
+            }
 
-            if(view.equals(view.findViewById(R.id.timeTextView_To)))
+            if(view.equals(view.findViewById(R.id.timeTextView_To))){
                 changeFragment(timePickerToFragment);
+                timePickerToFragment.setHeadLine("Välj tid då du slutade jobba");
+            }
+
 
 
         }
@@ -128,6 +136,7 @@ public class WorkRegisterActivity extends AppCompatActivity {
 
             changeFragment(mainTimeRegisterFragment);
             mainTimeRegisterFragment.setTimeFrom_TextContainer(time);
+
 
         }
     }
