@@ -13,7 +13,6 @@ import android.view.Window;
 import com.example.i7.jobbalagom.R;
 import com.example.i7.jobbalagom.activities.WorkRegister.WorkRegisterActivity;
 import com.example.i7.jobbalagom.local.Controller;
-import com.github.mikephil.charting.charts.BarChart;
 
 public class
         MainActivity extends AppCompatActivity {
@@ -24,7 +23,7 @@ public class
     private ButtonListener bl = new ButtonListener();
     private TimePickerDialog timePickerDialog;
     private Controller ctrl;
-    private BarChart mainChart;
+
 
 
     @Override
@@ -34,7 +33,7 @@ public class
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        mainChart = (BarChart) findViewById(R.id.freeSumBar);
+
         btnTime = findViewById(R.id.action_a);
         btnTax = findViewById(R.id.action_b);
         btnWork = findViewById(R.id.action_e);
@@ -58,10 +57,7 @@ public class
 
     }
 
-    private void setupMainBar(){
-        mainChart.setBorderColor(323235);
 
-    }
 
 
     private  void setStatusbarColor(){
