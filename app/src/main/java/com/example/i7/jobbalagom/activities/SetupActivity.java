@@ -1,14 +1,12 @@
 package com.example.i7.jobbalagom.activities;
 
 import android.annotation.SuppressLint;
-import android.support.v7.app.ActionBar;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.AppCompatActivity;
 import android.view.MotionEvent;
 import android.view.View;
-
-import com.example.i7.jobbalagom.R;
 
 /**
  * An example full-screen activity that shows and hides the system UI (i.e.
@@ -89,7 +87,7 @@ public class SetupActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.activity_setup);
+       // setContentView(R.id.activity_setup);
 
         mVisible = true;
 

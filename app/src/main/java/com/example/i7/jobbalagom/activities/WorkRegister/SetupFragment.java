@@ -10,9 +10,6 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
-import android.view.Window;
-import android.R.id;
-
 
 import com.example.i7.jobbalagom.R;
 
@@ -47,7 +44,7 @@ public class SetupFragment extends Fragment {
         inputTitel = (EditText) view.findViewById(R.id.inputTitel);
         inputTimlön = (EditText) view.findViewById(R.id.inputTimlon);
         inputKommun = (AutoCompleteTextView) view.findViewById(R.id.inputKommun);
-        inputKollektivavtal = (AutoCompleteTextView) view.findViewById(R.id.inputKollektivavtal):
+        inputKollektivavtal = (AutoCompleteTextView) view.findViewById(R.id.inputKollektivavtal);
 
     }
 }
