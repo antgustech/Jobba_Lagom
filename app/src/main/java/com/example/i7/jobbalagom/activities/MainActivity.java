@@ -15,7 +15,8 @@ import com.example.i7.jobbalagom.activities.WorkRegister.WorkRegisterActivity;
 import com.example.i7.jobbalagom.local.Controller;
 import com.github.mikephil.charting.charts.BarChart;
 
-public class MainActivity extends AppCompatActivity {
+public class
+        MainActivity extends AppCompatActivity {
     private View btnTax;
     private View btnTime;
     private View btnWork;
