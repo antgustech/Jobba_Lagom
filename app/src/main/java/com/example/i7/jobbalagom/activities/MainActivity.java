@@ -13,8 +13,10 @@ import android.view.Window;
 import com.example.i7.jobbalagom.R;
 import com.example.i7.jobbalagom.activities.WorkRegister.WorkRegisterActivity;
 import com.example.i7.jobbalagom.local.Controller;
+import com.github.mikephil.charting.charts.BarChart;
 
-public class MainActivity extends AppCompatActivity {
+public class
+        MainActivity extends AppCompatActivity {
     private View btnTax;
     private View btnTime;
     private View btnWork;
@@ -22,6 +24,7 @@ public class MainActivity extends AppCompatActivity {
     private ButtonListener bl = new ButtonListener();
     private TimePickerDialog timePickerDialog;
     private Controller ctrl;
+    private BarChart mainChart;
 
 
     @Override
@@ -31,8 +34,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-
-
+        mainChart = (BarChart) findViewById(R.id.freeSumBar);
         btnTime = findViewById(R.id.action_a);
         btnTax = findViewById(R.id.action_b);
         btnWork = findViewById(R.id.action_e);
@@ -43,7 +45,8 @@ public class MainActivity extends AppCompatActivity {
         btnTax.setOnClickListener(bl);
         btnTime.setOnClickListener(bl);
 
-  //      FragmentManager fragmentManager = getFragmentManager();
+
+        //      FragmentManager fragmentManager = getFragmentManager();
 
 //        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
 
@@ -51,9 +54,14 @@ public class MainActivity extends AppCompatActivity {
 
         //fragmentTransaction.replace(android.R.id.content, timeRegisterFragment);
 
-       // fragmentTransaction.commit();
+        // fragmentTransaction.commit();
+
     }
 
+    private void setupMainBar(){
+        mainChart.setBorderColor(323235);
+
+    }
 
 
     private  void setStatusbarColor(){
