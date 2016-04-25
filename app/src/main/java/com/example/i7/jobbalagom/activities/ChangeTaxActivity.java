@@ -24,7 +24,7 @@ public class ChangeTaxActivity extends AppCompatActivity implements  Runnable {
         setContentView(R.layout.activity_change_tax);
         textViewKommun = (AutoCompleteTextView) findViewById(R.id.autoCompleteKommun);
         Thread thread = new Thread(new ChangeTaxActivity());
-        thread.start();
+       // thread.start();
 
         textViewKommun.setOnClickListener(new View.OnClickListener() {
             @Override
