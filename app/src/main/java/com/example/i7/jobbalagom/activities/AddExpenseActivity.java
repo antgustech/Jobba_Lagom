@@ -10,7 +10,7 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import com.example.i7.jobbalagom.R;
-import com.example.i7.jobbalagom.XLSManager.Expense;
+import com.example.i7.jobbalagom.local.Expense;
 
 
 public class AddExpenseActivity extends AppCompatActivity {

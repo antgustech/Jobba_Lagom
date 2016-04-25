@@ -25,20 +25,21 @@
             android:label="@string/title_activity_about" />
         <activity
             android:name=".activities.AddExpenseActivity"
-            android:label="@string/title_activity_expense"></activity>
+            android:label="@string/title_activity_expense" />
         <activity
             android:name=".activities.BudgetAcitivity"
-            android:label="@string/actionbarTitleBudget"></activity>
+            android:label="@string/actionbarTitleBudget" />
         <activity
             android:name=".activities.WorkRegister.WorkRegisterActivity"
-            android:label="@string/title_activity_work"></activity>
+            android:label="@string/title_activity_work" />
         <activity
             android:name=".activities.SetupActivity"
-            android:label="@string/title_activity_setup"></activity>
-        <activity
-            android:name=".activities.WorkRegister.DateChooser"
-            android:label="@string/title_activity_date_picker"
-            android:theme="@style/PopupTheme"></activity>
+            android:label="@string/title_activity_setup" />
+
+
+        <activity android:name=".activities.ChangeTaxActivity"
+            android:label="Ändra skattesatsen"
+            ></activity>
     </application>
 
 </manifest>

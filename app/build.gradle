@@ -11,6 +11,7 @@ android {
         versionCode 1
         versionName "1.0"
 
+
     }
     buildTypes {
         release {
@@ -19,6 +20,9 @@ android {
         }
     }
 }
+repositories {
+    maven { url "https://jitpack.io" }
+}
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
@@ -26,10 +30,6 @@ dependencies {
     compile 'com.android.support:appcompat-v7:23.2.1'
     compile 'com.getbase:floatingactionbutton:1.10.1'
     compile 'com.android.support:design:23.2.1'
-    compile 'com.jjoe64:graphview:4.0.1'
-
-
-
-
+    compile 'com.github.PhilJay:MPAndroidChart:v2.1.6'
 
 }

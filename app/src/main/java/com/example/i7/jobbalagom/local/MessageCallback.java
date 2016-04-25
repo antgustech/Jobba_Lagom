@@ -5,5 +5,8 @@ package com.example.i7.jobbalagom.local;
  */
 public interface MessageCallback {
 
-    void updateMessage(float tax);
+    void updateKommun(String kommun);
+    void updateCities(String cities);
+    void updateTax(float tax);
+
 }
