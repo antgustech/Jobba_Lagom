@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:weightSum="1">
+
+    <TextView
+        android:layout_width="423dp"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Välj den tid du slutade jobba"
+        android:id="@+id/textView_HeadLine"
+        android:layout_marginLeft="50dp" />
+
+    <TimePicker
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/timePicker"
+        android:layout_weight="0.50"
+        android:layout_marginTop="0dp"
+        />
+
+    <Button
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="102dp"
+        android:layout_height="wrap_content"
+        android:text="Klar"
+        android:id="@+id/timePicking_Done"
+        android:layout_gravity="center_horizontal"
+        android:layout_weight="0.06" />
+
+</LinearLayout>
