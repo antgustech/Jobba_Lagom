@@ -9,7 +9,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
-
 import com.example.i7.jobbalagom.R;
 import com.example.i7.jobbalagom.activities.WorkRegister.WorkRegisterActivity;
 import com.example.i7.jobbalagom.local.Controller;
