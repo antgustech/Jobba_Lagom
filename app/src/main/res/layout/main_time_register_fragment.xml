@@ -13,7 +13,6 @@
             android:inputType="none"
             android:ems="10"
             android:id="@+id/dateTextView"
-            android:windowSoftInputMode="stateHidden"
             android:layout_alignBottom="@+id/S_textView_PickDate"
             android:layout_alignLeft="@+id/S_textView_PickTime"
             android:layout_alignStart="@+id/S_textView_PickTime" />

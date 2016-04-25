@@ -32,9 +32,6 @@
         <activity
             android:name=".activities.WorkRegister.WorkRegisterActivity"
             android:label="@string/title_activity_work" />
-        <activity
-            android:name=".activities.SetupActivity"
-            android:label="@string/title_activity_setup" />
 
 
         <activity android:name=".activities.ChangeTaxActivity"
