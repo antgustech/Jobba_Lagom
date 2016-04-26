@@ -85,6 +85,10 @@ public class MainActivity extends AppCompatActivity {
                 Log.d("ResultTag",date);
                 Log.d("ResultTag",timeFrom);
                 Log.d("ResultTag",timeTo);
+
+                //TODO
+                //The information above is the info that is going
+                //to be used in the calculations to depict our graph
             }
         }
 
