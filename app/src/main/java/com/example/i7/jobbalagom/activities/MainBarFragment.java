@@ -53,8 +53,6 @@ public class MainBarFragment  extends Fragment{
 
     public void setData(){
         dataset.removeFirst();
-        //dataset.addEntry(new BarEntry(9f,2));
-
         data.addEntry(new BarEntry(9f,2), 0);
         mainChart.setData(data);
         dataset.setColor(getResources().getColor(R.color.half_black));

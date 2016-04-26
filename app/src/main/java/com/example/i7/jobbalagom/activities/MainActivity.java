@@ -92,7 +92,7 @@ public class
         return super.onOptionsItemSelected(item);
     }
 
-    //Klick listemer för den flytande knappens alternativ.
+    //Click listener for floating aciton button
     private class ButtonListener implements View.OnClickListener {
         @Override
         public void onClick(View v) {
