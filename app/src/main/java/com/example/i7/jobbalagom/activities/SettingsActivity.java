@@ -129,7 +129,8 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
-        userName = findViewById(R.id.nameTextSetup);
+       // userName = findViewById(R.id.nameTextSetup);
+        //userName = findViewById(R.id.nameTextSetup);
 
         setStatusbarColor();
         super.onCreate(savedInstanceState);

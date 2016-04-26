@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -12,10 +13,8 @@ import android.view.Window;
 import com.example.i7.jobbalagom.R;
 import com.example.i7.jobbalagom.activities.WorkRegister.WorkRegisterActivity;
 import com.example.i7.jobbalagom.local.Controller;
-import com.github.mikephil.charting.charts.BarChart;
 
-public class
-        MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity {
     private View btnTax;
     private View btnTime;
     private View btnWork;
@@ -23,8 +22,6 @@ public class
     private ButtonListener bl = new ButtonListener();
     private TimePickerDialog timePickerDialog;
     private Controller ctrl;
-    private BarChart mainChart;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,7 +30,7 @@ public class
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        mainChart = (BarChart) findViewById(R.id.freeSumBar);
+
         btnTime = findViewById(R.id.action_a);
         btnTax = findViewById(R.id.action_b);
         btnWork = findViewById(R.id.action_e);
@@ -57,11 +54,10 @@ public class
 
     }
 
-    private void setupMainBar(){
-        mainChart.setBorderColor(323235);
-
+    public void startWorkRegister(){
+        Intent workRegisterActivity =  new Intent(this, WorkRegisterActivity.class);
+        startActivityForResult(workRegisterActivity,1);
     }
-
 
     private  void setStatusbarColor(){
         Window window = this.getWindow();
@@ -74,6 +70,27 @@ public class
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode == 1){
+            if(resultCode == RESULT_OK){
+                String date = data.getStringExtra("Date");
+                String timeFrom = data.getStringExtra("TimeFrom");
+                String timeTo = data.getStringExtra("TimeTo");
+
+                Log.d("ResultTag",date);
+                Log.d("ResultTag",timeFrom);
+                Log.d("ResultTag",timeTo);
+
+                //TODO
+                //The information above is the info that is going
+                //to be used in the calculations to depict our graph
+            }
+        }
+
     }
 
     @Override
@@ -95,7 +112,7 @@ public class
         return super.onOptionsItemSelected(item);
     }
 
-    //Klick listemer för den flytande knappens alternativ.
+    //Click listener for floating aciton button
     private class ButtonListener implements View.OnClickListener {
         @Override
         public void onClick(View v) {
@@ -106,7 +123,7 @@ public class
             }else if(v.getId() == R.id.action_a){
                 startActivity(new Intent(getApplicationContext(), AddExpenseActivity.class));
             }else if(v.getId() == R.id.action_e){
-                startActivity(new Intent(getApplicationContext(), WorkRegisterActivity.class));
+                startWorkRegister();
             }
     }
     }

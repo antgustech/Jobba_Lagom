@@ -1,10 +1,13 @@
 package com.example.i7.jobbalagom.activities.WorkRegister;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.DatePicker;
 
 import com.example.i7.jobbalagom.R;
@@ -22,6 +25,9 @@ public class DateRegisterFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
+        getActivity().getWindow().setSoftInputMode(
+                WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
+
         return inflater.inflate(R.layout.date_register_fragment, container, false);
 
     }
@@ -32,9 +38,10 @@ public class DateRegisterFragment extends Fragment {
         datePicker = (DatePicker)view.findViewById(R.id.datePicker);
         dateButton = view.findViewById(R.id.dateButton_Done);
         dateButton.setOnClickListener(new ButtonListener());
+
+
         //datePicker.
     }
-
     public void setCallback(DateRegisterCallback callback){
         this.dateCallback = callback;
     }

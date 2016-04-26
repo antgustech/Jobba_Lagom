@@ -13,7 +13,6 @@
             android:inputType="none"
             android:ems="10"
             android:id="@+id/dateTextView"
-            android:windowSoftInputMode="stateHidden"
             android:layout_alignBottom="@+id/S_textView_PickDate"
             android:layout_alignLeft="@+id/S_textView_PickTime"
             android:layout_alignStart="@+id/S_textView_PickTime" />
@@ -44,9 +43,9 @@
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:text="Välj tid"
             android:id="@+id/timePicker_Text"
+            android:layout_marginTop="81dp"
             android:layout_below="@+id/dateTextView"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="40dp" />
+            android:layout_centerHorizontal="true" />
 
         <Button
             style="?android:attr/buttonStyleSmall"
@@ -65,10 +64,10 @@
             android:layout_height="wrap_content"
             android:inputType="time"
             android:ems="10"
-            android:id="@+id/editText"
+            android:id="@+id/timeTextView_From"
             android:layout_below="@+id/timePicker_Text"
-            android:layout_alignLeft="@+id/dateTextView"
-            android:layout_alignStart="@+id/dateTextView" />
+            android:layout_toRightOf="@+id/S_textView_PickDate"
+            android:layout_toEndOf="@+id/S_textView_PickDate" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -76,9 +75,9 @@
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:text="Från"
             android:id="@+id/textView10"
-            android:layout_alignBottom="@+id/editText"
-            android:layout_toLeftOf="@+id/editText"
-            android:layout_toStartOf="@+id/editText" />
+            android:layout_alignBottom="@+id/timeTextView_From"
+            android:layout_toLeftOf="@+id/timeTextView_From"
+            android:layout_toStartOf="@+id/timeTextView_From" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -88,6 +87,36 @@
             android:id="@+id/textView11"
             android:layout_above="@+id/dateTextView"
             android:layout_centerHorizontal="true" />
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="time"
+            android:ems="10"
+            android:id="@+id/timeTextView_To"
+            android:layout_marginTop="46dp"
+            android:layout_below="@+id/timeTextView_From"
+            android:layout_toRightOf="@+id/textView10"
+            android:layout_toEndOf="@+id/textView10" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="Till"
+            android:id="@+id/textView12"
+            android:layout_alignBottom="@+id/timeTextView_To"
+            android:layout_toLeftOf="@+id/timeTextView_To"
+            android:layout_toStartOf="@+id/timeTextView_To" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="klar"
+            android:id="@+id/mainTimeButton_Done"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="44dp" />
 
     </RelativeLayout>
 
