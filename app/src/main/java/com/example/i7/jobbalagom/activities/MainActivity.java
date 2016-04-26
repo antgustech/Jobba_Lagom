@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -14,8 +15,7 @@ import com.example.i7.jobbalagom.R;
 import com.example.i7.jobbalagom.activities.WorkRegister.WorkRegisterActivity;
 import com.example.i7.jobbalagom.local.Controller;
 
-public class
-        MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity {
     private View btnTax;
     private View btnTime;
     private View btnWork;
@@ -23,8 +23,6 @@ public class
     private ButtonListener bl = new ButtonListener();
     private TimePickerDialog timePickerDialog;
     private Controller ctrl;
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,8 +55,10 @@ public class
 
     }
 
-
-
+    public void startWorkRegister(){
+        Intent workRegisterActivity =  new Intent(this, WorkRegisterActivity.class);
+        startActivityForResult(workRegisterActivity,1);
+    }
 
     private  void setStatusbarColor(){
         Window window = this.getWindow();
@@ -71,6 +71,23 @@ public class
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode == 1){
+            if(resultCode == RESULT_OK){
+                String date = data.getStringExtra("Date");
+                String timeFrom = data.getStringExtra("TimeFrom");
+                String timeTo = data.getStringExtra("TimeTo");
+
+                Log.d("ResultTag",date);
+                Log.d("ResultTag",timeFrom);
+                Log.d("ResultTag",timeTo);
+            }
+        }
+
     }
 
     @Override
@@ -103,7 +120,7 @@ public class
             }else if(v.getId() == R.id.action_a){
                 startActivity(new Intent(getApplicationContext(), AddExpenseActivity.class));
             }else if(v.getId() == R.id.action_e){
-                startActivity(new Intent(getApplicationContext(), WorkRegisterActivity.class));
+                startWorkRegister();
             }
     }
     }

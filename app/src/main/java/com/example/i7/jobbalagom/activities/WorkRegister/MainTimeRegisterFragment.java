@@ -34,17 +34,19 @@ public class MainTimeRegisterFragment extends Fragment {
 
     private MainTimeRegisterCallback btnCallback;
 
-    @Override
-    public View onCreateView(LayoutInflater inflater,
-                             ViewGroup container, Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.main_time_register_fragment, container, false);
-    }
+    private View btnDone;
 
     public MainTimeRegisterFragment(){
         Calendar c = Calendar.getInstance();
         date_TextContainer = new SynchedTextContainer(c.get(Calendar.YEAR) + "-" + (c.get(Calendar.MONTH) + 1) +"-"+ c.get(Calendar.DAY_OF_MONTH));
         timeFrom_TextContainer = new SynchedTextContainer("00:00");
         timeTo_TextContainer = new SynchedTextContainer("00:00");
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater,
+                             ViewGroup container, Bundle savedInstanceState) {
+        return inflater.inflate(R.layout.main_time_register_fragment, container, false);
     }
 
     @Override
@@ -65,7 +67,14 @@ public class MainTimeRegisterFragment extends Fragment {
         textView_TimeTo.setOnClickListener(new ButtonListener());
         textView_TimeTo.setInputType(0);
 
+        btnDone = view.findViewById(R.id.mainTimeButton_Done);
+        btnDone.setOnClickListener(new ButtonListener());
     }
+
+    public void setCallback(MainTimeRegisterCallback btnCallback){
+        this.btnCallback = btnCallback;
+    }
+
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
@@ -85,7 +94,6 @@ public class MainTimeRegisterFragment extends Fragment {
 
         Log.d("setTextTag", text + " IN");
         date_TextContainer.setText(text);
-        textView_Date.setText(text);
         Log.d("setTextTag", date_TextContainer.getText() + " OUT");
 
     }
@@ -94,7 +102,6 @@ public class MainTimeRegisterFragment extends Fragment {
 
         Log.d("setTextTag", text + " IN");
         timeTo_TextContainer.setText(text);
-        textView_TimeTo.setText(text);
         Log.d("setTextTag", date_TextContainer.getText() + " OUT");
 
     }
@@ -103,13 +110,20 @@ public class MainTimeRegisterFragment extends Fragment {
 
         Log.d("setTextTag", text + " IN");
         timeFrom_TextContainer.setText(text);
-        textView_TimeFrom.setText(text);
         Log.d("setTextTag", date_TextContainer.getText() + " OUT");
 
     }
 
-    public void setCallback(MainTimeRegisterCallback btnCallback){
-        this.btnCallback = btnCallback;
+    public String getDate_TextContainer(){
+        return date_TextContainer.getText();
+    }
+
+    public String getTimeTo_TextContainer(){
+        return timeTo_TextContainer.getText();
+    }
+
+    public String getTimeFrom_TextContainer(){
+        return timeFrom_TextContainer.getText();
     }
 
     private void updateTextViews(){

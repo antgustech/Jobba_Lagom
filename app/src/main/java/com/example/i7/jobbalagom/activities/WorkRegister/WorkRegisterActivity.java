@@ -3,6 +3,7 @@ package com.example.i7.jobbalagom.activities.WorkRegister;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 
@@ -18,10 +19,6 @@ import android.view.inputmethod.InputMethodManager;
 import com.example.i7.jobbalagom.R;
 
 public class WorkRegisterActivity extends AppCompatActivity {
-
-    //private EditText dateText;
-    //private Intent dateSelecter;
-   // private String dateText_String;
 
     private FragmentManager fragmentManager;
     private FragmentTransaction fragmentTransaction;
@@ -112,8 +109,14 @@ public class WorkRegisterActivity extends AppCompatActivity {
                 timePickerToFragment.setHeadLine("Välj tid då du slutade jobba");
             }
 
-
-
+            if(view.equals(view.findViewById(R.id.mainTimeButton_Done))){
+                Intent intent = new Intent();
+                intent.putExtra("Date",mainTimeRegisterFragment.getDate_TextContainer());
+                intent.putExtra("TimeFrom",mainTimeRegisterFragment.getTimeFrom_TextContainer());
+                intent.putExtra("TimeTo",mainTimeRegisterFragment.getTimeTo_TextContainer());
+                setResult(RESULT_OK,intent);
+                finish();
+            }
         }
     }
 
