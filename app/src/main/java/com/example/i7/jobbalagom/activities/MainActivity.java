@@ -24,6 +24,8 @@ public class MainActivity extends AppCompatActivity {
     private TimePickerDialog timePickerDialog;
     private Controller ctrl;
 
+    private final int REQUESTCODE_WORKREGISTER = 1;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         setStatusbarColor();
@@ -57,7 +59,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void startWorkRegister(){
         Intent workRegisterActivity =  new Intent(this, WorkRegisterActivity.class);
-        startActivityForResult(workRegisterActivity,1);
+        startActivityForResult(workRegisterActivity,REQUESTCODE_WORKREGISTER);
     }
 
     private  void setStatusbarColor(){
@@ -76,7 +78,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if(requestCode == 1){
+        if(requestCode == REQUESTCODE_WORKREGISTER){
             if(resultCode == RESULT_OK){
                 String date = data.getStringExtra("Date");
                 String timeFrom = data.getStringExtra("TimeFrom");
