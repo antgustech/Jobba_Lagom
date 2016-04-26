@@ -151,7 +151,7 @@ public class Server extends Thread {
 	}
 	//}
 
-//-----------------------------------------------------------------------------------ANTECKNING!!!!
+//-----------------------------------------------------------------------------------ANTECKNING!!!! Såhär ser tabellen ut vi ska accessa
 	// Tabell med skattesatser heter:  skatt16april
 	//KOLUMNER:
 	//Kommun VARCHAR(15) CHARACTER SET utf8,
@@ -159,6 +159,8 @@ public class Server extends Thread {
 	//SummaInkluderatKyrkan NUMERIC(5, 3),
 	//SummanExkluderatKyrkan NUMERIC(5, 3),da
 	//PRIMARY KEY (Kommun, Ort)
+
+	//select AVG(SUmmaInkluderatKyrkan) from skatt16april where kommun ="ystad"; för att få ut avg församling skatt
 	//----------------------------------------------------------------------------------------
 
 	private String getCity(String choosenKommun) {
