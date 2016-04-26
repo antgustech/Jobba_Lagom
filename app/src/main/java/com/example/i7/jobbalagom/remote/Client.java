@@ -1,5 +1,7 @@
 package com.example.i7.jobbalagom.remote;
 
+import android.util.Log;
+
 import com.example.i7.jobbalagom.local.MessageCallback;
 
 import java.io.BufferedInputStream;
@@ -16,11 +18,13 @@ import java.util.ArrayList;
  * Created by Anton Gustafsson on 2016-04-19.
  */
 public class Client extends Thread {
+
     private Socket socket;
     private DataInputStream dis;
     private DataOutputStream dos;
     private ObjectInputStream ois;
     private Thread clientThread;
+
     private boolean connected = false;
     private Connection dbConnection;
 
@@ -37,7 +41,6 @@ public class Client extends Thread {
         start();
     }
 
-
     public void closeConnection(){
         try {
             connected = false;
@@ -53,19 +56,26 @@ public class Client extends Thread {
             socket = new Socket(IP, PORT);
             dis = new DataInputStream(new BufferedInputStream(socket.getInputStream()));
             dos = new DataOutputStream(new BufferedOutputStream(socket.getOutputStream()));
-            ois = new ObjectInputStream(new BufferedInputStream(socket.getInputStream()));
-        } catch (IOException e) {
-        }
+            ois = new ObjectInputStream((socket.getInputStream()));
+
+            getKommun();
+
+            Log.d("ServerTag","Worked i believe");
+
+        } catch (IOException e) {}
+          catch(ClassNotFoundException ex){}
     }
 
-
     public ArrayList<String> getKommun() throws IOException, ClassNotFoundException {
+        ArrayList<String> list = new ArrayList<String>();
         try {
             dos.writeInt(1);
             dos.flush();
+            list.add((String)ois.readObject());
         } catch (IOException e) {
             e.printStackTrace();
-        }  return (ArrayList<String>)ois.readObject();
+        }  //return (ArrayList<String>)ois.readObject();
+        return list;
     }
 
     public void getCity() {
@@ -84,11 +94,10 @@ public class Client extends Thread {
         }
     }
 
+    //private class ServerListener extends Thread {
+       // public ServerListener(){
 
+       // }
 
-
-
-
-
-
+   // }
 }

@@ -47,6 +47,7 @@ public class Controller  {
 
         return kommuner;
     }
+
     public void getCity(){
 
     }
