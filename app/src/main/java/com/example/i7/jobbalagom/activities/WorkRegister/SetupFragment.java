@@ -58,13 +58,50 @@ public class SetupFragment extends Fragment {
 
         @Override
         public void onClick(View v) {
-            String name = inputName.getText().toString();
-            String area = inputArea.getText().toString();
-            String freeSum = inputFreeSum.getText().toString();
-            String title = inputTitle.getText().toString();
-            String hWage = inputHWage.getText().toString();
-            String cb = inputCB.getText().toString();
-            callback.setupUser(name, area, freeSum, title, hWage, cb);
+
+            String ERROR_MESSAGE = "UPS!";
+
+            View[] components = new View[6];
+            components[0] = inputName;
+            components[1] = inputArea;
+            components[2] = inputFreeSum;
+            components[3] = inputArea;
+            components[4] = inputHWage;
+            components[5] = inputCB;
+
+            boolean inputValuesOK = true;
+
+            for(View c : components) {
+                if(c instanceof EditText) {
+                    EditText e = (EditText) c;
+                    if(e.getText().toString().equals("")) {
+                        e.setError(ERROR_MESSAGE);
+                        inputValuesOK = false;
+                    }
+                } else if(c instanceof AutoCompleteTextView) {
+                    AutoCompleteTextView a = (AutoCompleteTextView) c;
+                    if(a.getText().toString().equals("")) {
+                        a.setError(ERROR_MESSAGE);
+                        inputValuesOK = false;
+                    }
+                }
+            }
+
+            if(inputValuesOK) {
+                String name = inputName.getText().toString();
+                String area = inputArea.getText().toString();
+                String freeSum = inputFreeSum.getText().toString();
+                String title = inputTitle.getText().toString();
+                String hWage = inputHWage.getText().toString();
+                String cb = inputCB.getText().toString();
+                callback.setupUser(name, area, freeSum, title, hWage, cb);
+            }
+
+
+
+
+
+
         }
     }
 }
