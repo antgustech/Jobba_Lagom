@@ -119,6 +119,7 @@ public class MainActivity extends AppCompatActivity {
     private class ButtonListener implements View.OnClickListener {
         @Override
         public void onClick(View v) {
+
             if (v.getId() == R.id.action_b) {
                 startActivity(new Intent(getApplicationContext(), ChangeTaxActivity.class));
             }else if(v.getId() == R.id.action_f){

@@ -131,10 +131,10 @@ public class Server extends Thread {
 			System.out.println("Problem with disconnecting db");
 		}
 	}
-	//Should read all kommun strings from table skattapril16
+	//Should read all kommun strings from table skatt16april
 	private List<String> getKommun() throws SQLException {
 	//	String kommuner ="";
-//		String query = "select Kommun" + "from " + "ad8284" + "skattapril16";
+//		String query = "select Kommun" + "from " + "ad8284" + "skatt16april";
 
 	//	try (Statement s = (Statement) dbConnection.createStatement()) {
 			//try (ResultSet rs = s.executeQuery("select distinct Kommun from skattapril16 order by Kommun")) {
@@ -150,6 +150,18 @@ public class Server extends Thread {
 		return null;
 	}
 	//}
+
+//-----------------------------------------------------------------------------------ANTECKNING!!!! Såhär ser tabellen ut vi ska accessa
+	// Tabell med skattesatser heter:  skatt16april
+	//KOLUMNER:
+	//Kommun VARCHAR(15) CHARACTER SET utf8,
+	//Ort VARCHAR(36) CHARACTER SET utf8,
+	//SummaInkluderatKyrkan NUMERIC(5, 3),
+	//SummanExkluderatKyrkan NUMERIC(5, 3),da
+	//PRIMARY KEY (Kommun, Ort)
+
+	//select AVG(SUmmaInkluderatKyrkan) from skatt16april where kommun ="ystad"; för att få ut avg församling skatt
+	//----------------------------------------------------------------------------------------
 
 	private String getCity(String choosenKommun) {
 		String query = "select Ort" + "from " + "ad8284" + ".skattapril16" + "where " + choosenKommun;
