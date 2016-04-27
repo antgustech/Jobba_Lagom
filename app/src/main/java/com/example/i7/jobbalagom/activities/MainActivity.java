@@ -53,9 +53,9 @@ public class MainActivity extends AppCompatActivity {
         btnTime.setOnClickListener(bl);
 
         fragmentManager = getFragmentManager();
-        setupFragment = new SetupFragment();
-        setupFragment.setCallBack(new SetupUpdater());
-        changeFragment(setupFragment);
+        //setupFragment = new SetupFragment();
+      //  setupFragment.setCallBack(new SetupUpdater());
+      //  changeFragment(setupFragment);
 
     }
 

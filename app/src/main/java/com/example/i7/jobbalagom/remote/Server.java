@@ -18,7 +18,6 @@ import java.util.List;
 public class Server extends Thread {
 
 	private ServerSocket serverSocket;
-	private float number = 0.5f;
 	private Connection dbConnection;
 	private ArrayList<String> alKommun;
 	private boolean connected = false;
@@ -46,7 +45,6 @@ public class Server extends Thread {
 		while (true) {
 			Socket socket;
 			try {
-
 				socket = serverSocket.accept();
 				System.out.println("Sever is running.");
 				new ClientHandeler(socket).start();
@@ -69,14 +67,12 @@ public class Server extends Thread {
 				dis = new DataInputStream(new BufferedInputStream(socket.getInputStream()));
 				dos = new DataOutputStream(new BufferedOutputStream(socket.getOutputStream()));
 				oos = new ObjectOutputStream(new BufferedOutputStream(socket.getOutputStream()));
-
-
-
 			} catch (IOException e) {
 			}
 			System.out.println("New device connection" );
 			connectDB();
 		}
+
 		/*
          * Handles diffrent questions from client.
          */
@@ -88,7 +84,6 @@ public class Server extends Thread {
 
 						case 1://getKommun
 							oos.writeObject(getKommun());
-							dos.flush();
 							break;
 
 						case 2://getCity
@@ -103,16 +98,15 @@ public class Server extends Thread {
 				} catch (IOException | SQLException e) {
 					e.printStackTrace();
 					connected=false;
-
 				}
 			}
 		}
+
 	}
 
 	/*
 	 * --------DB methods--------------
 	 */
-
 	private void connectDB() {
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
@@ -132,46 +126,38 @@ public class Server extends Thread {
 		}
 	}
 	//Should read all kommun strings from table skatt16april
-	private List<String> getKommun() throws SQLException {
-	//	String kommuner ="";
-//		String query = "select Kommun" + "from " + "ad8284" + "skatt16april";
-
-	//	try (Statement s = (Statement) dbConnection.createStatement()) {
-			//try (ResultSet rs = s.executeQuery("select distinct Kommun from skattapril16 order by Kommun")) {
-			//	List<String> names = new ArrayList<String>();
-
-			//	while (rs.next()) {
-			//		names.add( rs.getString(1));
-			//		System.out.println(rs.getString(1));
-			//	}
-
-			//	return names;
-		//	}
+	private ArrayList<String> getKommun() throws SQLException {
+//		String kommuner ="";
+//		try (Statement s = (Statement) dbConnection.createStatement()) {
+//			try (ResultSet rs = s.executeQuery("select distinct Kommun from skatt16april order by Kommun")) {
+//				ArrayList<String> names = new ArrayList<String>();
+//				while (rs.next()) {
+//					names.add( rs.getString(1));
+//				}System.out.println("Skriver ut kommuner");
+//				return names;
+//			}
+//		}
 		return null;
 	}
-	//}
-
-//-----------------------------------------------------------------------------------ANTECKNING!!!! Såhär ser tabellen ut vi ska accessa
-	// Tabell med skattesatser heter:  skatt16april
-	//KOLUMNER:
-	//Kommun VARCHAR(15) CHARACTER SET utf8,
-	//Ort VARCHAR(36) CHARACTER SET utf8,
-	//SummaInkluderatKyrkan NUMERIC(5, 3),
-	//SummanExkluderatKyrkan NUMERIC(5, 3),da
-	//PRIMARY KEY (Kommun, Ort)
-
-	//select AVG(SUmmaInkluderatKyrkan) from skatt16april where kommun ="ystad"; för att få ut avg församling skatt
-	//----------------------------------------------------------------------------------------
-
 	private String getCity(String choosenKommun) {
-		String query = "select Ort" + "from " + "ad8284" + ".skattapril16" + "where " + choosenKommun;
+		String query = "select Ort" + "from " + "ad8284" + ".skatt16april" + "where " + choosenKommun;
 		System.out.println(query);
 		return query;
 	}
 
 	private float getTax(String choosenOrt) {
-		String query = "select Summa" + "from " + "ad8284" + ".skattapril16" + "where " + choosenOrt;
+		String query = "select Summa" + "from " + "ad8284" + ".skatt16april" + "where " + choosenOrt;
 		return Float.parseFloat(query);
 	}
-
 }
+
+
+//-------------------------------------------------------------------------------------------------------------------
+// skatt16april
+//Kommun VARCHAR(15)
+//Ort VARCHAR(36)
+//SummaInkluderatKyrkan NUMERIC(5, 3)
+//SummanExkluderatKyrkan NUMERIC(5, 3)
+//PRIMARY KEY (Kommun, Ort)
+//select AVG(SUmmaInkluderatKyrkan) from skatt16april where kommun ="ystad"; för att få ut avg församling skatt
+//-----------------------------------------------------------------------------------------------------------------
