@@ -32,12 +32,12 @@ public class MainBarFragment  extends Fragment{
         mainChart = (BarChart) view.findViewById(R.id.mainChart);
         //create data points
         ArrayList<BarEntry> entries = new ArrayList<>();
-        entries.add(new BarEntry(60000, 0));
+        entries.add(new BarEntry(0, 60000));
         dataset = new BarDataSet(entries, "Intjänade pengar");
 
         //create labels
         labels = new ArrayList<String>();
-        labels.add("Fribelopp");
+        labels.add(" ");
         data = new BarData(labels, dataset);
         mainChart.setData(data); // set the data and list of lables into chart
 
@@ -45,14 +45,14 @@ public class MainBarFragment  extends Fragment{
         mainChart.setDescription("");  // set the description
         mainChart.setScaleYEnabled(false);
         mainChart.setTouchEnabled(false);
+        mainChart.animateY(2000);
 
-        dataset.removeEntry(0);
-        setData(55350);//<-----------------Example for testing. 
+        setData(0);//<-----------------Example for testing.
         return view;
-
     }
     //Updates the chart with specified sum.
     public void setData(int sum){
+        dataset.removeEntry(0);
         data.addEntry(new BarEntry(sum,0), 0);
         dataset.setColor(getResources().getColor(R.color.colorPrimary));
         mainChart.notifyDataSetChanged(); // let the chart know it's data changed

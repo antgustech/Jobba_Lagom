@@ -53,7 +53,7 @@ public class MainActivity extends AppCompatActivity {
         fragmentManager = getFragmentManager();
         setupFragment = new SetupFragment();
         setupFragment.setCallBack(new SetupUpdater());
-        changeFragment(setupFragment);
+       // changeFragment(setupFragment);
 
         //      FragmentManager fragmentManager = getFragmentManager();
 

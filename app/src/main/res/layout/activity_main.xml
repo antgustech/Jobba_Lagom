@@ -11,8 +11,8 @@
 
 
     <fragment
-        android:layout_width="280dp"
-        android:layout_height="400dp"
+        android:layout_width="200dp"
+        android:layout_height="360dp"
         android:name="com.example.i7.jobbalagom.activities.MainBarFragment"
         android:id="@+id/fragment"
         tools:layout="@layout/main_bar_fragment"
@@ -20,6 +20,17 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_marginBottom="-5dp" />
+
+    <fragment
+        android:layout_width="800dp"
+        android:layout_height="100dp"
+
+        android:name="com.example.i7.jobbalagom.activities.MainActivityBudgetFragment"
+        android:id="@+id/budgetfragment"
+        tools:layout="@layout/activity_main_progress_budget_fragment"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
 
         <com.getbase.floatingactionbutton.FloatingActionsMenu
             android:id="@+id/multiple_actions"
@@ -80,6 +91,16 @@
 
         </com.getbase.floatingactionbutton.FloatingActionsMenu>
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="Fribelopp"
+        android:id="@+id/textView2"
+        android:paddingLeft="70dp"
+        android:layout_above="@+id/fragment"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
 
 
 
