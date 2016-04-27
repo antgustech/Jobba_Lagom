@@ -137,7 +137,7 @@ public class Server extends Thread {
 //				return names;
 //			}
 //		}
-		return null;
+		return null; //<-----REMOVE THIS
 	}
 	private String getCity(String choosenKommun) {
 		String query = "select Ort" + "from " + "ad8284" + ".skatt16april" + "where " + choosenKommun;
