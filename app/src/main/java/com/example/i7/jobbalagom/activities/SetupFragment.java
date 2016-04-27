@@ -1,8 +1,7 @@
-package com.example.i7.jobbalagom.activities.WorkRegister;
+package com.example.i7.jobbalagom.activities;
 
 import android.app.Fragment;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,7 +15,8 @@ import com.example.i7.jobbalagom.R;
 /**
  * Created by Kajsa and Jakup on 2016-04-25.
  */
-public class SetupFragment extends Fragment {
+
+public  class SetupFragment extends Fragment {
     private Button okbutton;
     private EditText inputName;
     private EditText inputFreeSum;
@@ -27,12 +27,6 @@ public class SetupFragment extends Fragment {
     private CheckBox checkbox;
     private SetupFragmentCallback callback;
 
-
-
-    public void setCallBack(SetupFragmentCallback callback){
-        this.callback = callback;
-    }
-    @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -52,6 +46,10 @@ public class SetupFragment extends Fragment {
         inputArea = (AutoCompleteTextView) view.findViewById(R.id.inputKommun);
         inputCB = (AutoCompleteTextView) view.findViewById(R.id.inputKollektivavtal);
 
+    }
+
+    public void setCallBack(SetupFragmentCallback callback){
+        this.callback = callback;
     }
 
     private class ButtonListener implements View.OnClickListener{
@@ -96,12 +94,6 @@ public class SetupFragment extends Fragment {
                 String cb = inputCB.getText().toString();
                 callback.setupUser(name, area, freeSum, title, hWage, cb);
             }
-
-
-
-
-
-
         }
     }
 }

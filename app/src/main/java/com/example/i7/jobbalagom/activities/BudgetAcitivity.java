@@ -37,5 +37,4 @@ public class BudgetAcitivity extends AppCompatActivity {
             window.setStatusBarColor(getResources().getColor(R.color.colorPrimaryDark));
         }
     }
-
 }
