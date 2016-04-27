@@ -2,6 +2,8 @@ package com.example.i7.jobbalagom.remote;
 
 import android.util.Log;
 
+import com.example.i7.jobbalagom.local.Controller;
+import com.example.i7.jobbalagom.local.DataHolder;
 import com.example.i7.jobbalagom.local.MessageCallback;
 
 import java.io.BufferedInputStream;
@@ -24,17 +26,17 @@ public class Client extends Thread {
     private DataOutputStream dos;
     private ObjectInputStream ois;
     private Thread clientThread;
-
     private boolean connected = false;
     private Connection dbConnection;
+    private Controller controller;
 
    // private DataOutputStream dos;
     private MessageCallback messageCallback;
-
     private String IP;
     private int PORT;
 
     public Client(MessageCallback messageCallback, String ip, int port){
+        controller  = (Controller) DataHolder.getInstance().getData();
         this.IP = ip;
         this.PORT = port;
         this.messageCallback = messageCallback;
@@ -58,12 +60,12 @@ public class Client extends Thread {
             dos = new DataOutputStream(new BufferedOutputStream(socket.getOutputStream()));
             ois = new ObjectInputStream((socket.getInputStream()));
 
-            getKommun();
+            //getKommun();
 
             Log.d("ServerTag","Worked i believe");
 
         } catch (IOException e) {}
-          catch(ClassNotFoundException ex){}
+        //  catch(ClassNotFoundException ex){}
     }
 
     public ArrayList<String> getKommun() throws IOException, ClassNotFoundException {

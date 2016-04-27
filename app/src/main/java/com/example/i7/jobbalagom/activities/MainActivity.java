@@ -18,6 +18,7 @@ import com.example.i7.jobbalagom.activities.WorkRegister.SetupFragment;
 import com.example.i7.jobbalagom.activities.WorkRegister.SetupFragmentCallback;
 import com.example.i7.jobbalagom.activities.WorkRegister.WorkRegisterActivity;
 import com.example.i7.jobbalagom.local.Controller;
+import com.example.i7.jobbalagom.local.DataHolder;
 
 public class MainActivity extends AppCompatActivity {
     private View btnTax;
@@ -37,9 +38,9 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         setStatusbarColor();
         ctrl = new Controller();
+        DataHolder.getInstance().setData(ctrl);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
 
         btnTime = findViewById(R.id.action_a);
         btnTax = findViewById(R.id.action_b);
@@ -55,16 +56,6 @@ public class MainActivity extends AppCompatActivity {
         setupFragment = new SetupFragment();
         setupFragment.setCallBack(new SetupUpdater());
         changeFragment(setupFragment);
-
-        //      FragmentManager fragmentManager = getFragmentManager();
-
-//        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-
-//        TimeRegisterFragment timeRegisterFragment = new TimeRegisterFragment();
-
-        //fragmentTransaction.replace(android.R.id.content, timeRegisterFragment);
-
-        // fragmentTransaction.commit();
 
     }
 
