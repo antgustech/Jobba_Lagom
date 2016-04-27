@@ -1,5 +1,8 @@
 package com.example.i7.jobbalagom.activities;
 
+import android.app.Fragment;
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.os.Build;
@@ -12,6 +15,8 @@ import android.view.View;
 import android.view.Window;
 
 import com.example.i7.jobbalagom.R;
+import com.example.i7.jobbalagom.activities.WorkRegister.SetupFragment;
+import com.example.i7.jobbalagom.activities.WorkRegister.SetupFragmentCallback;
 import com.example.i7.jobbalagom.activities.WorkRegister.WorkRegisterActivity;
 import com.example.i7.jobbalagom.local.Controller;
 
@@ -23,6 +28,9 @@ public class MainActivity extends AppCompatActivity {
     private ButtonListener bl = new ButtonListener();
     private TimePickerDialog timePickerDialog;
     private Controller ctrl;
+    private FragmentManager fragmentManager;
+    private SetupFragment setupFragment;
+    private FragmentTransaction fragmentTransaction;
 
     private final int REQUESTCODE_WORKREGISTER = 1;
 
@@ -44,6 +52,10 @@ public class MainActivity extends AppCompatActivity {
         btnTax.setOnClickListener(bl);
         btnTime.setOnClickListener(bl);
 
+        fragmentManager = getFragmentManager();
+        setupFragment = new SetupFragment();
+        setupFragment.setCallBack(new SetupUpdater());
+        changeFragment(setupFragment);
 
         //      FragmentManager fragmentManager = getFragmentManager();
 
@@ -60,6 +72,13 @@ public class MainActivity extends AppCompatActivity {
     public void startWorkRegister(){
         Intent workRegisterActivity =  new Intent(this, WorkRegisterActivity.class);
         startActivityForResult(workRegisterActivity,REQUESTCODE_WORKREGISTER);
+    }
+
+    private void changeFragment(Fragment fragment){
+        fragmentManager = getFragmentManager();
+        fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(android.R.id.content, fragment);
+        fragmentTransaction.commit();
     }
 
     private  void setStatusbarColor(){
@@ -130,5 +149,13 @@ public class MainActivity extends AppCompatActivity {
                 startWorkRegister();
             }
     }
+    }
+
+    private class SetupUpdater implements SetupFragmentCallback{
+        public void setupUser(String name, String area, String freeSum, String title, String hWage, String cb){
+            String logMsg = name + area + freeSum + title + hWage + cb;
+            Log.d("SetupUpdater", logMsg);
+        }
+
     }
 }

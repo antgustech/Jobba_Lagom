@@ -20,15 +20,20 @@ import com.example.i7.jobbalagom.R;
  */
 public class SetupFragment extends Fragment {
     private Button okbutton;
-    private EditText inputNamn;
-    private EditText inputFribelopp;
-    private EditText inputTitel;
-    private EditText inputTimlon;
-    private AutoCompleteTextView inputKommun;
-    private AutoCompleteTextView inputKollektivavtal;
+    private EditText inputName;
+    private EditText inputFreeSum;
+    private EditText inputTitle;
+    private EditText inputHWage;
+    private AutoCompleteTextView inputArea;
+    private AutoCompleteTextView inputCB;
     private CheckBox checkbox;
+    private SetupFragmentCallback callback;
 
 
+
+    public void setCallBack(SetupFragmentCallback callback){
+        this.callback = callback;
+    }
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater,
@@ -41,12 +46,12 @@ public class SetupFragment extends Fragment {
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         okbutton = (Button) view.findViewById(R.id.btnSetup);
-        inputNamn = (EditText) view.findViewById(R.id.inputNamn);
-        inputFribelopp = (EditText) view.findViewById(R.id.inputFribelopp);
-        inputTitel = (EditText) view.findViewById(R.id.inputTitel);
-        inputTimlon = (EditText) view.findViewById(R.id.inputTimlon);
-        inputKommun = (AutoCompleteTextView) view.findViewById(R.id.inputKommun);
-        inputKollektivavtal = (AutoCompleteTextView) view.findViewById(R.id.inputKollektivavtal);
+        inputName = (EditText) view.findViewById(R.id.inputNamn);
+        inputFreeSum = (EditText) view.findViewById(R.id.inputFribelopp);
+        inputTitle = (EditText) view.findViewById(R.id.inputTitel);
+        inputHWage = (EditText) view.findViewById(R.id.inputTimlon);
+        inputArea = (AutoCompleteTextView) view.findViewById(R.id.inputKommun);
+        inputCB = (AutoCompleteTextView) view.findViewById(R.id.inputKollektivavtal);
 
     }
 
@@ -54,28 +59,13 @@ public class SetupFragment extends Fragment {
 
         @Override
         public void onClick(View v) {
-        if(inputNamn.getText() == null || inputFribelopp.getText() == null || inputTitel.getText() == null || inputTimlon.getText() == null ||inputKommun.getText() == null || inputKollektivavtal.getText() == null){
-            AlertDialog alertDialog = new AlertDialog.Builder(getActivity()).create();
-            alertDialog.setTitle("Alert");
-            alertDialog.setMessage("Vänligen fyll i all information");
-            alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
-                    new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int which) {
-                            dialog.dismiss();
-                        }
-                    });
-            alertDialog.show();
-        }else{
-            String namn = inputNamn.getText().toString();
-            String fribelopp = inputFribelopp.getText().toString();
-            String titel = inputTitel.getText().toString();
-            String timlon = inputTimlon.getText().toString();
-            String kommun = inputKommun.getText().toString();
-            String kollektivavtal = inputKollektivavtal.getText().toString();
-
-        }
-
-
+            String name = inputName.getText().toString();
+            String area = inputArea.getText().toString();
+            String freeSum = inputFreeSum.getText().toString();
+            String title = inputTitle.getText().toString();
+            String hWage = inputHWage.getText().toString();
+            String cb = inputCB.getText().toString();
+            callback.setupUser(name, area, freeSum, title, hWage, cb);
         }
     }
 }

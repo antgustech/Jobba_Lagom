@@ -12,6 +12,9 @@ import android.widget.EditText;
 import com.example.i7.jobbalagom.R;
 import com.example.i7.jobbalagom.local.Expense;
 
+/**
+ * Created by Jakup on some date I don't remember
+ */
 
 public class AddExpenseActivity extends AppCompatActivity {
     private EditText inDate;
