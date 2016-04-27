@@ -1,5 +1,7 @@
 package com.example.i7.jobbalagom.local;
 
+import android.util.Log;
+
 import com.example.i7.jobbalagom.remote.Client;
 
 import java.io.IOException;
@@ -11,7 +13,7 @@ import java.util.ArrayList;
  */
 public class Controller  {
 
-    private final String IP = "192.168.1.19";//ÄNDRA IP VID TESTNING!!!!!!
+    private final String IP = "192.168.1.31";//ÄNDRA IP VID TESTNING!!!!!!
     private final int PORT = 4545;
 
     private Calculator calc;
@@ -54,6 +56,11 @@ public class Controller  {
     public void getTax(){
 
     }
+
+    public void testing(){
+        Log.d("tax","FUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUCK YEAH");
+    }
+
 
 
 

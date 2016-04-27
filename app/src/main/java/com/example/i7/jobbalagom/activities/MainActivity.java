@@ -15,8 +15,6 @@ import android.view.View;
 import android.view.Window;
 
 import com.example.i7.jobbalagom.R;
-import com.example.i7.jobbalagom.activities.WorkRegister.SetupFragment;
-import com.example.i7.jobbalagom.activities.WorkRegister.SetupFragmentCallback;
 import com.example.i7.jobbalagom.activities.WorkRegister.WorkRegisterActivity;
 import com.example.i7.jobbalagom.local.Controller;
 
@@ -153,8 +151,12 @@ public class MainActivity extends AppCompatActivity {
 
     private class SetupUpdater implements SetupFragmentCallback{
         public void setupUser(String name, String area, String freeSum, String title, String hWage, String cb){
+            fragmentManager.beginTransaction().remove(setupFragment).commit();
             String logMsg = name + area + freeSum + title + hWage + cb;
             Log.d("SetupUpdater", logMsg);
+
+            // --> Skicka användarinformation till servern
+            // --> Få tillbaka relaterad skattesats och kollektivavtal
         }
 
     }

@@ -1,4 +1,4 @@
-package com.example.i7.jobbalagom.activities.WorkRegister;
+package com.example.i7.jobbalagom.activities;
 
 /**
  * Created by Jakup on 2016-04-27.
