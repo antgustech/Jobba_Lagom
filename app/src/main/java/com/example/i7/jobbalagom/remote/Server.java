@@ -1,6 +1,8 @@
 package com.example.i7.jobbalagom.remote;
 
-
+/*
+ * Created by Anton 15-04-16
+ */
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.DataInputStream;
@@ -19,11 +21,10 @@ public class Server extends Thread {
 
 	private ServerSocket serverSocket;
 	private Connection dbConnection;
-	private ArrayList<String> alKommun;
 	private boolean connected = false;
 
 	/*
-	 * ------Handles connection
+	 * ------Handles connection-----------
 	 */
 	public Server() {
 		System.out.println("Server waiting to establish connection");
@@ -69,7 +70,7 @@ public class Server extends Thread {
 				oos = new ObjectOutputStream(new BufferedOutputStream(socket.getOutputStream()));
 			} catch (IOException e) {
 			}
-			System.out.println("New device connection" );
+			System.out.println("Client connected to server" );
 			connectDB();
 		}
 
@@ -96,25 +97,24 @@ public class Server extends Thread {
 							break;
 					}
 				} catch (IOException | SQLException e) {
-					e.printStackTrace();
+					System.out.println("[ERROR] IOException or SQLException");
 					connected=false;
 				}
 			}
 		}
-
 	}
 
 	/*
-	 * --------DB methods--------------
+	 * ----------------------------------DB methods-----------------------------------
 	 */
 	private void connectDB() {
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
 			dbConnection = DriverManager.getConnection("jdbc:mysql://195.178.232.7:4040/ad8284", "ad8284", "hejsan55");
-			System.out.println("Connected to database");
+			System.out.println("Server connected to database");
 		} catch (ClassNotFoundException e1) {
 		} catch (SQLException e2) {
-			System.out.println("Problem with connecting to db");
+			System.out.println("[ERROR] Problem with connecting to db");
 		}
 	}
 
@@ -122,7 +122,7 @@ public class Server extends Thread {
 		try {
 			dbConnection.close();
 		} catch (SQLException e) {
-			System.out.println("Problem with disconnecting db");
+			System.out.println("[ERROR] Problem with disconnecting db");
 		}
 	}
 	//Should read all kommun strings from table skatt16april
@@ -137,7 +137,7 @@ public class Server extends Thread {
 //				return names;
 //			}
 //		}
-		return null; //<-----REMOVE THIS
+		return null;
 	}
 	private String getCity(String choosenKommun) {
 		String query = "select Ort" + "from " + "ad8284" + ".skatt16april" + "where " + choosenKommun;
@@ -152,7 +152,7 @@ public class Server extends Thread {
 }
 
 
-//-------------------------------------------------------------------------------------------------------------------
+//--------------------------------------------------------------------------------------------------------------------
 // skatt16april
 //Kommun VARCHAR(15)
 //Ort VARCHAR(36)

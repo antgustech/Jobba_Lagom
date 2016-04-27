@@ -69,10 +69,9 @@ public class Client extends Thread {
     }
 
     public ArrayList<String> getKommun() throws IOException, ClassNotFoundException {
-        ArrayList<String> list = null;
+        ArrayList<String> list = new ArrayList<String>();
         try {
             dos.writeInt(1);
-            dos.flush();
             list = (ArrayList<String>) ois.readObject();
         } catch (IOException e) {
             e.printStackTrace();
