@@ -10,7 +10,9 @@
         android:id="@+id/datePicker"
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
-        android:layout_marginLeft="30dp" />
+        android:layout_alignParentRight="true"
+        android:scaleX="1.07"/>
+
 
     <Button
         android:layout_width="wrap_content"
