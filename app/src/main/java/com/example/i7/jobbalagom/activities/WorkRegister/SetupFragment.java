@@ -1,8 +1,6 @@
 package com.example.i7.jobbalagom.activities.WorkRegister;
 
-import android.app.AlertDialog;
 import android.app.Fragment;
-import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
@@ -46,6 +44,7 @@ public class SetupFragment extends Fragment {
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         okbutton = (Button) view.findViewById(R.id.btnSetup);
+        okbutton.setOnClickListener(new ButtonListener());
         inputName = (EditText) view.findViewById(R.id.inputNamn);
         inputFreeSum = (EditText) view.findViewById(R.id.inputFribelopp);
         inputTitle = (EditText) view.findViewById(R.id.inputTitel);

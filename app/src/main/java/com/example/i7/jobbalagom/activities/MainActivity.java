@@ -152,6 +152,7 @@ public class MainActivity extends AppCompatActivity {
 
     private class SetupUpdater implements SetupFragmentCallback{
         public void setupUser(String name, String area, String freeSum, String title, String hWage, String cb){
+            fragmentManager.beginTransaction().remove(setupFragment).commit();
             String logMsg = name + area + freeSum + title + hWage + cb;
             Log.d("SetupUpdater", logMsg);
         }
