@@ -72,7 +72,6 @@ public class MainActivity extends AppCompatActivity {
         setStatusbarColor();
         setupFragment = new SetupFragment();
         setupFragment.setCallBack(new SetupListener());//----------------------Not sure if correct class?
-
     }
 
     /**
@@ -80,7 +79,7 @@ public class MainActivity extends AppCompatActivity {
      * @param fragment
      */
     private void changeFragment(Fragment fragment){
-        fragmentManager = getFragmentManager();
+       // fragmentManager = getFragmentManager();
         fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.replace(android.R.id.content, fragment);
         fragmentTransaction.commit();
@@ -140,15 +139,6 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    /**
-     * Starts the work register activity
-     */
-    public void startWorkRegister(){
-        Intent workRegisterActivity =  new Intent(this, WorkRegisterActivity.class);
-        startActivityForResult(workRegisterActivity, REQUESTCODE_WORKREGISTER);
-    }
-
-
     /**Used for calculating and showing the data in the graph
      * ToDO: DOES NOT WORK!
      * @param requestCode
@@ -177,7 +167,6 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-
     /**
      * Button listener for fab
      */
@@ -197,6 +186,14 @@ public class MainActivity extends AppCompatActivity {
                 startWorkRegister();
             }
         }
+    }
+
+    /**
+     * Starts the work register activity
+     */
+    public void startWorkRegister(){
+        Intent workRegisterActivity =  new Intent(this, WorkRegisterActivity.class);
+        startActivityForResult(workRegisterActivity, REQUESTCODE_WORKREGISTER);
     }
 
     /**
