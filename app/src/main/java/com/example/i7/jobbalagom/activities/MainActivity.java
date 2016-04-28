@@ -30,6 +30,9 @@ public class MainActivity extends AppCompatActivity {
     private SetupFragment setupFragment;
     private AddExpenseFragment addExpenseFragment;
 
+    private MainActivityBudgetFragment budgetFragment;
+    private MainBarFragment barFragment;
+
     private final int REQUESTCODE_WORKREGISTER = 1;
 
     @Override
@@ -38,9 +41,13 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         initComponents();
 
+        budgetFragment = new MainActivityBudgetFragment();
+        barFragment = new MainBarFragment();
+
         setupFragment = new SetupFragment();
         setupFragment.setCallBack(new SetupListener());
-        changeFragment(setupFragment);
+
+        //changeFragment(setupFragment);
     }
 
     public void initComponents() {
@@ -60,7 +67,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void startWorkRegister(){
         Intent workRegisterActivity =  new Intent(this, WorkRegisterActivity.class);
-        startActivityForResult(workRegisterActivity,REQUESTCODE_WORKREGISTER);
+        startActivityForResult(workRegisterActivity, REQUESTCODE_WORKREGISTER);
     }
 
     private void changeFragment(Fragment fragment){
@@ -96,9 +103,14 @@ public class MainActivity extends AppCompatActivity {
                 String timeFrom = data.getStringExtra("TimeFrom");
                 String timeTo = data.getStringExtra("TimeTo");
 
-                Log.d("ResultTag",date);
-                Log.d("ResultTag",timeFrom);
-                Log.d("ResultTag",timeTo);
+                //barFragment.setData(200);
+                budgetFragment.setDataExpense(100);
+               // budgetFragment.updateDataExpense();
+                Log.d("SomeTag",budgetFragment.getDataExpense() + "");
+
+                //Log.d("ResultTag",date);
+                //Log.d("ResultTag",timeFrom);
+                //Log.d("ResultTag",timeTo);
 
                 //TODO
                 //The information above is the info that is going

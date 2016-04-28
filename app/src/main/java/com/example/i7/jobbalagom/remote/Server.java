@@ -1,4 +1,5 @@
-package server;
+
+package com.example.i7.jobbalagom.remote;
 
 /*
  * Created by Anton 15-04-16
@@ -15,10 +16,10 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.mysql.jdbc.Statement;
 
 public class Server extends Thread {
 
@@ -93,7 +94,7 @@ public class Server extends Thread {
 							list.add("ay");
 							list.add("lmao");
 							list.add("mofo");
-							oos.writeObject(getKommun());
+						//	oos.writeObject(getKommun());
 							break;
 
 						case 2://getCity
@@ -108,10 +109,10 @@ public class Server extends Thread {
 				} catch (IOException e) {
 					System.out.println("[ERROR] IOException or SQLException");
 					connected=false;
-				} catch (SQLException e) {
+				} //catch (SQLException e) {
 					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
+				//	e.printStackTrace();
+				//}
 			}
 		}
 	}
@@ -137,6 +138,7 @@ public class Server extends Thread {
 			System.out.println("[ERROR] Problem with disconnecting db");
 		}
 	}
+	/*
 	//Should read all kommun strings from table skatt16april
 	private ArrayList<String> getKommun() throws SQLException {
 		String kommuner ="";
@@ -150,6 +152,7 @@ public class Server extends Thread {
 			}
 		}
 	}
+	*/
 	private String getCity(String choosenKommun) {
 		String query = "select Ort" + "from " + "ad8284" + ".skatt16april" + "where " + choosenKommun;
 		System.out.println(query);
