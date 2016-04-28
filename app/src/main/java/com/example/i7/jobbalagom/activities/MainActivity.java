@@ -76,14 +76,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /**
-     * Starts the work register activity
-     */
-    public void startWorkRegister(){
-        Intent workRegisterActivity =  new Intent(this, WorkRegisterActivity.class);
-        startActivityForResult(workRegisterActivity, REQUESTCODE_WORKREGISTER);
-    }
-
-    /**
      * Changes fragments
      * @param fragment
      */
@@ -147,6 +139,15 @@ public class MainActivity extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
+
+    /**
+     * Starts the work register activity
+     */
+    public void startWorkRegister(){
+        Intent workRegisterActivity =  new Intent(this, WorkRegisterActivity.class);
+        startActivityForResult(workRegisterActivity, REQUESTCODE_WORKREGISTER);
+    }
+
 
     /**Used for calculating and showing the data in the graph
      * ToDO: DOES NOT WORK!
