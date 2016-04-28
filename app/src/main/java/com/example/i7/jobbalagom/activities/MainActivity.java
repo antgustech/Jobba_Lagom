@@ -36,19 +36,15 @@ public class MainActivity extends AppCompatActivity {
         controller = new Controller();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        initComponents();
+        initComponents();
 
-       // changeFragment(setupFragment);
-
-        //      FragmentManager fragmentManager = getFragmentManager();
-
+//        changeFragment(setupFragment);
+//        FragmentManager fragmentManager = getFragmentManager();
 //        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-
 //        TimeRegisterFragment timeRegisterFragment = new TimeRegisterFragment();
-
-        //fragmentTransaction.replace(android.R.id.content, timeRegisterFragment);
-
-        // fragmentTransaction.commit();
-
+//        fragmentTransaction.replace(android.R.id.content, timeRegisterFragment);
+//        fragmentTransaction.commit();
     }
 
     public void initComponents() {
