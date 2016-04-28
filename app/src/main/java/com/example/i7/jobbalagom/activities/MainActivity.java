@@ -23,31 +23,28 @@ public class MainActivity extends AppCompatActivity {
     private View btnWork;
     private View btnBudget;
     private ButtonListener listener;
+
     private Controller controller;
     private FragmentTransaction fragmentTransaction;
     private FragmentManager fragmentManager;
     private SetupFragment setupFragment;
+    private AddExpenseFragment addExpenseFragment;
 
     private final int REQUESTCODE_WORKREGISTER = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        controller = new Controller();
         setContentView(R.layout.activity_main);
-        setStatusbarColor();
-        initComponents();
         initComponents();
 
-//        changeFragment(setupFragment);
-//        FragmentManager fragmentManager = getFragmentManager();
-//        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-//        TimeRegisterFragment timeRegisterFragment = new TimeRegisterFragment();
-//        fragmentTransaction.replace(android.R.id.content, timeRegisterFragment);
-//        fragmentTransaction.commit();
+        setupFragment = new SetupFragment();
+        setupFragment.setCallBack(new SetupListener());
+        changeFragment(setupFragment);
     }
 
     public void initComponents() {
+        controller = new Controller();
         listener = new ButtonListener();
         btnTime = findViewById(R.id.action_a);
         btnTax = findViewById(R.id.action_b);
@@ -57,12 +54,8 @@ public class MainActivity extends AppCompatActivity {
         btnBudget.setOnClickListener(listener);
         btnTax.setOnClickListener(listener);
         btnTime.setOnClickListener(listener);
-    }
-
-    public void initFragments() {
         fragmentManager = getFragmentManager();
-        setupFragment = new SetupFragment();
-        setupFragment.setCallBack(new SetupListener());
+        setStatusbarColor();
     }
 
     public void startWorkRegister(){
@@ -75,6 +68,10 @@ public class MainActivity extends AppCompatActivity {
         fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.replace(android.R.id.content, fragment);
         fragmentTransaction.commit();
+    }
+
+    private void removeFragment(Fragment fragment) {
+        fragmentManager.beginTransaction().remove(fragment).commit();
     }
 
     private  void setStatusbarColor(){
@@ -108,7 +105,6 @@ public class MainActivity extends AppCompatActivity {
                 //to be used in the calculations to depict our graph
             }
         }
-
     }
 
     @Override
@@ -122,7 +118,7 @@ public class MainActivity extends AppCompatActivity {
         if (id == R.id.action_settings) {
             startActivity(new Intent(getApplicationContext(), SettingsActivity.class));
             return true;
-        } else if(id == R.id.action_about){
+        } else if(id == R.id.action_about) {
             startActivity(new Intent(getApplicationContext(), AboutActivity.class));
             return true;
         }
@@ -138,21 +134,31 @@ public class MainActivity extends AppCompatActivity {
             } else if (v.getId() == R.id.action_f) {
                 startActivity(new Intent(getApplicationContext(), BudgetAcitivity.class));
             } else if (v.getId() == R.id.action_a) {
-                startActivity(new Intent(getApplicationContext(), AddExpenseActivity.class));
+                addExpenseFragment = new AddExpenseFragment();
+                addExpenseFragment.setCallBack(new AddExpenseListener());
+                changeFragment(addExpenseFragment);
             } else if (v.getId() == R.id.action_e) {
                 startWorkRegister();
             }
         }
     }
 
-    private class SetupListener implements SetupFragmentCallback{
+    private class SetupListener implements SetupFragmentCallback {
         public void setupUser(String name, String area, String freeSum, String title, String hWage, String cb){
-            fragmentManager.beginTransaction().remove(setupFragment).commit();
+            removeFragment(setupFragment);
             String logMsg = name + area + freeSum + title + hWage + cb;
             Log.d("SetupListener", logMsg);
 
             // --> Send area and cb to server
             // --> Get related tax and OB from server
+        }
+    }
+
+    private class AddExpenseListener implements AddExpenseFragmentCallback {
+        public void addExpense(String title, String amount, String date) {
+            removeFragment(addExpenseFragment);
+            Log.d("AddExpenseListener", "Button pressed");
+            // --> Send new shift to client database
         }
     }
 }
