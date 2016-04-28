@@ -32,10 +32,10 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        setStatusbarColor();
-        controller = new Controller();
         super.onCreate(savedInstanceState);
+        controller = new Controller();
         setContentView(R.layout.activity_main);
+        setStatusbarColor();
         initComponents();
         initComponents();
 
@@ -122,29 +122,27 @@ public class MainActivity extends AppCompatActivity {
         if (id == R.id.action_settings) {
             startActivity(new Intent(getApplicationContext(), SettingsActivity.class));
             return true;
-
-        }else if(id == R.id.action_about){
+        } else if(id == R.id.action_about){
             startActivity(new Intent(getApplicationContext(), AboutActivity.class));
             return true;
         }
         return super.onOptionsItemSelected(item);
     }
 
-    //Click listener for floating aciton button
+    //Click listener for floating action button
     private class ButtonListener implements View.OnClickListener {
         @Override
         public void onClick(View v) {
-
             if (v.getId() == R.id.action_b) {
                 startActivity(new Intent(getApplicationContext(), ChangeTaxActivity.class));
-            }else if(v.getId() == R.id.action_f){
+            } else if (v.getId() == R.id.action_f) {
                 startActivity(new Intent(getApplicationContext(), BudgetAcitivity.class));
-            }else if(v.getId() == R.id.action_a){
+            } else if (v.getId() == R.id.action_a) {
                 startActivity(new Intent(getApplicationContext(), AddExpenseActivity.class));
-            }else if(v.getId() == R.id.action_e){
+            } else if (v.getId() == R.id.action_e) {
                 startWorkRegister();
             }
-    }
+        }
     }
 
     private class SetupListener implements SetupFragmentCallback{
@@ -153,9 +151,8 @@ public class MainActivity extends AppCompatActivity {
             String logMsg = name + area + freeSum + title + hWage + cb;
             Log.d("SetupListener", logMsg);
 
-            // --> Skicka användarinformation till servern
-            // --> Få tillbaka relaterad skattesats och kollektivavtal
+            // --> Send area and cb to server
+            // --> Get related tax and OB from server
         }
-
     }
 }
