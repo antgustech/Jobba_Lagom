@@ -48,8 +48,9 @@ public  class SetupFragment extends Fragment {
 
     }
 
-    public void setCallBack(SetupFragmentCallback callback){
+    public SetupFragment setCallBack(SetupFragmentCallback callback){
         this.callback = callback;
+        return null;
     }
 
     private class ButtonListener implements View.OnClickListener{

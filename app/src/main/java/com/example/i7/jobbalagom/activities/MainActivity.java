@@ -3,7 +3,6 @@ package com.example.i7.jobbalagom.activities;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
-import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
@@ -17,57 +16,53 @@ import android.view.Window;
 import com.example.i7.jobbalagom.R;
 import com.example.i7.jobbalagom.activities.WorkRegister.WorkRegisterActivity;
 import com.example.i7.jobbalagom.local.Controller;
-import com.example.i7.jobbalagom.local.DataHolder;
 
 public class MainActivity extends AppCompatActivity {
     private View btnTax;
     private View btnTime;
     private View btnWork;
     private View btnBudget;
-    private ButtonListener bl = new ButtonListener();
-    private TimePickerDialog timePickerDialog;
-    private Controller ctrl;
+    private ButtonListener listener;
+    private Controller controller;
+    private FragmentTransaction fragmentTransaction;
     private FragmentManager fragmentManager;
     private SetupFragment setupFragment;
-    private FragmentTransaction fragmentTransaction;
-
 
     private final int REQUESTCODE_WORKREGISTER = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        setStatusbarColor();
-        ctrl = new Controller();
         super.onCreate(savedInstanceState);
+        controller = new Controller();
         setContentView(R.layout.activity_main);
+        setStatusbarColor();
+        initComponents();
+        initComponents();
 
-        DataHolder.getInstance().setData(ctrl);
+//        changeFragment(setupFragment);
+//        FragmentManager fragmentManager = getFragmentManager();
+//        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+//        TimeRegisterFragment timeRegisterFragment = new TimeRegisterFragment();
+//        fragmentTransaction.replace(android.R.id.content, timeRegisterFragment);
+//        fragmentTransaction.commit();
+    }
 
+    public void initComponents() {
+        listener = new ButtonListener();
         btnTime = findViewById(R.id.action_a);
         btnTax = findViewById(R.id.action_b);
         btnWork = findViewById(R.id.action_e);
         btnBudget = findViewById(R.id.action_f);
+        btnWork.setOnClickListener(listener);
+        btnBudget.setOnClickListener(listener);
+        btnTax.setOnClickListener(listener);
+        btnTime.setOnClickListener(listener);
+    }
 
-        btnWork.setOnClickListener(bl);
-        btnBudget.setOnClickListener(bl);
-        btnTax.setOnClickListener(bl);
-        btnTime.setOnClickListener(bl);
-
+    public void initFragments() {
         fragmentManager = getFragmentManager();
         setupFragment = new SetupFragment();
-        setupFragment.setCallBack(new SetupUpdater());
-       // changeFragment(setupFragment);
-
-        //      FragmentManager fragmentManager = getFragmentManager();
-
-//        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-
-//        TimeRegisterFragment timeRegisterFragment = new TimeRegisterFragment();
-
-        //fragmentTransaction.replace(android.R.id.content, timeRegisterFragment);
-
-        // fragmentTransaction.commit();
-
+        setupFragment.setCallBack(new SetupListener());
     }
 
     public void startWorkRegister(){
@@ -127,40 +122,37 @@ public class MainActivity extends AppCompatActivity {
         if (id == R.id.action_settings) {
             startActivity(new Intent(getApplicationContext(), SettingsActivity.class));
             return true;
-
-        }else if(id == R.id.action_about){
+        } else if(id == R.id.action_about){
             startActivity(new Intent(getApplicationContext(), AboutActivity.class));
             return true;
         }
         return super.onOptionsItemSelected(item);
     }
 
-    //Click listener for floating aciton button
+    //Click listener for floating action button
     private class ButtonListener implements View.OnClickListener {
         @Override
         public void onClick(View v) {
-
             if (v.getId() == R.id.action_b) {
                 startActivity(new Intent(getApplicationContext(), ChangeTaxActivity.class));
-            }else if(v.getId() == R.id.action_f){
+            } else if (v.getId() == R.id.action_f) {
                 startActivity(new Intent(getApplicationContext(), BudgetAcitivity.class));
-            }else if(v.getId() == R.id.action_a){
+            } else if (v.getId() == R.id.action_a) {
                 startActivity(new Intent(getApplicationContext(), AddExpenseActivity.class));
-            }else if(v.getId() == R.id.action_e){
+            } else if (v.getId() == R.id.action_e) {
                 startWorkRegister();
             }
-    }
+        }
     }
 
-    private class SetupUpdater implements SetupFragmentCallback{
+    private class SetupListener implements SetupFragmentCallback{
         public void setupUser(String name, String area, String freeSum, String title, String hWage, String cb){
             fragmentManager.beginTransaction().remove(setupFragment).commit();
             String logMsg = name + area + freeSum + title + hWage + cb;
-            Log.d("SetupUpdater", logMsg);
+            Log.d("SetupListener", logMsg);
 
-            // --> Skicka användarinformation till servern
-            // --> Få tillbaka relaterad skattesats och kollektivavtal
+            // --> Send area and cb to server
+            // --> Get related tax and OB from server
         }
-
     }
 }
