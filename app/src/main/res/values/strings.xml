@@ -1,5 +1,7 @@
 <resources>
     <string name="app_name">Jobba Lagom</string>
+    <string name="job">Jobb</string>
+    <string name="edit_jobs">Lägg till nytt arbete</string>
     <string name="action_settings">Inställningar</string>
     <string name="actionbarTitleBudget">Budgetöversikt</string>
     <string name="title_activity_settings">Inställningar</string>

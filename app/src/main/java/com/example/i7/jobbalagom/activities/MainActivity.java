@@ -16,6 +16,7 @@ import android.view.Window;
 import com.example.i7.jobbalagom.R;
 import com.example.i7.jobbalagom.activities.WorkRegister.WorkRegisterActivity;
 import com.example.i7.jobbalagom.local.Controller;
+import com.example.i7.jobbalagom.local.DataHolder;
 
 public class MainActivity extends AppCompatActivity {
     private View btnTax;
@@ -24,7 +25,7 @@ public class MainActivity extends AppCompatActivity {
     private View btnBudget;
     private ButtonListener listener;
 
-    private Controller controller;
+    private Controller ctrl;
     private FragmentTransaction fragmentTransaction;
     private FragmentManager fragmentManager;
     private SetupFragment setupFragment;
@@ -37,6 +38,9 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        ctrl = new Controller();
+        DataHolder.getInstance().setData(ctrl);
+        setStatusbarColor();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         initComponents();
@@ -51,7 +55,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void initComponents() {
-        controller = new Controller();
+        ctrl = new Controller();
         listener = new ButtonListener();
         btnTime = findViewById(R.id.action_a);
         btnTax = findViewById(R.id.action_b);
@@ -63,6 +67,9 @@ public class MainActivity extends AppCompatActivity {
         btnTime.setOnClickListener(listener);
         fragmentManager = getFragmentManager();
         setStatusbarColor();
+        setupFragment = new SetupFragment();
+        setupFragment.setCallBack(new SetupListener());//----------------------Not sure if correct class?
+
     }
 
     public void startWorkRegister(){
@@ -117,6 +124,7 @@ public class MainActivity extends AppCompatActivity {
                 //to be used in the calculations to depict our graph
             }
         }
+
     }
 
     @Override
@@ -133,6 +141,8 @@ public class MainActivity extends AppCompatActivity {
         } else if(id == R.id.action_about) {
             startActivity(new Intent(getApplicationContext(), AboutActivity.class));
             return true;
+        }else if(id == R.id.action_vote){
+            startActivity(new Intent(getApplicationContext(), SettingsActivity.class));
         }
         return super.onOptionsItemSelected(item);
     }
@@ -141,6 +151,7 @@ public class MainActivity extends AppCompatActivity {
     private class ButtonListener implements View.OnClickListener {
         @Override
         public void onClick(View v) {
+
             if (v.getId() == R.id.action_b) {
                 startActivity(new Intent(getApplicationContext(), ChangeTaxActivity.class));
             } else if (v.getId() == R.id.action_f) {
