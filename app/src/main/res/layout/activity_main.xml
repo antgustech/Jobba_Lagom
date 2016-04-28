@@ -23,7 +23,7 @@
 
     <fragment
         android:layout_width="800dp"
-        android:layout_height="100dp"
+        android:layout_height="130dp"
 
         android:name="com.example.i7.jobbalagom.activities.MainActivityBudgetFragment"
         android:id="@+id/budgetfragment"
@@ -66,6 +66,15 @@
                 fab:fab_title="@string/fButtonBudget"
                 fab:fab_colorPressed="@color/white_pressed"/>
 
+            <com.getbase.floatingactionbutton.FloatingActionButton
+                android:id="@+id/action_e"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                fab:fab_icon="@drawable/ic_alarm_white_24dp"
+                fab:fab_colorNormal="@color/colorPrimary"
+                fab:fab_title="@string/fButtonTime"
+                fab:fab_colorPressed="@color/white_pressed"
+                />
 
             <com.getbase.floatingactionbutton.FloatingActionButton
                 android:id="@+id/action_a"
@@ -76,17 +85,6 @@
                 fab:fab_title="@string/fButtonExpanse"
                 fab:fab_colorPressed="@color/white_pressed"
 
-                />
-
-
-            <com.getbase.floatingactionbutton.FloatingActionButton
-                android:id="@+id/action_e"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                fab:fab_icon="@drawable/ic_alarm_white_24dp"
-                fab:fab_colorNormal="@color/colorPrimary"
-                fab:fab_title="@string/fButtonTime"
-                fab:fab_colorPressed="@color/white_pressed"
                 />
 
         </com.getbase.floatingactionbutton.FloatingActionsMenu>

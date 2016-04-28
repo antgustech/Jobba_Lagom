@@ -5,20 +5,16 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
 import com.example.i7.jobbalagom.R;
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
-
 import java.util.ArrayList;
-
 
 /**
  * Created by Anton on 2016-04-25.
  */
-
 
 public class MainBarFragment  extends Fragment{
     private BarChart mainChart;
@@ -32,7 +28,7 @@ public class MainBarFragment  extends Fragment{
         mainChart = (BarChart) view.findViewById(R.id.mainChart);
         //create data points
         ArrayList<BarEntry> entries = new ArrayList<>();
-        entries.add(new BarEntry(0, 60000));
+        entries.add(new BarEntry(60000, 10));
         dataset = new BarDataSet(entries, "Intjänade pengar");
 
         //create labels
@@ -47,7 +43,7 @@ public class MainBarFragment  extends Fragment{
         mainChart.setTouchEnabled(false);
         mainChart.animateY(2000);
 
-        setData(0);//<-----------------Example for testing.
+        setData(35233);//<-----------------Example for testing.
         return view;
     }
     //Updates the chart with specified sum.
@@ -58,8 +54,4 @@ public class MainBarFragment  extends Fragment{
         mainChart.notifyDataSetChanged(); // let the chart know it's data changed
         mainChart.invalidate(); // refresh
     }
-
-
-
-
 }
