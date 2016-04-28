@@ -54,6 +54,9 @@ public class MainActivity extends AppCompatActivity {
         //changeFragment(setupFragment);
     }
 
+    /**
+     * Initializes components.
+     */
     public void initComponents() {
         ctrl = new Controller();
         listener = new ButtonListener();
@@ -72,11 +75,18 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    /**
+     * Starts the work register activity
+     */
     public void startWorkRegister(){
         Intent workRegisterActivity =  new Intent(this, WorkRegisterActivity.class);
         startActivityForResult(workRegisterActivity, REQUESTCODE_WORKREGISTER);
     }
 
+    /**
+     * Changes fragments
+     * @param fragment
+     */
     private void changeFragment(Fragment fragment){
         fragmentManager = getFragmentManager();
         fragmentTransaction = fragmentManager.beginTransaction();
@@ -84,10 +94,17 @@ public class MainActivity extends AppCompatActivity {
         fragmentTransaction.commit();
     }
 
+    /**
+     * Removes fragments from fragmentManager
+     * @param fragment
+     */
     private void removeFragment(Fragment fragment) {
         fragmentManager.beginTransaction().remove(fragment).commit();
     }
 
+    /**
+     * Setups the statusbar color for older android versions
+     */
     private  void setStatusbarColor(){
         Window window = this.getWindow();
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
@@ -95,38 +112,22 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * Controls hamburger button
+     * @param menu
+     * @return
+     */
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
     }
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if(requestCode == REQUESTCODE_WORKREGISTER){
-            if(resultCode == RESULT_OK){
-                String date = data.getStringExtra("Date");
-                String timeFrom = data.getStringExtra("TimeFrom");
-                String timeTo = data.getStringExtra("TimeTo");
-
-                //barFragment.setData(200);
-                budgetFragment.setDataExpense(100);
-               // budgetFragment.updateDataExpense();
-                Log.d("SomeTag",budgetFragment.getDataExpense() + "");
-
-                //Log.d("ResultTag",date);
-                //Log.d("ResultTag",timeFrom);
-                //Log.d("ResultTag",timeTo);
-
-                //TODO
-                //The information above is the info that is going
-                //to be used in the calculations to depict our graph
-            }
-        }
-
-    }
-
+    /**
+     *  Handler for buttons on the hamburger button
+     * @param item
+     * @return
+     */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
@@ -147,7 +148,38 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    //Click listener for floating action button
+    /**Used for calculating and showing the data in the graph
+     * ToDO: DOES NOT WORK!
+     * @param requestCode
+     * @param resultCode
+     * @param data
+     */
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode == REQUESTCODE_WORKREGISTER){
+            if(resultCode == RESULT_OK){
+                String date = data.getStringExtra("Date");
+                String timeFrom = data.getStringExtra("TimeFrom");
+                String timeTo = data.getStringExtra("TimeTo");
+
+                //barFragment.setData(200);
+                budgetFragment.setDataExpense(100);
+               // budgetFragment.updateDataExpense();
+                Log.d("SomeTag",budgetFragment.getDataExpense() + "");
+
+                //Log.d("ResultTag",date);
+                //Log.d("ResultTag",timeFrom);
+                //Log.d("ResultTag",timeTo);
+
+            }
+        }
+    }
+
+
+    /**
+     * Button listener for fab
+     */
     private class ButtonListener implements View.OnClickListener {
         @Override
         public void onClick(View v) {
@@ -166,6 +198,9 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * Listener for setup screen fragment
+     */
     private class SetupListener implements SetupFragmentCallback {
         public void setupUser(String name, String area, String freeSum, String title, String hWage, String cb){
             removeFragment(setupFragment);
@@ -177,6 +212,9 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * Listener for add expense fragment
+     */
     private class AddExpenseListener implements AddExpenseFragmentCallback {
         public void addExpense(String title, String amount, String date) {
             removeFragment(addExpenseFragment);
