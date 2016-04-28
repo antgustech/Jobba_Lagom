@@ -1,11 +1,13 @@
 package com.example.i7.jobbalagom.activities;
 
+import android.app.Fragment;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.ImageButton;
 
 import com.example.i7.jobbalagom.R;
 
@@ -14,6 +16,7 @@ public class AddExpenseFragment extends Fragment {
     private EditText inputTitle;
     private EditText inputAmount;
     private EditText inputDate;
+    private ImageButton btnOK;
     private AddExpenseFragmentCallback callback;
 
     @Override
@@ -26,9 +29,19 @@ public class AddExpenseFragment extends Fragment {
         inputTitle = (EditText) view.findViewById(R.id.inputTitle);
         inputAmount = (EditText) view.findViewById(R.id.inputAmount);
         inputDate = (EditText) view.findViewById(R.id.inputDate);
+        btnOK = (ImageButton) view.findViewById(R.id.btnOK);
+        btnOK.setOnClickListener(new ButtonListener());
     }
 
     public void setCallBack(AddExpenseFragmentCallback callback){
         this.callback = callback;
+    }
+
+    private class ButtonListener implements View.OnClickListener {
+
+        @Override
+        public void onClick(View v) {
+            Log.d("AddExpenseFragment", "Button pressed");
+        }
     }
 }
