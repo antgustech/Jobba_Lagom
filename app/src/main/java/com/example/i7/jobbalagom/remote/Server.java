@@ -1,4 +1,4 @@
-package com.example.i7.jobbalagom.remote;
+package server;
 
 /*
  * Created by Anton 15-04-16
@@ -13,9 +13,12 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+
+import com.mysql.jdbc.Statement;
 
 public class Server extends Thread {
 
@@ -67,7 +70,7 @@ public class Server extends Thread {
 
 				dis = new DataInputStream(new BufferedInputStream(socket.getInputStream()));
 				dos = new DataOutputStream(new BufferedOutputStream(socket.getOutputStream()));
-				oos = new ObjectOutputStream(new BufferedOutputStream(socket.getOutputStream()));
+				oos = new ObjectOutputStream(socket.getOutputStream());
 			} catch (IOException e) {
 			}
 			System.out.println("Client connected to server" );
@@ -80,10 +83,16 @@ public class Server extends Thread {
 		public void run() {
 			while (connected) {
 				try {
+					System.out.println("Waiting on message from Client");
 					int intOperation = dis.readInt();
+					System.out.println(intOperation + " Operation");
 					switch (intOperation) {
 
 						case 1://getKommun
+							ArrayList<String> list = new ArrayList<String>();
+							list.add("ay");
+							list.add("lmao");
+							list.add("mofo");
 							oos.writeObject(getKommun());
 							break;
 
@@ -96,9 +105,12 @@ public class Server extends Thread {
 							dos.writeFloat(getTax(dis.readUTF()));
 							break;
 					}
-				} catch (IOException | SQLException e) {
+				} catch (IOException e) {
 					System.out.println("[ERROR] IOException or SQLException");
 					connected=false;
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
 				}
 			}
 		}
@@ -127,17 +139,16 @@ public class Server extends Thread {
 	}
 	//Should read all kommun strings from table skatt16april
 	private ArrayList<String> getKommun() throws SQLException {
-//		String kommuner ="";
-//		try (Statement s = (Statement) dbConnection.createStatement()) {
-//			try (ResultSet rs = s.executeQuery("select distinct Kommun from skatt16april order by Kommun")) {
-//				ArrayList<String> names = new ArrayList<String>();
-//				while (rs.next()) {
-//					names.add( rs.getString(1));
-//				}System.out.println("Skriver ut kommuner");
-//				return names;
-//			}
-//		}
-		return null;
+		String kommuner ="";
+		try (Statement s = (Statement) dbConnection.createStatement()) {
+			try (ResultSet rs = s.executeQuery("select distinct Kommun from skatt16april order by Kommun")) {
+				ArrayList<String> names = new ArrayList<String>();
+				while (rs.next()) {
+					names.add( rs.getString(1));
+				}System.out.println("Skriver ut kommuner");
+				return names;
+			}
+		}
 	}
 	private String getCity(String choosenKommun) {
 		String query = "select Ort" + "from " + "ad8284" + ".skatt16april" + "where " + choosenKommun;

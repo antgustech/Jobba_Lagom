@@ -30,6 +30,8 @@ public class Client extends Thread {
     private Connection dbConnection;
     private Controller controller;
 
+    private ArrayList<String> kommuner;
+
    // private DataOutputStream dos;
     private MessageCallback messageCallback;
     private String IP;
@@ -40,6 +42,9 @@ public class Client extends Thread {
         this.IP = ip;
         this.PORT = port;
         this.messageCallback = messageCallback;
+        kommuner = new ArrayList<String>();
+
+        if(!this.isAlive())
         start();
     }
 
@@ -54,30 +59,43 @@ public class Client extends Thread {
     }
 
     public void run(){
+        Log.d("ServerTag","Connecting");
         try {
             socket = new Socket(IP, PORT);
+            Log.d("ServerTag","Socket is up");
             dis = new DataInputStream(new BufferedInputStream(socket.getInputStream()));
+            Log.d("ServerTag","DataInput is up");
             dos = new DataOutputStream(new BufferedOutputStream(socket.getOutputStream()));
+            Log.d("ServerTag","DataOutput is up");
             ois = new ObjectInputStream((socket.getInputStream()));
+            Log.d("ServerTag","ObjectInput is up");
+          //  ArrayList<String> attemptList;
+           // attemptList =  getKommun();
 
-            ArrayList<String> attemptList;
-            attemptList =  getKommun();
-            Log.d("ServerTag","Worked i believe");
+            kommuner = getKommunFromServer();
 
         } catch (IOException e) {}
         catch(ClassNotFoundException e2){}
         //  catch(ClassNotFoundException ex){}
     }
 
-    public ArrayList<String> getKommun() throws IOException, ClassNotFoundException {
+    public ArrayList<String> getKommunFromServer() throws IOException, ClassNotFoundException {
         ArrayList<String> list = new ArrayList<String>();
         try {
             dos.writeInt(1);
-            list = (ArrayList<String>) ois.readObject();
+            dos.flush();
+
+            Log.d("ServerTag", "Operation sent");
+            list = (ArrayList) ois.readObject();
+            Log.d("ServerTag","Information received");
         } catch (IOException e) {
             e.printStackTrace();
         }  //return (ArrayList<String>)ois.readObject();
         return list;
+    }
+
+    public ArrayList<String> getKommunFromClient(){
+        return kommuner;
     }
 
     public void getCity() {

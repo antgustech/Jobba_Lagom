@@ -42,14 +42,14 @@ public class Controller  {
         }
     }
 
-/*
+
     public ArrayList<String> getKommun() throws IOException, ClassNotFoundException {
         ArrayList<String> kommuner = null;
-            kommuner = client.getKommun();
+            kommuner = client.getKommunFromClient();
 
         return kommuner;
     }
-*/
+
     public void getCity(){
 
     }
@@ -58,7 +58,7 @@ public class Controller  {
     }
 
     public void testing(){
-        Log.d("tax","Aylamo");
+        Log.d("taxTag","Aylamo");
     }
 
 

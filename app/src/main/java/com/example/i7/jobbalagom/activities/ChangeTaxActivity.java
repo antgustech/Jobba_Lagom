@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.View;
+import android.widget.Adapter;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 
@@ -29,20 +30,29 @@ public class ChangeTaxActivity extends AppCompatActivity {
         setContentView(R.layout.activity_change_tax);
         textViewKommun = (AutoCompleteTextView) findViewById(R.id.autoCompleteKommun);
         controller.testing();
-    /*
+
+        updateKommuner();
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,kommuner);
+
+        textViewKommun.setAdapter(adapter);
+
         textViewKommun.setOnClickListener(new View.OnClickListener() {
+
+
             @Override
             public void onClick(View v) {
-                try {
-                    controller.getKommun();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                } catch (ClassNotFoundException e) {
-                    e.printStackTrace();
-                }
+                /*TODO
+                    Lagra den nya informationen i databasen
+                 */
             }
         });
-        */
+
+    }
+    public void updateKommuner(){
+        try{
+            kommuner = controller.getKommun();
+        }catch(IOException e){}
+        catch (ClassNotFoundException e2){}
     }
 
     public void setKommun(String kommun){
