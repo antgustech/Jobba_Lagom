@@ -60,11 +60,12 @@ public class Client extends Thread {
             dos = new DataOutputStream(new BufferedOutputStream(socket.getOutputStream()));
             ois = new ObjectInputStream((socket.getInputStream()));
 
-            //getKommun();
-
+            ArrayList<String> attemptList;
+            attemptList =  getKommun();
             Log.d("ServerTag","Worked i believe");
 
         } catch (IOException e) {}
+        catch(ClassNotFoundException e2){}
         //  catch(ClassNotFoundException ex){}
     }
 

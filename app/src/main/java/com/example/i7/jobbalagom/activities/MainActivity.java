@@ -17,6 +17,7 @@ import android.view.Window;
 import com.example.i7.jobbalagom.R;
 import com.example.i7.jobbalagom.activities.WorkRegister.WorkRegisterActivity;
 import com.example.i7.jobbalagom.local.Controller;
+import com.example.i7.jobbalagom.local.DataHolder;
 
 public class MainActivity extends AppCompatActivity {
     private View btnTax;
@@ -30,6 +31,7 @@ public class MainActivity extends AppCompatActivity {
     private SetupFragment setupFragment;
     private FragmentTransaction fragmentTransaction;
 
+
     private final int REQUESTCODE_WORKREGISTER = 1;
 
     @Override
@@ -39,6 +41,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        DataHolder.getInstance().setData(ctrl);
 
         btnTime = findViewById(R.id.action_a);
         btnTax = findViewById(R.id.action_b);

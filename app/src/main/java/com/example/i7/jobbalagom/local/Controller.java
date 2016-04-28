@@ -13,7 +13,7 @@ import java.util.ArrayList;
  */
 public class Controller  {
 
-    private final String IP = "192.168.1.31";//ÄNDRA IP VID TESTNING!!!!!!
+    private final String IP = "192.168.1.19";//ÄNDRA IP VID TESTNING!!!!!!
     private final int PORT = 4545;
 
     private Calculator calc;
@@ -42,14 +42,14 @@ public class Controller  {
         }
     }
 
-
+/*
     public ArrayList<String> getKommun() throws IOException, ClassNotFoundException {
         ArrayList<String> kommuner = null;
             kommuner = client.getKommun();
 
         return kommuner;
     }
-
+*/
     public void getCity(){
 
     }
@@ -58,7 +58,7 @@ public class Controller  {
     }
 
     public void testing(){
-        Log.d("tax","FUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUCK YEAH");
+        Log.d("tax","Aylamo");
     }
 
 

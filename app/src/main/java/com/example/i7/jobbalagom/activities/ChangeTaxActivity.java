@@ -29,9 +29,7 @@ public class ChangeTaxActivity extends AppCompatActivity {
         setContentView(R.layout.activity_change_tax);
         textViewKommun = (AutoCompleteTextView) findViewById(R.id.autoCompleteKommun);
         controller.testing();
-
-
-
+    /*
         textViewKommun.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -44,7 +42,9 @@ public class ChangeTaxActivity extends AppCompatActivity {
                 }
             }
         });
+        */
     }
+
     public void setKommun(String kommun){
         //kommuner = kommun.split(" ");
     }
