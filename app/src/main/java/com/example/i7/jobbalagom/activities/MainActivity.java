@@ -38,7 +38,6 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        ctrl = new Controller();
         DataHolder.getInstance().setData(ctrl);
         setStatusbarColor();
         super.onCreate(savedInstanceState);
@@ -58,7 +57,7 @@ public class MainActivity extends AppCompatActivity {
      * Initializes components.
      */
     public void initComponents() {
-        ctrl = new Controller();
+        ctrl = new Controller(this);
         listener = new ButtonListener();
         btnTime = findViewById(R.id.action_a);
         btnTax = findViewById(R.id.action_b);

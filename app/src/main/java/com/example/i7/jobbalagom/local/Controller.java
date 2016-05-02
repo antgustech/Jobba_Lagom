@@ -1,8 +1,14 @@
 package com.example.i7.jobbalagom.local;
 
+import android.content.Context;
+import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
+import android.widget.Toast;
 
+import com.example.i7.jobbalagom.remote.App;
 import com.example.i7.jobbalagom.remote.Client;
+import com.example.i7.jobbalagom.remote.UserContract;
+import com.example.i7.jobbalagom.remote.UserDbHelper;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -13,17 +19,35 @@ import java.util.ArrayList;
  */
 public class Controller  {
 
-    private final String IP = "192.168.1.31";//ÄNDRA IP VID TESTNING!!!!!!
+    private final String IP = "192.168.1.19";//ÄNDRA IP VID TESTNING!!!!!!
     private final int PORT = 4545;
 
     private Calculator calc;
     private Client client;
     private MessageListener listener;
 
-    public Controller(){
+    //private Context context = this;
+    private UserDbHelper userDbHelper;
+    private SQLiteDatabase sqLiteDatabase;
+
+    public Controller(Context context){
         listener = new MessageListener();
         calc = new Calculator();
         client = new Client(listener,IP,PORT);
+        userDbHelper = new UserDbHelper(context);
+        addInformation();
+    }
+
+    public void addInformation(){
+        String name = "Christoffer";
+        float tax = 30.3f;
+        float earned = 10000;
+        float income = 130.17f;
+
+        sqLiteDatabase = userDbHelper.getWritableDatabase();
+        //userDbHelper.addInformations(name,earned,income,tax,sqLiteDatabase);
+        Log.d("DBTAG", "Information added");
+       // userDbHelper.close();
     }
 
     private class MessageListener implements MessageCallback{
