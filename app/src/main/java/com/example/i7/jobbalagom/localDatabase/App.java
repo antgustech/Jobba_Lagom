@@ -7,6 +7,7 @@ import java.sql.SQLException;
 
 /**
  * Created by Strandberg95 on 2016-05-01.
+ * EXPERIMENTAL CLASS JUST FOR TESTING SOME THINGS
  */
 public class App {
     private SQLiteConnection connection;

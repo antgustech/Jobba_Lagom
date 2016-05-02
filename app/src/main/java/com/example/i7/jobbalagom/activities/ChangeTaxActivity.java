@@ -1,12 +1,8 @@
 package com.example.i7.jobbalagom.activities;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.AttributeSet;
-import android.util.Log;
 import android.view.View;
-import android.widget.Adapter;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 
@@ -29,7 +25,6 @@ public class ChangeTaxActivity extends AppCompatActivity {
         controller  = (Controller) DataHolder.getInstance().getData();
         setContentView(R.layout.activity_change_tax);
         textViewKommun = (AutoCompleteTextView) findViewById(R.id.autoCompleteKommun);
-        controller.testing();
 
         updateKommuner();
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,kommuner);

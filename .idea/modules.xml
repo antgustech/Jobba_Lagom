@@ -6,6 +6,7 @@
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/sqlite-jdbc-3.8.11.2/sqlite-jdbc-3.8.11.2.iml" filepath="$PROJECT_DIR$/sqlite-jdbc-3.8.11.2/sqlite-jdbc-3.8.11.2.iml" />
       <module fileurl="file://$PROJECT_DIR$/sqlite-jdbc-3.8.11.2/sqlite-jdbc-3.8.11.2.iml" filepath="$PROJECT_DIR$/sqlite-jdbc-3.8.11.2/sqlite-jdbc-3.8.11.2.iml" />
+      <module fileurl="file://$PROJECT_DIR$/sqlite-jdbc-3.8.11.2/sqlite-jdbc-3.8.11.2.iml" filepath="$PROJECT_DIR$/sqlite-jdbc-3.8.11.2/sqlite-jdbc-3.8.11.2.iml" />
     </modules>
   </component>
 </project>

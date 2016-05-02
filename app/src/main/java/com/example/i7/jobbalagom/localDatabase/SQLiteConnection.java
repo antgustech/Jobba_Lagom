@@ -11,6 +11,7 @@ import java.sql.Statement;
 
 /**
  * Created by Strandberg95 on 2016-05-01.
+ * EXPERIMENTAL CLASS JUST FOR TESTING SOME THINGS
  */
 public class SQLiteConnection {
 

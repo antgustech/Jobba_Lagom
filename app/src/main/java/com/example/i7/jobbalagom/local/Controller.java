@@ -32,19 +32,51 @@ public class Controller  {
         calc = new Calculator();
         client = new Client(listener,IP,PORT);
         userDbHelper = new UserDbHelper(context);
-        addInformation();
+        addUser("Chris", 30.3f, 10000, 130.17f);
+        addJob("Rörmockare", "Chris", 100, 3.5f);
+        addShift("Rörmockare", 0900f,1700,030416,8);
+        addExpense("Glass", 50f, 050216);
     }
 
-    public void addInformation(){
-        String name = "Christoffer";
-        float tax = 30.3f;
-        float earned = 10000;
-        float income = 130.17f;
 
+    /**
+     * Adds user to db
+     */
+    public void addUser(String name, float tax, float earned, float income){
         sqLiteDatabase = userDbHelper.getWritableDatabase();
-        //userDbHelper.addInformations(name,earned,income,tax,sqLiteDatabase);
+        userDbHelper.addUser(name,earned,income,tax,sqLiteDatabase);
         Log.d("DBTAG", "Information added");
-       // userDbHelper.close();
+        userDbHelper.close();
+    }
+
+    /**
+     * Adds job to db
+     */
+    public void addJob(String name, String user, float pay, float ob){
+        sqLiteDatabase = userDbHelper.getWritableDatabase();
+        userDbHelper.addJob(name, user, pay, ob,sqLiteDatabase);
+        Log.d("DBTAG", "Information added");
+        userDbHelper.close();
+    }
+
+    /**
+     * Adds shift to db
+     */
+    public void addShift(String jobName, float start, float end, int date, float hoursWorked){
+        sqLiteDatabase = userDbHelper.getWritableDatabase();
+        userDbHelper.addShift(jobName, start, end, date, hoursWorked, sqLiteDatabase);
+        Log.d("DBTAG", "Information added");
+        userDbHelper.close();
+    }
+
+    /**
+     * Adds expense to db
+     */
+    public void addExpense(String name, float sum, int date){
+        sqLiteDatabase = userDbHelper.getWritableDatabase();
+        userDbHelper.addExpense(name, sum, date, sqLiteDatabase);
+        Log.d("DBTAG", "Information added");
+        userDbHelper.close();
     }
 
     private class MessageListener implements MessageCallback{
@@ -77,12 +109,5 @@ public class Controller  {
     public void getTax(){
 
     }
-
-    public void testing(){
-        Log.d("taxTag","Aylamo");
-    }
-
-
-
 
 }
