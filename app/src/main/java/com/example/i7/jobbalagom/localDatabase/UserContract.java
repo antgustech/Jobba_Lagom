@@ -1,4 +1,4 @@
-package com.example.i7.jobbalagom.remote;
+package com.example.i7.jobbalagom.localDatabase;
 
 /**
  * Created by Strandberg95 on 2016-05-01.

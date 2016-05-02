@@ -1,4 +1,4 @@
-package com.example.i7.jobbalagom.remote;
+package com.example.i7.jobbalagom.localDatabase;
 
 import android.util.Log;
 

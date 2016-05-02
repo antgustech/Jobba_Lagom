@@ -3,12 +3,9 @@ package com.example.i7.jobbalagom.local;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
-import android.widget.Toast;
 
-import com.example.i7.jobbalagom.remote.App;
 import com.example.i7.jobbalagom.remote.Client;
-import com.example.i7.jobbalagom.remote.UserContract;
-import com.example.i7.jobbalagom.remote.UserDbHelper;
+import com.example.i7.jobbalagom.localDatabase.UserDbHelper;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -62,7 +59,7 @@ public class Controller  {
 
         @Override
         public void updateTax(float tax) {
-            calc.setTax(tax);
+            calc.setTax();
         }
     }
 
