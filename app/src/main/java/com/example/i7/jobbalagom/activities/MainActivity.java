@@ -38,6 +38,7 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        ctrl = new Controller(this);
         DataHolder.getInstance().setData(ctrl);
         setStatusbarColor();
         super.onCreate(savedInstanceState);

@@ -9,12 +9,11 @@ import android.util.Log;
 /**
  * Created by Strandberg95 on 2016-05-01.
  * Updated by Anton Gusyafsson on 2016-05-02
- * Creates database and it's tables.
+ * Creates database and it's tables and methods for adding/updating rows and look at them.
  */
-
 public class UserDbHelper extends SQLiteOpenHelper {
-    private static final String DATABASE_NAME = "USERINFO.DB";
-    private static final int DATABASE_VERSION = 2;
+    private static final String DATABASE_NAME = "INTENAL.DB";
+    private static final int DATABASE_VERSION = 1;
 
     private static final String CREATE_USER_QUERY =
             "CREATE TABLE " + UserContract.User.TABLE_NAME
@@ -38,7 +37,6 @@ public class UserDbHelper extends SQLiteOpenHelper {
                     + UserContract.Shift.SHIFT_END + " FLOAT, "
                     + UserContract.Shift.SHIFT_DATE + " INTEGER, "
                     + UserContract.Shift.SHIFT_HOURS_WORKED + " FLOAT);";
-
 
     private static final String CREATE_EXPENSE_QUERY =
             "CREATE TABLE " + UserContract.Expense.TABLE_NAME
@@ -144,13 +142,19 @@ public class UserDbHelper extends SQLiteOpenHelper {
     }
 
     /**
-     * Not sure what this does yet...
+     * Drop tables if they exists
      * @param db
      * @param oldVersion
      * @param newVersion
      */
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-
+        // on upgrade drop older tables
+        db.execSQL("DROP TABLE IF EXISTS " + UserContract.User.TABLE_NAME);
+        db.execSQL("DROP TABLE IF EXISTS " + UserContract.Job.TABLE_NAME);
+        db.execSQL("DROP TABLE IF EXISTS " + UserContract.Shift.TABLE_NAME);
+        db.execSQL("DROP TABLE IF EXISTS " + UserContract.Expense.TABLE_NAME);
+        // create new tables
+        onCreate(db);
     }
 }

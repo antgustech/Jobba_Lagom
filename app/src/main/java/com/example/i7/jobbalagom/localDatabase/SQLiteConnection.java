@@ -1,7 +1,6 @@
 package com.example.i7.jobbalagom.localDatabase;
 
 import android.util.Log;
-
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -57,6 +56,5 @@ public class SQLiteConnection {
                 prep.execute();
             }
         }
-
     }
 }
