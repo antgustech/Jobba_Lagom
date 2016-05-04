@@ -45,6 +45,8 @@ public class Controller  {
        // deleteExpense("Glass");
 
         getExpenseSum();
+        getUserEarned();
+        getUserIncome();
 
 
 
@@ -166,7 +168,7 @@ public class Controller  {
     }
 
     /**
-     * Returns all sums from all rows from the expense table as a list.
+     * Returns stuff as a list.
      */
   /*  public ArrayList<Float> getExpenseSum(){
         ArrayList<Float> list;
@@ -180,11 +182,40 @@ public class Controller  {
 
     /**
      * Returns sum of all expenses as a float.
+     * Could possible be used when setting the expense bar in mainactivity.
      */
     public Float getExpenseSum(){
         Float sum = null;
         sqLiteDatabase = dbHelper.getReadableDatabase();
         sum = dbHelper.getExpenseSum(sqLiteDatabase);
+        dbHelper.close();
+        return sum;
+
+    }
+
+    /**
+     * Returns sum of all income as a float.
+     * Could be used for setting income bar in mainactivity.
+     * @return
+     */
+    public Float getUserIncome(){
+        Float sum = null;
+        sqLiteDatabase = dbHelper.getReadableDatabase();
+        sum = dbHelper.getUserIncome(sqLiteDatabase);
+        dbHelper.close();
+        return sum;
+
+    }
+
+    /**
+     * Returns sum of everyhting the user has earned as a float.
+     * Could be used when setting main bar.
+     * @return
+     */
+    public Float getUserEarned(){
+        Float sum = null;
+        sqLiteDatabase = dbHelper.getReadableDatabase();
+        sum = dbHelper.getUserEarned(sqLiteDatabase);
         dbHelper.close();
         return sum;
 

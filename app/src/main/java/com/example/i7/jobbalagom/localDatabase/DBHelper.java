@@ -206,6 +206,34 @@ public class DBHelper extends SQLiteOpenHelper {
         return sum;
     }
 
+    public Float getUserIncome(SQLiteDatabase db){
+        Float sum = null;
+        Cursor crs = db.rawQuery("select SUM(income) from " + UserContract.User.TABLE_NAME , null);
+        if(crs.moveToFirst())
+        {
+            sum = crs.getFloat(0);
+        }
+        Log.e("DBTAG", sum.toString());
+        Log.e("DBTAG", "getIncome in dbHelper float");
+        return sum;
+    }
+
+
+    public Float getUserEarned(SQLiteDatabase db){
+        Float sum = null;
+        Cursor crs = db.rawQuery("select SUM(earned) from " + UserContract.User.TABLE_NAME , null);
+        if(crs.moveToFirst())
+        {
+            sum = crs.getFloat(0);
+        }
+        Log.e("DBTAG", sum.toString());
+        Log.e("DBTAG", "getEarned in dbHelper float");
+        return sum;
+    }
+
+
+
+
 
 
 
