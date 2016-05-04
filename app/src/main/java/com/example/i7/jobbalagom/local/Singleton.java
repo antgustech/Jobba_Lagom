@@ -7,7 +7,7 @@ import android.app.Application;
  */
 public class Singleton extends Application {
     private String data;
-    private static Controller controller;
+    public static Controller controller;
 
     public String getData() {
         return data;

@@ -38,7 +38,7 @@ public class Client extends Thread {
     private int PORT;
 
     public Client(MessageCallback messageCallback, String ip, int port){
-        controller  = Singleton.getController();
+        controller  = Singleton.controller;
         this.IP = ip;
         this.PORT = port;
         this.messageCallback = messageCallback;

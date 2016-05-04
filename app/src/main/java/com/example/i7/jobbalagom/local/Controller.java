@@ -22,8 +22,6 @@ public class Controller  {
     private Calculator calc;
     private Client client;
     private MessageListener listener;
-
-    //private Context context = this;
     private DBHelper dbHelper;
     private SQLiteDatabase sqLiteDatabase;
 
@@ -34,7 +32,6 @@ public class Controller  {
         client = new Client(listener,IP,PORT);
 
         //TESTING
-        //dbHelper =DataHolder.getInstance().getDbHelper();
         dbHelper = new DBHelper(context);
         addUser("Chris", 30.3f, 10000, 130.17f);
         addJob("Rörmockare", "Chris", 100, 3.5f);
