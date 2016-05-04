@@ -2,7 +2,6 @@ package com.example.i7.jobbalagom.activities;
 
 import android.app.Fragment;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -55,16 +54,12 @@ public class LaunchFragment extends Fragment {
         public void onClick(View v) {
             if(v.getId() == R.id.btnLogo) {
                 callback.launch("btnLogo");
-                Log.d("LaunchFragment", "btnLogo pressed");
             } else if(v.getId() == R.id.btnNew) {
                 callback.launch("btnNew");
-                Log.d("LaunchFragment", "btnNew pressed");
             } else if(v.getId() == R.id.btnKey) {
                 callback.launch("btnKey");
-                Log.d("LaunchFragment", "btnKey pressed");
             } else if(v.getId() == R.id.btnInfo) {
                 callback.launch("btnInfo");
-                Log.d("LaunchFragment", "btnInfo pressed");
             }
         }
     }

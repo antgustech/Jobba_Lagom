@@ -200,7 +200,6 @@ public class MainActivity extends AppCompatActivity {
     /**
      * Listener for launch fragment
      */
-
     private class LaunchFragmentListener implements LaunchFragmentCallback {
         @Override
         public void launch(String choice) {
