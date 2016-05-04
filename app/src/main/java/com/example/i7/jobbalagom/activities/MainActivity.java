@@ -16,6 +16,7 @@ import android.view.Window;
 import com.example.i7.jobbalagom.R;
 import com.example.i7.jobbalagom.activities.WorkRegister.WorkRegisterActivity;
 import com.example.i7.jobbalagom.activities.callback_interfaces.AddExpenseFragmentCallback;
+import com.example.i7.jobbalagom.activities.callback_interfaces.AddJobFragmentCallback;
 import com.example.i7.jobbalagom.activities.callback_interfaces.LaunchFragmentCallback;
 import com.example.i7.jobbalagom.activities.callback_interfaces.SetupFragmentCallback;
 import com.example.i7.jobbalagom.local.Controller;
@@ -27,14 +28,17 @@ public class MainActivity extends AppCompatActivity {
     private View btnTime;
     private View btnWork;
     private View btnBudget;
+    private View btnAddJob;
     private ButtonListener listener;
 
     private Controller controller;
     private FragmentTransaction fragmentTransaction;
     private FragmentManager fragmentManager;
+
     private LaunchFragment launchFragment;
     private SetupFragment setupFragment;
     private AddExpenseFragment addExpenseFragment;
+    private AddJobFragment addJobFragment;
 
     private MainActivityBudgetFragment budgetFragment;
     private MainBarFragment barFragment;
@@ -72,10 +76,12 @@ public class MainActivity extends AppCompatActivity {
         btnTax = findViewById(R.id.action_b);
         btnWork = findViewById(R.id.action_e);
         btnBudget = findViewById(R.id.action_f);
+        btnAddJob = findViewById(R.id.action_addjob);
         btnWork.setOnClickListener(listener);
         btnBudget.setOnClickListener(listener);
         btnTax.setOnClickListener(listener);
         btnTime.setOnClickListener(listener);
+        btnAddJob.setOnClickListener(listener);
         fragmentManager = getFragmentManager();
         setStatusbarColor();
     }
@@ -177,6 +183,7 @@ public class MainActivity extends AppCompatActivity {
      * Button listener for fab
      */
     private class ButtonListener implements View.OnClickListener {
+
         @Override
         public void onClick(View v) {
 
@@ -190,6 +197,10 @@ public class MainActivity extends AppCompatActivity {
                 changeFragment(addExpenseFragment);
             } else if (v.getId() == R.id.action_e) {
                 startWorkRegister();
+            } else if (v.getId() == R.id.action_addjob) {
+                addJobFragment = new AddJobFragment();
+                addJobFragment.setCallBack(new AddJobFragmentListener());
+                changeFragment(addJobFragment);
             }
         }
     }
@@ -206,6 +217,7 @@ public class MainActivity extends AppCompatActivity {
      * Listener for update fragment
      */
     private class LaunchFragmentListener implements LaunchFragmentCallback {
+
         @Override
         public void update(String choice) {
             if(choice.equals("btnLogo")) {
@@ -226,12 +238,24 @@ public class MainActivity extends AppCompatActivity {
      * Listener for setup fragment
      */
     private class SetupFragmentListener implements SetupFragmentCallback {
+
         @Override
         public void update(String name, String municipality, String incomeLimit) {
             Log.d("SetupFragmentListener", "User information\nNamn: " + name + "\nKommun: " + municipality +
                     "\nFribelopp: " + incomeLimit);
             //ctrl.addUser(...);
             removeFragment(setupFragment);
+        }
+    }
+
+
+    /**
+     * Listener for add job fragment
+     */
+    private class AddJobFragmentListener implements AddJobFragmentCallback {
+
+        @Override
+        public void update(String jobTitle, String jobWage, String jobOB) {
         }
     }
 

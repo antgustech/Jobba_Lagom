@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="white">#FFFFFF</color>
+    <color name="white_trans">#80FFFFFF</color>
     <color name="bgSetup">#008ba0</color>
     <color name="grey">#d2d2d2</color>
     <color name="colorPrimary">#c6111d</color>
@@ -11,6 +12,7 @@
     <color name="half_black">#808080</color>
     <color name="black_overlay">#000000</color>
     <color name="black">#000000</color>
+    <color name="black_trans">#50000000</color>
     <color name="white_pressed">#f1f1f1</color>
     <color name="pink">#e91e63</color>
     <color name="pink_pressed">#9e091f</color>

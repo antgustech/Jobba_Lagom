@@ -51,6 +51,8 @@ public class AddJobFragment extends Fragment {
         btnAdd.setOnClickListener(new ButtonListener());
     }
 
+
+
     public void setCallBack(AddJobFragmentCallback callback){
         this.callback = callback;
     }

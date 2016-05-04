@@ -23,7 +23,6 @@ public class LaunchFragment extends Fragment {
     private ImageButton btnKey;
     private ImageButton btnInfo;
 
-    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_launch, container, false);
     }
@@ -50,6 +49,7 @@ public class LaunchFragment extends Fragment {
     }
 
     private class ButtonListener implements View.OnClickListener {
+
         @Override
         public void onClick(View v) {
             if(v.getId() == R.id.btnLogo) {
