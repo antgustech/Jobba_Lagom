@@ -72,6 +72,23 @@ public class DBHelper extends SQLiteOpenHelper {
     }
 
     /**
+     * Drop tables if they exists
+     * @param db
+     * @param oldVersion
+     * @param newVersion
+     */
+    @Override
+    public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+        // on upgrade drop older tables
+        db.execSQL("DROP TABLE IF EXISTS " + UserContract.User.TABLE_NAME);
+        db.execSQL("DROP TABLE IF EXISTS " + UserContract.Job.TABLE_NAME);
+        db.execSQL("DROP TABLE IF EXISTS " + UserContract.Shift.TABLE_NAME);
+        db.execSQL("DROP TABLE IF EXISTS " + UserContract.Expense.TABLE_NAME);
+        // create new tables
+        onCreate(db);
+    }
+
+    /**
      * Adds a user to the user table.
      * @param name
      * @param earned
@@ -143,22 +160,20 @@ public class DBHelper extends SQLiteOpenHelper {
         Log.e("DBTAG", "Information added ExpenseTable");
     }
 
-    /**
-     * Drop tables if they exists
-     * @param db
-     * @param oldVersion
-     * @param newVersion
-     */
-    @Override
-    public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        // on upgrade drop older tables
-        db.execSQL("DROP TABLE IF EXISTS " + UserContract.User.TABLE_NAME);
-        db.execSQL("DROP TABLE IF EXISTS " + UserContract.Job.TABLE_NAME);
-        db.execSQL("DROP TABLE IF EXISTS " + UserContract.Shift.TABLE_NAME);
-        db.execSQL("DROP TABLE IF EXISTS " + UserContract.Expense.TABLE_NAME);
-        // create new tables
-        onCreate(db);
+
+    public void deleteUser(String name, SQLiteDatabase db){
+        db.execSQL("DELETE FROM user WHERE name="+name+";");
     }
+    public void deleteJob(String name, SQLiteDatabase db){
+        db.execSQL("DELETE FROM job WHERE name="+name+";");
+    }
+    public void deleteShift(String name, SQLiteDatabase db){
+        db.execSQL("DELETE FROM shift WHERE shiftID="+name+";");
+    }
+    public void deleteExpense(String name, SQLiteDatabase db){
+        db.execSQL("DELETE FROM expense WHERE name="+name+";");
+    }
+
 
 
 }
