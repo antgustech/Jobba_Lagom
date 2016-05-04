@@ -20,6 +20,7 @@ import com.example.i7.jobbalagom.activities.callback_interfaces.LaunchFragmentCa
 import com.example.i7.jobbalagom.activities.callback_interfaces.SetupFragmentCallback;
 import com.example.i7.jobbalagom.local.Controller;
 import com.example.i7.jobbalagom.local.DataHolder;
+import com.example.i7.jobbalagom.localDatabase.DBHelper;
 
 public class MainActivity extends AppCompatActivity {
     private View btnTax;
@@ -38,11 +39,15 @@ public class MainActivity extends AppCompatActivity {
     private MainActivityBudgetFragment budgetFragment;
     private MainBarFragment barFragment;
 
+    private DBHelper dbHelper;
+
     private final int REQUESTCODE_WORKREGISTER = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+      //  dbHelper = new DBHelper(this);
         controller = new Controller(this);
+        //DataHolder.getInstance().setDbHelper(dbHelper);
         DataHolder.getInstance().setController(controller);
         setStatusbarColor();
         super.onCreate(savedInstanceState);

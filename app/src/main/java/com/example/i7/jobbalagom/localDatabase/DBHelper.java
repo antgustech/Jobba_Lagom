@@ -13,26 +13,28 @@ import android.util.Log;
  */
 public class DBHelper extends SQLiteOpenHelper {
     private static final String DATABASE_NAME = "INTENAL.DB";
-    private static final int DATABASE_VERSION = 2;
+    private static final int DATABASE_VERSION = 5;
+    private Integer mOpenCounter = 0;
+
 
     private static final String CREATE_USER_QUERY =
             "CREATE TABLE " + UserContract.User.TABLE_NAME
-                   + "( " + UserContract.User.USER_NAME + " varchar(100) PRIMARY KEY,"
+                   + "( " + UserContract.User.USER_NAME + " TEXT PRIMARY KEY,"
                    + UserContract.User.USER_EARNED + " FLOAT, "
                    + UserContract.User.USER_INCOME + " FLOAT, "
                    + UserContract.User.USER_TAX + " FLOAT);";
 
     private static final String CREATE_JOB_QUERY =
             "CREATE TABLE " + UserContract.Job.TABLE_NAME
-                   + "( " + UserContract.Job.JOB_NAME + " varchar(50) PRIMARY KEY, "
-                   + UserContract.Job.JOB_USER + " varchar(100), "
+                   + "( " + UserContract.Job.JOB_NAME + " TEXT PRIMARY KEY, "
+                   + UserContract.Job.JOB_USER + " TEXT, "
                    + UserContract.Job.JOB_PAY + " FLOAT, "
                    + UserContract.Job.JOB_OB + " FLOAT);";
 
     private static final String CREATE_SHIFT_QUERY =
             "CREATE TABLE " + UserContract.Shift.TABLE_NAME
                     + "( " +UserContract.Shift.SHIFT_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
-                    + UserContract.Shift.SHIFT_JOB_NAME + " varchar(100), "
+                    + UserContract.Shift.SHIFT_JOB_NAME + " TEXT, "
                     + UserContract.Shift.SHIFT_START + " FLOAT, "
                     + UserContract.Shift.SHIFT_END + " FLOAT, "
                     + UserContract.Shift.SHIFT_DATE + " INTEGER, "
@@ -41,7 +43,7 @@ public class DBHelper extends SQLiteOpenHelper {
     private static final String CREATE_EXPENSE_QUERY =
             "CREATE TABLE " + UserContract.Expense.TABLE_NAME
                     + "( " +UserContract.Expense.EXPENSE_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
-                    + UserContract.Expense.EXPENSE_NAME + " varchar(100), "
+                    + UserContract.Expense.EXPENSE_NAME + " TEXT, "
                     + UserContract.Expense.EXPENSE_SUM + " FLOAT, "
                     + UserContract.Expense.EXPENSE_DATE + " INTEGER); ";
 
@@ -102,7 +104,7 @@ public class DBHelper extends SQLiteOpenHelper {
         contentValues.put(UserContract.Job.JOB_PAY, pay);
         contentValues.put(UserContract.Job.JOB_OB, ob);
         db.insert(UserContract.Job.TABLE_NAME, null, contentValues);
-        Log.e("DBTAG", "Information added jobbTable");
+        Log.e("DBTAG", "Information added jobTable");
     }
 
     /**
@@ -121,7 +123,7 @@ public class DBHelper extends SQLiteOpenHelper {
         contentValues.put(UserContract.Shift.SHIFT_END, end);
         contentValues.put(UserContract.Shift.SHIFT_DATE, date);
         contentValues.put(UserContract.Shift.SHIFT_HOURS_WORKED, hoursWorked);
-        db.insert(UserContract.Job.TABLE_NAME, null, contentValues);
+        db.insert(UserContract.Shift.TABLE_NAME, null, contentValues);
         Log.e("DBTAG", "Information added shiftTable");
     }
 
@@ -157,4 +159,6 @@ public class DBHelper extends SQLiteOpenHelper {
         // create new tables
         onCreate(db);
     }
+
+
 }
