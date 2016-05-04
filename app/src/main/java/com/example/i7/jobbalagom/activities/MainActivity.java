@@ -198,11 +198,11 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /**
-     * Listener for launch fragment
+     * Listener for update fragment
      */
     private class LaunchFragmentListener implements LaunchFragmentCallback {
         @Override
-        public void launch(String choice) {
+        public void update(String choice) {
             if(choice.equals("btnLogo")) {
                 Log.d("MainActivity", "btnLogo pressed");
             } else if(choice.equals("btnNew")) {
@@ -222,7 +222,7 @@ public class MainActivity extends AppCompatActivity {
      */
     private class SetupFragmentListener implements SetupFragmentCallback {
         @Override
-        public void setupUser(String name, String municipality, String incomeLimit) {
+        public void update(String name, String municipality, String incomeLimit) {
             Log.d("SetupFragmentListener", "User information\nNamn: " + name + "\nKommun: " + municipality +
                     "\nFribelopp: " + incomeLimit);
             //ctrl.addUser(...);

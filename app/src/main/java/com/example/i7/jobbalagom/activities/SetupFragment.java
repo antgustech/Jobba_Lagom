@@ -81,7 +81,7 @@ public class SetupFragment extends Fragment {
                 String name = inputName.getText().toString();
                 String municipality = inputMunicipality.getText().toString();
                 String incomeLimit = inputIncomeLimit.getText().toString();
-                callback.setupUser(name, municipality, incomeLimit);
+                callback.update(name, municipality, incomeLimit);
             }
         }
     }
