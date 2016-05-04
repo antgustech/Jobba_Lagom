@@ -39,10 +39,14 @@ public class Controller  {
         addShift("Rörmockare", 0900f,1700,33,8);
         addExpense("Glass", 50f, 050216);
 
-        deleteUser("Chris");
-        deleteJob("Rörmockare");
-        deleteShift(1);
-        deleteExpense("Glass");
+       // deleteUser("Chris");
+       // deleteJob("Rörmockare");
+       // deleteShift(1);
+       // deleteExpense("Glass");
+
+        getExpenseSum();
+
+
 
     }
 
@@ -159,6 +163,31 @@ public class Controller  {
         sqLiteDatabase = dbHelper.getWritableDatabase();
         dbHelper.deleteExpense(name,sqLiteDatabase);
         dbHelper.close();
+    }
+
+    /**
+     * Returns all sums from all rows from the expense table as a list.
+     */
+  /*  public ArrayList<Float> getExpenseSum(){
+        ArrayList<Float> list;
+        sqLiteDatabase = dbHelper.getReadableDatabase();
+        list = dbHelper.getExpenseSum(sqLiteDatabase);
+        dbHelper.close();
+        return list;
+
+    }
+    */
+
+    /**
+     * Returns sum of all expenses as a float.
+     */
+    public Float getExpenseSum(){
+        Float sum = null;
+        sqLiteDatabase = dbHelper.getReadableDatabase();
+        sum = dbHelper.getExpenseSum(sqLiteDatabase);
+        dbHelper.close();
+        return sum;
+
     }
 
 }

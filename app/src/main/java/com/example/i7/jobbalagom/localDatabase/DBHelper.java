@@ -2,6 +2,7 @@ package com.example.i7.jobbalagom.localDatabase;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
@@ -176,6 +177,35 @@ public class DBHelper extends SQLiteOpenHelper {
         db.execSQL("DELETE FROM expense WHERE name='"+name+"';");
         Log.e("DBTAG", "Row deleted: Expense");
     }
+
+
+    /*public ArrayList<Float> getExpenseSum(SQLiteDatabase db){
+        ArrayList<Float> list = new ArrayList<Float>();
+        Cursor crs = db.rawQuery("select sum from " + UserContract.Expense.TABLE_NAME , null);
+        while(crs.moveToNext()){
+            float sum = crs.getFloat(crs.getColumnIndex("sum"));
+            list.add(sum);
+        }
+
+        Log.e("DBTAG", list.toString());
+        Log.e("DBTAG", "getExpenseSum");
+
+        return list;
+    }
+    */
+
+    public Float getExpenseSum(SQLiteDatabase db){
+        Float sum = null;
+        Cursor crs = db.rawQuery("select SUM(sum) from " + UserContract.Expense.TABLE_NAME , null);
+        if(crs.moveToFirst())
+        {
+            sum = crs.getFloat(0);
+        }
+        Log.e("DBTAG", sum.toString());
+        Log.e("DBTAG", "getExpenseSum in dbHelper float");
+        return sum;
+    }
+
 
 
 
