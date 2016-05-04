@@ -15,6 +15,8 @@ import android.view.Window;
 
 import com.example.i7.jobbalagom.R;
 import com.example.i7.jobbalagom.activities.WorkRegister.WorkRegisterActivity;
+import com.example.i7.jobbalagom.activities.callback_interfaces.AddExpenseFragmentCallback;
+import com.example.i7.jobbalagom.activities.callback_interfaces.SetupFragmentCallback;
 import com.example.i7.jobbalagom.local.Controller;
 import com.example.i7.jobbalagom.local.DataHolder;
 
@@ -48,9 +50,8 @@ public class MainActivity extends AppCompatActivity {
         budgetFragment = new MainActivityBudgetFragment();
         barFragment = new MainBarFragment();
 
-        setupFragment = new SetupFragment();
-        setupFragment.setCallBack(new SetupListener());
-
+        //setupFragment = new SetupFragment();
+        //setupFragment.setCallBack(new SetupFragmentListener());
         //changeFragment(setupFragment);
     }
 
@@ -70,8 +71,6 @@ public class MainActivity extends AppCompatActivity {
         btnTime.setOnClickListener(listener);
         fragmentManager = getFragmentManager();
         setStatusbarColor();
-        setupFragment = new SetupFragment();
-        setupFragment.setCallBack(new SetupListener());//----------------------Not sure if correct class?
     }
 
     /**
@@ -197,16 +196,15 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /**
-     * Listener for setup screen fragment
+     * Listener for setup fragment
      */
-    private class SetupListener implements SetupFragmentCallback {
-        public void setupUser(String name, String area, String freeSum, String title, String hWage, String cb){
+    private class SetupFragmentListener implements SetupFragmentCallback {
+        @Override
+        public void setupUser(String name, String municipality, String incomeLimit) {
+            Log.d("SetupFragmentListener", "User information\nNamn: " + name + "\nKommun: " + municipality +
+                    "\nFribelopp: " + incomeLimit);
+            //ctrl.addUser(...);
             removeFragment(setupFragment);
-            String logMsg = name + area + freeSum + title + hWage + cb;
-            Log.d("SetupListener", logMsg);
-
-            // --> Send area and cb to server
-            // --> Get related tax and OB from server
         }
     }
 

@@ -7,93 +7,81 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
-import android.widget.CheckBox;
 import android.widget.EditText;
 
 import com.example.i7.jobbalagom.R;
+import com.example.i7.jobbalagom.activities.callback_interfaces.SetupFragmentCallback;
 
 /**
- * Created by Kajsa and Jakup on 2016-04-25.
+ * Created by Jakup and Kajsa on 2016-04-27.
  */
 
-public  class SetupFragment extends Fragment {
-    private Button okbutton;
-    private EditText inputName;
-    private EditText inputFreeSum;
-    private EditText inputTitle;
-    private EditText inputHWage;
-    private AutoCompleteTextView inputArea;
-    private AutoCompleteTextView inputCB;
-    private CheckBox checkbox;
+public class SetupFragment extends Fragment {
+
     private SetupFragmentCallback callback;
+    private EditText inputName;
+    private EditText inputIncomeLimit;
+    private AutoCompleteTextView inputMunicipality;
+    private Button btnSetup;
+    private ButtonListener buttonListener;
 
     @Override
-    public View onCreateView(LayoutInflater inflater,
-                             ViewGroup container, Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.setup_fragment, container, false);
-
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        return inflater.inflate(R.layout.fragment_setup, container, false);
     }
 
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        okbutton = (Button) view.findViewById(R.id.btnSetup);
-        okbutton.setOnClickListener(new ButtonListener());
-        inputName = (EditText) view.findViewById(R.id.inputNamn);
-        inputFreeSum = (EditText) view.findViewById(R.id.inputFribelopp);
-        inputTitle = (EditText) view.findViewById(R.id.inputTitel);
-        inputHWage = (EditText) view.findViewById(R.id.inputTimlon);
-        inputArea = (AutoCompleteTextView) view.findViewById(R.id.inputKommun);
-        inputCB = (AutoCompleteTextView) view.findViewById(R.id.inputKollektivavtal);
-
+        initComponents(view);
     }
 
-    public SetupFragment setCallBack(SetupFragmentCallback callback){
+    public void initComponents(View view) {
+        buttonListener = new ButtonListener();
+        inputName = (EditText) view.findViewById(R.id.inputName);
+        inputIncomeLimit = (EditText) view.findViewById(R.id.inputIncomeLimit);
+        inputMunicipality = (AutoCompleteTextView) view.findViewById(R.id.inputMunicipality);
+        btnSetup = (Button) view.findViewById(R.id.btnSetup);
+        btnSetup.setOnClickListener(buttonListener);
+    }
+
+    public void setCallBack(SetupFragmentCallback callback){
         this.callback = callback;
-        return null;
     }
 
-    private class ButtonListener implements View.OnClickListener{
+    private class ButtonListener implements View.OnClickListener {
+
+        String errorMsg = "UPS!";
+        boolean inputOK = true;
 
         @Override
-        public void onClick(View v) {
-
-            String ERROR_MESSAGE = "UPS!";
+        public void onClick(View view) {
 
             View[] components = new View[6];
             components[0] = inputName;
-            components[1] = inputArea;
-            components[2] = inputFreeSum;
-            components[3] = inputArea;
-            components[4] = inputHWage;
-            components[5] = inputCB;
+            components[1] = inputMunicipality;
+            components[2] = inputIncomeLimit;
 
-            boolean inputValuesOK = true;
-
-            for(View c : components) {
-                if(c instanceof EditText) {
+            for (View c : components) {
+                if (c instanceof EditText) {
                     EditText e = (EditText) c;
-                    if(e.getText().toString().equals("")) {
-                        e.setError(ERROR_MESSAGE);
-                        inputValuesOK = false;
+                    if (e.getText().toString().equals("")) {
+                        e.setError(errorMsg);
+                        inputOK = false;
                     }
-                } else if(c instanceof AutoCompleteTextView) {
+                } else if (c instanceof AutoCompleteTextView) {
                     AutoCompleteTextView a = (AutoCompleteTextView) c;
-                    if(a.getText().toString().equals("")) {
-                        a.setError(ERROR_MESSAGE);
-                        inputValuesOK = false;
+                    if (a.getText().toString().equals("")) {
+                        a.setError(errorMsg);
+                        inputOK = false;
                     }
                 }
             }
 
-            if(inputValuesOK) {
+            if (inputOK) {
                 String name = inputName.getText().toString();
-                String area = inputArea.getText().toString();
-                String freeSum = inputFreeSum.getText().toString();
-                String title = inputTitle.getText().toString();
-                String hWage = inputHWage.getText().toString();
-                String cb = inputCB.getText().toString();
-                callback.setupUser(name, area, freeSum, title, hWage, cb);
+                String municipality = inputMunicipality.getText().toString();
+                String incomeLimit = inputIncomeLimit.getText().toString();
+                callback.setupUser(name, municipality, incomeLimit);
             }
         }
     }

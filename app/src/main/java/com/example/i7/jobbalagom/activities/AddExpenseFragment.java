@@ -10,6 +10,7 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 
 import com.example.i7.jobbalagom.R;
+import com.example.i7.jobbalagom.activities.callback_interfaces.AddExpenseFragmentCallback;
 
 public class AddExpenseFragment extends Fragment {
 

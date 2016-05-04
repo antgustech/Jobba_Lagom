@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="white">#FFFFFF</color>
-    <color name="bgSetup">#49AB81</color>
+    <color name="bgSetup">#008ba0</color>
     <color name="grey">#d2d2d2</color>
     <color name="colorPrimary">#c6111d</color>
     <color name="colorPrimaryDark">#9c0b23</color>

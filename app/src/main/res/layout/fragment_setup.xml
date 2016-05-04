@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bgSetup"
+    android:paddingRight="@dimen/fragment_padding_width"
+    android:paddingLeft="@dimen/fragment_padding_width"
+    android:gravity="center_vertical"
+    >
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Ett sätt att nå \n balans mellan arbete \n och studier"
+        android:textSize="@dimen/title_size"
+        android:textColor="@color/white"
+        android:id="@+id/tvTitle"
+        android:textAlignment="center"
+        />
+
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="Namn"
+        android:textColor="@color/white"
+        android:id="@+id/tvName"
+        android:layout_below="@+id/tvTitle"
+        android:textAlignment="center"
+        android:textSize="@dimen/inputTitle"
+        android:background="@color/grey"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="@dimen/text_margin"
+        />
+
+    <EditText
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/inputName"
+        android:layout_gravity="center_horizontal"
+        android:layout_below="@+id/tvName"
+        android:background="@color/white"
+        />
+
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="Kommun"
+        android:textColor="@color/white"
+        android:id="@+id/tvMunicipality"
+        android:layout_below="@+id/tvTitle"
+        android:textAlignment="center"
+        android:textSize="@dimen/inputTitle"
+        android:background="@color/grey"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="@dimen/text_margin"
+        />
+
+    <AutoCompleteTextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/inputMunicipality"
+        android:layout_gravity="center_horizontal"
+        android:layout_below="@+id/tvMunicipality"
+        android:background="@color/white"
+        android:inputType="text"
+        />
+
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="Fribelopp (CSN)"
+        android:textColor="@color/white"
+        android:id="@+id/tvIncomeLimit"
+        android:layout_below="@+id/inputMunicipality"
+        android:textAlignment="center"
+        android:textSize="@dimen/inputTitle"
+        android:background="@color/grey"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="@dimen/text_margin"
+        />
+
+    <EditText
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/inputIncomeLimit"
+        android:layout_gravity="center_horizontal"
+        android:layout_below="@+id/tvName"
+        android:background="@color/white"
+        android:inputType="number"
+        />
+
+
+    <CheckBox
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/checkBox"
+        android:layout_gravity="center_horizontal"
+        android:text="Ja, jag vill lagra \n information i molnet \n som backup."
+        android:textColor="@color/white"
+        android:textAlignment="center"
+        android:layout_marginTop="@dimen/text_margin"
+        android:textSize="@dimen/title_size"
+        android:buttonTint="@color/white"
+        />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="OK"
+        android:id="@+id/btnSetup"
+        android:layout_gravity="center_horizontal"
+        android:textColor="@color/white"
+        android:layout_marginTop="12dp"/>
+
+</LinearLayout>

@@ -36,11 +36,6 @@
         <activity
             android:name=".activities.SettingsActivity"
             android:label="Inställningar"></activity>
-
-        <activity android:name=".activities.ChangeTaxActivity"
-            android:label="Ändra skattesatsen">
-
-        </activity>
     </application>
 
 </manifest>
