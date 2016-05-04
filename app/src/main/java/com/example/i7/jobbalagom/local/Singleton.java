@@ -4,18 +4,11 @@ import android.app.Application;
 
 /**
  * Created by Anton Gustafsson on 2016-05-04.
+ * Holds Controller reference
+ * TODO Fix it
  */
 public class Singleton extends Application {
-    private String data;
     public static Controller controller;
-
-    public String getData() {
-        return data;
-    }
-
-    public void setData(String data) {
-        this.data = data;
-    }
 
     public static Controller getController() {
         return Singleton.controller;

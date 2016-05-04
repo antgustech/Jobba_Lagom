@@ -39,7 +39,9 @@ public class Controller  {
         addExpense("Glass", 50f, 050216);
 
         deleteUser("Chris");
-
+        deleteJob("Rörmockare");
+        deleteShift(1);
+        deleteExpense("Glass");
 
     }
 
@@ -135,9 +137,9 @@ public class Controller  {
         dbHelper.close();
     }
 
-    public void deleteShift(String name ) {
+    public void deleteShift(int id ) {
         sqLiteDatabase = dbHelper.getWritableDatabase();
-        dbHelper.deleteShift(name,sqLiteDatabase);
+        dbHelper.deleteShift(id,sqLiteDatabase);
         dbHelper.close();
     }
 

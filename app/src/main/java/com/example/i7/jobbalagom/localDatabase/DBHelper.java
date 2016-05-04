@@ -13,8 +13,7 @@ import android.util.Log;
  */
 public class DBHelper extends SQLiteOpenHelper {
     private static final String DATABASE_NAME = "INTENAL.DB";
-    private static final int DATABASE_VERSION = 5;
-    private Integer mOpenCounter = 0;
+    private static final int DATABASE_VERSION = 6;
 
 
     private static final String CREATE_USER_QUERY =
@@ -169,8 +168,8 @@ public class DBHelper extends SQLiteOpenHelper {
         db.execSQL("DELETE FROM job WHERE name='"+name+"';");
         Log.e("DBTAG", "Row deleted: job");
     }
-    public void deleteShift(String name, SQLiteDatabase db){
-        db.execSQL("DELETE FROM shift WHERE shiftID='"+name+"';");
+    public void deleteShift(int id, SQLiteDatabase db){
+        db.execSQL("DELETE FROM shift WHERE shiftID='"+id+"';");
         Log.e("DBTAG", "Row deleted: Shift");
     }
     public void deleteExpense(String name, SQLiteDatabase db){
