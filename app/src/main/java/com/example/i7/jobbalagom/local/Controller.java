@@ -28,6 +28,7 @@ public class Controller  {
     private SQLiteDatabase sqLiteDatabase;
 
     public Controller(Context context){
+        Log.e("DBTAG", "Controller created!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
         listener = new MessageListener();
         calc = new Calculator();
         client = new Client(listener,IP,PORT);
@@ -41,6 +42,8 @@ public class Controller  {
         addExpense("Glass", 50f, 050216);
 
         deleteUser("Chris");
+
+
     }
 
 

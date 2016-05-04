@@ -28,10 +28,6 @@ public class DataHolder {
         return dbHelper;
     }
 
-
-
-
-
     public static DataHolder getInstance() {
         return holder;
     }

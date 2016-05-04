@@ -49,6 +49,8 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+
       //  dbHelper = new DBHelper(this);
         controller = new Controller(this);
         //DataHolder.getInstance().setDbHelper(dbHelper);
@@ -61,16 +63,12 @@ public class MainActivity extends AppCompatActivity {
         budgetFragment = new MainActivityBudgetFragment();
         barFragment = new MainBarFragment();
 
-        //launchFragment = new LaunchFragment();
-        //launchFragment.setCallBack(new LaunchFragmentListener());
-        //changeFragment(launchFragment);
     }
 
     /**
      * Initializes components.
      */
     public void initComponents() {
-        controller = new Controller(this);
         listener = new ButtonListener();
         btnTime = findViewById(R.id.action_a);
         btnTax = findViewById(R.id.action_b);

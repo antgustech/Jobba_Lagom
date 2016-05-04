@@ -162,16 +162,20 @@ public class DBHelper extends SQLiteOpenHelper {
 
 
     public void deleteUser(String name, SQLiteDatabase db){
-        db.execSQL("DELETE FROM user WHERE name="+name+";");
+        db.execSQL("DELETE FROM user WHERE name='"+name+"';");
+        Log.e("DBTAG", "Row deleted: user");
     }
     public void deleteJob(String name, SQLiteDatabase db){
-        db.execSQL("DELETE FROM job WHERE name="+name+";");
+        db.execSQL("DELETE FROM job WHERE name='"+name+"';");
+        Log.e("DBTAG", "Row deleted: job");
     }
     public void deleteShift(String name, SQLiteDatabase db){
-        db.execSQL("DELETE FROM shift WHERE shiftID="+name+";");
+        db.execSQL("DELETE FROM shift WHERE shiftID='"+name+"';");
+        Log.e("DBTAG", "Row deleted: Shift");
     }
     public void deleteExpense(String name, SQLiteDatabase db){
-        db.execSQL("DELETE FROM expense WHERE name="+name+";");
+        db.execSQL("DELETE FROM expense WHERE name='"+name+"';");
+        Log.e("DBTAG", "Row deleted: Expense");
     }
 
 
