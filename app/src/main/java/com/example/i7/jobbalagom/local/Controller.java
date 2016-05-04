@@ -24,14 +24,15 @@ public class Controller  {
     private MessageListener listener;
 
     //private Context context = this;
-    private DBHelper DBHelper;
+    private DBHelper dbHelper;
     private SQLiteDatabase sqLiteDatabase;
 
     public Controller(Context context){
         listener = new MessageListener();
         calc = new Calculator();
         client = new Client(listener,IP,PORT);
-        DBHelper = new DBHelper(context);
+        //dbHelper =DataHolder.getInstance().getDbHelper();
+        dbHelper = new DBHelper(context);
         addUser("Chris", 30.3f, 10000, 130.17f);
         addJob("Rörmockare", "Chris", 100, 3.5f);
         addShift("Rörmockare", 0900f,1700,33,8);
@@ -43,40 +44,40 @@ public class Controller  {
      * Adds user to db
      */
     public void addUser(String name, float tax, float earned, float income){
-        sqLiteDatabase = DBHelper.getWritableDatabase();
-        DBHelper.addUser(name,earned,income,tax,sqLiteDatabase);
+        sqLiteDatabase = dbHelper.getWritableDatabase();
+        dbHelper.addUser(name,earned,income,tax,sqLiteDatabase);
         Log.d("DBTAG", "Information added");
-        DBHelper.close();
+        dbHelper.close();
     }
 
     /**
      * Adds job to db
      */
     public void addJob(String name, String user, float pay, float ob){
-        sqLiteDatabase = DBHelper.getWritableDatabase();
-        DBHelper.addJob(name, user, pay, ob,sqLiteDatabase);
+        sqLiteDatabase = dbHelper.getWritableDatabase();
+        dbHelper.addJob(name, user, pay, ob,sqLiteDatabase);
         Log.d("DBTAG", "Information added");
-        DBHelper.close();
+        dbHelper.close();
     }
 
     /**
      * Adds shift to db
      */
     public void addShift(String jobName, float start, float end, int date, float hoursWorked){
-        sqLiteDatabase = DBHelper.getWritableDatabase();
-        DBHelper.addShift(jobName, start, end, date, hoursWorked, sqLiteDatabase);
+        sqLiteDatabase = dbHelper.getWritableDatabase();
+        dbHelper.addShift(jobName, start, end, date, hoursWorked, sqLiteDatabase);
         Log.d("DBTAG", "Information added");
-        DBHelper.close();
+        dbHelper.close();
     }
 
     /**
      * Adds expense to db
      */
     public void addExpense(String name, float sum, int date){
-        sqLiteDatabase = DBHelper.getWritableDatabase();
-        DBHelper.addExpense(name, sum, date, sqLiteDatabase);
+        sqLiteDatabase = dbHelper.getWritableDatabase();
+        dbHelper.addExpense(name, sum, date, sqLiteDatabase);
         Log.d("DBTAG", "Information added");
-        DBHelper.close();
+        dbHelper.close();
     }
 
     private class MessageListener implements MessageCallback{

@@ -25,11 +25,11 @@ public class UserContract {
     public static abstract class Shift{
         public static final String TABLE_NAME = "shift";
         public static final String SHIFT_ID = "shiftID";
-        public static final String SHIFT_JOB_NAME = "jobID";
-        public static final String SHIFT_START = "shiftstart";
-        public static final String SHIFT_END = "shiftend";
+        public static final String SHIFT_JOB_NAME = "jobName";
+        public static final String SHIFT_START = "shiftStart";
+        public static final String SHIFT_END = "shiftEnd";
         public static final String SHIFT_DATE = "date";
-        public static final String SHIFT_HOURS_WORKED = "workedhours";
+        public static final String SHIFT_HOURS_WORKED = "workedHours";
     }
 
     public static abstract class Expense{

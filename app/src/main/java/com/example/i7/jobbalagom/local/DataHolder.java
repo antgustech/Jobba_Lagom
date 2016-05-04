@@ -19,9 +19,11 @@ public class DataHolder {
     public void setController(Controller controller) {
         this.controller = controller;
     }
+
     public void setDbHelper(DBHelper dbHelper){
         this.dbHelper=dbHelper;
     }
+
     public DBHelper getDbHelper(){
         return dbHelper;
     }
