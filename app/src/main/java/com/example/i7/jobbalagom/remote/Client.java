@@ -3,8 +3,8 @@ package com.example.i7.jobbalagom.remote;
 import android.util.Log;
 
 import com.example.i7.jobbalagom.local.Controller;
-import com.example.i7.jobbalagom.local.DataHolder;
 import com.example.i7.jobbalagom.local.MessageCallback;
+import com.example.i7.jobbalagom.local.Singleton;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
@@ -38,7 +38,7 @@ public class Client extends Thread {
     private int PORT;
 
     public Client(MessageCallback messageCallback, String ip, int port){
-        controller  =  DataHolder.getInstance().getController();
+        controller  = Singleton.getController();
         this.IP = ip;
         this.PORT = port;
         this.messageCallback = messageCallback;

@@ -20,7 +20,7 @@ import com.example.i7.jobbalagom.activities.callback_interfaces.AddJobFragmentCa
 import com.example.i7.jobbalagom.activities.callback_interfaces.LaunchFragmentCallback;
 import com.example.i7.jobbalagom.activities.callback_interfaces.SetupFragmentCallback;
 import com.example.i7.jobbalagom.local.Controller;
-import com.example.i7.jobbalagom.local.DataHolder;
+import com.example.i7.jobbalagom.local.Singleton;
 import com.example.i7.jobbalagom.localDatabase.DBHelper;
 
 public class MainActivity extends AppCompatActivity {
@@ -49,12 +49,9 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
-
-      //  dbHelper = new DBHelper(this);
         controller = new Controller(this);
-        //DataHolder.getInstance().setDbHelper(dbHelper);
-        DataHolder.getInstance().setController(controller);
+        Singleton.setController(controller);
+
         setStatusbarColor();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);

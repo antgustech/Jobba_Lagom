@@ -8,7 +8,7 @@ import android.widget.AutoCompleteTextView;
 
 import com.example.i7.jobbalagom.R;
 import com.example.i7.jobbalagom.local.Controller;
-import com.example.i7.jobbalagom.local.DataHolder;
+import com.example.i7.jobbalagom.local.Singleton;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -22,7 +22,7 @@ public class ChangeTaxActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        controller  =  DataHolder.getInstance().getController();
+        controller  = Singleton.getController();
         setContentView(R.layout.activity_change_tax);
         textViewKommun = (AutoCompleteTextView) findViewById(R.id.autoCompleteKommun);
 
