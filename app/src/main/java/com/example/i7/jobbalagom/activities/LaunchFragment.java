@@ -16,7 +16,7 @@ import com.example.i7.jobbalagom.activities.callback_interfaces.LaunchFragmentCa
 
 public class LaunchFragment extends Fragment {
 
-   private LaunchFragmentCallback callback;
+    private LaunchFragmentCallback callback;
     private ButtonListener buttonListener;
     private ImageButton btnLogo;
     private ImageButton btnNew;
