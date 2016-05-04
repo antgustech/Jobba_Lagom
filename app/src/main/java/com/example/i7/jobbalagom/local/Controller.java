@@ -33,6 +33,7 @@ public class Controller  {
 
         //TESTING
         dbHelper = new DBHelper(context);
+        Singleton.setDBHelper(dbHelper);
         addUser("Chris", 30.3f, 10000, 130.17f);
         addJob("Rörmockare", "Chris", 100, 3.5f);
         addShift("Rörmockare", 0900f,1700,33,8);
@@ -61,7 +62,9 @@ public class Controller  {
             calc.setTax();
         }
     }
-
+    /**
+     *---------------------External Database methods
+     */
 
     public ArrayList<String> getKommun() throws IOException, ClassNotFoundException {
         ArrayList<String> kommuner = null;
@@ -77,8 +80,8 @@ public class Controller  {
 
     }
 
-    /*
-    *Database methods
+    /**
+    *---------------------Internal Database methods
     */
 
 
@@ -123,7 +126,7 @@ public class Controller  {
     }
 
     /**
-     * Delete User from table
+     * Delete User from table where String=userName
      */
     public void deleteUser(String name ) {
         sqLiteDatabase = dbHelper.getWritableDatabase();
@@ -131,18 +134,27 @@ public class Controller  {
         dbHelper.close();
     }
 
+    /**
+     * Delete Job from table where String=jobName
+     */
     public void deleteJob(String name ) {
         sqLiteDatabase = dbHelper.getWritableDatabase();
         dbHelper.deleteJob(name,sqLiteDatabase);
         dbHelper.close();
     }
 
+    /**
+     * Delete Shift from table where id=shiftID
+     */
     public void deleteShift(int id ) {
         sqLiteDatabase = dbHelper.getWritableDatabase();
         dbHelper.deleteShift(id,sqLiteDatabase);
         dbHelper.close();
     }
 
+    /**
+     * Delete Expense from table where String=expenseName
+     */
     public void deleteExpense(String name ) {
         sqLiteDatabase = dbHelper.getWritableDatabase();
         dbHelper.deleteExpense(name,sqLiteDatabase);
