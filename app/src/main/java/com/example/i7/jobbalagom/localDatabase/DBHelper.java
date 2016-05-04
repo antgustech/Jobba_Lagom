@@ -11,9 +11,9 @@ import android.util.Log;
  * Updated by Anton Gusyafsson on 2016-05-02
  * Creates database and it's tables and methods for adding/updating rows and look at them.
  */
-public class UserDbHelper extends SQLiteOpenHelper {
+public class DBHelper extends SQLiteOpenHelper {
     private static final String DATABASE_NAME = "INTENAL.DB";
-    private static final int DATABASE_VERSION = 1;
+    private static final int DATABASE_VERSION = 2;
 
     private static final String CREATE_USER_QUERY =
             "CREATE TABLE " + UserContract.User.TABLE_NAME
@@ -31,7 +31,7 @@ public class UserDbHelper extends SQLiteOpenHelper {
 
     private static final String CREATE_SHIFT_QUERY =
             "CREATE TABLE " + UserContract.Shift.TABLE_NAME
-                    + "( " +UserContract.Shift.SHIFT_ID + "INTEGER PRIMARY KEY AUTO_INCREMENT, "
+                    + "( " +UserContract.Shift.SHIFT_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
                     + UserContract.Shift.SHIFT_JOB_NAME + " varchar(100), "
                     + UserContract.Shift.SHIFT_START + " FLOAT, "
                     + UserContract.Shift.SHIFT_END + " FLOAT, "
@@ -40,7 +40,7 @@ public class UserDbHelper extends SQLiteOpenHelper {
 
     private static final String CREATE_EXPENSE_QUERY =
             "CREATE TABLE " + UserContract.Expense.TABLE_NAME
-                    + "( " +UserContract.Expense.EXPENSE_ID + "INTEGER PRIMARY KEY AUTO_INCREMENT, "
+                    + "( " +UserContract.Expense.EXPENSE_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
                     + UserContract.Expense.EXPENSE_NAME + " varchar(100), "
                     + UserContract.Expense.EXPENSE_SUM + " FLOAT, "
                     + UserContract.Expense.EXPENSE_DATE + " INTEGER); ";
@@ -50,7 +50,7 @@ public class UserDbHelper extends SQLiteOpenHelper {
      * If the version has changed, it will create a new database.
      * @param context
      */
-    public UserDbHelper(Context context){
+    public DBHelper(Context context){
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
         Log.e("DBTAG", "Database created / Opened...");
     }

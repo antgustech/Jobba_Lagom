@@ -27,7 +27,7 @@ public class MainActivity extends AppCompatActivity {
     private View btnBudget;
     private ButtonListener listener;
 
-    private Controller ctrl;
+    private Controller controller;
     private FragmentTransaction fragmentTransaction;
     private FragmentManager fragmentManager;
     private SetupFragment setupFragment;
@@ -40,8 +40,8 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        ctrl = new Controller(this);
-        DataHolder.getInstance().setData(ctrl);
+        controller = new Controller(this);
+        DataHolder.getInstance().setController(controller);
         setStatusbarColor();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
@@ -59,7 +59,7 @@ public class MainActivity extends AppCompatActivity {
      * Initializes components.
      */
     public void initComponents() {
-        ctrl = new Controller(this);
+        controller = new Controller(this);
         listener = new ButtonListener();
         btnTime = findViewById(R.id.action_a);
         btnTax = findViewById(R.id.action_b);

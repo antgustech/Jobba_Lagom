@@ -22,7 +22,7 @@ public class ChangeTaxActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        controller  = (Controller) DataHolder.getInstance().getData();
+        controller  =  DataHolder.getInstance().getController();
         setContentView(R.layout.activity_change_tax);
         textViewKommun = (AutoCompleteTextView) findViewById(R.id.autoCompleteKommun);
 
