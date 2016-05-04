@@ -16,6 +16,7 @@ import android.view.Window;
 import com.example.i7.jobbalagom.R;
 import com.example.i7.jobbalagom.activities.WorkRegister.WorkRegisterActivity;
 import com.example.i7.jobbalagom.activities.callback_interfaces.AddExpenseFragmentCallback;
+import com.example.i7.jobbalagom.activities.callback_interfaces.LaunchFragmentCallback;
 import com.example.i7.jobbalagom.activities.callback_interfaces.SetupFragmentCallback;
 import com.example.i7.jobbalagom.local.Controller;
 import com.example.i7.jobbalagom.local.DataHolder;
@@ -30,6 +31,7 @@ public class MainActivity extends AppCompatActivity {
     private Controller controller;
     private FragmentTransaction fragmentTransaction;
     private FragmentManager fragmentManager;
+    private LaunchFragment launchFragment;
     private SetupFragment setupFragment;
     private AddExpenseFragment addExpenseFragment;
 
@@ -50,9 +52,9 @@ public class MainActivity extends AppCompatActivity {
         budgetFragment = new MainActivityBudgetFragment();
         barFragment = new MainBarFragment();
 
-        //setupFragment = new SetupFragment();
-        //setupFragment.setCallBack(new SetupFragmentListener());
-        //changeFragment(setupFragment);
+        //launchFragment = new LaunchFragment();
+        //launchFragment.setCallBack(new LaunchFragmentListener());
+        //changeFragment(launchFragment);
     }
 
     /**
@@ -193,6 +195,27 @@ public class MainActivity extends AppCompatActivity {
     public void startWorkRegister(){
         Intent workRegisterActivity =  new Intent(this, WorkRegisterActivity.class);
         startActivityForResult(workRegisterActivity, REQUESTCODE_WORKREGISTER);
+    }
+
+    /**
+     * Listener for launch fragment
+     */
+
+    private class LaunchFragmentListener implements LaunchFragmentCallback {
+        @Override
+        public void launch(String choice) {
+            if(choice.equals("btnLogo")) {
+                Log.d("MainActivity", "btnLogo pressed");
+            } else if(choice.equals("btnNew")) {
+                setupFragment = new SetupFragment();
+                setupFragment.setCallBack(new SetupFragmentListener());
+                changeFragment(setupFragment);
+            } else if(choice.equals("btnKey")) {
+                Log.d("MainActivity", "btnKey pressed");
+            } else if(choice.equals("btnInfo")) {
+                Log.d("MainActivity", "btnInfo pressed");
+            }
+        }
     }
 
     /**
