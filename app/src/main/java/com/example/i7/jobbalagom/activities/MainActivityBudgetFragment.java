@@ -78,6 +78,7 @@ public class MainActivityBudgetFragment extends Fragment{
     public void onResume() {
         updateDataExpense();
         updateDataIncome();
+
         super.onResume();
        // Log.d("ResumeTag", "Fragment Resumed");
        // Log.d("ResumeTag", "current Expense: " + expenseSum);

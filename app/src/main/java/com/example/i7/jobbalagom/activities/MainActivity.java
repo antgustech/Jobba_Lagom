@@ -68,13 +68,13 @@ public class MainActivity extends AppCompatActivity {
     public void initComponents() {
         listener = new ButtonListener();
         btnTime = findViewById(R.id.action_a);
-        btnTax = findViewById(R.id.action_b);
+      //  btnTax = findViewById(R.id.action_b);
         btnWork = findViewById(R.id.action_e);
         btnBudget = findViewById(R.id.action_f);
         btnAddJob = findViewById(R.id.action_addjob);
         btnWork.setOnClickListener(listener);
         btnBudget.setOnClickListener(listener);
-        btnTax.setOnClickListener(listener);
+      //  btnTax.setOnClickListener(listener);
         btnTime.setOnClickListener(listener);
         btnAddJob.setOnClickListener(listener);
         fragmentManager = getFragmentManager();
@@ -141,7 +141,7 @@ public class MainActivity extends AppCompatActivity {
             startActivity(new Intent(getApplicationContext(), AboutActivity.class));
             return true;
         }else if(id == R.id.action_vote){
-            startActivity(new Intent(getApplicationContext(), SettingsActivity.class));
+
         }
         return super.onOptionsItemSelected(item);
     }
@@ -182,9 +182,11 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public void onClick(View v) {
 
-            if (v.getId() == R.id.action_b) {
-                startActivity(new Intent(getApplicationContext(), ChangeTaxActivity.class));
-            } else if (v.getId() == R.id.action_f) {
+            //if (v.getId() == R.id.action_b) {
+              //  startActivity(new Intent(getApplicationContext(), ChangeTaxActivity.class));
+            //} else
+
+            if (v.getId() == R.id.action_f) {
                 startActivity(new Intent(getApplicationContext(), BudgetAcitivity.class));
             } else if (v.getId() == R.id.action_a) {
                 addExpenseFragment = new AddExpenseFragment();

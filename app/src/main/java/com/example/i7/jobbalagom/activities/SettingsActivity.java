@@ -1,5 +1,6 @@
 package com.example.i7.jobbalagom.activities;
 
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
@@ -29,7 +30,7 @@ public class SettingsActivity extends AppCompatActivity {
         setStatusbarColor();
         setContentView(R.layout.activity_settings);
         myList = (ListView)findViewById(R.id.settingListView);
-        String[] values = new String[] { "Allmänt", "Jobb" };
+        String[] values = new String[] { "Allmänt", "Jobb", "Notifikationer", "Skattesats" };
 
         list = new ArrayList<String>();
 
@@ -38,30 +39,27 @@ public class SettingsActivity extends AppCompatActivity {
                 android.R.layout.simple_list_item_1, values);
         myList.setAdapter(adapter);
         myList.setOnItemClickListener(new ListListener());
-
-
-
-
-
 }
 
     private class ListListener implements ListView.OnItemClickListener{
         public void onItemClick(AdapterView<?> parent, View view,
                                 int position, long id) {
+            int itemPosition  = position;
+            String itemValue = (String) myList.getItemAtPosition(position);
 
-            // ListView Clicked item index
-            int itemPosition     = position;
-
-            // ListView Clicked item value
-            String  itemValue    = (String) myList.getItemAtPosition(position);
-
-            // Show Alert
-            Toast.makeText(getApplicationContext(),
-                    "Position :"+itemPosition+"  ListItem : " +itemValue , Toast.LENGTH_LONG)
-                    .show();
-
+            if (itemValue == "Allmänt") {
+                //Start intent or something
+                Toast.makeText(getApplicationContext(), "Nothing here yet :)", Toast.LENGTH_LONG).show();
+            }else if(itemValue =="Jobb"){
+                //Start intent or something
+                Toast.makeText(getApplicationContext(), "Nothing here yet :)", Toast.LENGTH_LONG).show();
+            }else if(itemValue == "Notifikationer"){
+                //Start intent or something
+                Toast.makeText(getApplicationContext(), "Nothing here yet :)", Toast.LENGTH_LONG).show();
+            }else if(itemValue == "Skattesats"){
+                startActivity(new Intent(getApplicationContext(), ChangeTaxActivity.class));
+            }
         }
-
     }
 
 

@@ -124,7 +124,7 @@ public class Controller  {
     /**
      * Adds expense to db
      */
-    public void addExpense(String name, float sum, int date){
+    public void addExpense(String name, Float sum, int date){
         sqLiteDatabase = dbHelper.getWritableDatabase();
         dbHelper.addExpense(name, sum, date, sqLiteDatabase);
         Log.d("DBTAG", "Information added");

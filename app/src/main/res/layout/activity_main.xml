@@ -9,7 +9,7 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin">
 
-
+<!--Old main bar
     <fragment
         android:layout_width="200dp"
         android:layout_height="360dp"
@@ -20,7 +20,7 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_marginBottom="-5dp" />
-
+-->
     <fragment
         android:layout_width="800dp"
         android:layout_height="130dp"
@@ -44,7 +44,7 @@
             android:layout_alignParentRight="true"
             android:layout_alignParentEnd="true"
       >
-
+        <!--
             <com.getbase.floatingactionbutton.FloatingActionButton
                 android:id="@+id/action_b"
                 android:layout_width="wrap_content"
@@ -53,6 +53,7 @@
                 fab:fab_colorNormal="@color/colorPrimary"
                 fab:fab_title="@string/fButtonTax"
                 fab:fab_colorPressed="@color/white_pressed"/>
+            -->
 
 
 
@@ -105,11 +106,18 @@
         android:text="Fribelopp"
         android:id="@+id/textView2"
         android:paddingLeft="70dp"
-        android:layout_above="@+id/fragment"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
 
-
+    <fragment
+        android:layout_width="200dp"
+        android:layout_height="300dp"
+        android:name="com.example.i7.jobbalagom.activities.NewMainBarFragment"
+        android:id="@+id/fragment2"
+        tools:layout="@layout/new_main_bar_fragment"
+        android:layout_alignBottom="@+id/multiple_actions"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
 
 
 
