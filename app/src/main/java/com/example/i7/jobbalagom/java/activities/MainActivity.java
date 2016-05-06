@@ -77,27 +77,24 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         initComponents();
 
-        currentFragment = new LaunchFragment();
-        ((LaunchFragment) currentFragment).setCallBack(new LaunchFragmentListener());
-        changeFragment(currentFragment);
-
+      //  currentFragment = new LaunchFragment();
+      //  ((LaunchFragment) currentFragment).setCallBack(new LaunchFragmentListener());
+       // changeFragment(currentFragment);
+        // ((LaunchFragment) currentFragment).setCallBack(new LaunchFragmentListener());
+        //  changeFragment(currentFragment);
+        setupGraphs();
     }
 
-        /**
+    /**
      * Setups both graphs with data from database
      */
     public void setupGraphs(){
         setupMainBar();
         setData(controller.getUserEarned());
-
         setupBudgetBar();
         updateDataExpense(controller.getExpenseSum());
         updateDataIncome(controller.getUserIncome());
         currentFragment = new LaunchFragment();
-        ((LaunchFragment) currentFragment).setCallBack(new LaunchFragmentListener());
-        changeFragment(currentFragment);
-
-
     }
 
     /**
@@ -106,13 +103,11 @@ public class MainActivity extends AppCompatActivity {
     public void initComponents() {
         listener = new ButtonListener();
         btnTime = findViewById(R.id.action_a);
-      //  btnTax = findViewById(R.id.action_b);
         btnWork = findViewById(R.id.action_e);
         btnBudget = findViewById(R.id.action_f);
         btnAddJob = findViewById(R.id.action_addjob);
         btnWork.setOnClickListener(listener);
         btnBudget.setOnClickListener(listener);
-      //  btnTax.setOnClickListener(listener);
         btnTime.setOnClickListener(listener);
         btnAddJob.setOnClickListener(listener);
         fragmentManager = getFragmentManager();
