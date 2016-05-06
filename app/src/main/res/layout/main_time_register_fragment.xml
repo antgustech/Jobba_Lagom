@@ -13,18 +13,19 @@
             android:inputType="none"
             android:ems="10"
             android:id="@+id/dateTextView"
-            android:layout_alignBottom="@+id/S_textView_PickDate"
-            android:layout_alignLeft="@+id/S_textView_PickTime"
-            android:layout_alignStart="@+id/S_textView_PickTime" />
+            android:layout_centerVertical="true"
+            android:layout_alignRight="@+id/autoCompleteTextView"
+            android:layout_alignEnd="@+id/autoCompleteTextView" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="Tidsregistrering"
+            android:text="Tidsregisteraren"
+            android:id="@+id/S_textView_PickTime"
+            android:layout_marginTop="30dp"
             android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true"
-            android:id="@+id/S_textView_PickTime" />
+            android:layout_centerHorizontal="true" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -32,20 +33,9 @@
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:text="Välj datum"
             android:id="@+id/S_textView_PickDate"
-            android:layout_marginTop="85dp"
-            android:layout_below="@+id/S_textView_PickTime"
+            android:layout_centerVertical="true"
             android:layout_toLeftOf="@+id/dateTextView"
             android:layout_toStartOf="@+id/dateTextView" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="Välj tid"
-            android:id="@+id/timePicker_Text"
-            android:layout_marginTop="81dp"
-            android:layout_below="@+id/dateTextView"
-            android:layout_centerHorizontal="true" />
 
         <Button
             style="?android:attr/buttonStyleSmall"
@@ -65,28 +55,20 @@
             android:inputType="time"
             android:ems="10"
             android:id="@+id/timeTextView_From"
-            android:layout_below="@+id/timePicker_Text"
-            android:layout_toRightOf="@+id/S_textView_PickDate"
-            android:layout_toEndOf="@+id/S_textView_PickDate" />
+            android:layout_above="@+id/timeTextView_To"
+            android:layout_alignLeft="@+id/dateTextView"
+            android:layout_alignStart="@+id/dateTextView" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="Från"
+            android:text="Start tid"
             android:id="@+id/textView10"
+            android:layout_alignBaseline="@+id/timeTextView_From"
             android:layout_alignBottom="@+id/timeTextView_From"
-            android:layout_toLeftOf="@+id/timeTextView_From"
-            android:layout_toStartOf="@+id/timeTextView_From" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="Välj datum"
-            android:id="@+id/textView11"
-            android:layout_above="@+id/dateTextView"
-            android:layout_centerHorizontal="true" />
+            android:layout_toLeftOf="@+id/timeTextView_To"
+            android:layout_toStartOf="@+id/timeTextView_To" />
 
         <EditText
             android:layout_width="wrap_content"
@@ -94,16 +76,16 @@
             android:inputType="time"
             android:ems="10"
             android:id="@+id/timeTextView_To"
-            android:layout_marginTop="46dp"
-            android:layout_below="@+id/timeTextView_From"
-            android:layout_toRightOf="@+id/textView10"
-            android:layout_toEndOf="@+id/textView10" />
+            android:layout_marginBottom="30dp"
+            android:layout_above="@+id/mainTimeButton_Done"
+            android:layout_alignLeft="@+id/timeTextView_From"
+            android:layout_alignStart="@+id/timeTextView_From" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="Till"
+            android:text="Slut tid"
             android:id="@+id/textView12"
             android:layout_alignBottom="@+id/timeTextView_To"
             android:layout_toLeftOf="@+id/timeTextView_To"
@@ -116,7 +98,28 @@
             android:id="@+id/mainTimeButton_Done"
             android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
-            android:layout_marginBottom="44dp" />
+            android:layout_marginBottom="20dp" />
+
+        <AutoCompleteTextView
+            android:layout_width="230dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/autoCompleteTextView"
+            android:layout_marginBottom="53dp"
+            android:phoneNumber="false"
+            android:layout_above="@+id/dateTextView"
+            android:layout_alignLeft="@+id/S_textView_PickTime"
+            android:layout_alignStart="@+id/S_textView_PickTime" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:text="Välj jobb"
+            android:id="@+id/textView9"
+            android:textSize="20dp"
+            android:layout_alignTop="@+id/autoCompleteTextView"
+            android:layout_alignLeft="@+id/S_textView_PickDate"
+            android:layout_alignStart="@+id/S_textView_PickDate" />
 
     </RelativeLayout>
 
