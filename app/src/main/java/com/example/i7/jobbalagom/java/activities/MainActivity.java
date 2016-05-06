@@ -1,5 +1,5 @@
-package com.example.i7.jobbalagom.activities;
 
+package com.example.i7.jobbalagom.java.activities;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
@@ -50,8 +50,6 @@ public class MainActivity extends AppCompatActivity {
     private AddExpenseFragment addExpenseFragment;
     private AddJobFragment addJobFragment;
 
-    private MainActivityBudgetFragment budgetFragment;
-    private MainBarFragment barFragment;
 
     private DBHelper dbHelper;
 
@@ -79,17 +77,11 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         initComponents();
 
-        budgetFragment = new MainActivityBudgetFragment();
-        barFragment = new MainBarFragment();
-
-
-
-
         currentFragment = new LaunchFragment();
         ((LaunchFragment) currentFragment).setCallBack(new LaunchFragmentListener());
         changeFragment(currentFragment);
 
-
+    }
 
         /**
      * Setups both graphs with data from database
