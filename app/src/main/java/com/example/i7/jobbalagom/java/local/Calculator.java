@@ -43,6 +43,8 @@ public class Calculator {
     private void getTax(){
         tax = controller.getTax();
     }
+
+    //Result=hours*pay*tax
     //TODO May need a overlook
     public void calculateGraphData(){
         res = (((endTime-startTime) * pay) * (1-tax));
