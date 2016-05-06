@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.i7.jobbalagom.R;
 import com.example.i7.jobbalagom.java.callback_interfaces.AddJobFragmentCallback;
@@ -70,7 +71,8 @@ public class AddJobFragment extends Fragment {
         @Override
         public void onClick(View v) {
             Log.d("AddJobFragment", "Button pressed");
-        controller.addJob(inputTitle.toString(), Float.parseFloat(inputWage.toString()),3.55f) ;
+            controller.addJob(inputTitle.toString(), Float.parseFloat(inputWage.getText().toString()),3.55f);
+            Toast.makeText(getContext(), "Jobb tillagt", Toast.LENGTH_LONG).show();
 
         }
     }

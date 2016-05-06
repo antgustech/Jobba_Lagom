@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.Toast;
 
 import com.example.i7.jobbalagom.R;
 import com.example.i7.jobbalagom.java.callback_interfaces.AddExpenseFragmentCallback;
@@ -51,7 +52,9 @@ public class AddExpenseFragment extends Fragment {
         //TODO Parse float causes errors!
         public void onClick(View v) {
             Log.d("AddExpenseFragment", "Button pressed");
-            controller.addExpense(inputTitle.toString(), Float.parseFloat(inputAmount.toString()),  Integer.parseInt(inputDate.toString()));
+            controller.addExpense(inputTitle.toString(), Float.parseFloat(inputAmount.getText().toString()),  Integer.parseInt(inputDate.getText().toString()));
+            Toast.makeText(getContext(), "Utgift tillagd", Toast.LENGTH_LONG).show();
+
 
         }
     }
