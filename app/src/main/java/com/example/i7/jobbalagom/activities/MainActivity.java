@@ -35,10 +35,11 @@ public class MainActivity extends AppCompatActivity {
     private FragmentTransaction fragmentTransaction;
     private FragmentManager fragmentManager;
 
+    private Fragment currentFragment;
+
     private LaunchFragment launchFragment;
     private SetupFragment setupFragment;
     private AddExpenseFragment addExpenseFragment;
-    private AddJobFragment addJobFragment;
 
     private MainActivityBudgetFragment budgetFragment;
     private MainBarFragment barFragment;
@@ -59,6 +60,11 @@ public class MainActivity extends AppCompatActivity {
 
         budgetFragment = new MainActivityBudgetFragment();
         barFragment = new MainBarFragment();
+
+        //launchFragment = new LaunchFragment();
+        //launchFragment.setCallBack(new LaunchFragmentListener());
+        //changeFragment(launchFragment);
+
 
     }
 
@@ -81,12 +87,19 @@ public class MainActivity extends AppCompatActivity {
         setStatusbarColor();
     }
 
+    public void onBackPressed() {
+        if(currentFragment != null) {
+            removeFragment(currentFragment);
+        } else {
+            super.onBackPressed();
+        }
+    }
+
     /**
      * Changes fragments
      * @param fragment
      */
     private void changeFragment(Fragment fragment){
-       // fragmentManager = getFragmentManager();
         fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.replace(android.R.id.content, fragment);
         fragmentTransaction.commit();
@@ -98,7 +111,9 @@ public class MainActivity extends AppCompatActivity {
      */
     private void removeFragment(Fragment fragment) {
         fragmentManager.beginTransaction().remove(fragment).commit();
+        currentFragment = null;
     }
+
 
     /**
      * Setups the statusbar color for older android versions
@@ -195,9 +210,9 @@ public class MainActivity extends AppCompatActivity {
             } else if (v.getId() == R.id.action_e) {
                 startWorkRegister();
             } else if (v.getId() == R.id.action_addjob) {
-                addJobFragment = new AddJobFragment();
-                addJobFragment.setCallBack(new AddJobFragmentListener());
-                changeFragment(addJobFragment);
+                currentFragment = new AddJobFragment();
+                ((AddJobFragment) currentFragment).setCallBack(new AddJobFragmentListener());
+                changeFragment(currentFragment);
             }
         }
     }
@@ -252,7 +267,8 @@ public class MainActivity extends AppCompatActivity {
     private class AddJobFragmentListener implements AddJobFragmentCallback {
 
         @Override
-        public void update(String jobTitle, String jobWage, String jobOB) {
+        public void update(String info) {
+            Log.d("MainActivity", info);
         }
     }
 

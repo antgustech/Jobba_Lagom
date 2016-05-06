@@ -7,6 +7,7 @@
     <dimen name="fragment_padding_width">40dp</dimen>
     <dimen name="fragment_padding_height">40dp</dimen>
     <dimen name="title_size">30sp</dimen>
+    <dimen name="title_sub_size">24sp</dimen>
     <dimen name="tv_text_size">20sp</dimen>
     <dimen name="et_text_size">20sp</dimen>
     <dimen name="title_margin">20dp</dimen>
