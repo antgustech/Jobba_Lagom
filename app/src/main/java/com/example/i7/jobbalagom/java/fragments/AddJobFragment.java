@@ -3,6 +3,7 @@ package com.example.i7.jobbalagom.java.fragments;
 import android.app.Fragment;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,6 +27,7 @@ public class AddJobFragment extends Fragment {
     private TextView tvOBsaturday;
     private TextView tvOBsunday;
     private Button btnAdd;
+    private View obFragment;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -49,9 +51,10 @@ public class AddJobFragment extends Fragment {
         tvOBsaturday.setOnClickListener(obListener);
         tvOBsunday.setOnClickListener(obListener);
         btnAdd.setOnClickListener(new ButtonListener());
+        obFragment = view.findViewById(R.id.obFragment);
+        obFragment.setOnKeyListener(new ReturnListener());
+        obFragment.setVisibility(View.INVISIBLE);
     }
-
-
 
     public void setCallBack(AddJobFragmentCallback callback){
         this.callback = callback;
@@ -68,13 +71,31 @@ public class AddJobFragment extends Fragment {
 
         @Override
         public void onClick(View v) {
+
             if(v.getId() == R.id.tvOBweekday) {
-                Log.d("AddJobFragment", "weekday OB pressed");
-            } else if(v.getId() == R.id.tvOBsaturday) {
-                Log.d("AddJobFragment", "saturday OB pressed");
-            } else if(v.getId() == R.id.tvOBsunday) {
-                Log.d("AddJobFragment", "sunday OB pressed");
+                obFragment.setVisibility(View.VISIBLE);
+                callback.update("weekday OB pressed");
             }
+
+            else if(v.getId() == R.id.tvOBsaturday) {
+                obFragment.setVisibility(View.VISIBLE);
+                callback.update("saturday OB pressed");
+            }
+
+            else if(v.getId() == R.id.tvOBsunday) {
+                obFragment.setVisibility(View.VISIBLE);
+                callback.update("sunday OB pressed");
+            }
+        }
+    }
+
+    private class ReturnListener implements View.OnKeyListener {
+        @Override
+        public boolean onKey(View v, int key, KeyEvent e) {
+            if(key == KeyEvent.KEYCODE_BACK && obFragment.getVisibility() == View.VISIBLE) {
+                obFragment.setVisibility(View.INVISIBLE);
+            }
+            return false;
         }
     }
 }

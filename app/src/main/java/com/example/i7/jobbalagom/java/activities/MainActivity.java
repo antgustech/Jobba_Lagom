@@ -1,4 +1,4 @@
-package com.example.i7.jobbalagom.java.activities;
+package com.example.i7.jobbalagom.activities;
 
 import android.app.Fragment;
 import android.app.FragmentManager;
@@ -34,6 +34,7 @@ import com.github.mikephil.charting.data.BarEntry;
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
+    private View btnTax;
     private View btnTime;
     private View btnWork;
     private View btnBudget;
@@ -44,11 +45,16 @@ public class MainActivity extends AppCompatActivity {
     private FragmentTransaction fragmentTransaction;
     private FragmentManager fragmentManager;
 
-    private LaunchFragment launchFragment;
-    private SetupFragment setupFragment;
+    private Fragment currentFragment;
+
     private AddExpenseFragment addExpenseFragment;
     private AddJobFragment addJobFragment;
+
+    private MainActivityBudgetFragment budgetFragment;
+    private MainBarFragment barFragment;
+
     private DBHelper dbHelper;
+
     private final int REQUESTCODE_WORKREGISTER = 1;
 
     //Mainbar
@@ -73,10 +79,19 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         initComponents();
 
-        setupGraphs();
-    }
+        budgetFragment = new MainActivityBudgetFragment();
+        barFragment = new MainBarFragment();
 
-    /**
+
+
+
+        currentFragment = new LaunchFragment();
+        ((LaunchFragment) currentFragment).setCallBack(new LaunchFragmentListener());
+        changeFragment(currentFragment);
+
+
+
+        /**
      * Setups both graphs with data from database
      */
     public void setupGraphs(){
@@ -86,6 +101,11 @@ public class MainActivity extends AppCompatActivity {
         setupBudgetBar();
         updateDataExpense(controller.getExpenseSum());
         updateDataIncome(controller.getUserIncome());
+        currentFragment = new LaunchFragment();
+        ((LaunchFragment) currentFragment).setCallBack(new LaunchFragmentListener());
+        changeFragment(currentFragment);
+
+
     }
 
     /**
@@ -94,15 +114,29 @@ public class MainActivity extends AppCompatActivity {
     public void initComponents() {
         listener = new ButtonListener();
         btnTime = findViewById(R.id.action_a);
+      //  btnTax = findViewById(R.id.action_b);
         btnWork = findViewById(R.id.action_e);
         btnBudget = findViewById(R.id.action_f);
         btnAddJob = findViewById(R.id.action_addjob);
         btnWork.setOnClickListener(listener);
         btnBudget.setOnClickListener(listener);
+      //  btnTax.setOnClickListener(listener);
         btnTime.setOnClickListener(listener);
         btnAddJob.setOnClickListener(listener);
         fragmentManager = getFragmentManager();
         setStatusbarColor();
+    }
+
+    public void onBackPressed() {
+        if(currentFragment == null || currentFragment instanceof LaunchFragment) {
+            super.onBackPressed();
+        } else if(currentFragment instanceof SetupFragment) {
+            currentFragment = new LaunchFragment();
+            ((LaunchFragment) currentFragment).setCallBack(new LaunchFragmentListener());
+            changeFragment(currentFragment);
+        } else {
+            removeFragment(currentFragment);
+        }
     }
 
     /**
@@ -122,7 +156,9 @@ public class MainActivity extends AppCompatActivity {
      */
     private void removeFragment(Fragment fragment) {
         fragmentManager.beginTransaction().remove(fragment).commit();
+        currentFragment = null;
     }
+
 
     /**
      * Setups the statusbar color for older android versions
@@ -213,15 +249,15 @@ public class MainActivity extends AppCompatActivity {
             if (v.getId() == R.id.action_f) {
                 startActivity(new Intent(getApplicationContext(), BudgetAcitivity.class));
             } else if (v.getId() == R.id.action_a) {
-                addExpenseFragment = new AddExpenseFragment();
-                addExpenseFragment.setCallBack(new AddExpenseListener());
-                changeFragment(addExpenseFragment);
+                currentFragment = new AddExpenseFragment();
+                ((AddExpenseFragment) currentFragment).setCallBack(new AddExpenseListener());
+                changeFragment(currentFragment);
             } else if (v.getId() == R.id.action_e) {
                 startWorkRegister();
             } else if (v.getId() == R.id.action_addjob) {
-                addJobFragment = new AddJobFragment();
-                addJobFragment.setCallBack(new AddJobFragmentListener());
-                changeFragment(addJobFragment);
+                currentFragment = new AddJobFragment();
+                ((AddJobFragment) currentFragment).setCallBack(new AddJobFragmentListener());
+                changeFragment(currentFragment);
             }
         }
     }
@@ -244,9 +280,9 @@ public class MainActivity extends AppCompatActivity {
             if(choice.equals("btnLogo")) {
                 Log.d("MainActivity", "btnLogo pressed");
             } else if(choice.equals("btnNew")) {
-                setupFragment = new SetupFragment();
-                setupFragment.setCallBack(new SetupFragmentListener());
-                changeFragment(setupFragment);
+                currentFragment = new SetupFragment();
+                ((SetupFragment) currentFragment).setCallBack(new SetupFragmentListener());
+                changeFragment(currentFragment);
             } else if(choice.equals("btnKey")) {
                 Log.d("MainActivity", "btnKey pressed");
             } else if(choice.equals("btnInfo")) {
@@ -265,7 +301,7 @@ public class MainActivity extends AppCompatActivity {
             Log.d("SetupFragmentListener", "User information\nNamn: " + name + "\nKommun: " + municipality +
                     "\nFribelopp: " + incomeLimit);
             //ctrl.addUser(...);
-            removeFragment(setupFragment);
+            removeFragment(currentFragment);
         }
     }
 
@@ -276,7 +312,8 @@ public class MainActivity extends AppCompatActivity {
     private class AddJobFragmentListener implements AddJobFragmentCallback {
 
         @Override
-        public void update(String jobTitle, String jobWage, String jobOB) {
+        public void update(String info) {
+            Log.d("MainActivity", info);
         }
     }
 

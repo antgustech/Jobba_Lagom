@@ -14,7 +14,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Ett sätt att nå \n balans mellan arbete \n och studier"
-        android:textSize="@dimen/title_size"
+        android:textSize="@dimen/title_sub_size"
         android:textColor="@color/white"
         android:id="@+id/tvTitle"
         android:textAlignment="center"
@@ -101,7 +101,7 @@
         android:textColor="@color/white"
         android:textAlignment="center"
         android:layout_marginTop="@dimen/text_margin"
-        android:textSize="@dimen/title_size"
+        android:textSize="@dimen/title_sub_size"
         android:buttonTint="@color/white"
         />
 
