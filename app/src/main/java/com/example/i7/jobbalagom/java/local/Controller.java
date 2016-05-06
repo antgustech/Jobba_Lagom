@@ -36,7 +36,7 @@ public class Controller  {
         Singleton.setDBHelper(dbHelper);
          addUser("Chris", 30.3f, 10000, 130.17f);
          addJob("Rörmockare", 100, 3.5f);
-        addShift("Rörmockare", 0900f,1700,33,8);
+        addShift("Rörmockare", 0900f,1700,0302);
         addExpense("Glass", 5000f, 050216);
 
        // deleteUser("Chris");
@@ -114,9 +114,9 @@ public class Controller  {
     /**
      * Adds shift to db
      */
-    public void addShift(String jobName, float start, float end, int date, float hoursWorked){
+    public void addShift(String jobName, float start, float end, int date){
         sqLiteDatabase = dbHelper.getWritableDatabase();
-        dbHelper.addShift(jobName, start, end, date, hoursWorked, sqLiteDatabase);
+        dbHelper.addShift(jobName, start, end, date, sqLiteDatabase);
         Log.d("DBTAG", "Information added");
         dbHelper.close();
     }

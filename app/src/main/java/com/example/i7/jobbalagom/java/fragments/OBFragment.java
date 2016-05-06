@@ -1,4 +1,4 @@
-package com.example.i7.jobbalagom.activities;
+package com.example.i7.jobbalagom.java.fragments;
 
 import android.app.Fragment;
 import android.os.Bundle;

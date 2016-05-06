@@ -14,8 +14,8 @@
             android:ems="10"
             android:id="@+id/dateTextView"
             android:layout_centerVertical="true"
-            android:layout_alignRight="@+id/autoCompleteTextView"
-            android:layout_alignEnd="@+id/autoCompleteTextView" />
+            android:layout_alignRight="@+id/jobNameField"
+            android:layout_alignEnd="@+id/jobNameField" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -103,7 +103,7 @@
         <AutoCompleteTextView
             android:layout_width="230dp"
             android:layout_height="wrap_content"
-            android:id="@+id/autoCompleteTextView"
+            android:id="@+id/jobNameField"
             android:layout_marginBottom="53dp"
             android:phoneNumber="false"
             android:layout_above="@+id/dateTextView"
@@ -117,9 +117,9 @@
             android:text="Välj jobb"
             android:id="@+id/textView9"
             android:textSize="20dp"
-            android:layout_alignTop="@+id/autoCompleteTextView"
-            android:layout_alignLeft="@+id/S_textView_PickDate"
-            android:layout_alignStart="@+id/S_textView_PickDate" />
+            android:layout_alignTop="@+id/jobNameField"
+            android:layout_toLeftOf="@+id/jobNameField"
+            android:layout_toStartOf="@+id/jobNameField" />
 
     </RelativeLayout>
 

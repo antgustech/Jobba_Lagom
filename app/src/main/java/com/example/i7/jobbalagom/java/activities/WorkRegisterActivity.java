@@ -1,13 +1,11 @@
 package com.example.i7.jobbalagom.java.activities;
 
+import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
-
-import android.app.Fragment;
-
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -37,6 +35,8 @@ public class WorkRegisterActivity extends AppCompatActivity {
 
     private MainTimeRegisterCallback mainTimeRegisterCallback;
     private DateRegisterCallback dateRegisterCallback;
+
+
 
 
     public WorkRegisterActivity(){

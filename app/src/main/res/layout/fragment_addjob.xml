@@ -150,12 +150,12 @@
 
 
     <fragment
-        android:name="com.example.i7.jobbalagom.activities.OBFragment"
+        android:name="com.example.i7.jobbalagom.java.fragments.OBFragment"
         android:id="@+id/obFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/black_trans"
-        >
+        tools:layout="@layout/fragment_ob">
 
         <LinearLayout
             android:id="@+id/body"

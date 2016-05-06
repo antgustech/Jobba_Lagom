@@ -12,6 +12,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
+import android.widget.Toast;
 
 import com.example.i7.jobbalagom.R;
 import com.example.i7.jobbalagom.java.fragments.AddExpenseFragment;
@@ -204,18 +205,26 @@ public class MainActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
         if(requestCode == REQUESTCODE_WORKREGISTER){
             if(resultCode == RESULT_OK){
-                String date = data.getStringExtra("Date");
+
                 String timeFrom = data.getStringExtra("TimeFrom");
+                String newTimeFrom1 = timeFrom.substring(0,2);
+                String newTimeFrom2 = timeFrom.substring(3,5);
+                String newTimeFrom3 = newTimeFrom1 + newTimeFrom2;
+
                 String timeTo = data.getStringExtra("TimeTo");
+                String newTimeTo1 = timeTo.substring(0,2);
+                String newTimeTo2 = timeTo.substring(3,5);
+                String newTimeTo3 = newTimeTo1 + newTimeTo2;
 
-                //barFragment.setData(200);
-              //  budgetFragment.setDataExpense(100);
-               // budgetFragment.updateDataExpense();
-             //   Log.d("SomeTag",budgetFragment.getDataExpense() + "");
+                String date = data.getStringExtra("Date");
+                String newDate1 = date.substring(0,4);
+                String newDate2 = date.substring(5,6);
+                String newDate3 = date.substring(7,8);
+                String newDate4 = newDate1+newDate2+newDate3;
+                //TODO Måste ordna så att det kommer ett jobb namn från textedit.
+                controller.addShift("TEST", Float.parseFloat(newTimeFrom3.toString()), Float.parseFloat(newTimeTo3.toString()),Integer.parseInt(newDate4.toString()));
+                Toast.makeText(this, "Jobb tillagt", Toast.LENGTH_LONG).show();
 
-                //Log.d("ResultTag",date);
-                //Log.d("ResultTag",timeFrom);
-                //Log.d("ResultTag",timeTo);
 
             }
         }

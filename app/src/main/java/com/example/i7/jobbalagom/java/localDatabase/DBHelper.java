@@ -14,7 +14,7 @@ import android.util.Log;
  */
 public class DBHelper extends SQLiteOpenHelper {
     private static final String DATABASE_NAME = "INTENAL.DB";
-    private static final int DATABASE_VERSION = 7;
+    private static final int DATABASE_VERSION = 8;
 
 
     private static final String CREATE_USER_QUERY =
@@ -128,16 +128,14 @@ public class DBHelper extends SQLiteOpenHelper {
      * @param start
      * @param end
      * @param date
-     * @param hoursWorked
      * @param db
      */
-    public void addShift(String jobName, float start, float end, int date, float hoursWorked, SQLiteDatabase db ){
+    public void addShift(String jobName, float start, float end, int date, SQLiteDatabase db ){
         ContentValues contentValues = new ContentValues();
         contentValues.put(UserContract.Shift.SHIFT_JOB_NAME,jobName);
         contentValues.put(UserContract.Shift.SHIFT_START,start);
         contentValues.put(UserContract.Shift.SHIFT_END, end);
         contentValues.put(UserContract.Shift.SHIFT_DATE, date);
-        contentValues.put(UserContract.Shift.SHIFT_HOURS_WORKED, hoursWorked);
         db.insert(UserContract.Shift.TABLE_NAME, null, contentValues);
         Log.e("DBTAG", "Information added shiftTable");
     }

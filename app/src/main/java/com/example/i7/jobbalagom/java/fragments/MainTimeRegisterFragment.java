@@ -118,6 +118,8 @@ public class MainTimeRegisterFragment extends Fragment {
         return date_TextContainer.getText();
     }
 
+
+
     public String getTimeTo_TextContainer(){
         return timeTo_TextContainer.getText();
     }
