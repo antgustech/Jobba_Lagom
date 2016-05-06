@@ -3,6 +3,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/bgSetup"
+    android:paddingBottom="@dimen/fragment_padding_height"
+    android:paddingLeft="@dimen/fragment_padding_width"
+    android:paddingRight="@dimen/fragment_padding_width"
+    android:paddingTop="@dimen/fragment_padding_height"
     tools:context=".activities.AddJobFragment">
 
     <RelativeLayout
@@ -146,12 +150,12 @@
 
 
     <fragment
-        android:name="com.example.i7.jobbalagom.activities.OBFragment"
+        android:name="com.example.i7.jobbalagom.java.fragments.OBFragment"
         android:id="@+id/obFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/black_trans"
-        >
+        tools:layout="@layout/fragment_ob">
 
         <LinearLayout
             android:id="@+id/body"
@@ -178,4 +182,3 @@
 
 
 </RelativeLayout>
-
