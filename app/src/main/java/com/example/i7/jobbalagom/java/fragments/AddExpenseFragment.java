@@ -54,9 +54,6 @@ public class AddExpenseFragment extends Fragment {
             Log.d("AddExpenseFragment", "Button pressed");
             controller.addExpense(inputTitle.toString(), Float.parseFloat(inputAmount.getText().toString()),  Integer.parseInt(inputDate.getText().toString()));
             Toast.makeText(getContext(), "Utgift tillagd", Toast.LENGTH_LONG).show();
-
-
-
         }
     }
 }
