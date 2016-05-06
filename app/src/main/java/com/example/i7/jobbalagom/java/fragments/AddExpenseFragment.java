@@ -56,6 +56,7 @@ public class AddExpenseFragment extends Fragment {
             Toast.makeText(getContext(), "Utgift tillagd", Toast.LENGTH_LONG).show();
 
 
+
         }
     }
 }

@@ -3,6 +3,7 @@ package com.example.i7.jobbalagom.java.remote;
 
 /*
  * Created by Anton 15-04-16
+ * OBS fungerar enbart i java ide IntelliJ!
  */
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
@@ -29,6 +30,7 @@ public class Server extends Thread {
 	 */
 	public Server() {
 		System.out.println("Server waiting to establish connection");
+		connectDB();
 		try {
 			serverSocket = new ServerSocket(4545);
 			connected = true;
@@ -72,7 +74,7 @@ public class Server extends Thread {
 			} catch (IOException e) {
 			}
 			System.out.println("Client connected to server" );
-			connectDB();
+
 		}
 
 		/*
