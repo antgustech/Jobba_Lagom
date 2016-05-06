@@ -7,6 +7,8 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
+import java.util.ArrayList;
+
 /**
  * Created by Strandberg95 on 2016-05-01.
  * Updated by Anton Gusyafsson on 2016-05-02
@@ -174,22 +176,6 @@ public class DBHelper extends SQLiteOpenHelper {
         Log.e("DBTAG", "Row deleted: Expense");
     }
 
-
-    /*public ArrayList<Float> getExpenseSum(SQLiteDatabase db){
-        ArrayList<Float> list = new ArrayList<Float>();
-        Cursor crs = db.rawQuery("select sum from " + UserContract.Expense.TABLE_NAME , null);
-        while(crs.moveToNext()){
-            float sum = crs.getFloat(crs.getColumnIndex("sum"));
-            list.add(sum);
-        }
-
-        Log.e("DBTAG", list.toString());
-        Log.e("DBTAG", "getExpenseSum");
-
-        return list;
-    }
-    */
-
     public Float getExpenseSum(SQLiteDatabase db){
         Float sum = null;
         Cursor crs = db.rawQuery("select SUM(sum) from " + UserContract.Expense.TABLE_NAME , null);
@@ -236,6 +222,71 @@ public class DBHelper extends SQLiteOpenHelper {
         db.execSQL("UPDATE " + UserContract.User.TABLE_NAME + " SET " + UserContract.User.USER_TAX + "='"+ currentTax + "';");
         Log.e("DBTAG", "Row deleted: Expense");
     }
+
+    public ArrayList<String> getJobName(SQLiteDatabase db){
+        ArrayList<String> list = new ArrayList<String>();
+        Cursor crs = db.rawQuery("select name from " + UserContract.Job.TABLE_NAME, null);
+        while(crs.moveToNext()){
+            String jobName = crs.getString(crs.getColumnIndex("name"));
+            list.add(jobName);
+        }
+        Log.e("DBTAG", list.toString());
+        return list;
+    }
+
+
+
+
+    public Float getJobPay(SQLiteDatabase db) {
+        Float sum = null;
+        Cursor crs = db.rawQuery("select pay from " + UserContract.Job.JOB_PAY, null);
+        if (crs.moveToFirst()) {
+            sum = crs.getFloat(0);
+        }
+        return sum;
+
+    }
+
+    public Float getStartTime(SQLiteDatabase db) {
+        Float sum = null;
+        Cursor crs = db.rawQuery("select shiftStart from " + UserContract.Shift.TABLE_NAME, null);
+        if (crs.moveToFirst()) {
+            sum = crs.getFloat(0);
+        }
+        return sum;
+
+    }
+
+    public Float getEndTime(SQLiteDatabase db) {
+        Float sum = null;
+        Cursor crs = db.rawQuery("select shiftEnd from " + UserContract.Shift.TABLE_NAME, null);
+        if (crs.moveToFirst()) {
+            sum = crs.getFloat(0);
+        }
+        return sum;
+
+    }
+
+    public Float getUserTax(SQLiteDatabase db) {
+        Float sum = null;
+        Cursor crs = db.rawQuery("select tax from " + UserContract.User.USER_TAX, null);
+        if (crs.moveToFirst()) {
+            sum = crs.getFloat(0);
+        }
+        return sum;
+
+    }
+    /*public ArrayList<Float> getExpenseSum(SQLiteDatabase db){
+        ArrayList<Float> list = new ArrayList<Float>();
+        Cursor crs = db.rawQuery("select sum from " + UserContract.Expense.TABLE_NAME , null);
+        while(crs.moveToNext()){
+            float sum = crs.getFloat(crs.getColumnIndex("sum"));
+            list.add(sum);
+        }
+        Log.e("DBTAG", list.toString());
+        return list;
+    }
+    */
 
 
 

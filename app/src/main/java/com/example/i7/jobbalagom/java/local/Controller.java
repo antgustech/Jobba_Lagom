@@ -44,9 +44,11 @@ public class Controller  {
        // deleteShift(1);
        // deleteExpense("Glass");
 
-        getExpenseSum();
-        getUserEarned();
-        getUserIncome();
+        //getExpenseSum();
+        //getUserEarned();
+        //getUserIncome();
+
+//        getJobName();
 
 
 
@@ -65,7 +67,7 @@ public class Controller  {
 
         @Override
         public void updateTax(float tax) {
-            calc.setTax();
+
         }
     }
     /**
@@ -235,4 +237,45 @@ public class Controller  {
 
     }
 
-}
+    public ArrayList<String> getJobName(){
+        ArrayList<String> list;
+        sqLiteDatabase = dbHelper.getReadableDatabase();
+        list = dbHelper.getJobName(sqLiteDatabase);
+        dbHelper.close();
+        return list;
+
+    }
+
+    public Float getJobPay() {
+        Float sum = null;
+        sqLiteDatabase = dbHelper.getReadableDatabase();
+        sum = dbHelper.getJobPay(sqLiteDatabase);
+        dbHelper.close();
+        return sum;
+    }
+
+    public Float getStartTime() {
+        Float sum = null;
+        sqLiteDatabase = dbHelper.getReadableDatabase();
+        sum = dbHelper.getStartTime(sqLiteDatabase);
+        dbHelper.close();
+        return sum;
+    }
+
+    public Float getEndTime() {
+        Float sum = null;
+        sqLiteDatabase = dbHelper.getReadableDatabase();
+        sum = dbHelper.getEndTime(sqLiteDatabase);
+        dbHelper.close();
+        return sum;
+    }
+
+    public Float getTax() {
+        Float sum = null;
+        sqLiteDatabase = dbHelper.getReadableDatabase();
+        sum = dbHelper.getUserTax(sqLiteDatabase);
+        dbHelper.close();
+        return sum;
+    }
+
+    }

@@ -12,17 +12,16 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
-import android.widget.Toast;
 
 import com.example.i7.jobbalagom.R;
-import com.example.i7.jobbalagom.java.fragments.AddExpenseFragment;
-import com.example.i7.jobbalagom.java.fragments.AddJobFragment;
-import com.example.i7.jobbalagom.java.fragments.LaunchFragment;
-import com.example.i7.jobbalagom.java.fragments.SetupFragment;
 import com.example.i7.jobbalagom.java.callback_interfaces.AddExpenseFragmentCallback;
 import com.example.i7.jobbalagom.java.callback_interfaces.AddJobFragmentCallback;
 import com.example.i7.jobbalagom.java.callback_interfaces.LaunchFragmentCallback;
 import com.example.i7.jobbalagom.java.callback_interfaces.SetupFragmentCallback;
+import com.example.i7.jobbalagom.java.fragments.AddExpenseFragment;
+import com.example.i7.jobbalagom.java.fragments.AddJobFragment;
+import com.example.i7.jobbalagom.java.fragments.LaunchFragment;
+import com.example.i7.jobbalagom.java.fragments.SetupFragment;
 import com.example.i7.jobbalagom.java.local.Controller;
 import com.example.i7.jobbalagom.java.local.Singleton;
 import com.example.i7.jobbalagom.java.localDatabase.DBHelper;
@@ -194,48 +193,13 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if(requestCode == REQUESTCODE_WORKREGISTER){
-            if(resultCode == RESULT_OK){
-
-                String timeFrom = data.getStringExtra("TimeFrom");
-                String newTimeFrom1 = timeFrom.substring(0,2);
-                String newTimeFrom2 = timeFrom.substring(3,5);
-                String newTimeFrom3 = newTimeFrom1 + newTimeFrom2;
-
-                String timeTo = data.getStringExtra("TimeTo");
-                String newTimeTo1 = timeTo.substring(0,2);
-                String newTimeTo2 = timeTo.substring(3,5);
-                String newTimeTo3 = newTimeTo1 + newTimeTo2;
-
-                String date = data.getStringExtra("Date");
-                String newDate1 = date.substring(0,4);
-                String newDate2 = date.substring(5,6);
-                String newDate3 = date.substring(7,8);
-                String newDate4 = newDate1+newDate2+newDate3;
-                //TODO Måste ordna så att det kommer ett jobb namn från textedit.
-                controller.addShift("TEST", Float.parseFloat(newTimeFrom3.toString()), Float.parseFloat(newTimeTo3.toString()),Integer.parseInt(newDate4.toString()));
-                Toast.makeText(this, "Jobb tillagt", Toast.LENGTH_LONG).show();
-
-
-            }
-        }
-    }
 
     /**
      * Button listener for fab
      */
     private class ButtonListener implements View.OnClickListener {
-
         @Override
         public void onClick(View v) {
-
-            //if (v.getId() == R.id.action_b) {
-              //  startActivity(new Intent(getApplicationContext(), ChangeTaxActivity.class));
-            //} else
-
             if (v.getId() == R.id.action_f) {
                 startActivity(new Intent(getApplicationContext(), BudgetAcitivity.class));
             } else if (v.getId() == R.id.action_a) {
@@ -264,7 +228,6 @@ public class MainActivity extends AppCompatActivity {
      * Listener for launch fragment
      */
     private class LaunchFragmentListener implements LaunchFragmentCallback {
-
         @Override
         public void update(String choice) {
             if(choice.equals("btnLogo")) {
@@ -288,12 +251,10 @@ public class MainActivity extends AppCompatActivity {
      * Listener for setup fragment
      */
     private class SetupFragmentListener implements SetupFragmentCallback {
-
         @Override
         public void update(String name, String municipality, String incomeLimit) {
             Log.d("SetupFragmentListener", "User information\nNamn: " + name + "\nKommun: " + municipality +
                     "\nFribelopp: " + incomeLimit);
-            //ctrl.addUser(...);
             removeFragment(currentFragment);
         }
     }
@@ -303,7 +264,6 @@ public class MainActivity extends AppCompatActivity {
      * Listener for add job fragment
      */
     private class AddJobFragmentListener implements AddJobFragmentCallback {
-
         @Override
         public void update(String info) {
             Log.d("MainActivity", info);
@@ -322,8 +282,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     //METHODS FOR GRAPHS
-
-    //setup mainbar fragment
 
     public void setupMainBar(){
 

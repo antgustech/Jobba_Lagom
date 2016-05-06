@@ -3,7 +3,6 @@ package com.example.i7.jobbalagom.java.activities;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
-import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
@@ -11,6 +10,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
+import android.widget.Toast;
 
 import com.example.i7.jobbalagom.R;
 import com.example.i7.jobbalagom.java.callback_interfaces.DateRegisterCallback;
@@ -19,6 +19,8 @@ import com.example.i7.jobbalagom.java.callback_interfaces.TimePickerCallback;
 import com.example.i7.jobbalagom.java.fragments.DateRegisterFragment;
 import com.example.i7.jobbalagom.java.fragments.MainTimeRegisterFragment;
 import com.example.i7.jobbalagom.java.fragments.TimePickerFragment;
+import com.example.i7.jobbalagom.java.local.Controller;
+import com.example.i7.jobbalagom.java.local.Singleton;
 
 public class WorkRegisterActivity extends AppCompatActivity {
 
@@ -36,10 +38,13 @@ public class WorkRegisterActivity extends AppCompatActivity {
     private MainTimeRegisterCallback mainTimeRegisterCallback;
     private DateRegisterCallback dateRegisterCallback;
 
+    private Controller controller;
+
 
 
 
     public WorkRegisterActivity(){
+
         fragmentManager = getFragmentManager();
 
         mainTimeRegisterFragment = new MainTimeRegisterFragment();
@@ -62,6 +67,7 @@ public class WorkRegisterActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        controller  = Singleton.controller;
         super.onCreate(savedInstanceState);
         //setContentView(R.layout.activity_work_register);
 
@@ -89,7 +95,7 @@ public class WorkRegisterActivity extends AppCompatActivity {
     private void setupActionBar() {
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {
-            // Show the Up button in the action bar.
+
             actionBar.setDisplayHomeAsUpEnabled(true);
         }
     }
@@ -98,7 +104,6 @@ public class WorkRegisterActivity extends AppCompatActivity {
 
         @Override
         public void buttonPressed(View view) {
-            Log.d("ButtonTag", "Ay lmao");
 
             if(view.equals(view.findViewById(R.id.dateTextView)))
                 changeFragment(dateRegisterFragment);
@@ -113,13 +118,35 @@ public class WorkRegisterActivity extends AppCompatActivity {
                 timePickerToFragment.setHeadLine("Välj tid då du slutade jobba");
             }
 
-            if(view.equals(view.findViewById(R.id.mainTimeButton_Done))){
-                Intent intent = new Intent();
-                intent.putExtra("Date",mainTimeRegisterFragment.getDate_TextContainer());
-                intent.putExtra("TimeFrom",mainTimeRegisterFragment.getTimeFrom_TextContainer());
-                intent.putExtra("TimeTo",mainTimeRegisterFragment.getTimeTo_TextContainer());
-                setResult(RESULT_OK,intent);
+            if(view.equals(view.findViewById(R.id.mainTimeButton_Done))){//BUTTON PRESSED.....................................................................
+
+                //Parses data from the user.
+                String timeFrom = mainTimeRegisterFragment.getTimeFrom_TextContainer();
+                String newTimeFrom1 = timeFrom.substring(0,2);
+                String newTimeFrom2 = timeFrom.substring(3,5);
+                String newTimeFrom3 = newTimeFrom1 + newTimeFrom2;
+
+                String timeTo = mainTimeRegisterFragment.getTimeTo_TextContainer();
+                String newTimeTo1 = timeTo.substring(0,2);
+                String newTimeTo2 = timeTo.substring(3,5);
+                String newTimeTo3 = newTimeTo1 + newTimeTo2;
+
+                String date = mainTimeRegisterFragment.getDate_TextContainer();
+                String newDate1 = date.substring(0,4);
+                String newDate2 = date.substring(5,6);
+                String newDate3 = date.substring(7,8);
+                String newDate4 = newDate1+newDate2+newDate3;
+                //TODO Måste ordna så att det kommer upp tillagda jobb till autotextediten.
+                controller.addShift("TEST", Float.parseFloat(newTimeFrom3.toString()), Float.parseFloat(newTimeTo3.toString()),Integer.parseInt(newDate4.toString()));
+                Toast.makeText(getBaseContext(), "Jobb tillagt", Toast.LENGTH_LONG).show();
+
+
                 finish();
+
+
+
+
+
             }
         }
     }
@@ -158,5 +185,4 @@ public class WorkRegisterActivity extends AppCompatActivity {
 
         }
     }
-
 }
