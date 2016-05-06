@@ -242,6 +242,7 @@ public class MainActivity extends AppCompatActivity {
                 changeFragment(currentFragment);
             } else if(choice.equals("btnKey")) {
                 Log.d("MainActivity", "btnKey pressed");
+                removeFragment(currentFragment);
             } else if(choice.equals("btnInfo")) {
                 Log.d("MainActivity", "btnInfo pressed");
             }
