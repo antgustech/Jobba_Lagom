@@ -14,7 +14,7 @@ import android.util.Log;
  */
 public class DBHelper extends SQLiteOpenHelper {
     private static final String DATABASE_NAME = "INTENAL.DB";
-    private static final int DATABASE_VERSION = 6;
+    private static final int DATABASE_VERSION = 7;
 
 
     private static final String CREATE_USER_QUERY =
@@ -27,7 +27,6 @@ public class DBHelper extends SQLiteOpenHelper {
     private static final String CREATE_JOB_QUERY =
             "CREATE TABLE " + UserContract.Job.TABLE_NAME
                    + "( " + UserContract.Job.JOB_NAME + " TEXT PRIMARY KEY, "
-                   + UserContract.Job.JOB_USER + " TEXT, "
                    + UserContract.Job.JOB_PAY + " FLOAT, "
                    + UserContract.Job.JOB_OB + " FLOAT);";
 
@@ -109,15 +108,14 @@ public class DBHelper extends SQLiteOpenHelper {
     /**
      * Adds a job to job table.
      * @param name
-     * @param user
+
      * @param pay
      * @param ob
      * @param db
      */
-    public void addJob(String name, String user, float pay, float ob, SQLiteDatabase db  ){
+    public void addJob(String name, float pay, float ob, SQLiteDatabase db  ){
         ContentValues contentValues = new ContentValues();
         contentValues.put(UserContract.Job.JOB_NAME,name);
-        contentValues.put(UserContract.Job.JOB_USER,user);
         contentValues.put(UserContract.Job.JOB_PAY, pay);
         contentValues.put(UserContract.Job.JOB_OB, ob);
         db.insert(UserContract.Job.TABLE_NAME, null, contentValues);

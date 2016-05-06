@@ -16,7 +16,7 @@ import java.util.ArrayList;
  */
 public class Controller  {
 
-    private final String IP = "192.168.1.19";//ÄNDRA IP VID TESTNING!!!!!!
+    private final String IP = "192.168.1.136";//ÄNDRA IP VID TESTNING!!!!!!
     private final int PORT = 4545;
 
     private Calculator calc;
@@ -34,10 +34,10 @@ public class Controller  {
         //TESTING
         dbHelper = new DBHelper(context);
         Singleton.setDBHelper(dbHelper);
-        // addUser("Chris", 30.3f, 10000, 130.17f);
-        // addJob("Rörmockare", "Chris", 100, 3.5f);
-       // addShift("Rörmockare", 0900f,1700,33,8);
-       // addExpense("Glass", 5000f, 050216);
+         addUser("Chris", 30.3f, 10000, 130.17f);
+         addJob("Rörmockare", 100, 3.5f);
+        addShift("Rörmockare", 0900f,1700,33,8);
+        addExpense("Glass", 5000f, 050216);
 
        // deleteUser("Chris");
        // deleteJob("Rörmockare");
@@ -104,9 +104,9 @@ public class Controller  {
     /**
      * Adds job to db
      */
-    public void addJob(String name, String user, float pay, float ob){
+    public void addJob(String name, float pay, float ob){
         sqLiteDatabase = dbHelper.getWritableDatabase();
-        dbHelper.addJob(name, user, pay, ob,sqLiteDatabase);
+        dbHelper.addJob(name, pay, ob,sqLiteDatabase);
         Log.d("DBTAG", "Information added");
         dbHelper.close();
     }

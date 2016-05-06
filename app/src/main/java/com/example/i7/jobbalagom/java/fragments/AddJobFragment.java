@@ -13,6 +13,8 @@ import android.widget.TextView;
 
 import com.example.i7.jobbalagom.R;
 import com.example.i7.jobbalagom.java.callback_interfaces.AddJobFragmentCallback;
+import com.example.i7.jobbalagom.java.local.Controller;
+import com.example.i7.jobbalagom.java.local.Singleton;
 
 /**
  * Created by Kajsa on 2016-05-04.
@@ -29,9 +31,13 @@ public class AddJobFragment extends Fragment {
     private Button btnAdd;
     private View obFragment;
 
+    private Controller controller;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        controller = Singleton.controller;
         return inflater.inflate(R.layout.fragment_addjob, container, false);
+
     }
 
     public void onViewCreated(View view, Bundle savedInstanceState) {
@@ -64,6 +70,8 @@ public class AddJobFragment extends Fragment {
         @Override
         public void onClick(View v) {
             Log.d("AddJobFragment", "Button pressed");
+        controller.addJob(inputTitle.toString(), Float.parseFloat(inputWage.toString()),3.55f) ;
+
         }
     }
 

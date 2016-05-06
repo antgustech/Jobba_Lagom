@@ -90,7 +90,7 @@ public class Client extends Thread {
             Log.d("ServerTag","Information received");
         } catch (IOException e) {
             e.printStackTrace();
-        }  //return (ArrayList<String>)ois.readObject();
+        }
         return list;
     }
 
@@ -113,11 +113,4 @@ public class Client extends Thread {
         } catch (IOException e) {
         }
     }
-
-    //private class ServerListener extends Thread {
-       // public ServerListener(){
-
-       // }
-
-   // }
 }
