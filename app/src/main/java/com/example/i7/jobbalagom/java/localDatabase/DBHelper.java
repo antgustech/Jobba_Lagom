@@ -227,6 +227,17 @@ public class DBHelper extends SQLiteOpenHelper {
         return sum;
     }
 
+    /**
+     * This will set all rows to the specified tax. But as we are only going to have 1 user at the time, this is not a problem.
+     * @param currentTax
+     * @param db
+     */
+    public void setTax(Float currentTax, SQLiteDatabase db){
+        db.execSQL("UPDATE " + UserContract.User.TABLE_NAME + " SET " + UserContract.User.USER_TAX + "='"+ currentTax + "';");
+        Log.e("DBTAG", "Row deleted: Expense");
+    }
+
+
 
 
 

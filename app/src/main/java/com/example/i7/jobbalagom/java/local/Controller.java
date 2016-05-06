@@ -34,10 +34,10 @@ public class Controller  {
         //TESTING
         dbHelper = new DBHelper(context);
         Singleton.setDBHelper(dbHelper);
-         addUser("Chris", 30.3f, 10000, 130.17f);
-         addJob("Rörmockare", 100, 3.5f);
-        addShift("Rörmockare", 0900f,1700,0302);
-        addExpense("Glass", 5000f, 050216);
+        // addUser("Chris", 30.3f, 10000, 130.17f);
+       //  addJob("Rörmockare", 100, 3.5f);
+       // addShift("Rörmockare", 0900f,1700,0302);
+       // addExpense("Glass", 5000f, 050216);
 
        // deleteUser("Chris");
        // deleteJob("Rörmockare");
@@ -79,11 +79,25 @@ public class Controller  {
         return kommuner;
     }
 
-    public void getCity(){
-
+    public Float getChurchTax(String kommun){
+        Float tax = 0f;
+        tax = client.getChurchTax(kommun);
+        return tax;
     }
-    public void getTax(){
 
+    public Float getTax(String kommun){
+        Float tax = 0f;
+        tax = client.getTax(kommun);
+        return tax;
+    }
+
+    /**
+     * Saves the choosen tax into database
+     * @param currentTax
+     */
+    public void setTax(Float currentTax){
+        sqLiteDatabase = dbHelper.getWritableDatabase();
+        dbHelper.setTax(currentTax, sqLiteDatabase );
     }
 
     /**

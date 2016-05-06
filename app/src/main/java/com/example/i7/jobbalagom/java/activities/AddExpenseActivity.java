@@ -14,6 +14,7 @@ import com.example.i7.jobbalagom.java.local.Expense;
 
 /**
  * Created by Jakup on some date I don't remember
+ * CURRENTLY NOT USED
  */
 
 public class AddExpenseActivity extends AppCompatActivity {

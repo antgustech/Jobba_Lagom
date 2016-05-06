@@ -1,7 +1,5 @@
 package com.example.i7.jobbalagom.java.remote;
 
-import android.util.Log;
-
 import com.example.i7.jobbalagom.java.local.Controller;
 import com.example.i7.jobbalagom.java.local.MessageCallback;
 import com.example.i7.jobbalagom.java.local.Singleton;
@@ -29,7 +27,6 @@ public class Client extends Thread {
     private boolean connected = false;
     private Connection dbConnection;
     private Controller controller;
-
     private ArrayList<String> kommuner;
 
    // private DataOutputStream dos;
@@ -43,7 +40,6 @@ public class Client extends Thread {
         this.PORT = port;
         this.messageCallback = messageCallback;
         kommuner = new ArrayList<String>();
-
         if(!this.isAlive())
         start();
     }
@@ -55,39 +51,31 @@ public class Client extends Thread {
             clientThread = null;
         }catch(IOException e){
         }
-
     }
 
     public void run(){
-        Log.d("ServerTag","Connecting");
         try {
             socket = new Socket(IP, PORT);
-            Log.d("ServerTag","Socket is up");
             dis = new DataInputStream(new BufferedInputStream(socket.getInputStream()));
-            Log.d("ServerTag","DataInput is up");
             dos = new DataOutputStream(new BufferedOutputStream(socket.getOutputStream()));
-            Log.d("ServerTag","DataOutput is up");
             ois = new ObjectInputStream((socket.getInputStream()));
-            Log.d("ServerTag","ObjectInput is up");
-          //  ArrayList<String> attemptList;
-           // attemptList =  getKommun();
-
             kommuner = getKommunFromServer();
-
         } catch (IOException e) {}
         catch(ClassNotFoundException e2){}
-        //  catch(ClassNotFoundException ex){}
     }
 
+    /**
+     * Returns all the kommuns as a list.
+     * @return
+     * @throws IOException
+     * @throws ClassNotFoundException
+     */
     public ArrayList<String> getKommunFromServer() throws IOException, ClassNotFoundException {
         ArrayList<String> list = new ArrayList<String>();
         try {
             dos.writeInt(1);
             dos.flush();
-
-            Log.d("ServerTag", "Operation sent");
             list = (ArrayList) ois.readObject();
-            Log.d("ServerTag","Information received");
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -98,19 +86,39 @@ public class Client extends Thread {
         return kommuner;
     }
 
-    public void getCity() {
+    /**
+     * Retrieves tax including churchtax as a float.
+     * @param kommun
+     * @return
+     */
+    public Float getChurchTax(String kommun){
+        float tax = 0f;
         try {
             dos.writeInt(2);
-            messageCallback.updateCities(dis.readUTF());
+            dos.flush();
+            dos.writeUTF(kommun);
+            tax = dis.readFloat();
         } catch (IOException e) {
         }
+        return tax;
     }
 
-    public void getTax(){
+    /**
+     * Retrieves tax excluding churchtax as a float.
+     * @param kommun
+     * @return
+     */
+    public Float getTax(String kommun){
+        float tax = 0f;
         try {
             dos.writeInt(3);
-            messageCallback.updateTax(dis.readFloat());
+            dos.flush();
+            dos.writeUTF(kommun);
+            tax = dis.readFloat();
         } catch (IOException e) {
         }
+        return tax;
     }
+
+
 }

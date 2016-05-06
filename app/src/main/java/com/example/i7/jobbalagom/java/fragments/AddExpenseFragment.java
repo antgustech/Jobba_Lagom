@@ -49,7 +49,7 @@ public class AddExpenseFragment extends Fragment {
     private class ButtonListener implements View.OnClickListener {
 
         @Override
-        //TODO Parse float causes errors!
+        //TODO input checking
         public void onClick(View v) {
             Log.d("AddExpenseFragment", "Button pressed");
             controller.addExpense(inputTitle.toString(), Float.parseFloat(inputAmount.getText().toString()),  Integer.parseInt(inputDate.getText().toString()));

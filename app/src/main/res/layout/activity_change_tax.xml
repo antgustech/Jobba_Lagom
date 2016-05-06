@@ -26,4 +26,58 @@
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
+
+    <CheckBox
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Är du med i svenska kyrkan?"
+        android:id="@+id/churchCheckbox"
+        android:layout_marginTop="30dp"
+        android:checked="false"
+        android:layout_below="@+id/autoCompleteKommun"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Din skatt"
+        android:id="@+id/taxText"
+        android:layout_above="@+id/chooseTaxBtn"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="38dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="Skattesatsen du får är ett beräknat genomsnitt över alla församlingar i vald kommun"
+        android:id="@+id/textView13"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="49dp" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Välj denna skattesats"
+        android:id="@+id/chooseTaxBtn"
+        android:layout_marginBottom="34dp"
+        android:layout_above="@+id/textView13"
+        android:layout_toRightOf="@+id/textView"
+        android:layout_toEndOf="@+id/textView" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Beräkna"
+        android:id="@+id/calculateTaxBtn"
+        android:layout_below="@+id/churchCheckbox"
+        android:layout_marginTop="29dp"
+        android:layout_alignRight="@+id/chooseTaxBtn"
+        android:layout_alignEnd="@+id/chooseTaxBtn"
+        android:layout_alignLeft="@+id/chooseTaxBtn"
+        android:layout_alignStart="@+id/chooseTaxBtn" />
+
 </RelativeLayout>
