@@ -37,8 +37,6 @@ public class MainActivity extends AppCompatActivity {
 
     private Fragment currentFragment;
 
-    private LaunchFragment launchFragment;
-    private SetupFragment setupFragment;
     private AddExpenseFragment addExpenseFragment;
 
     private MainActivityBudgetFragment budgetFragment;
@@ -61,9 +59,9 @@ public class MainActivity extends AppCompatActivity {
         budgetFragment = new MainActivityBudgetFragment();
         barFragment = new MainBarFragment();
 
-        //launchFragment = new LaunchFragment();
-        //launchFragment.setCallBack(new LaunchFragmentListener());
-        //changeFragment(launchFragment);
+        currentFragment = new LaunchFragment();
+        ((LaunchFragment) currentFragment).setCallBack(new LaunchFragmentListener());
+        changeFragment(currentFragment);
 
 
     }
@@ -88,10 +86,14 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void onBackPressed() {
-        if(currentFragment != null) {
-            removeFragment(currentFragment);
-        } else {
+        if(currentFragment == null || currentFragment instanceof LaunchFragment) {
             super.onBackPressed();
+        } else if(currentFragment instanceof SetupFragment) {
+            currentFragment = new LaunchFragment();
+            ((LaunchFragment) currentFragment).setCallBack(new LaunchFragmentListener());
+            changeFragment(currentFragment);
+        } else {
+            removeFragment(currentFragment);
         }
     }
 
@@ -204,9 +206,9 @@ public class MainActivity extends AppCompatActivity {
             if (v.getId() == R.id.action_f) {
                 startActivity(new Intent(getApplicationContext(), BudgetAcitivity.class));
             } else if (v.getId() == R.id.action_a) {
-                addExpenseFragment = new AddExpenseFragment();
-                addExpenseFragment.setCallBack(new AddExpenseListener());
-                changeFragment(addExpenseFragment);
+                currentFragment = new AddExpenseFragment();
+                ((AddExpenseFragment) currentFragment).setCallBack(new AddExpenseListener());
+                changeFragment(currentFragment);
             } else if (v.getId() == R.id.action_e) {
                 startWorkRegister();
             } else if (v.getId() == R.id.action_addjob) {
@@ -235,9 +237,9 @@ public class MainActivity extends AppCompatActivity {
             if(choice.equals("btnLogo")) {
                 Log.d("MainActivity", "btnLogo pressed");
             } else if(choice.equals("btnNew")) {
-                setupFragment = new SetupFragment();
-                setupFragment.setCallBack(new SetupFragmentListener());
-                changeFragment(setupFragment);
+                currentFragment = new SetupFragment();
+                ((SetupFragment) currentFragment).setCallBack(new SetupFragmentListener());
+                changeFragment(currentFragment);
             } else if(choice.equals("btnKey")) {
                 Log.d("MainActivity", "btnKey pressed");
             } else if(choice.equals("btnInfo")) {
@@ -256,7 +258,7 @@ public class MainActivity extends AppCompatActivity {
             Log.d("SetupFragmentListener", "User information\nNamn: " + name + "\nKommun: " + municipality +
                     "\nFribelopp: " + incomeLimit);
             //ctrl.addUser(...);
-            removeFragment(setupFragment);
+            removeFragment(currentFragment);
         }
     }
 
