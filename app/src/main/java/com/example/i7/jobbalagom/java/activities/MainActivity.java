@@ -258,22 +258,25 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /**
-     * Listener for update fragment
+     * Listener for launch fragment
      */
     private class LaunchFragmentListener implements LaunchFragmentCallback {
 
         @Override
         public void update(String choice) {
             if(choice.equals("btnLogo")) {
-                Log.d("MainActivity", "btnLogo pressed");
+                return;
             } else if(choice.equals("btnNew")) {
+                Log.d("MainActivity", "Changing fragment to SetupFragment");
                 currentFragment = new SetupFragment();
                 ((SetupFragment) currentFragment).setCallBack(new SetupFragmentListener());
                 changeFragment(currentFragment);
             } else if(choice.equals("btnKey")) {
-                Log.d("MainActivity", "btnKey pressed");
+                Log.d("MainActivity", "Removing LaunchFragment");
+                removeFragment(currentFragment);
             } else if(choice.equals("btnInfo")) {
-                Log.d("MainActivity", "btnInfo pressed");
+                Log.d("MainActivity", "Changing fragment to InfoFragment");
+                // Change fragment to infoFragment
             }
         }
     }
