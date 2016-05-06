@@ -112,6 +112,7 @@ public class MainActivity extends AppCompatActivity {
      * @param fragment
      */
     private void removeFragment(Fragment fragment) {
+
         fragmentManager.beginTransaction().remove(fragment).commit();
         currentFragment = null;
     }

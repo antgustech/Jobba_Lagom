@@ -70,7 +70,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Datum"
-        android:id="@+id/tvDate"
+        android:id="@+id/tvTitleOB"
         android:layout_alignBottom="@+id/inDate"
         android:layout_alignLeft="@+id/inDate"
         android:layout_alignStart="@+id/inDate"

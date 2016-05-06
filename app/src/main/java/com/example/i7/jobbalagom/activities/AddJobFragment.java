@@ -3,12 +3,14 @@ package com.example.i7.jobbalagom.activities;
 import android.app.Fragment;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import com.example.i7.jobbalagom.R;
@@ -23,11 +25,16 @@ public class AddJobFragment extends Fragment {
     private AddJobFragmentCallback callback;
     private EditText inputTitle;
     private EditText inputWage;
-    private TextView tvOBweekday;
-    private TextView tvOBsaturday;
-    private TextView tvOBsunday;
+    private TextView tvOB;
     private Button btnAdd;
-    private View obFragment;
+
+    private LinearLayout obLayout;
+    private EditText inputFromTime;
+    private EditText inputToTime;
+    private EditText inputOB;
+    private RadioButton rbWorkday, rbSaturday, rbSunday;
+    private RadioButton rbPercent, rbKronor;
+    private RadioGroup rgDay, rgType;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -42,60 +49,67 @@ public class AddJobFragment extends Fragment {
     public void initComponents(View view) {
         inputTitle = (EditText) view.findViewById(R.id.inputTitle);
         inputWage = (EditText) view.findViewById(R.id.inputWage);
-        tvOBweekday = (TextView) view.findViewById(R.id.tvOBweekday);
-        tvOBsaturday = (TextView) view.findViewById(R.id.tvOBsaturday);
-        tvOBsunday = (TextView) view.findViewById(R.id.tvOBsunday);
         btnAdd = (Button) view.findViewById(R.id.btnAdd);
-        OBListener obListener = new OBListener();
-        tvOBweekday.setOnClickListener(obListener);
-        tvOBsaturday.setOnClickListener(obListener);
-        tvOBsunday.setOnClickListener(obListener);
         btnAdd.setOnClickListener(new ButtonListener());
-        obFragment = view.findViewById(R.id.obFragment);
-        obFragment.setOnKeyListener(new ReturnListener());
-        obFragment.setVisibility(View.INVISIBLE);
+        OBListener obListener = new OBListener();
+        tvOB = (TextView) view.findViewById(R.id.tvOB);
+        tvOB.setOnClickListener(obListener);
+        obLayout = (LinearLayout) view.findViewById(R.id.obLayout);
+        obLayout.setOnClickListener(new ReturnListener());
+        obLayout.setVisibility(View.INVISIBLE);
+        inputFromTime = (EditText) view.findViewById(R.id.inputFromTime);
+        inputToTime = (EditText) view.findViewById(R.id.inputToTime);
+        inputOB = (EditText) view.findViewById(R.id.inputOB);
+        rbWorkday = (RadioButton) view.findViewById(R.id.rbWorkday);
+        rbSaturday = (RadioButton) view.findViewById(R.id.rbSaturday);
+        rbSunday = (RadioButton) view.findViewById(R.id.rbSunday);
+        rbPercent = (RadioButton) view.findViewById(R.id.rbPercent);
+        rbKronor = (RadioButton) view.findViewById(R.id.rbKronor);
+        rgDay = (RadioGroup) view.findViewById(R.id.rgDay);
+        rgType = (RadioGroup) view.findViewById(R.id.rgType);
     }
+
 
     public void setCallBack(AddJobFragmentCallback callback){
         this.callback = callback;
     }
 
+    /**
+     * Gathers input information and sends to MainActivity via callback
+     */
+
     private class ButtonListener implements View.OnClickListener {
         @Override
         public void onClick(View v) {
-            Log.d("AddJobFragment", "Button pressed");
+            Log.d("AddJobFragment", "Add button pressed");
+            // callback.update(...);
         }
     }
+
+    /**
+     * Displays a layout box where the user can provide information about the OB of the new job
+     */
 
     private class OBListener implements View.OnClickListener {
-
         @Override
         public void onClick(View v) {
-
-            if(v.getId() == R.id.tvOBweekday) {
-                obFragment.setVisibility(View.VISIBLE);
-                callback.update("weekday OB pressed");
-            }
-
-            else if(v.getId() == R.id.tvOBsaturday) {
-                obFragment.setVisibility(View.VISIBLE);
-                callback.update("saturday OB pressed");
-            }
-
-            else if(v.getId() == R.id.tvOBsunday) {
-                obFragment.setVisibility(View.VISIBLE);
-                callback.update("sunday OB pressed");
-            }
+            obLayout.setVisibility(View.VISIBLE);
         }
     }
 
-    private class ReturnListener implements View.OnKeyListener {
+    /**
+     * Enables the user to press outside of the OB layout box to return to the main AddJobFragment
+     */
+
+    private class ReturnListener implements View.OnClickListener {
         @Override
-        public boolean onKey(View v, int key, KeyEvent e) {
-            if(key == KeyEvent.KEYCODE_BACK && obFragment.getVisibility() == View.VISIBLE) {
-                obFragment.setVisibility(View.INVISIBLE);
-            }
-            return false;
+        public void onClick(View v) {
+            obLayout.setVisibility(View.INVISIBLE);
+            inputFromTime.setText("");
+            inputToTime.setText("");
+            inputOB.setText("");
+            rgDay.clearCheck();
+            rgType.clearCheck();
         }
     }
 }

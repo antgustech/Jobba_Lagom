@@ -3,7 +3,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/bgSetup"
-    tools:context=".activities.AddJobFragment">
+    tools:context=".activities.AddJobFragment"
+    android:clickable="true">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -78,7 +79,7 @@
             android:textSize="@dimen/et_text_size" />
 
         <TextView
-            android:id="@+id/tvDate"
+            android:id="@+id/titleOB"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/inputWage"
@@ -90,40 +91,12 @@
             android:textSize="@dimen/tv_text_size" />
 
         <TextView
-            android:id="@+id/tvOBweekday"
+            android:id="@+id/tvOB"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/tvDate"
+            android:layout_below="@+id/titleOB"
             android:background="@color/white"
-            android:hint="Vardag"
-            android:textColorHint="@color/grey"
-            android:textStyle="italic"
-            android:inputType="date"
-            android:textAlignment="center"
-            android:textSize="@dimen/et_text_size"
-            />
-
-        <TextView
-            android:id="@+id/tvOBsaturday"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/tvOBweekday"
-            android:background="@color/white"
-            android:hint="Lördag"
-            android:textColorHint="@color/grey"
-            android:textStyle="italic"
-            android:inputType="date"
-            android:textAlignment="center"
-            android:textSize="@dimen/et_text_size"
-            />
-
-        <TextView
-            android:id="@+id/tvOBsunday"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/tvOBsaturday"
-            android:background="@color/white"
-            android:hint="Söndag"
+            android:hint="+"
             android:textColorHint="@color/grey"
             android:textStyle="italic"
             android:inputType="date"
@@ -135,7 +108,7 @@
             android:id="@+id/btnAdd"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/tvOBsunday"
+            android:layout_below="@+id/tvOB"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="@dimen/text_margin"
             android:text="Lägg till"
@@ -145,35 +118,196 @@
     </RelativeLayout>
 
 
-    <fragment
-        android:name="com.example.i7.jobbalagom.activities.OBFragment"
-        android:id="@+id/obFragment"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/black_trans"
-        >
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:id="@+id/obLayout"
+        android:background="@color/black_trans">
 
-        <LinearLayout
-            android:id="@+id/body"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
             android:layout_centerInParent="true"
             android:background="@color/white"
-            android:orientation="horizontal"
-            android:paddingBottom="@dimen/fragment_padding_height"
-            android:paddingLeft="@dimen/fragment_padding_width"
-            android:paddingRight="@dimen/fragment_padding_width"
-            android:paddingTop="@dimen/fragment_padding_height">
+            android:layout_margin="@dimen/popup_margin"
+            android:clickable="true"
+            android:gravity="center_horizontal">
 
-            <Button
-                android:layout_width="wrap_content"
+            <TextView
+                android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:text="+"
+                android:id="@+id/tvTitleDayAndTime"
+                android:padding="@dimen/text_padding"
+                android:layout_marginBottom="@dimen/text_margin"
+                android:layout_below="@+id/obHeader"
+                android:background="@color/grey_trans"
+                android:text="Ange dag och tid"
+                android:textSize="@dimen/title_sub_size"
+                android:textAlignment="center"
                 />
 
-        </LinearLayout>
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/layoutDay"
+                android:layout_alignParentLeft="true"
+                android:layout_below="@+id/tvTitleDayAndTime"
+                android:layout_marginLeft="@dimen/text_margin">
 
-    </fragment>
+                <RadioGroup
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/rgDay">
+
+                    <RadioButton
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Vardag"
+                        android:id="@+id/rbWorkday"
+                        />
+
+                    <RadioButton
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Lördag"
+                        android:id="@+id/rbSaturday"
+                        android:layout_below="@+id/rbWorkday"
+                        />
+
+                    <RadioButton
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Söndag"
+                        android:id="@+id/rbSunday"
+                        android:layout_below="@+id/rbSaturday"
+                        />
+
+                </RadioGroup>
+
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/layoutTime"
+                android:layout_below="@+id/tvTitleDayAndTime"
+                android:layout_marginRight="@dimen/text_margin"
+                >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/tvFromTime"
+                    android:padding="@dimen/text_padding"
+                    android:text="Från"
+                    android:textSize="@dimen/tv_text_size"
+                    android:layout_toLeftOf="@+id/inputFromTime"
+                    />
+
+                <EditText
+                    android:layout_width="70dp"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/inputFromTime"
+                    android:layout_alignBottom="@+id/tvFromTime"
+                    android:layout_alignParentRight="true"
+                    android:inputType="time"
+                    android:textAlignment="center"
+                    android:textSize="@dimen/et_text_size"
+                    />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/tvToTime"
+                    android:padding="@dimen/text_padding"
+                    android:textSize="@dimen/tv_text_size"
+                    android:text="Till"
+                    android:layout_toLeftOf="@+id/inputToTime"
+                    android:layout_below="@+id/tvFromTime"
+                    />
+
+                <EditText
+                    android:layout_width="70dp"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/inputToTime"
+                    android:layout_below="@+id/inputFromTime"
+                    android:layout_alignParentRight="true"
+                    android:inputType="time"
+                    android:textAlignment="center"
+                    android:textSize="@dimen/et_text_size"
+                    />
+
+            </RelativeLayout>
+
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/tvTitleOB"
+                android:padding="@dimen/text_padding"
+                android:layout_below="@+id/layoutDay"
+                android:background="@color/grey_trans"
+                android:text="Ange tillägg"
+                android:textSize="@dimen/title_sub_size"
+                android:textAlignment="center"
+                android:layout_marginTop="@dimen/title_margin"
+                />
+
+            <EditText
+                android:layout_width="120dp"
+                android:layout_height="wrap_content"
+                android:id="@+id/inputOB"
+                android:layout_below="@+id/tvTitleOB"
+                android:textSize="@dimen/title_size"
+                android:layout_margin="@dimen/title_margin"
+                android:inputType="number"
+                android:textAlignment="center"
+                />
+
+            <RadioGroup
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/rgType"
+                android:layout_toRightOf="@+id/inputOB"
+                android:layout_below="@+id/tvTitleOB"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="@dimen/title_margin">
+
+                <RadioButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Procent"
+                    android:id="@+id/rbPercent"
+                    />
+
+                <RadioButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Kronor"
+                    android:id="@+id/rbKronor"
+                    android:layout_below="@+id/rbPercent"
+                    android:layout_alignLeft="@+id/rbPercent" />
+
+            </RadioGroup>
+
+
+            <Button
+                style="?android:attr/buttonStyleSmall"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="OK"
+                android:id="@+id/btnOK"
+                android:layout_centerHorizontal="true"
+                android:layout_below="@+id/rgType"
+                android:layout_margin="@dimen/title_margin"
+                />
+
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
+
 
 
 

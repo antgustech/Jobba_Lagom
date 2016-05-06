@@ -12,7 +12,9 @@
     <dimen name="et_text_size">20sp</dimen>
     <dimen name="title_margin">20dp</dimen>
     <dimen name="text_margin">15dp</dimen>
-
+    <dimen name="text_padding">10dp</dimen>
     <dimen name="icon_margin">10dp</dimen>
-    <dimen name="fragment_margin">40dp</dimen>
+    <dimen name="popup_margin">50dp</dimen>
+    <dimen name="popup_padding">20dp</dimen>
+    <dimen name="tv_time_size">100dp</dimen>
 </resources>
