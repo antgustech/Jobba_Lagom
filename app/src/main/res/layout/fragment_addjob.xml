@@ -7,7 +7,7 @@
     android:paddingLeft="@dimen/fragment_padding_width"
     android:paddingRight="@dimen/fragment_padding_width"
     android:paddingTop="@dimen/fragment_padding_height"
-    tools:context=".activities.AddJobFragment">
+    tools:context=".java.fragments.AddJobFragment">
 
 
     <LinearLayout
