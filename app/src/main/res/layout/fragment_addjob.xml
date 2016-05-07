@@ -91,7 +91,7 @@
             android:textSize="@dimen/tv_text_size" />
 
         <TextView
-            android:id="@+id/tvOB"
+            android:id="@+id/tvAddOB"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/titleOB"
@@ -108,7 +108,7 @@
             android:id="@+id/btnAdd"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/tvOB"
+            android:layout_below="@+id/tvAddOB"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="@dimen/text_margin"
             android:text="Lägg till"
@@ -296,7 +296,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="OK"
-                android:id="@+id/btnOK"
+                android:id="@+id/btnAddOB"
                 android:layout_centerHorizontal="true"
                 android:layout_below="@+id/rgType"
                 android:layout_margin="@dimen/title_margin"

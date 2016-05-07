@@ -12,6 +12,7 @@ import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.i7.jobbalagom.R;
 import com.example.i7.jobbalagom.activities.callback_interfaces.AddJobFragmentCallback;
@@ -25,9 +26,8 @@ public class AddJobFragment extends Fragment {
     private AddJobFragmentCallback callback;
     private EditText inputTitle;
     private EditText inputWage;
-    private TextView tvOB;
-    private Button btnAdd;
-
+    private TextView tvAddOB;
+    private Button btnAddJob;
     private LinearLayout obLayout;
     private EditText inputFromTime;
     private EditText inputToTime;
@@ -35,6 +35,7 @@ public class AddJobFragment extends Fragment {
     private RadioButton rbWorkday, rbSaturday, rbSunday;
     private RadioButton rbPercent, rbKronor;
     private RadioGroup rgDay, rgType;
+    private Button btnAddOB;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -49,11 +50,10 @@ public class AddJobFragment extends Fragment {
     public void initComponents(View view) {
         inputTitle = (EditText) view.findViewById(R.id.inputTitle);
         inputWage = (EditText) view.findViewById(R.id.inputWage);
-        btnAdd = (Button) view.findViewById(R.id.btnAdd);
-        btnAdd.setOnClickListener(new ButtonListener());
-        OBListener obListener = new OBListener();
-        tvOB = (TextView) view.findViewById(R.id.tvOB);
-        tvOB.setOnClickListener(obListener);
+        btnAddJob = (Button) view.findViewById(R.id.btnAdd);
+        btnAddJob.setOnClickListener(new BtnAddJobListener());
+        tvAddOB = (TextView) view.findViewById(R.id.tvAddOB);
+        tvAddOB.setOnClickListener(new BtnDisplayOBListener());
         obLayout = (LinearLayout) view.findViewById(R.id.obLayout);
         obLayout.setOnClickListener(new ReturnListener());
         obLayout.setVisibility(View.INVISIBLE);
@@ -67,6 +67,8 @@ public class AddJobFragment extends Fragment {
         rbKronor = (RadioButton) view.findViewById(R.id.rbKronor);
         rgDay = (RadioGroup) view.findViewById(R.id.rgDay);
         rgType = (RadioGroup) view.findViewById(R.id.rgType);
+        btnAddOB = (Button) view.findViewById(R.id.btnAddOB);
+        btnAddOB.setOnClickListener(new BtnAddOBListener());
     }
 
 
@@ -78,7 +80,8 @@ public class AddJobFragment extends Fragment {
      * Gathers input information and sends to MainActivity via callback
      */
 
-    private class ButtonListener implements View.OnClickListener {
+    private class BtnAddJobListener implements View.OnClickListener {
+
         @Override
         public void onClick(View v) {
             Log.d("AddJobFragment", "Add button pressed");
@@ -86,11 +89,89 @@ public class AddJobFragment extends Fragment {
         }
     }
 
+    private class BtnAddOBListener implements View.OnClickListener {
+        CharSequence emptyInputMsg;
+        CharSequence invalidInputMsg;
+
+        public void onClick(View v) {
+
+            // Check for empty input fields
+
+            emptyInputMsg = "Vänta lite, du glömde fylla i";
+
+            if (rgDay.getCheckedRadioButtonId() == -1) {
+                Log.d("OB layout", "rdDay: " + rgDay.getCheckedRadioButtonId());
+                addError("typ av dag");
+            }
+            if (inputFromTime.getText().toString().equals("")) {
+                addError("från tid");
+            }
+            if (inputToTime.getText().toString().equals("")) {
+                addError("till tid");
+            }
+            if (inputOB.getText().toString().equals("")) {
+                addError("OB");
+            }
+            if (rgType.getCheckedRadioButtonId() == -1) {
+                Log.d("OB layout", "rdType: " + rgType.getCheckedRadioButtonId());
+                addError("enhet");
+            }
+            emptyInputMsg = emptyInputMsg + ".";
+
+            if(!emptyInputMsg.equals("Vänta lite, du glömde fylla i.")) {
+                Toast.makeText(getActivity(), emptyInputMsg, Toast.LENGTH_LONG).show();
+                return;
+            }
+
+            // Check for invalid input
+
+            String fromTime = inputFromTime.getText().toString();
+            String toTime = inputToTime.getText().toString();
+
+            if(fromTime.length() != 5 || toTime.length() != 5) {
+                invalidInputMsg = "Vänligen ange tid i formatet HH:MM";
+                Toast.makeText(getActivity(), invalidInputMsg, Toast.LENGTH_LONG).show();
+                return;
+            }
+            if(fromTime.charAt(2) != ':' || toTime.charAt(2) != ':') {
+                invalidInputMsg = "Vänligen ange tid i formatet HH:MM.";
+                Toast.makeText(getActivity(), invalidInputMsg, Toast.LENGTH_LONG).show();
+                return;
+            }
+
+            int fromTimeHour = Integer.parseInt(fromTime.substring(0,2));
+            int fromTimeMin = Integer.parseInt(fromTime.substring(3));
+            int toTimeHour = Integer.parseInt(toTime.substring(0,2));
+            int toTimeMin = Integer.parseInt(toTime.substring(3));
+
+            if(fromTimeHour > 23 || fromTimeMin > 59 || toTimeHour > 23 || toTimeMin > 59) {
+                invalidInputMsg = "Tiden som angetts är inte en giltig tid.";
+                Toast.makeText(getActivity(), invalidInputMsg, Toast.LENGTH_LONG).show();
+                return;
+            }
+            if(fromTimeHour > toTimeHour) {
+                invalidInputMsg = "De angivna tiderna stämmer inte överens.";
+                Toast.makeText(getActivity(), invalidInputMsg, Toast.LENGTH_LONG).show();
+                return;
+            }
+
+            Log.d("obLayout", "Input giltig");
+        }
+
+        public void addError(String error) {
+            if(emptyInputMsg.charAt(emptyInputMsg.length()-1) == 'i') {
+                emptyInputMsg = emptyInputMsg + " " + error;
+            } else {
+                emptyInputMsg = emptyInputMsg + ", " + error;
+            }
+        }
+    }
+
     /**
      * Displays a layout box where the user can provide information about the OB of the new job
      */
 
-    private class OBListener implements View.OnClickListener {
+    private class BtnDisplayOBListener implements View.OnClickListener {
         @Override
         public void onClick(View v) {
             obLayout.setVisibility(View.VISIBLE);

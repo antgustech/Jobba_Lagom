@@ -36,7 +36,7 @@ public class AddExpenseFragment extends Fragment {
         inputTitle = (EditText) view.findViewById(R.id.inputTitle);
         inputAmount = (EditText) view.findViewById(R.id.inputWage);
         inputDate = (EditText) view.findViewById(R.id.inputDate);
-        btnOK = (ImageButton) view.findViewById(R.id.btnOK);
+        btnOK = (ImageButton) view.findViewById(R.id.btnAddOB);
         btnOK.setOnClickListener(new ButtonListener());
 
     }

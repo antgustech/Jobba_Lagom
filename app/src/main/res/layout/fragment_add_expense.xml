@@ -108,7 +108,7 @@
     <ImageButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/btnOK"
+        android:id="@+id/btnAddOB"
         android:background="@drawable/go_icon"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
