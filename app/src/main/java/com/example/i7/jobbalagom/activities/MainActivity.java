@@ -12,7 +12,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
-
 import com.example.i7.jobbalagom.R;
 import com.example.i7.jobbalagom.activities.WorkRegister.WorkRegisterActivity;
 import com.example.i7.jobbalagom.activities.callback_interfaces.AddExpenseFragmentCallback;
@@ -24,107 +23,72 @@ import com.example.i7.jobbalagom.local.Singleton;
 import com.example.i7.jobbalagom.localDatabase.DBHelper;
 
 public class MainActivity extends AppCompatActivity {
-    private View btnTax;
-    private View btnTime;
-    private View btnWork;
+
+    private View btnChangeTax;
+    private View btnAddExpense;
+    private View btnAddShift;
     private View btnBudget;
     private View btnAddJob;
-    private ButtonListener listener;
-
-    private Controller controller;
+    private ButtonListener btnListener;
     private FragmentTransaction fragmentTransaction;
     private FragmentManager fragmentManager;
-
     private Fragment currentFragment;
-
     private AddExpenseFragment addExpenseFragment;
-
     private MainActivityBudgetFragment budgetFragment;
     private MainBarFragment barFragment;
-
+    private Controller controller;
     private DBHelper dbHelper;
-
     private final int REQUESTCODE_WORKREGISTER = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         controller = new Controller(this);
         Singleton.setController(controller);
-
-        setStatusbarColor();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         initComponents();
-
-        budgetFragment = new MainActivityBudgetFragment();
-        barFragment = new MainBarFragment();
-
-        currentFragment = new LaunchFragment();
-        ((LaunchFragment) currentFragment).setCallBack(new LaunchFragmentListener());
-        changeFragment(currentFragment);
-
-
+        startLaunchFragment();
     }
 
     /**
      * Initializes components.
      */
     public void initComponents() {
-        listener = new ButtonListener();
-        btnTime = findViewById(R.id.action_a);
-      //  btnTax = findViewById(R.id.action_b);
-        btnWork = findViewById(R.id.action_e);
-        btnBudget = findViewById(R.id.action_f);
+        btnAddExpense = findViewById(R.id.btnAddExpense);
+        // btnChangeTax = findViewById(R.id.btnChangeTax);
+        btnAddShift = findViewById(R.id.btnAddShift);
+        btnBudget = findViewById(R.id.btnBudget);
         btnAddJob = findViewById(R.id.action_addjob);
-        btnWork.setOnClickListener(listener);
-        btnBudget.setOnClickListener(listener);
-      //  btnTax.setOnClickListener(listener);
-        btnTime.setOnClickListener(listener);
-        btnAddJob.setOnClickListener(listener);
+        btnListener = new ButtonListener();
+        btnAddShift.setOnClickListener(btnListener);
+        btnBudget.setOnClickListener(btnListener);
+        // btnChangeTax.setOnClickListener(btnListener);
+        btnAddExpense.setOnClickListener(btnListener);
+        btnAddJob.setOnClickListener(btnListener);
         fragmentManager = getFragmentManager();
+        budgetFragment = new MainActivityBudgetFragment();
+        barFragment = new MainBarFragment();
         setStatusbarColor();
+    }
+
+    /**
+     * Setups the statusbar color for older android versions
+     */
+
+    private  void setStatusbarColor(){
+        Window window = this.getWindow();
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            window.setStatusBarColor(getResources().getColor(R.color.colorPrimaryDark));
+        }
     }
 
     public void onBackPressed() {
         if(currentFragment == null || currentFragment instanceof LaunchFragment) {
             super.onBackPressed();
         } else if(currentFragment instanceof SetupFragment) {
-            currentFragment = new LaunchFragment();
-            ((LaunchFragment) currentFragment).setCallBack(new LaunchFragmentListener());
-            changeFragment(currentFragment);
+            startLaunchFragment();
         } else {
             removeFragment(currentFragment);
-        }
-    }
-
-    /**
-     * Changes fragments
-     * @param fragment
-     */
-    private void changeFragment(Fragment fragment){
-        fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.replace(android.R.id.content, fragment);
-        fragmentTransaction.commit();
-    }
-
-    /**
-     * Removes fragments from fragmentManager
-     * @param fragment
-     */
-    private void removeFragment(Fragment fragment) {
-
-        fragmentManager.beginTransaction().remove(fragment).commit();
-        currentFragment = null;
-    }
-
-
-    /**
-     * Setups the statusbar color for older android versions
-     */
-    private  void setStatusbarColor(){
-        Window window = this.getWindow();
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            window.setStatusBarColor(getResources().getColor(R.color.colorPrimaryDark));
         }
     }
 
@@ -133,8 +97,8 @@ public class MainActivity extends AppCompatActivity {
      * @param menu
      * @return
      */
+
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
     }
@@ -144,14 +108,10 @@ public class MainActivity extends AppCompatActivity {
      * @param item
      * @return
      */
-    @Override
+
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
             startActivity(new Intent(getApplicationContext(), SettingsActivity.class));
             return true;
@@ -159,7 +119,6 @@ public class MainActivity extends AppCompatActivity {
             startActivity(new Intent(getApplicationContext(), AboutActivity.class));
             return true;
         }else if(id == R.id.action_vote){
-
         }
         return super.onOptionsItemSelected(item);
     }
@@ -170,7 +129,7 @@ public class MainActivity extends AppCompatActivity {
      * @param resultCode
      * @param data
      */
-    @Override
+
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if(requestCode == REQUESTCODE_WORKREGISTER){
@@ -187,61 +146,93 @@ public class MainActivity extends AppCompatActivity {
                 //Log.d("ResultTag",date);
                 //Log.d("ResultTag",timeFrom);
                 //Log.d("ResultTag",timeTo);
-
             }
         }
     }
 
+
     /**
-     * Button listener for fab
+     * Changes fragments
+     * @param fragment
      */
-    private class ButtonListener implements View.OnClickListener {
 
-        @Override
-        public void onClick(View v) {
-
-            //if (v.getId() == R.id.action_b) {
-              //  startActivity(new Intent(getApplicationContext(), ChangeTaxActivity.class));
-            //} else
-
-            if (v.getId() == R.id.action_f) {
-                startActivity(new Intent(getApplicationContext(), BudgetAcitivity.class));
-            } else if (v.getId() == R.id.action_a) {
-                currentFragment = new AddExpenseFragment();
-                ((AddExpenseFragment) currentFragment).setCallBack(new AddExpenseListener());
-                changeFragment(currentFragment);
-            } else if (v.getId() == R.id.action_e) {
-                startWorkRegister();
-            } else if (v.getId() == R.id.action_addjob) {
-                currentFragment = new AddJobFragment();
-                ((AddJobFragment) currentFragment).setCallBack(new AddJobFragmentListener());
-                changeFragment(currentFragment);
-            }
-        }
+    private void changeFragment(Fragment fragment){
+        fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(android.R.id.content, fragment);
+        fragmentTransaction.commit();
     }
 
     /**
-     * Starts the work register activity
+     * Removes fragments from fragmentManager
+     * @param fragment
      */
+
+    private void removeFragment(Fragment fragment) {
+        fragmentManager.beginTransaction().remove(fragment).commit();
+        currentFragment = null;
+    }
+
     public void startWorkRegister(){
         Intent workRegisterActivity =  new Intent(this, WorkRegisterActivity.class);
         startActivityForResult(workRegisterActivity, REQUESTCODE_WORKREGISTER);
     }
 
+    public void startAddExpenseFragment() {
+        currentFragment = new AddExpenseFragment();
+        ((AddExpenseFragment) currentFragment).setCallBack(new AddExpenseListener());
+        changeFragment(currentFragment);
+    }
+
+    public void startAddJobFragment() {
+        currentFragment = new AddJobFragment();
+        ((AddJobFragment) currentFragment).setCallBack(new AddJobFragmentListener());
+        changeFragment(currentFragment);
+    }
+
+    public void startSetupFragment() {
+        currentFragment = new SetupFragment();
+        ((SetupFragment) currentFragment).setCallBack(new SetupFragmentListener());
+        changeFragment(currentFragment);
+    }
+
+    public void startLaunchFragment() {
+        currentFragment = new LaunchFragment();
+        ((LaunchFragment) currentFragment).setCallBack(new LaunchFragmentListener());
+        changeFragment(currentFragment);
+    }
+
+    /**
+     * Button btnListener for fab
+     */
+
+    private class ButtonListener implements View.OnClickListener {
+        public void onClick(View v) {
+            //if (v.getId() == R.id.btnChangeTax) {
+            //  startActivity(new Intent(getApplicationContext(), ChangeTaxActivity.class));
+            //} else
+            if (v.getId() == R.id.btnBudget) {
+                startActivity(new Intent(getApplicationContext(), BudgetAcitivity.class));
+            } else if (v.getId() == R.id.btnAddExpense) {
+                startAddExpenseFragment();
+            } else if (v.getId() == R.id.btnAddShift) {
+                startWorkRegister();
+            } else if (v.getId() == R.id.action_addjob) {
+                startAddJobFragment();
+            }
+        }
+    }
+
     /**
      * Listener for launch fragment
      */
-    private class LaunchFragmentListener implements LaunchFragmentCallback {
 
-        @Override
-        public void update(String choice) {
+    private class LaunchFragmentListener implements LaunchFragmentCallback {
+        public void navigate(String choice) {
             if(choice.equals("btnLogo")) {
-                return;
+                // Something if we want, or nothing
             } else if(choice.equals("btnNew")) {
                 Log.d("MainActivity", "Changing fragment to SetupFragment");
-                currentFragment = new SetupFragment();
-                ((SetupFragment) currentFragment).setCallBack(new SetupFragmentListener());
-                changeFragment(currentFragment);
+                startSetupFragment();
             } else if(choice.equals("btnKey")) {
                 Log.d("MainActivity", "Removing LaunchFragment");
                 removeFragment(currentFragment);
@@ -255,10 +246,9 @@ public class MainActivity extends AppCompatActivity {
     /**
      * Listener for setup fragment
      */
-    private class SetupFragmentListener implements SetupFragmentCallback {
 
-        @Override
-        public void update(String name, String municipality, String incomeLimit) {
+    private class SetupFragmentListener implements SetupFragmentCallback {
+        public void addUser(String name, String municipality, String incomeLimit) {
             Log.d("SetupFragmentListener", "User information\nNamn: " + name + "\nKommun: " + municipality +
                     "\nFribelopp: " + incomeLimit);
             //ctrl.addUser(...);
@@ -266,14 +256,12 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-
     /**
      * Listener for add job fragment
      */
-    private class AddJobFragmentListener implements AddJobFragmentCallback {
 
-        @Override
-        public void update(String info) {
+    private class AddJobFragmentListener implements AddJobFragmentCallback {
+        public void addJob(String info) {
             Log.d("MainActivity", info);
         }
     }
@@ -281,9 +269,10 @@ public class MainActivity extends AppCompatActivity {
     /**
      * Listener for add expense fragment
      */
+
     private class AddExpenseListener implements AddExpenseFragmentCallback {
         public void addExpense(String title, String amount, String date) {
-            removeFragment(addExpenseFragment);
+            removeFragment(currentFragment);
             Log.d("AddExpenseListener", "Button pressed");
             // --> Send new shift to client database
         }

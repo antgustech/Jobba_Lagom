@@ -2,7 +2,6 @@ package com.example.i7.jobbalagom.activities;
 
 import android.app.Fragment;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -82,7 +81,7 @@ public class SetupFragment extends Fragment {
                 String name = inputName.getText().toString();
                 String municipality = inputMunicipality.getText().toString();
                 String incomeLimit = inputIncomeLimit.getText().toString();
-                callback.update(name, municipality, incomeLimit);
+                callback.addUser(name, municipality, incomeLimit);
             }
         }
     }

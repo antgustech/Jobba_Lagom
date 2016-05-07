@@ -53,13 +53,13 @@ public class LaunchFragment extends Fragment {
         @Override
         public void onClick(View v) {
             if(v.getId() == R.id.btnLogo) {
-                callback.update("btnLogo");
+                callback.navigate("btnLogo");
             } else if(v.getId() == R.id.btnNew) {
-                callback.update("btnNew");
+                callback.navigate("btnNew");
             } else if(v.getId() == R.id.btnKey) {
-                callback.update("btnKey");
+                callback.navigate("btnKey");
             } else if(v.getId() == R.id.btnInfo) {
-                callback.update("btnInfo");
+                callback.navigate("btnInfo");
             }
         }
     }

@@ -82,7 +82,7 @@ public class AddJobFragment extends Fragment {
         @Override
         public void onClick(View v) {
             Log.d("AddJobFragment", "Add button pressed");
-            // callback.update(...);
+            // callback.addUser(...);
         }
     }
 
