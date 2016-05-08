@@ -7,6 +7,8 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
+import java.util.LinkedList;
+
 /**
  * Created by Strandberg95 on 2016-05-01.
  * Updated by Anton Gusyafsson on 2016-05-02
@@ -14,25 +16,25 @@ import android.util.Log;
  */
 public class DBHelper extends SQLiteOpenHelper {
     private static final String DATABASE_NAME = "INTENAL.DB";
-    private static final int DATABASE_VERSION = 12;
+    private static final int DATABASE_VERSION = 13;
 
 
     private static final String CREATE_USER_QUERY =
             "CREATE TABLE " + UserContract.User.TABLE_NAME
-                   + "( " + UserContract.User.USER_NAME + " TEXT PRIMARY KEY,"
-                   + UserContract.User.USER_EARNED + " FLOAT, "
-                   + UserContract.User.USER_INCOME + " FLOAT, "
-                   + UserContract.User.USER_TAX + " FLOAT);";
+                    + "( " + UserContract.User.USER_NAME + " TEXT PRIMARY KEY,"
+                    + UserContract.User.USER_EARNED + " FLOAT, "
+                    + UserContract.User.USER_INCOME + " FLOAT, "
+                    + UserContract.User.USER_TAX + " FLOAT);";
 
     private static final String CREATE_JOB_QUERY =
             "CREATE TABLE " + UserContract.Job.TABLE_NAME
-                   + "( "  + UserContract.Job.JOB_USER + " TEXT, "
-                   + UserContract.Job.JOB_TITLE + " TEXT PRIMARY KEY, "
-                   + UserContract.Job.JOB_WAGE + " FLOAT); ";
+                    + "( " + UserContract.Job.JOB_USER + " TEXT, "
+                    + UserContract.Job.JOB_TITLE + " TEXT PRIMARY KEY, "
+                    + UserContract.Job.JOB_WAGE + " FLOAT); ";
 
     private static final String CREATE_SHIFT_QUERY =
             "CREATE TABLE " + UserContract.Shift.TABLE_NAME
-                    + "( " +UserContract.Shift.SHIFT_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
+                    + "( " + UserContract.Shift.SHIFT_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
                     + UserContract.Shift.SHIFT_JOB_NAME + " TEXT, "
                     + UserContract.Shift.SHIFT_START + " FLOAT, "
                     + UserContract.Shift.SHIFT_END + " FLOAT, "
@@ -58,9 +60,10 @@ public class DBHelper extends SQLiteOpenHelper {
     /**
      * If the Version hasn't changed, it will just open the stored database.
      * If the version has changed, it will create a new database.
+     *
      * @param context
      */
-    public DBHelper(Context context){
+    public DBHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
         Log.e("DBTAG", "Database created / Opened...");
     }
@@ -68,6 +71,7 @@ public class DBHelper extends SQLiteOpenHelper {
     /**
      * Creates the tables
      * Will only be used if the table does not exist.
+     *
      * @param db
      */
     @Override
@@ -82,6 +86,7 @@ public class DBHelper extends SQLiteOpenHelper {
 
     /**
      * Drop tables if they exists
+     *
      * @param db
      * @param oldVersion
      * @param newVersion
@@ -100,17 +105,18 @@ public class DBHelper extends SQLiteOpenHelper {
 
     /**
      * Adds a user to the user table.
+     *
      * @param name
      * @param earned
      * @param income
      * @param tax
      * @param db
      */
-    public void addUser(String name, float earned, float income, float tax, SQLiteDatabase db ){
+    public void addUser(String name, float earned, float income, float tax, SQLiteDatabase db) {
         ContentValues contentValues = new ContentValues();
-        contentValues.put(UserContract.User.USER_NAME,name);
-        contentValues.put(UserContract.User.USER_EARNED,earned);
-        contentValues.put(UserContract.User.USER_INCOME,income);
+        contentValues.put(UserContract.User.USER_NAME, name);
+        contentValues.put(UserContract.User.USER_EARNED, earned);
+        contentValues.put(UserContract.User.USER_INCOME, income);
         contentValues.put(UserContract.User.USER_TAX, tax);
         db.insert(UserContract.User.TABLE_NAME, null, contentValues);
         Log.e("DBTAG", "Information added userTable");
@@ -118,12 +124,13 @@ public class DBHelper extends SQLiteOpenHelper {
 
     /**
      * Adds a job to job table.
+     *
      * @param title
      * @param user
      * @param wage
      * @param db
      */
-    public void addJob(String title, String user, float wage, SQLiteDatabase db  ){
+    public void addJob(String title, String user, float wage, SQLiteDatabase db) {
         ContentValues contentValues = new ContentValues();
         contentValues.put(UserContract.Job.JOB_USER, user);
         contentValues.put(UserContract.Job.JOB_TITLE, title);
@@ -145,17 +152,18 @@ public class DBHelper extends SQLiteOpenHelper {
 
     /**
      * Adds a shift to shift table.
-     * @param jobName
+     *
+     * @param jobTitle
      * @param start
      * @param end
      * @param date
      * @param hoursWorked
      * @param db
      */
-    public void addShift(String jobName, float start, float end, int date, float hoursWorked, SQLiteDatabase db ){
+    public void addShift(String jobTitle, float start, float end, int date, float hoursWorked, SQLiteDatabase db) {
         ContentValues contentValues = new ContentValues();
-        contentValues.put(UserContract.Shift.SHIFT_JOB_NAME,jobName);
-        contentValues.put(UserContract.Shift.SHIFT_START,start);
+        contentValues.put(UserContract.Shift.SHIFT_JOB_NAME, jobTitle);
+        contentValues.put(UserContract.Shift.SHIFT_START, start);
         contentValues.put(UserContract.Shift.SHIFT_END, end);
         contentValues.put(UserContract.Shift.SHIFT_DATE, date);
         contentValues.put(UserContract.Shift.SHIFT_HOURS_WORKED, hoursWorked);
@@ -165,35 +173,39 @@ public class DBHelper extends SQLiteOpenHelper {
 
     /**
      * Adds an expense to expense table.
+     *
      * @param name
      * @param sum
      * @param date
      * @param db
      */
-    public void addExpense(String name, float sum, int date, SQLiteDatabase db ){
+    public void addExpense(String name, float sum, int date, SQLiteDatabase db) {
         ContentValues contentValues = new ContentValues();
-        contentValues.put(UserContract.Expense.EXPENSE_NAME,name);
-        contentValues.put(UserContract.Expense.EXPENSE_SUM,sum);
+        contentValues.put(UserContract.Expense.EXPENSE_NAME, name);
+        contentValues.put(UserContract.Expense.EXPENSE_SUM, sum);
         contentValues.put(UserContract.Expense.EXPENSE_DATE, date);
         db.insert(UserContract.Expense.TABLE_NAME, null, contentValues);
         Log.e("DBTAG", "Information added ExpenseTable");
     }
 
 
-    public void deleteUser(String name, SQLiteDatabase db){
-        db.execSQL("DELETE FROM user WHERE name='"+name+"';");
+    public void deleteUser(String name, SQLiteDatabase db) {
+        db.execSQL("DELETE FROM user WHERE name='" + name + "';");
         Log.e("DBTAG", "Row deleted: user");
     }
-    public void deleteJob(String name, SQLiteDatabase db){
-        db.execSQL("DELETE FROM job WHERE name='"+name+"';");
+
+    public void deleteJob(String name, SQLiteDatabase db) {
+        db.execSQL("DELETE FROM job WHERE name='" + name + "';");
         Log.e("DBTAG", "Row deleted: job");
     }
-    public void deleteShift(int id, SQLiteDatabase db){
-        db.execSQL("DELETE FROM shift WHERE shiftID='"+id+"';");
+
+    public void deleteShift(int id, SQLiteDatabase db) {
+        db.execSQL("DELETE FROM shift WHERE shiftID='" + id + "';");
         Log.e("DBTAG", "Row deleted: Shift");
     }
-    public void deleteExpense(String name, SQLiteDatabase db){
-        db.execSQL("DELETE FROM expense WHERE name='"+name+"';");
+
+    public void deleteExpense(String name, SQLiteDatabase db) {
+        db.execSQL("DELETE FROM expense WHERE name='" + name + "';");
         Log.e("DBTAG", "Row deleted: Expense");
     }
 
@@ -213,11 +225,10 @@ public class DBHelper extends SQLiteOpenHelper {
     }
     */
 
-    public Float getExpenseSum(SQLiteDatabase db){
+    public Float getExpenseSum(SQLiteDatabase db) {
         Float sum = null;
-        Cursor crs = db.rawQuery("select SUM(sum) from " + UserContract.Expense.TABLE_NAME , null);
-        if(crs.moveToFirst())
-        {
+        Cursor crs = db.rawQuery("select SUM(sum) from " + UserContract.Expense.TABLE_NAME, null);
+        if (crs.moveToFirst()) {
             sum = crs.getFloat(0);
         }
         Log.e("DBTAG", sum.toString());
@@ -225,11 +236,10 @@ public class DBHelper extends SQLiteOpenHelper {
         return sum;
     }
 
-    public Float getUserIncome(SQLiteDatabase db){
+    public Float getUserIncome(SQLiteDatabase db) {
         Float sum = null;
-        Cursor crs = db.rawQuery("select SUM(income) from " + UserContract.User.TABLE_NAME , null);
-        if(crs.moveToFirst())
-        {
+        Cursor crs = db.rawQuery("select SUM(income) from " + UserContract.User.TABLE_NAME, null);
+        if (crs.moveToFirst()) {
             sum = crs.getFloat(0);
         }
         Log.e("DBTAG", sum.toString());
@@ -238,11 +248,10 @@ public class DBHelper extends SQLiteOpenHelper {
     }
 
 
-    public Float getUserEarned(SQLiteDatabase db){
+    public Float getUserEarned(SQLiteDatabase db) {
         Float sum = null;
-        Cursor crs = db.rawQuery("select SUM(earned) from " + UserContract.User.TABLE_NAME , null);
-        if(crs.moveToFirst())
-        {
+        Cursor crs = db.rawQuery("select SUM(earned) from " + UserContract.User.TABLE_NAME, null);
+        if (crs.moveToFirst()) {
             sum = crs.getFloat(0);
         }
         Log.e("DBTAG", sum.toString());
@@ -250,7 +259,15 @@ public class DBHelper extends SQLiteOpenHelper {
         return sum;
     }
 
-
+    public String[] getJobTitles(SQLiteDatabase db) {
+        LinkedList<String> jobs = new LinkedList<String>();
+        Cursor c = db.rawQuery("SELECT " + UserContract.Job.JOB_TITLE + " FROM " + UserContract.Job.TABLE_NAME, null);
+        while (c.moveToNext()) {
+            jobs.add(c.getString(0));
+        }
+        String[] jobTitles = jobs.toArray(new String[jobs.size()]);
+        return jobTitles;
+    }
 
 
 

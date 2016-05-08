@@ -247,7 +247,13 @@ public class Controller  {
         sum = dbHelper.getUserEarned(sqLiteDatabase);
         dbHelper.close();
         return sum;
+    }
 
+    public String[] getJobTitles() {
+        sqLiteDatabase = dbHelper.getReadableDatabase();
+        String[] jobTitles = dbHelper.getJobTitles(sqLiteDatabase);
+        dbHelper.close();
+        return jobTitles;
     }
 
 }

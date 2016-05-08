@@ -17,6 +17,7 @@ import com.example.i7.jobbalagom.R;
 import com.example.i7.jobbalagom.activities.WorkRegister.WorkRegisterActivity;
 import com.example.i7.jobbalagom.activities.callback_interfaces.AddExpenseFragmentCallback;
 import com.example.i7.jobbalagom.activities.callback_interfaces.AddJobFragmentCallback;
+import com.example.i7.jobbalagom.activities.callback_interfaces.AddShiftFragmentCallback;
 import com.example.i7.jobbalagom.activities.callback_interfaces.LaunchFragmentCallback;
 import com.example.i7.jobbalagom.activities.callback_interfaces.SetupFragmentCallback;
 import com.example.i7.jobbalagom.local.Controller;
@@ -57,7 +58,8 @@ public class MainActivity extends AppCompatActivity {
     public void initComponents() {
         btnAddExpense = findViewById(R.id.btnAddExpense);
         // btnChangeTax = findViewById(R.id.btnChangeTax);
-        btnAddShift = findViewById(R.id.btnAddShift);
+        //btnAddShift = findViewById(R.id.btnAddShift);
+        btnAddShift = findViewById(R.id.action_addshift);
         btnBudget = findViewById(R.id.btnBudget);
         btnAddJob = findViewById(R.id.action_addjob);
         btnListener = new ButtonListener();
@@ -151,6 +153,10 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    public String[] getJobTitles() {
+        return controller.getJobTitles();
+    }
+
 
     /**
      * Changes fragments
@@ -202,6 +208,12 @@ public class MainActivity extends AppCompatActivity {
         changeFragment(currentFragment);
     }
 
+    public void startAddShiftFragment() {
+        currentFragment = new AddShiftFragment();
+        ((AddShiftFragment) currentFragment).setCallBack(new AddShiftFragmentListener());
+        changeFragment(currentFragment);
+    }
+
     /**
      * Button btnListener for fab
      */
@@ -219,6 +231,9 @@ public class MainActivity extends AppCompatActivity {
                 startWorkRegister();
             } else if (v.getId() == R.id.action_addjob) {
                 startAddJobFragment();
+            }
+            else if (v.getId() == R.id.action_addshift) {
+                startAddShiftFragment();
             }
         }
     }
@@ -267,6 +282,12 @@ public class MainActivity extends AppCompatActivity {
         }
         public void addOB(String jobTitle, String day, String fromTime, String toTime, Float obIndex) {
             controller.addOB(jobTitle, day, fromTime, toTime, obIndex);
+        }
+    }
+
+    private class AddShiftFragmentListener implements AddShiftFragmentCallback {
+        public void addShift(String jobTitle, String startTime, String endTime, Float hoursWorked) {
+            Log.d("MainActivity", "Callback from AddShiftFragment");
         }
     }
 
