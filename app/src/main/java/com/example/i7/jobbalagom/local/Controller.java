@@ -16,7 +16,7 @@ import java.util.ArrayList;
  */
 public class Controller  {
 
-    private final String IP = "192.168.1.19";//ÄNDRA IP VID TESTNING!!!!!!
+    private final String IP = "192.168.0.194";//ÄNDRA IP VID TESTNING!!!!!!
     private final int PORT = 4545;
 
     private Calculator calc;

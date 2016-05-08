@@ -17,7 +17,6 @@ import com.example.i7.jobbalagom.R;
 import com.example.i7.jobbalagom.activities.WorkRegister.WorkRegisterActivity;
 import com.example.i7.jobbalagom.activities.callback_interfaces.AddExpenseFragmentCallback;
 import com.example.i7.jobbalagom.activities.callback_interfaces.AddJobFragmentCallback;
-import com.example.i7.jobbalagom.activities.callback_interfaces.AddShiftFragmentCallback;
 import com.example.i7.jobbalagom.activities.callback_interfaces.LaunchFragmentCallback;
 import com.example.i7.jobbalagom.activities.callback_interfaces.SetupFragmentCallback;
 import com.example.i7.jobbalagom.local.Controller;
@@ -209,9 +208,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void startAddShiftFragment() {
-        currentFragment = new AddShiftFragment();
-        ((AddShiftFragment) currentFragment).setCallBack(new AddShiftFragmentListener());
-        changeFragment(currentFragment);
+       // currentFragment = new AddShiftFragment();
+      //  ((AddShiftFragment) currentFragment).setCallBack(new AddShiftFragmentListener());
+      //  changeFragment(currentFragment);
     }
 
     /**
@@ -285,11 +284,11 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    private class AddShiftFragmentListener implements AddShiftFragmentCallback {
-        public void addShift(String jobTitle, String startTime, String endTime, Float hoursWorked) {
-            Log.d("MainActivity", "Callback from AddShiftFragment");
-        }
-    }
+    //private class AddShiftFragmentListener implements AddShiftFragmentCallback {
+   //     public void addShift(String jobTitle, String startTime, String endTime, Float hoursWorked) {
+    //        Log.d("MainActivity", "Callback from AddShiftFragment");
+    //    }
+   // }
 
     /**
      * Listener for add expense fragment
