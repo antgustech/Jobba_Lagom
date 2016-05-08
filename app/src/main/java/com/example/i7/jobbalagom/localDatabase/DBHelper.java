@@ -14,7 +14,7 @@ import android.util.Log;
  */
 public class DBHelper extends SQLiteOpenHelper {
     private static final String DATABASE_NAME = "INTENAL.DB";
-    private static final int DATABASE_VERSION = 6;
+    private static final int DATABASE_VERSION = 8;
 
 
     private static final String CREATE_USER_QUERY =
@@ -26,10 +26,9 @@ public class DBHelper extends SQLiteOpenHelper {
 
     private static final String CREATE_JOB_QUERY =
             "CREATE TABLE " + UserContract.Job.TABLE_NAME
-                   + "( " + UserContract.Job.JOB_NAME + " TEXT PRIMARY KEY, "
-                   + UserContract.Job.JOB_USER + " TEXT, "
-                   + UserContract.Job.JOB_PAY + " FLOAT, "
-                   + UserContract.Job.JOB_OB + " FLOAT);";
+                   + "( "  + UserContract.Job.JOB_USER + " TEXT, "
+                   + UserContract.Job.JOB_TITLE + " TEXT PRIMARY KEY, "
+                   + UserContract.Job.JOB_WAGE + " FLOAT); ";
 
     private static final String CREATE_SHIFT_QUERY =
             "CREATE TABLE " + UserContract.Shift.TABLE_NAME
@@ -42,10 +41,17 @@ public class DBHelper extends SQLiteOpenHelper {
 
     private static final String CREATE_EXPENSE_QUERY =
             "CREATE TABLE " + UserContract.Expense.TABLE_NAME
-                    + "( " +UserContract.Expense.EXPENSE_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
+                    + "( " + UserContract.Expense.EXPENSE_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
                     + UserContract.Expense.EXPENSE_NAME + " TEXT, "
                     + UserContract.Expense.EXPENSE_SUM + " FLOAT, "
                     + UserContract.Expense.EXPENSE_DATE + " INTEGER); ";
+
+    private static final String CREATE_OB_QUERY =
+            "CREATE TABLE " + UserContract.OB.TABLE_NAME
+                    + "( " + UserContract.OB.OB_JOBTITLE + " TEXT, "
+                    + UserContract.OB.OB_DAY + " TEXT, "
+                    + UserContract.OB.OB_FROMTIME + " TEXT, "
+                    + UserContract.OB.OB_TOTIME + " TEXT); ";
 
     /**
      * If the Version hasn't changed, it will just open the stored database.
@@ -65,9 +71,16 @@ public class DBHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(CREATE_USER_QUERY);
+        Log.d("DBHelper", "user table created");
         db.execSQL(CREATE_JOB_QUERY);
+        Log.d("DBHelper", "job table created");
         db.execSQL(CREATE_SHIFT_QUERY);
+        Log.d("DBHelper", "shift table created");
         db.execSQL(CREATE_EXPENSE_QUERY);
+        Log.d("DBHelper", "expense table created");
+        db.execSQL(CREATE_OB_QUERY);
+        Log.d("DBHelper", "ob table created");
+
         Log.e("DBTAG", "Table Created...");
     }
 
@@ -84,6 +97,7 @@ public class DBHelper extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS " + UserContract.Job.TABLE_NAME);
         db.execSQL("DROP TABLE IF EXISTS " + UserContract.Shift.TABLE_NAME);
         db.execSQL("DROP TABLE IF EXISTS " + UserContract.Expense.TABLE_NAME);
+        db.execSQL("DROP TABLE IF EXISTS " + UserContract.OB.TABLE_NAME);
         // create new tables
         onCreate(db);
     }
@@ -108,20 +122,28 @@ public class DBHelper extends SQLiteOpenHelper {
 
     /**
      * Adds a job to job table.
-     * @param name
+     * @param title
      * @param user
-     * @param pay
-     * @param ob
+     * @param wage
      * @param db
      */
-    public void addJob(String name, String user, float pay, float ob, SQLiteDatabase db  ){
+    public void addJob(String title, String user, float wage, SQLiteDatabase db  ){
         ContentValues contentValues = new ContentValues();
-        contentValues.put(UserContract.Job.JOB_NAME,name);
-        contentValues.put(UserContract.Job.JOB_USER,user);
-        contentValues.put(UserContract.Job.JOB_PAY, pay);
-        contentValues.put(UserContract.Job.JOB_OB, ob);
+        contentValues.put(UserContract.Job.JOB_USER, user);
+        contentValues.put(UserContract.Job.JOB_TITLE, title);
+        contentValues.put(UserContract.Job.JOB_WAGE, wage);
         db.insert(UserContract.Job.TABLE_NAME, null, contentValues);
         Log.e("DBTAG", "Information added jobTable");
+    }
+
+    public void addOB(String jobTitle, String day, String fromTime, String toTime, SQLiteDatabase db) {
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(UserContract.OB.OB_JOBTITLE, jobTitle);
+        contentValues.put(UserContract.OB.OB_DAY, day);
+        contentValues.put(UserContract.OB.OB_FROMTIME, fromTime);
+        contentValues.put(UserContract.OB.OB_TOTIME, toTime);
+        db.insert(UserContract.OB.TABLE_NAME, null, contentValues);
+        Log.e("DBTAG", "Information added obTable");
     }
 
     /**

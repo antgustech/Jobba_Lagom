@@ -12,6 +12,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
+
 import com.example.i7.jobbalagom.R;
 import com.example.i7.jobbalagom.activities.WorkRegister.WorkRegisterActivity;
 import com.example.i7.jobbalagom.activities.callback_interfaces.AddExpenseFragmentCallback;
@@ -261,8 +262,11 @@ public class MainActivity extends AppCompatActivity {
      */
 
     private class AddJobFragmentListener implements AddJobFragmentCallback {
-        public void addJob(String info) {
-            Log.d("MainActivity", info);
+        public void addJob(String title, Float wage) {
+            controller.addJob(title, wage);
+        }
+        public void addOB(String jobTitle, String day, String fromTime, String toTime) {
+            controller.addOB(jobTitle, day, fromTime, toTime);
         }
     }
 
@@ -274,7 +278,7 @@ public class MainActivity extends AppCompatActivity {
         public void addExpense(String title, String amount, String date) {
             removeFragment(currentFragment);
             Log.d("AddExpenseListener", "Button pressed");
-            // --> Send new shift to client database
+            // --> Send new expense to client database
         }
     }
 }
