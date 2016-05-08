@@ -265,8 +265,8 @@ public class MainActivity extends AppCompatActivity {
         public void addJob(String title, Float wage) {
             controller.addJob(title, wage);
         }
-        public void addOB(String jobTitle, String day, String fromTime, String toTime) {
-            controller.addOB(jobTitle, day, fromTime, toTime);
+        public void addOB(String jobTitle, String day, String fromTime, String toTime, Float obIndex) {
+            controller.addOB(jobTitle, day, fromTime, toTime, obIndex);
         }
     }
 

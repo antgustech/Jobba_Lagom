@@ -123,9 +123,9 @@ public class Controller  {
      * Adds ob to db
      */
 
-    public void addOB(String jobTitle, String day, String fromTime, String toTime) {
+    public void addOB(String jobTitle, String day, String fromTime, String toTime, Float obIndex) {
         sqLiteDatabase = dbHelper.getWritableDatabase();
-        dbHelper.addOB(jobTitle, day, fromTime, toTime, sqLiteDatabase);
+        dbHelper.addOB(jobTitle, day, fromTime, toTime, obIndex, sqLiteDatabase);
         Log.d("DBTAG", "Information added");
         dbHelper.close();
     }

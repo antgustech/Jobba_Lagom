@@ -2,7 +2,6 @@ package com.example.i7.jobbalagom.activities;
 
 import android.app.Fragment;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -162,8 +161,6 @@ public class AddJobFragment extends Fragment {
                 return;
             }
 
-            Log.d("obLayout", "Input giltig");
-
             int id = rgDay.getCheckedRadioButtonId();
             RadioButton rb = (RadioButton) rgDay.findViewById(id);
             String day = rb.getText().toString();
@@ -173,10 +170,10 @@ public class AddJobFragment extends Fragment {
             String type = rb2.getText().toString();
             String ob = inputOB.getText().toString();
 
-            String obRate = fromTime + "," + toTime + "," + ob + "," + type + "," + day;
+            // day, fromTime, toTime, ob, type
+
+            String obRate = day + "," + fromTime + "," + toTime + "," + ob + "," + type;
             obRates.add(obRate);
-            Log.d("obLayout", "Lagt till OB-sats" + obRate);
-            Log.d("obLayout", "Alla OB-satser:" + obRates.toString());
             clearOBLayout();
         }
 
@@ -220,16 +217,16 @@ public class AddJobFragment extends Fragment {
         @Override
         public void onClick(View v) {
             CharSequence emptyInputMsg = null;
-            String title = inputTitle.getText().toString();
+            String jobTitle = inputTitle.getText().toString();
             String wage = inputWage.getText().toString();
 
-            if(title.equals("")) {
+            if(jobTitle.equals("")) {
                 emptyInputMsg = "Vänta lite, du glömde fylla i jobbtitel.";
             }
             if (wage.equals("")) {
                 emptyInputMsg = "Vänta lite, du glömde fylla i din timlön.";
             }
-            if (title.equals("") && wage.equals("")) {
+            if (jobTitle.equals("") && wage.equals("")) {
                 emptyInputMsg = "Vänta lite, du glömde fylla i jobbtitel och timlön.";
             }
 
@@ -238,19 +235,27 @@ public class AddJobFragment extends Fragment {
                 return;
             }
 
-            callback.addJob(title, Float.parseFloat(wage));
+            callback.addJob(jobTitle, Float.parseFloat(wage));
 
             for(String obRate : obRates) {
                 String[] parts = obRate.split(",");
-                String jobTitle = parts[0];
-                String day = parts[1];
-                String fromTime = parts[2];
-                String toTime = parts[3];
-                callback.addOB(jobTitle, day, fromTime, toTime);
+                String day = parts[0];
+                String fromTime = parts[1];
+                String toTime = parts[2];
+                String ob = parts[3];
+                String type = parts[4];
+                float obIndex = 0;
+
+                if(type.equals("Kronor")) {
+                    obIndex = Float.parseFloat(ob)/Float.parseFloat(wage);
+                } else if(type.equals("Procent")) {
+                    obIndex = Float.parseFloat(ob)/100;
+                }
+                callback.addOB(jobTitle, day, fromTime, toTime, obIndex);
             }
 
             clearAll();
-            Toast.makeText(getActivity(), title + " är tillagt som ett nytt jobb.", Toast.LENGTH_LONG).show();
+            Toast.makeText(getActivity(), jobTitle + " är tillagt som ett nytt jobb.", Toast.LENGTH_LONG).show();
         }
     }
 }

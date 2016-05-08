@@ -45,6 +45,7 @@ public class UserContract {
         public static final String OB_DAY = "day";
         public static final String OB_FROMTIME = "fromTime";
         public static final String OB_TOTIME = "toTime";
-
+        public static final String OB_INDEX = "obIndex";
+        public static final String OB_ID = "id";
     }
 }

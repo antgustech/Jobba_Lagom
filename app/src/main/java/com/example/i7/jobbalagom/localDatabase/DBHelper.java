@@ -14,7 +14,7 @@ import android.util.Log;
  */
 public class DBHelper extends SQLiteOpenHelper {
     private static final String DATABASE_NAME = "INTENAL.DB";
-    private static final int DATABASE_VERSION = 8;
+    private static final int DATABASE_VERSION = 12;
 
 
     private static final String CREATE_USER_QUERY =
@@ -51,7 +51,9 @@ public class DBHelper extends SQLiteOpenHelper {
                     + "( " + UserContract.OB.OB_JOBTITLE + " TEXT, "
                     + UserContract.OB.OB_DAY + " TEXT, "
                     + UserContract.OB.OB_FROMTIME + " TEXT, "
-                    + UserContract.OB.OB_TOTIME + " TEXT); ";
+                    + UserContract.OB.OB_TOTIME + " TEXT, "
+                    + UserContract.OB.OB_INDEX + " FLOAT, "
+                    + UserContract.OB.OB_ID + " INTEGER PRIMARY KEY AUTOINCREMENT); ";
 
     /**
      * If the Version hasn't changed, it will just open the stored database.
@@ -71,16 +73,10 @@ public class DBHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(CREATE_USER_QUERY);
-        Log.d("DBHelper", "user table created");
         db.execSQL(CREATE_JOB_QUERY);
-        Log.d("DBHelper", "job table created");
         db.execSQL(CREATE_SHIFT_QUERY);
-        Log.d("DBHelper", "shift table created");
         db.execSQL(CREATE_EXPENSE_QUERY);
-        Log.d("DBHelper", "expense table created");
         db.execSQL(CREATE_OB_QUERY);
-        Log.d("DBHelper", "ob table created");
-
         Log.e("DBTAG", "Table Created...");
     }
 
@@ -136,12 +132,13 @@ public class DBHelper extends SQLiteOpenHelper {
         Log.e("DBTAG", "Information added jobTable");
     }
 
-    public void addOB(String jobTitle, String day, String fromTime, String toTime, SQLiteDatabase db) {
+    public void addOB(String jobTitle, String day, String fromTime, String toTime, Float obIndex, SQLiteDatabase db) {
         ContentValues contentValues = new ContentValues();
         contentValues.put(UserContract.OB.OB_JOBTITLE, jobTitle);
         contentValues.put(UserContract.OB.OB_DAY, day);
         contentValues.put(UserContract.OB.OB_FROMTIME, fromTime);
         contentValues.put(UserContract.OB.OB_TOTIME, toTime);
+        contentValues.put(UserContract.OB.OB_INDEX, obIndex);
         db.insert(UserContract.OB.TABLE_NAME, null, contentValues);
         Log.e("DBTAG", "Information added obTable");
     }
