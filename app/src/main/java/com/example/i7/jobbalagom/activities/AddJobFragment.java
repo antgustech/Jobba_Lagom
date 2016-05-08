@@ -175,6 +175,8 @@ public class AddJobFragment extends Fragment {
             String obRate = day + "," + fromTime + "," + toTime + "," + ob + "," + type;
             obRates.add(obRate);
             clearOBLayout();
+            Toast.makeText(getActivity(), "OB har registrerats: " + ob + " " + type + " tillägg, " + day + ", från " + fromTime
+                    + " till " + toTime, Toast.LENGTH_LONG).show();
         }
 
         public void addError(String error) {
@@ -247,9 +249,9 @@ public class AddJobFragment extends Fragment {
                 float obIndex = 0;
 
                 if(type.equals("Kronor")) {
-                    obIndex = Float.parseFloat(ob)/Float.parseFloat(wage);
+                    obIndex = 1 + Float.parseFloat(ob)/Float.parseFloat(wage);
                 } else if(type.equals("Procent")) {
-                    obIndex = Float.parseFloat(ob)/100;
+                    obIndex = 1 + Float.parseFloat(ob)/100;
                 }
                 callback.addOB(jobTitle, day, fromTime, toTime, obIndex);
             }
