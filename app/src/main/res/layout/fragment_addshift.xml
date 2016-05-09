@@ -163,6 +163,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/jobTitleList"
+            android:textColor="@color/grey"
+            android:background="@color/white"
             android:textSize="@dimen/fragment_tv_text_size"
             android:layout_below="@+id/tvJobTitle"
             android:layout_alignParentLeft="true"
@@ -175,8 +177,7 @@
             android:id="@+id/btnOK"
             android:background="@drawable/go_icon"
             android:layout_alignParentBottom="true"
-            android:layout_centerHorizontal="true"
-            />
+            android:layout_centerHorizontal="true" />
 
 
     </RelativeLayout>
