@@ -24,8 +24,7 @@
             android:id="@+id/expense_icon"
             android:background="@drawable/expense_icon"
             />
-<!--
--->
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
