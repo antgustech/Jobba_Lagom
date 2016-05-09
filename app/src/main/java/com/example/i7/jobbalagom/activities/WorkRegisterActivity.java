@@ -133,7 +133,7 @@ public class WorkRegisterActivity extends AppCompatActivity {
                 String newDate3 = date.substring(7,8);
                 String newDate4 = newDate1+newDate2+newDate3;
                 //TODO Måste ordna så att det kommer upp tillagda jobb till autotextediten.
-                controller.addShift("TEST", Float.parseFloat(newTimeFrom3.toString()), Float.parseFloat(newTimeTo3.toString()),Integer.parseInt(newDate4.toString()));
+                //controller.addShift("TEST", Float.parseFloat(newTimeFrom3.toString()), Float.parseFloat(newTimeTo3.toString()),Integer.parseInt(newDate4.toString()));
                 Toast.makeText(getBaseContext(), "Jobb tillagt", Toast.LENGTH_LONG).show();
 
 

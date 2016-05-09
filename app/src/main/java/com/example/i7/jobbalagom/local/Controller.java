@@ -134,9 +134,9 @@ public class Controller  {
     /**
      * Adds shift to db
      */
-    public void addShift(String jobName, float start, float end, int date){
+    public void addShift(String jobTitle, float startTime, float endTime, float hoursWorked, int date){
         sqLiteDatabase = dbHelper.getWritableDatabase();
-        dbHelper.addShift(jobName, start, end, date, sqLiteDatabase);
+        dbHelper.addShift(jobTitle, startTime, endTime, hoursWorked, date, sqLiteDatabase);
         Log.d("DBTAG", "Information added");
         dbHelper.close();
     }

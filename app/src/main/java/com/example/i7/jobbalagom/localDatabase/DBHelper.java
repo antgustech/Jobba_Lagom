@@ -16,7 +16,7 @@ import java.util.ArrayList;
  */
 public class DBHelper extends SQLiteOpenHelper {
     private static final String DATABASE_NAME = "INTENAL.DB";
-    private static final int DATABASE_VERSION = 27;
+    private static final int DATABASE_VERSION = 28;
 
 
     private static final String CREATE_USER_QUERY =
@@ -35,9 +35,9 @@ public class DBHelper extends SQLiteOpenHelper {
     private static final String CREATE_SHIFT_QUERY =
             "CREATE TABLE " + UserContract.Shift.TABLE_NAME
                     + "( " +UserContract.Shift.SHIFT_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
-                    + UserContract.Shift.SHIFT_JOB_NAME + " TEXT, "
-                    + UserContract.Shift.SHIFT_START + " FLOAT, "
-                    + UserContract.Shift.SHIFT_END + " FLOAT, "
+                    + UserContract.Shift.SHIFT_JOB_TITLE + " TEXT, "
+                    + UserContract.Shift.SHIFT_START_TIME + " FLOAT, "
+                    + UserContract.Shift.SHIFT_END_TIME + " FLOAT, "
                     + UserContract.Shift.SHIFT_DATE + " INTEGER, "
                     + UserContract.Shift.SHIFT_HOURS_WORKED + " FLOAT);";
 
@@ -138,17 +138,13 @@ public class DBHelper extends SQLiteOpenHelper {
 
     /**
      * Adds a shift to shift table.
-     * @param jobName
-     * @param start
-     * @param end
-     * @param date
-     * @param db
      */
-    public void addShift(String jobName, float start, float end, int date, SQLiteDatabase db ){
+    public void addShift(String jobTitle, float startTime, float endTime, float hoursWorked, int date, SQLiteDatabase db ){
         ContentValues contentValues = new ContentValues();
-        contentValues.put(UserContract.Shift.SHIFT_JOB_NAME,jobName);
-        contentValues.put(UserContract.Shift.SHIFT_START,start);
-        contentValues.put(UserContract.Shift.SHIFT_END, end);
+        contentValues.put(UserContract.Shift.SHIFT_JOB_TITLE, jobTitle);
+        contentValues.put(UserContract.Shift.SHIFT_START_TIME, startTime);
+        contentValues.put(UserContract.Shift.SHIFT_END_TIME, endTime);
+        contentValues.put(UserContract.Shift.SHIFT_HOURS_WORKED, hoursWorked);
         contentValues.put(UserContract.Shift.SHIFT_DATE, date);
         db.insert(UserContract.Shift.TABLE_NAME, null, contentValues);
         Log.e("DBTAG", "Information added shiftTable");
@@ -259,9 +255,6 @@ public class DBHelper extends SQLiteOpenHelper {
         return jobTitles;
     }
 
-
-
-
     public Float getJobPay(SQLiteDatabase db) {
         Float sum = null;
         Cursor crs = db.rawQuery("select pay from " + UserContract.Job.JOB_WAGE, null);
@@ -269,7 +262,6 @@ public class DBHelper extends SQLiteOpenHelper {
             sum = crs.getFloat(0);
         }
         return sum;
-
     }
 
     public Float getStartTime(SQLiteDatabase db) {

@@ -135,6 +135,17 @@
             android:layout_below="@+id/tvJobTitle"
             />
 
+        <Button
+            style="?android:attr/buttonStyleSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="OK"
+            android:id="@+id/btnOK"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@+id/jobTitleList"
+            android:layout_margin="@dimen/title_margin"
+            />
+
 
     </RelativeLayout>
 

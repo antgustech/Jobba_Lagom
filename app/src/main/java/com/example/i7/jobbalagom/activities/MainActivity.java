@@ -279,8 +279,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private class AddShiftFragmentListener implements AddShiftFragmentCallback {
-        public void addShift(String jobTitle, String startTime, String endTime, Float hoursWorked) {
-            Log.d("MainActivity", "Callback from AddShiftFragment");
+        public void addShift(String jobTitle, float startTime, float endTime, float hoursWorked, int date) {
+            Log.d("MainActivity", "New shift: " + hoursWorked + " hours on job " + jobTitle);
+            controller.addShift(jobTitle, startTime, endTime, hoursWorked, date);
         }
     }
 
