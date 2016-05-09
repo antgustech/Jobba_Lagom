@@ -70,6 +70,7 @@
             android:id="@+id/inputStartTime"
             android:textSize="@dimen/fragment_et_text_size"
             android:textAlignment="center"
+            android:inputType="time"
             android:background="@color/white"
             android:layout_below="@+id/tvStartTime"
             />
@@ -91,6 +92,7 @@
             android:id="@+id/inputEndTime"
             android:textSize="@dimen/fragment_et_text_size"
             android:textAlignment="center"
+            android:inputType="time"
             android:background="@color/white"
             android:layout_below="@+id/tvEndTime"
             />
@@ -112,6 +114,7 @@
             android:id="@+id/inputBreakTime"
             android:textSize="@dimen/fragment_et_text_size"
             android:textAlignment="center"
+            android:inputType="number"
             android:background="@color/white"
             android:layout_below="@+id/tvBreakTime"
             />
