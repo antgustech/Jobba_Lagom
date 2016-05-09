@@ -4,6 +4,7 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
+import com.example.i7.jobbalagom.callback_interfaces.MessageCallback;
 import com.example.i7.jobbalagom.localDatabase.DBHelper;
 import com.example.i7.jobbalagom.remote.Client;
 
@@ -57,7 +58,7 @@ public class Controller  {
     }
 
 
-    private class MessageListener implements MessageCallback{
+    private class MessageListener implements MessageCallback {
 
         public void updateKommun(String kommun){
         }

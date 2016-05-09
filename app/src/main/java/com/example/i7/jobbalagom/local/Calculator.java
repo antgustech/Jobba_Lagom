@@ -50,7 +50,4 @@ public class Calculator {
         res = (((endTime-startTime) * pay) * (1-tax));
         Log.e("Calc", "RES:" + res);
     }
-
-
-
 }

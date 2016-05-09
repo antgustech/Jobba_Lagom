@@ -69,6 +69,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         initComponents();
+        //startLaunchFragment();
         setupGraphs();
         startLaunchFragment();
     }
@@ -82,6 +83,7 @@ public class MainActivity extends AppCompatActivity {
         setupBudgetBar();
         updateDataExpense(controller.getExpenseSum());
         updateDataIncome(controller.getUserIncome());
+        currentFragment = new LaunchFragment();
     }
 
     /**

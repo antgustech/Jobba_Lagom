@@ -1,7 +1,7 @@
 package com.example.i7.jobbalagom.remote;
 
 import com.example.i7.jobbalagom.local.Controller;
-import com.example.i7.jobbalagom.local.MessageCallback;
+import com.example.i7.jobbalagom.callback_interfaces.MessageCallback;
 import com.example.i7.jobbalagom.local.Singleton;
 
 import java.io.BufferedInputStream;
