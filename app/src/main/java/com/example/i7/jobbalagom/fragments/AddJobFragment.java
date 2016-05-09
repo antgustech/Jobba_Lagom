@@ -1,4 +1,4 @@
-package com.example.i7.jobbalagom.activities;
+package com.example.i7.jobbalagom.fragments;
 
 import android.app.Fragment;
 import android.os.Bundle;
@@ -14,7 +14,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.i7.jobbalagom.R;
-import com.example.i7.jobbalagom.activities.callback_interfaces.AddJobFragmentCallback;
+import com.example.i7.jobbalagom.callback_interfaces.AddJobFragmentCallback;
 
 import java.util.LinkedList;
 
@@ -73,6 +73,18 @@ public class AddJobFragment extends Fragment {
         btnAddOB.setOnClickListener(new BtnAddOBListener());
         obRates = new LinkedList<String>();
     }
+
+    /**
+     * MY OLD SET JOB ONCLICK METHOD!
+     *
+     *  public void onClick(View v) {
+     Log.d("AddJobFragment", "Button pressed");
+     controller.addJob(inputTitle.toString(), Float.parseFloat(inputWage.getText().toString()),3.55f);
+     Toast.makeText(getContext(), "Jobb tillagt", Toast.LENGTH_LONG).show();
+
+     }
+     * @param callback
+     */
 
 
     public void setCallBack(AddJobFragmentCallback callback){

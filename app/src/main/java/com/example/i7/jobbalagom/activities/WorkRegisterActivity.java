@@ -1,22 +1,26 @@
-package com.example.i7.jobbalagom.activities.WorkRegister;
-
-import android.app.FragmentManager;
-import android.app.FragmentTransaction;
-import android.content.Context;
-import android.content.Intent;
-import android.os.Build;
-import android.os.Bundle;
+package com.example.i7.jobbalagom.activities;
 
 import android.app.Fragment;
-
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
+import android.os.Build;
+import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
-import android.view.inputmethod.InputMethodManager;
+import android.widget.Toast;
 
 import com.example.i7.jobbalagom.R;
+import com.example.i7.jobbalagom.callback_interfaces.DateRegisterCallback;
+import com.example.i7.jobbalagom.callback_interfaces.MainTimeRegisterCallback;
+import com.example.i7.jobbalagom.callback_interfaces.TimePickerCallback;
+import com.example.i7.jobbalagom.fragments.DateRegisterFragment;
+import com.example.i7.jobbalagom.fragments.MainTimeRegisterFragment;
+import com.example.i7.jobbalagom.fragments.TimePickerFragment;
+import com.example.i7.jobbalagom.local.Controller;
+import com.example.i7.jobbalagom.local.Singleton;
 
 public class WorkRegisterActivity extends AppCompatActivity {
 
@@ -34,6 +38,7 @@ public class WorkRegisterActivity extends AppCompatActivity {
     private MainTimeRegisterCallback mainTimeRegisterCallback;
     private DateRegisterCallback dateRegisterCallback;
 
+    private Controller controller;
 
     public WorkRegisterActivity(){
         fragmentManager = getFragmentManager();
@@ -58,6 +63,7 @@ public class WorkRegisterActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        controller  = Singleton.controller;
         super.onCreate(savedInstanceState);
         //setContentView(R.layout.activity_work_register);
 
@@ -110,11 +116,27 @@ public class WorkRegisterActivity extends AppCompatActivity {
             }
 
             if(view.equals(view.findViewById(R.id.mainTimeButton_Done))){
-                Intent intent = new Intent();
-                intent.putExtra("Date",mainTimeRegisterFragment.getDate_TextContainer());
-                intent.putExtra("TimeFrom",mainTimeRegisterFragment.getTimeFrom_TextContainer());
-                intent.putExtra("TimeTo",mainTimeRegisterFragment.getTimeTo_TextContainer());
-                setResult(RESULT_OK,intent);
+                //Parses data from the user.
+                String timeFrom = mainTimeRegisterFragment.getTimeFrom_TextContainer();
+                String newTimeFrom1 = timeFrom.substring(0,2);
+                String newTimeFrom2 = timeFrom.substring(3,5);
+                String newTimeFrom3 = newTimeFrom1 + newTimeFrom2;
+
+                String timeTo = mainTimeRegisterFragment.getTimeTo_TextContainer();
+                String newTimeTo1 = timeTo.substring(0,2);
+                String newTimeTo2 = timeTo.substring(3,5);
+                String newTimeTo3 = newTimeTo1 + newTimeTo2;
+
+                String date = mainTimeRegisterFragment.getDate_TextContainer();
+                String newDate1 = date.substring(0,4);
+                String newDate2 = date.substring(5,6);
+                String newDate3 = date.substring(7,8);
+                String newDate4 = newDate1+newDate2+newDate3;
+                //TODO Måste ordna så att det kommer upp tillagda jobb till autotextediten.
+                controller.addShift("TEST", Float.parseFloat(newTimeFrom3.toString()), Float.parseFloat(newTimeTo3.toString()),Integer.parseInt(newDate4.toString()));
+                Toast.makeText(getBaseContext(), "Jobb tillagt", Toast.LENGTH_LONG).show();
+
+
                 finish();
             }
         }

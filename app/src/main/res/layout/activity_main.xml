@@ -9,28 +9,17 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin">
 
-<!--Old main bar
-    <fragment
-        android:layout_width="200dp"
-        android:layout_height="360dp"
-        android:name="com.example.i7.jobbalagom.activities.MainBarFragment"
-        android:id="@+id/fragment"
-        tools:layout="@layout/main_bar_fragment"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginBottom="-5dp" />
--->
-    <fragment
-        android:layout_width="800dp"
-        android:layout_height="130dp"
 
-        android:name="com.example.i7.jobbalagom.activities.MainActivityBudgetFragment"
-        android:id="@+id/budgetfragment"
-        tools:layout="@layout/activity_main_progress_budget_fragment"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
+    <com.github.mikephil.charting.charts.BarChart
+        android:id="@+id/mainChart"
+        android:layout_width="200dp"
+        android:layout_height="350dp"
+        android:layout_marginTop="210dp" />
+
+    <com.github.mikephil.charting.charts.HorizontalBarChart
+        android:id="@+id/mainBudgetChart"
+        android:layout_width="350dp"
+        android:layout_height="120dp" />
 
         <com.getbase.floatingactionbutton.FloatingActionsMenu
             android:id="@+id/multiple_actions"
@@ -44,19 +33,7 @@
             android:layout_alignParentRight="true"
             android:layout_alignParentEnd="true"
       >
-        <!--
-            <com.getbase.floatingactionbutton.FloatingActionButton
-                android:id="@+id/btnChangeTax"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                fab:fab_icon="@drawable/ic_assignment_turned_in_white_24dp"
-                fab:fab_colorNormal="@color/colorPrimary"
-                fab:fab_title="@string/fButtonTax"
-                fab:fab_colorPressed="@color/white_pressed"/>
-            -->
-
-
-
+            <!--
             <com.getbase.floatingactionbutton.FloatingActionButton
                 android:id="@+id/btnBudget"
                 android:layout_width="wrap_content"
@@ -66,16 +43,7 @@
                 fab:fab_colorNormal="@color/colorPrimary"
                 fab:fab_title="@string/fButtonBudget"
                 fab:fab_colorPressed="@color/white_pressed"/>
-
-            <com.getbase.floatingactionbutton.FloatingActionButton
-                android:id="@+id/btnAddShift"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                fab:fab_icon="@drawable/ic_alarm_white_24dp"
-                fab:fab_colorNormal="@color/colorPrimary"
-                fab:fab_title="@string/fButtonTime"
-                fab:fab_colorPressed="@color/white_pressed"
-                />
+            -->
 
             <com.getbase.floatingactionbutton.FloatingActionButton
                 android:id="@+id/btnAddExpense"
@@ -119,15 +87,6 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
 
-    <fragment
-        android:layout_width="200dp"
-        android:layout_height="300dp"
-        android:name="com.example.i7.jobbalagom.activities.NewMainBarFragment"
-        android:id="@+id/fragment2"
-        tools:layout="@layout/new_main_bar_fragment"
-        android:layout_alignBottom="@+id/multiple_actions"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
 
 
 

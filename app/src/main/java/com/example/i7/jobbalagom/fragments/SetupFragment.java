@@ -1,4 +1,4 @@
-package com.example.i7.jobbalagom.activities;
+package com.example.i7.jobbalagom.fragments;
 
 import android.app.Fragment;
 import android.os.Bundle;
@@ -11,7 +11,7 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import com.example.i7.jobbalagom.R;
-import com.example.i7.jobbalagom.activities.callback_interfaces.SetupFragmentCallback;
+import com.example.i7.jobbalagom.callback_interfaces.SetupFragmentCallback;
 import com.example.i7.jobbalagom.local.Controller;
 import com.example.i7.jobbalagom.local.Singleton;
 

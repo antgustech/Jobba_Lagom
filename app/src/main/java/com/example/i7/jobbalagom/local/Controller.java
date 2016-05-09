@@ -14,14 +14,14 @@ import java.util.ArrayList;
  * Created by Strandberg95 on 2016-03-21.
  *
  */
+
 public class Controller  {
 
-    private final String IP = "192.168.0.194";//ÄNDRA IP VID TESTNING!!!!!!
+    private final String IP = "192.168.1.136";//ÄNDRA IP VID TESTNING!!!!!!
     private final int PORT = 4545;
 
     private Calculator calc;
     private Client client;
-    private String userName = "ettNamn";
     private MessageListener listener;
     private DBHelper dbHelper;
     private SQLiteDatabase sqLiteDatabase;
@@ -32,27 +32,25 @@ public class Controller  {
         calc = new Calculator();
         client = new Client(listener,IP,PORT);
 
-
-
         //TESTING
         dbHelper = new DBHelper(context);
         Singleton.setDBHelper(dbHelper);
+        // addUser("Chris", 30.3f, 10000, 130.17f);
+        //  addJob("Rörmockare", 100, 3.5f);
+        // addShift("Rörmockare", 0900f,1700,0302);
+        // addExpense("Glass", 5000f, 050216);
 
-        /**
-        addUser("Chris", 30.3f, 10000, 130.17f);
-        addJob("Rörmockare", "Chris", 100, 3.5f);
-        addShift("Rörmockare", 0900f,1700,33,8);
-        addExpense("Glass", 50f, 050216);
+        // deleteUser("Chris");
+        // deleteJob("Rörmockare");
+        // deleteShift(1);
+        // deleteExpense("Glass");
 
-       // deleteUser("Chris");
-       // deleteJob("Rörmockare");
-       // deleteShift(1);
-       // deleteExpense("Glass");
+        //getExpenseSum();
+        //getUserEarned();
+        //getUserIncome();
 
-        getExpenseSum();
-        getUserEarned();
-        getUserIncome();
-        **/
+//        getJobName();
+
 
 
     }
@@ -70,7 +68,7 @@ public class Controller  {
 
         @Override
         public void updateTax(float tax) {
-            calc.setTax();
+
         }
     }
     /**
@@ -79,31 +77,43 @@ public class Controller  {
 
     public ArrayList<String> getKommun() throws IOException, ClassNotFoundException {
         ArrayList<String> kommuner = null;
-            kommuner = client.getKommunFromClient();
+        kommuner = client.getKommunFromClient();
 
         return kommuner;
     }
 
-    public void getCity(){
-
+    public Float getChurchTax(String kommun){
+        Float tax = 0f;
+        tax = client.getChurchTax(kommun);
+        return tax;
     }
-    public void getTax(){
 
+    public Float getTax(String kommun){
+        Float tax = 0f;
+        tax = client.getTax(kommun);
+        return tax;
     }
 
     /**
-    *---------------------Internal Database methods
-    */
+     * Saves the choosen tax into database
+     * @param currentTax
+     */
+    public void setTax(Float currentTax){
+        sqLiteDatabase = dbHelper.getWritableDatabase();
+        dbHelper.setTax(currentTax, sqLiteDatabase );
+    }
+
+    /**
+     *---------------------Internal Database methods
+     */
 
 
     /**
      * Adds user to db
      */
-
-    public void addUser(String userName, float tax, float earned, float income) {
-        this.userName = userName;
+    public void addUser(String name, float tax, float earned, float income){
         sqLiteDatabase = dbHelper.getWritableDatabase();
-        dbHelper.addUser(userName, earned, income, tax, sqLiteDatabase);
+        dbHelper.addUser(name,earned,income,tax,sqLiteDatabase);
         Log.d("DBTAG", "Information added");
         dbHelper.close();
     }
@@ -111,21 +121,9 @@ public class Controller  {
     /**
      * Adds job to db
      */
-
-    public void addJob(String jobTitle, float wage){
+    public void addJob(String name, float pay, float ob){
         sqLiteDatabase = dbHelper.getWritableDatabase();
-        dbHelper.addJob(jobTitle, userName, wage, sqLiteDatabase);
-        Log.d("DBTAG", "Information added");
-        dbHelper.close();
-    }
-
-    /**
-     * Adds ob to db
-     */
-
-    public void addOB(String jobTitle, String day, String fromTime, String toTime, Float obIndex) {
-        sqLiteDatabase = dbHelper.getWritableDatabase();
-        dbHelper.addOB(jobTitle, day, fromTime, toTime, obIndex, sqLiteDatabase);
+        dbHelper.addJob(name, pay, ob,sqLiteDatabase);
         Log.d("DBTAG", "Information added");
         dbHelper.close();
     }
@@ -133,10 +131,9 @@ public class Controller  {
     /**
      * Adds shift to db
      */
-
-    public void addShift(String jobTitle, float start, float end, int date, float hoursWorked){
+    public void addShift(String jobName, float start, float end, int date){
         sqLiteDatabase = dbHelper.getWritableDatabase();
-        dbHelper.addShift(jobTitle, start, end, date, hoursWorked, sqLiteDatabase);
+        dbHelper.addShift(jobName, start, end, date, sqLiteDatabase);
         Log.d("DBTAG", "Information added");
         dbHelper.close();
     }
@@ -144,7 +141,6 @@ public class Controller  {
     /**
      * Adds expense to db
      */
-
     public void addExpense(String name, Float sum, int date){
         sqLiteDatabase = dbHelper.getWritableDatabase();
         dbHelper.addExpense(name, sum, date, sqLiteDatabase);
@@ -155,37 +151,33 @@ public class Controller  {
     /**
      * Delete User from table where String=userName
      */
-
-    public void deleteUser(String userName) {
+    public void deleteUser(String name ) {
         sqLiteDatabase = dbHelper.getWritableDatabase();
-        dbHelper.deleteUser(userName,sqLiteDatabase);
+        dbHelper.deleteUser(name,sqLiteDatabase);
         dbHelper.close();
     }
 
     /**
      * Delete Job from table where String=jobName
      */
-
-    public void deleteJob(String jobTitle) {
+    public void deleteJob(String name ) {
         sqLiteDatabase = dbHelper.getWritableDatabase();
-        dbHelper.deleteJob(jobTitle,sqLiteDatabase);
+        dbHelper.deleteJob(name,sqLiteDatabase);
         dbHelper.close();
     }
 
     /**
      * Delete Shift from table where id=shiftID
      */
-
     public void deleteShift(int id ) {
         sqLiteDatabase = dbHelper.getWritableDatabase();
-        dbHelper.deleteShift(id, sqLiteDatabase);
+        dbHelper.deleteShift(id,sqLiteDatabase);
         dbHelper.close();
     }
 
     /**
      * Delete Expense from table where String=expenseName
      */
-
     public void deleteExpense(String name ) {
         sqLiteDatabase = dbHelper.getWritableDatabase();
         dbHelper.deleteExpense(name,sqLiteDatabase);
@@ -195,7 +187,6 @@ public class Controller  {
     /**
      * Returns stuff as a list.
      */
-
   /*  public ArrayList<Float> getExpenseSum(){
         ArrayList<Float> list;
         sqLiteDatabase = dbHelper.getReadableDatabase();
@@ -210,7 +201,6 @@ public class Controller  {
      * Returns sum of all expenses as a float.
      * Could possible be used when setting the expense bar in mainactivity.
      */
-
     public Float getExpenseSum(){
         Float sum = null;
         sqLiteDatabase = dbHelper.getReadableDatabase();
@@ -225,7 +215,6 @@ public class Controller  {
      * Could be used for setting income bar in mainactivity.
      * @return
      */
-
     public Float getUserIncome(){
         Float sum = null;
         sqLiteDatabase = dbHelper.getReadableDatabase();
@@ -240,20 +229,63 @@ public class Controller  {
      * Could be used when setting main bar.
      * @return
      */
-
     public Float getUserEarned(){
         Float sum = null;
         sqLiteDatabase = dbHelper.getReadableDatabase();
         sum = dbHelper.getUserEarned(sqLiteDatabase);
         dbHelper.close();
         return sum;
+
     }
 
-    public String[] getJobTitles() {
+    public ArrayList<String> getJobName(){
+        ArrayList<String> list;
         sqLiteDatabase = dbHelper.getReadableDatabase();
-        String[] jobTitles = dbHelper.getJobTitles(sqLiteDatabase);
+        list = dbHelper.getJobName(sqLiteDatabase);
         dbHelper.close();
-        return jobTitles;
+        return list;
+
+    }
+
+    public Float getJobPay() {
+        Float sum = null;
+        sqLiteDatabase = dbHelper.getReadableDatabase();
+        sum = dbHelper.getJobPay(sqLiteDatabase);
+        dbHelper.close();
+        return sum;
+    }
+
+    public Float getStartTime() {
+        Float sum = null;
+        sqLiteDatabase = dbHelper.getReadableDatabase();
+        sum = dbHelper.getStartTime(sqLiteDatabase);
+        dbHelper.close();
+        return sum;
+    }
+
+    public Float getEndTime() {
+        Float sum = null;
+        sqLiteDatabase = dbHelper.getReadableDatabase();
+        sum = dbHelper.getEndTime(sqLiteDatabase);
+        dbHelper.close();
+        return sum;
+    }
+
+    public Float getTax() {
+        Float sum = null;
+        sqLiteDatabase = dbHelper.getReadableDatabase();
+        sum = dbHelper.getUserTax(sqLiteDatabase);
+        dbHelper.close();
+        return sum;
+    }
+
+
+    public void addOB(String jobTitle, String day, String fromTime, String toTime, Float obIndex) {
+        sqLiteDatabase = dbHelper.getWritableDatabase();
+        dbHelper.addOB(jobTitle, day, fromTime, toTime, obIndex, sqLiteDatabase);
+        Log.d("DBTAG", "Information added");
+        dbHelper.close();
     }
 
 }
+

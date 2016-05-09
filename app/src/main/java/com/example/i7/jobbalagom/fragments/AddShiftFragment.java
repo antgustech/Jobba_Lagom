@@ -1,4 +1,4 @@
-package com.example.i7.jobbalagom.activities;
+package com.example.i7.jobbalagom.fragments;
 
 import android.app.Fragment;
 import android.os.Bundle;
@@ -10,7 +10,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 
 import com.example.i7.jobbalagom.R;
-import com.example.i7.jobbalagom.activities.callback_interfaces.AddShiftFragmentCallback;
+import com.example.i7.jobbalagom.callback_interfaces.AddShiftFragmentCallback;
 
 /**
  * Created by Kajsa on 2016-05-08. OBS INTE KLAR, FORTSÄTTER MÅNDAG :)
@@ -34,7 +34,7 @@ public class AddShiftFragment extends Fragment {
     }
 
     public void initComponents(View view) {
-        jobTitles = ((MainActivity) getActivity()).getJobTitles();
+       // jobTitles = ((MainActivity) getActivity()).getJobTitles();
 
 
         String log = "Jobb: ";

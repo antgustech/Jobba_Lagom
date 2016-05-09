@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:context=".activities.WorkRegister.WorkRegisterActivity">
+    tools:context=".activities.WorkRegisterActivity">
 
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
@@ -24,21 +24,21 @@
     <include layout="@layout/content_work_register" />
 
     <fragment
-        android:name="com.example.i7.jobbalagom.activities.WorkRegister.DateRegisterFragment"
+        android:name="com.example.i7.jobbalagom.fragments.DateRegisterFragment"
         android:id="@+id/date_fragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:layout="@layout/date_register_fragment" />
 
     <fragment
-        android:name="com.example.i7.jobbalagom.activities.WorkRegister.MainTimeRegisterFragment"
+        android:name="com.example.i7.jobbalagom.fragments.MainTimeRegisterFragment"
         android:id="@+id/main_fragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:layout="@layout/main_time_register_fragment" />
 
     <fragment
-        android:name="com.example.i7.jobbalagom.activities.WorkRegister.TimePickerFragment"
+        android:name="com.example.i7.jobbalagom.fragments.TimePickerFragment"
         android:id="@+id/time_fragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

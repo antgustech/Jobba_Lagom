@@ -1,16 +1,15 @@
-package com.example.i7.jobbalagom.activities.WorkRegister;
+package com.example.i7.jobbalagom.fragments;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.DatePicker;
 
 import com.example.i7.jobbalagom.R;
+import com.example.i7.jobbalagom.callback_interfaces.DateRegisterCallback;
 
 /**
  * Created by Strandberg95 on 2016-04-18.

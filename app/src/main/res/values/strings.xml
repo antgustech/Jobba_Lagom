@@ -16,7 +16,9 @@
     <string name="worked_hours">Ange arbetad tid</string>
     <string name="cancel">Avbryt</string>
     <string name="add">Klar</string>
-    <string name="action_about_disclaimer">Disclaimer: Vi tar inget ansvar för felaktiga beräkningar</string>
+   <string name="action_about_disclaimer">Denna applikation är skapad av en grupp studenter på Malmö högskola. Applikationen befinner sig för tillfället i ett tidigt
+     utvecklings stadie och diverse buggar och fel kan inträffa. Vi tar inget ansvar för felaktiga beräkningar, krascher eller att du missade din tvättid.
+    </string>
 
     <!--Floating button strings-->
     <string name="fButtonExpanse">Lägg till utgift</string>
@@ -87,5 +89,7 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="fButtonJob" />
+
+    <string name="aboutAuthor">Anton Gustafsson-baxtexx@gmail.com, Christoffer Strandberg, Kajsa Ornstierna, Jakup Guven, Morgan Hedström</string>
 
 </resources>

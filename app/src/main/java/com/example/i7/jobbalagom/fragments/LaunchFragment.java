@@ -1,4 +1,4 @@
-package com.example.i7.jobbalagom.activities;
+package com.example.i7.jobbalagom.fragments;
 
 import android.app.Fragment;
 import android.os.Bundle;
@@ -8,7 +8,7 @@ import android.view.ViewGroup;
 import android.widget.ImageButton;
 
 import com.example.i7.jobbalagom.R;
-import com.example.i7.jobbalagom.activities.callback_interfaces.LaunchFragmentCallback;
+import com.example.i7.jobbalagom.callback_interfaces.LaunchFragmentCallback;
 
 /**
  * Created by Kajsa on 2016-05-02.

@@ -15,7 +15,6 @@ import java.net.Socket;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
-import java.util.ArrayList;
 
 
 public class Server extends Thread {
@@ -25,10 +24,11 @@ public class Server extends Thread {
 	private boolean connected = false;
 
 	/*
-	 * ------Handles connection-----------
-	 */
+     * ------Handles connection-----------
+     */
 	public Server() {
 		System.out.println("Server waiting to establish connection");
+		connectDB();
 		try {
 			serverSocket = new ServerSocket(4545);
 			connected = true;
@@ -65,18 +65,17 @@ public class Server extends Thread {
 			connected = true;
 			this.socket = socket;
 			try {
-
 				dis = new DataInputStream(new BufferedInputStream(socket.getInputStream()));
 				dos = new DataOutputStream(new BufferedOutputStream(socket.getOutputStream()));
 				oos = new ObjectOutputStream(socket.getOutputStream());
 			} catch (IOException e) {
 			}
 			System.out.println("Client connected to server" );
-			connectDB();
+
 		}
 
 		/*
-         * Handles diffrent questions from client.
+         * Handles different questions from client.
          */
 		public void run() {
 			while (connected) {
@@ -87,16 +86,11 @@ public class Server extends Thread {
 					switch (intOperation) {
 
 						case 1://getKommun
-							ArrayList<String> list = new ArrayList<String>();
-							list.add("ay");
-							list.add("lmao");
-							list.add("mofo");
-						//	oos.writeObject(getKommun());
+							//oos.writeObject(getKommun());
 							break;
 
-						case 2://getCity
-							dos.writeUTF(getCity(dis.readUTF()));
-							dos.flush();
+						case 2://getChurchTax
+							dos.writeFloat(getChurchTax(dis.readUTF()));
 							break;
 
 						case 3://getTax
@@ -104,19 +98,19 @@ public class Server extends Thread {
 							break;
 					}
 				} catch (IOException e) {
-					System.out.println("[ERROR] IOException or SQLException");
-					connected=false;
-				} //catch (SQLException e) {
-					// TODO Auto-generated catch block
-				//	e.printStackTrace();
+					System.out.println("[ERROR] File error");
+					//connected=false;
+				}
+				//catch (SQLException e) {
+				//	System.out.println("[ERROR] Network error");
 				//}
 			}
 		}
 	}
 
 	/*
-	 * ----------------------------------DB methods-----------------------------------
-	 */
+     * ----------------------------------DB methods-----------------------------------
+     */
 	private void connectDB() {
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
@@ -135,8 +129,8 @@ public class Server extends Thread {
 			System.out.println("[ERROR] Problem with disconnecting db");
 		}
 	}
-	/*
-	//Should read all kommun strings from table skatt16april
+/*
+	//Read all kommun strings from table skatt16april and returns them in a list.
 	private ArrayList<String> getKommun() throws SQLException {
 		String kommuner ="";
 		try (Statement s = (Statement) dbConnection.createStatement()) {
@@ -149,22 +143,24 @@ public class Server extends Thread {
 			}
 		}
 	}
-	*/
-	private String getCity(String choosenKommun) {
-		String query = "select Ort" + "from " + "ad8284" + ".skatt16april" + "where " + choosenKommun;
-		System.out.println(query);
-		return query;
-	}
 
-	private float getTax(String choosenOrt) {
-		String query = "select Summa" + "from " + "ad8284" + ".skatt16april" + "where " + choosenOrt;
+	*/
+
+	//Returns float of the average tax including churchTax from choosen kommyn.
+	private float getChurchTax(String choosenKommun) {
+		String query = "select AVG(SummaInkluderatKyrkan) from skatt16april where kommun='" + choosenKommun + "';";
+		return Float.parseFloat(query);
+	}
+	//Returns float of the average tax excluding churchTax from choosen kommyn.
+	private float getTax(String choosenKommun) {
+		String query = "select AVG(SummanExkluderatKyrkan) from skatt16april where kommun='" + choosenKommun + "';";
 		return Float.parseFloat(query);
 	}
 }
 
 
 //--------------------------------------------------------------------------------------------------------------------
-// skatt16april
+// skatt16april THIS IS HOW THE TABLE LOOKS LIKE!
 //Kommun VARCHAR(15)
 //Ort VARCHAR(36)
 //SummaInkluderatKyrkan NUMERIC(5, 3)

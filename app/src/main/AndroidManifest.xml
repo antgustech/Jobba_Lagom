@@ -25,7 +25,7 @@
             android:name=".activities.BudgetAcitivity"
             android:label="@string/actionbarTitleBudget" />
         <activity
-            android:name=".activities.WorkRegister.WorkRegisterActivity"
+            android:name=".activities.WorkRegisterActivity"
             android:label="@string/title_activity_work" />
         <activity
             android:name=".activities.ChangeTaxActivity"
