@@ -60,7 +60,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 fab:fab_colorNormal="@color/colorPrimary"
-                fab:fab_icon="@drawable/ic_alarm_white_24dp"
+                fab:fab_icon="@drawable/expense_icon"
                 fab:fab_title="@string/fButtonExpanse"
                 fab:fab_colorPressed="@color/white_pressed"
 
@@ -74,9 +74,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 fab:fab_colorNormal="@color/colorPrimary"
-                fab:fab_icon="@drawable/ic_alarm_white_24dp"
+                fab:fab_icon="@drawable/ic_work_white_24dp"
                 fab:fab_title="Lägg till jobb"
                 fab:fab_colorPressed="@color/white_pressed"
+                android:textColor="@color/white"
                 />
 
 

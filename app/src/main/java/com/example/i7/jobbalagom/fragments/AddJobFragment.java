@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -28,7 +29,7 @@ public class AddJobFragment extends Fragment {
     private EditText inputTitle;
     private EditText inputWage;
     private TextView tvAddOB;
-    private Button btnAddJob;
+    private ImageButton btnAddJob;
     private LinearLayout obLayout;
     private EditText inputFromTime;
     private EditText inputToTime;
@@ -52,7 +53,7 @@ public class AddJobFragment extends Fragment {
     public void initComponents(View view) {
         inputTitle = (EditText) view.findViewById(R.id.inputTitle);
         inputWage = (EditText) view.findViewById(R.id.inputWage);
-        btnAddJob = (Button) view.findViewById(R.id.btnAdd);
+        btnAddJob = (ImageButton) view.findViewById(R.id.btnAdd);
         btnAddJob.setOnClickListener(new BtnAddJobListener());
         tvAddOB = (TextView) view.findViewById(R.id.tvAddOB);
         tvAddOB.setOnClickListener(new BtnDisplayOBListener());
