@@ -14,6 +14,8 @@ import android.widget.Spinner;
 import com.example.i7.jobbalagom.R;
 import com.example.i7.jobbalagom.activities.MainActivity;
 import com.example.i7.jobbalagom.callback_interfaces.AddShiftFragmentCallback;
+import com.example.i7.jobbalagom.local.Controller;
+import com.example.i7.jobbalagom.local.Singleton;
 
 /**
  * Created by Kajsa on 2016-05-08
@@ -28,8 +30,11 @@ public class AddShiftFragment extends Fragment {
     private Button btnOK;
     private EditText inputStartTime, inputEndTime, inputBreakTime;
 
+    private Controller controller;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        controller  = Singleton.controller;
         return inflater.inflate(R.layout.fragment_addshift, container, false);
     }
 
@@ -75,14 +80,21 @@ public class AddShiftFragment extends Fragment {
             String start = inputStartTime.getText().toString();
             String end = inputEndTime.getText().toString();
             String breaktime = inputBreakTime.getText().toString();
-            int date = 160505;
+            int date =
+
+            //int date = 160505;
 
             float startTime = Float.parseFloat(start.substring(0,2)) + (Float.parseFloat(start.substring(3))/60);
             float endTime = Float.parseFloat(end.substring(0,2)) + (Float.parseFloat(end.substring(3))/60);
             float breakHours = Float.parseFloat(breaktime)/60;
             float hoursWorked = endTime - startTime - breakHours;
-
+            //Method that sets the input to the database
             callback.addShift(jobTitle, startTime, endTime, hoursWorked, date);
+
+
+
+
+
         }
     }
 }
