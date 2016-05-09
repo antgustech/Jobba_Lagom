@@ -290,5 +290,38 @@ public class Controller  {
         dbHelper.close();
     }
 
+
+    public Float getOB(){
+        Float sum = null;
+        sqLiteDatabase = dbHelper.getWritableDatabase();
+        sum = dbHelper.getOB(sqLiteDatabase);
+        Log.d("DBTAG", "Information added");
+        dbHelper.close();
+        return sum;
+
+    }
+
+
+    public Float getOBStart(){
+        Float sum = null;
+        sqLiteDatabase = dbHelper.getWritableDatabase();
+        sum = dbHelper.getOBStart(sqLiteDatabase);
+        Log.d("DBTAG", "Information added");
+        dbHelper.close();
+        return sum;
+    }
+
+
+    public Float getOBEnd(){
+
+        Float sum = null;
+        sqLiteDatabase = dbHelper.getWritableDatabase();
+        sum =dbHelper.getOBEnd(sqLiteDatabase);
+        Log.d("DBTAG", "Information added");
+        dbHelper.close();
+        return sum;
+
+    }
+
 }
 

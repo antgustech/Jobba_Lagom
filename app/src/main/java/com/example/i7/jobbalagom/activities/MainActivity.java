@@ -246,7 +246,8 @@ public class MainActivity extends AppCompatActivity {
                 removeFragment(currentFragment);
             } else if(choice.equals("btnInfo")) {
                 Log.d("MainActivity", "Changing fragment to InfoFragment");
-                // Change fragment to infoFragment
+                startActivity(new Intent(getApplicationContext(), AboutActivity.class));
+
             }
         }
     }

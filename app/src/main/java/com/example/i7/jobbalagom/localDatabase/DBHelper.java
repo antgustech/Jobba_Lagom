@@ -220,6 +220,7 @@ public class DBHelper extends SQLiteOpenHelper {
     }
 
 
+
     public Float getUserEarned(SQLiteDatabase db){
         Float sum = null;
         Cursor crs = db.rawQuery("select SUM(earned) from " + UserContract.User.TABLE_NAME , null);
@@ -293,6 +294,36 @@ public class DBHelper extends SQLiteOpenHelper {
         return sum;
 
     }
+
+    public Float getOB(SQLiteDatabase db){
+        Float sum = null;
+        Cursor crs = db.rawQuery("select obIndex from " + UserContract.OB.OB_INDEX, null);
+        if (crs.moveToFirst()) {
+            sum = crs.getFloat(0);
+        }
+        return sum;
+    }
+    public Float getOBStart(SQLiteDatabase db){
+        Float sum = null;
+        Cursor crs = db.rawQuery("select fromTime from " + UserContract.OB.OB_FROMTIME, null);
+        if (crs.moveToFirst()) {
+            sum = crs.getFloat(0);
+        }
+        return sum;
+    }
+    public Float getOBEnd(SQLiteDatabase db){
+        Float sum = null;
+        Cursor crs = db.rawQuery("select toTime from " + UserContract.OB.OB_TOTIME, null);
+        if (crs.moveToFirst()) {
+            sum = crs.getFloat(0);
+        }
+        return sum;
+    }
+
+
+
+
+
     /*public ArrayList<Float> getExpenseSum(SQLiteDatabase db){
         ArrayList<Float> list = new ArrayList<Float>();
         Cursor crs = db.rawQuery("select sum from " + UserContract.Expense.TABLE_NAME , null);

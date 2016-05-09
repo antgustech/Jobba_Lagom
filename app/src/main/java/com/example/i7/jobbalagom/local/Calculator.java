@@ -8,24 +8,19 @@ import android.util.Log;
  */
 public class Calculator {
     private Controller controller;
-    private float tax;
-    private float startTime;
-    private float endTime;
-    private float res;
-    private float pay;
-
+     private float tax, startTime,endTime,res,pay,ob,obStart,obEnd;
 
     public Calculator(){
         controller  = Singleton.controller;
         //getPay();
         //getStart();
         //getEnd();
-        // getTax();
-        //  calculateGraphData();
+        //getTax();
+        //calculateGraphData();
 
     }
 
-    //receives tax like 33.2f
+    //receives wage like 33.2f
     private void getPay(){
         pay = controller.getJobPay();
     }
@@ -40,8 +35,19 @@ public class Calculator {
         endTime = controller.getEndTime();
     }
 
+    //Revcieve tax like 33.4f
     private void getTax(){
         tax = controller.getTax();
+    }
+
+    private void getOB(){
+        ob = controller.getOB();
+    }
+    private void getOBStart(){
+        obStart= controller.getOBStart();
+    }
+    private void getOBEnd(){
+        obEnd = controller.getOBEnd();
     }
 
     //Result=hours*pay*tax
