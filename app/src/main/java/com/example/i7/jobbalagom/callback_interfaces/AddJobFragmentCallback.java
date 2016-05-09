@@ -6,5 +6,5 @@ package com.example.i7.jobbalagom.callback_interfaces;
 
 public interface AddJobFragmentCallback {
     public void addJob(String title, Float wage);
-    public void addOB(String jobTitle, String day, String fromTime, String toTime, Float ob);
+    public void addOB(String jobTitle, String day, String fromTime, String toTime, float obIndex);
 }

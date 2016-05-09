@@ -69,8 +69,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         initComponents();
-        startLaunchFragment();
         setupGraphs();
+        startLaunchFragment();
     }
 
     /**
@@ -82,7 +82,6 @@ public class MainActivity extends AppCompatActivity {
         setupBudgetBar();
         updateDataExpense(controller.getExpenseSum());
         updateDataIncome(controller.getUserIncome());
-        currentFragment = new LaunchFragment();
     }
 
     /**
@@ -271,7 +270,7 @@ public class MainActivity extends AppCompatActivity {
         public void addJob(String title, Float wage) {
             controller.addJob(title, wage);
         }
-        public void addOB(String jobTitle, String day, String fromTime, String toTime, Float obIndex) {
+        public void addOB(String jobTitle, String day, String fromTime, String toTime, float obIndex) {
             controller.addOB(jobTitle, day, fromTime, toTime, obIndex);
         }
     }
