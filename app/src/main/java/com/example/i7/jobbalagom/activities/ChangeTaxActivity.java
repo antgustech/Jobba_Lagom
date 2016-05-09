@@ -36,8 +36,8 @@ public class ChangeTaxActivity extends AppCompatActivity {
         tax = (TextView)findViewById(R.id.taxText);
         controller  = Singleton.controller;
         setContentView(R.layout.activity_change_tax);
-        textViewKommun = (AutoCompleteTextView) findViewById(R.id.autoCompleteKommun);
 
+        textViewKommun = (AutoCompleteTextView) findViewById(R.id.autoCompleteKommun);
         updateKommuner();
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,kommuner);
 
@@ -50,7 +50,6 @@ public class ChangeTaxActivity extends AppCompatActivity {
                     getTax();
                 }
                 chooseTaxBtn.setEnabled(true);
-
             }
         });
 

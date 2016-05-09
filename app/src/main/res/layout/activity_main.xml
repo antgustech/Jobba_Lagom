@@ -46,6 +46,16 @@
             -->
 
             <com.getbase.floatingactionbutton.FloatingActionButton
+                android:id="@+id/action_addshift"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                fab:fab_colorNormal="@color/colorPrimary"
+                fab:fab_icon="@drawable/ic_alarm_white_24dp"
+                fab:fab_title="Lägg till arbetspass"
+                fab:fab_colorPressed="@color/white_pressed"
+                />
+
+            <com.getbase.floatingactionbutton.FloatingActionButton
                 android:id="@+id/btnAddExpense"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -53,7 +63,11 @@
                 fab:fab_icon="@drawable/ic_alarm_white_24dp"
                 fab:fab_title="@string/fButtonExpanse"
                 fab:fab_colorPressed="@color/white_pressed"
+
+
                 />
+
+
 
             <com.getbase.floatingactionbutton.FloatingActionButton
                 android:id="@+id/action_addjob"
@@ -65,15 +79,7 @@
                 fab:fab_colorPressed="@color/white_pressed"
                 />
 
-            <com.getbase.floatingactionbutton.FloatingActionButton
-                android:id="@+id/action_addshift"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                fab:fab_colorNormal="@color/colorPrimary"
-                fab:fab_icon="@drawable/ic_alarm_white_24dp"
-                fab:fab_title="Lägg till arbetspass"
-                fab:fab_colorPressed="@color/white_pressed"
-                />
+
 
         </com.getbase.floatingactionbutton.FloatingActionsMenu>
 
@@ -84,6 +90,9 @@
         android:text="Fribelopp"
         android:id="@+id/textView2"
         android:paddingLeft="70dp"
+        android:layout_marginTop="67dp"
+        android:textSize="20dp"
+        android:layout_below="@+id/mainBudgetChart"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
 
