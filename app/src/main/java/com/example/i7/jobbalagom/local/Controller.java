@@ -77,7 +77,7 @@ public class Controller  {
      *---------------------External Database methods
      */
 
-    public ArrayList<String> getKommun() throws IOException, ClassNotFoundException {
+    public ArrayList<String> getKommun(){
         ArrayList<String> kommuner = null;
         kommuner = client.getKommunFromClient();
 
