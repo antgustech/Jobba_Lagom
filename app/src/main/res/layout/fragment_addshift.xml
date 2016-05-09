@@ -63,6 +63,7 @@
             android:background="@color/grey"
             android:textSize="@dimen/fragment_tv_text_size"
             android:textAlignment="center"
+
             />
 
         <EditText
@@ -73,6 +74,7 @@
             android:textAlignment="center"
             android:background="@color/white"
             android:layout_below="@+id/tvStartTime"
+            android:inputType="number"
             />
 
         <TextView
@@ -95,6 +97,7 @@
             android:textAlignment="center"
             android:background="@color/white"
             android:layout_below="@+id/tvEndTime"
+            android:inputType="number"
             />
 
         <TextView
@@ -118,7 +121,8 @@
             android:textAlignment="center"
             android:background="@color/white"
             android:layout_below="@+id/tvBreakTime"
-            android:layout_alignParentLeft="true" />
+            android:layout_alignParentLeft="true"
+            android:inputType="number"/>
 
 
 
@@ -144,7 +148,8 @@
             android:background="@color/white"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
-            android:layout_below="@+id/tvDate" />
+            android:layout_below="@+id/tvDate"
+            android:inputType="number"/>
 
         <TextView
             android:layout_width="match_parent"

@@ -56,6 +56,13 @@ public class AddExpenseFragment extends Fragment {
             String amount = inputAmount.getText().toString();
             String date = inputDate.getText().toString();
 
+
+            try{      float amountF = Float.parseFloat(inputAmount.getText().toString());
+            }catch(NumberFormatException e){
+                Toast.makeText(getActivity(), "Ogiltlig summa", Toast.LENGTH_LONG).show();
+            }
+
+
             if(title.equals("")) {
                 emptyInputMsg = "Vänta lite, du glömde fylla i utgiftstitle.";
             }
@@ -70,6 +77,13 @@ public class AddExpenseFragment extends Fragment {
                 Toast.makeText(getActivity(), emptyInputMsg, Toast.LENGTH_LONG).show();
                 return;
             }
+
+
+            if(date.length() != 6){
+                Toast.makeText(getActivity(), "Du måste ange datum på formatet DDMMÅÅ", Toast.LENGTH_LONG).show();
+                return;
+            }
+
 
 
             callback.addExpense(inputTitle.toString(), Float.parseFloat(inputAmount.getText().toString()),  Integer.parseInt(inputDate.getText().toString()));

@@ -98,6 +98,11 @@ public class AddShiftFragment extends Fragment {
                 addError("rast i minuter");
             }
 
+            if(inputDate.length() != 6){
+                Toast.makeText(getActivity(), "Du måste ange datum på formatet DDMMÅÅ", Toast.LENGTH_LONG).show();
+                return;
+            }
+
             if (!errorMsg.equals("Vänligen ange")) {
                 errorMsg += ".";
                 Toast.makeText(getActivity(), errorMsg, Toast.LENGTH_LONG).show();
