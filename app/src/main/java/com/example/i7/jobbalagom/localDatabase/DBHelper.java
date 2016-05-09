@@ -133,7 +133,7 @@ public class DBHelper extends SQLiteOpenHelper {
         contentValues.put(UserContract.Job.JOB_TITLE, title);
         contentValues.put(UserContract.Job.JOB_WAGE, wage);
         db.insert(UserContract.Job.TABLE_NAME, null, contentValues);
-        Log.e("DBTAG", "Information added jobTable");
+        Log.e("Internal DB", "New job: " + title + ", timlön: " + wage);
     }
 
     /**
@@ -147,7 +147,7 @@ public class DBHelper extends SQLiteOpenHelper {
         contentValues.put(UserContract.Shift.SHIFT_HOURS_WORKED, hoursWorked);
         contentValues.put(UserContract.Shift.SHIFT_DATE, date);
         db.insert(UserContract.Shift.TABLE_NAME, null, contentValues);
-        Log.e("DBTAG", "Information added shiftTable");
+        Log.e("Internal DB", "New shift: " + hoursWorked + " hours work on job " + jobTitle + ", date " + date);
     }
 
     /**
@@ -174,7 +174,7 @@ public class DBHelper extends SQLiteOpenHelper {
         contentValues.put(UserContract.OB.OB_TOTIME, toTime);
         contentValues.put(UserContract.OB.OB_INDEX, obIndex);
         db.insert(UserContract.OB.TABLE_NAME, null, contentValues);
-        Log.e("DBTAG", "Information added obTable");
+        Log.e("Internal DB", "New OB: " + jobTitle + ", " + (obIndex-1)*100 + " % extra på " + day + "ar");
     }
 
 

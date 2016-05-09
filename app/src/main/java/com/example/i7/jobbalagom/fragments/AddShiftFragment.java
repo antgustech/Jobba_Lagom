@@ -47,9 +47,9 @@ public class AddShiftFragment extends Fragment {
 
         jobTitles = ((MainActivity) getActivity()).getJobTitles();
 
-        String log = "Jobb: ";
+        String log = "Lagrade jobb: ";
         for(String s : jobTitles) {
-            log += s + ", ";
+            log += s + " ";
         }
         Log.d("AddShiftFragment", log);
 
