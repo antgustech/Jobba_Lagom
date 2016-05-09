@@ -16,9 +16,9 @@ public class UserContract {
 
     public static abstract class Job {
         public static final String TABLE_NAME = "job";
-        public static final String JOB_USER="userName";
-        public static final String JOB_NAME = "title";
-        public static final String JOB_PAY = "wage";
+        public static final String JOB_USER="user";
+        public static final String JOB_TITLE = "title";
+        public static final String JOB_WAGE = "wage";
     }
 
     public static abstract class Shift {

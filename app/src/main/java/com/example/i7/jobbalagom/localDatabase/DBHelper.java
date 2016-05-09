@@ -16,7 +16,7 @@ import java.util.ArrayList;
  */
 public class DBHelper extends SQLiteOpenHelper {
     private static final String DATABASE_NAME = "INTENAL.DB";
-    private static final int DATABASE_VERSION = 8;
+    private static final int DATABASE_VERSION = 27;
 
 
     private static final String CREATE_USER_QUERY =
@@ -28,8 +28,9 @@ public class DBHelper extends SQLiteOpenHelper {
 
     private static final String CREATE_JOB_QUERY =
             "CREATE TABLE " + UserContract.Job.TABLE_NAME
-                    + "( " + UserContract.Job.JOB_NAME + " TEXT PRIMARY KEY, "
-                    + UserContract.Job.JOB_PAY + " FLOAT);";
+                    + "( " + UserContract.Job.JOB_USER + " TEXT, "
+                    + UserContract.Job.JOB_TITLE + " TEXT PRIMARY KEY, "
+                    + UserContract.Job.JOB_WAGE + " FLOAT);";
 
     private static final String CREATE_SHIFT_QUERY =
             "CREATE TABLE " + UserContract.Shift.TABLE_NAME
@@ -78,7 +79,6 @@ public class DBHelper extends SQLiteOpenHelper {
         db.execSQL(CREATE_SHIFT_QUERY);
         db.execSQL(CREATE_EXPENSE_QUERY);
         db.execSQL(CREATE_OB_QUERY);
-        db.execSQL("DROP TABLE IF EXISTS " + UserContract.OB.TABLE_NAME);
         Log.e("DBTAG", "Table Created...");
     }
 
@@ -95,6 +95,7 @@ public class DBHelper extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS " + UserContract.Job.TABLE_NAME);
         db.execSQL("DROP TABLE IF EXISTS " + UserContract.Shift.TABLE_NAME);
         db.execSQL("DROP TABLE IF EXISTS " + UserContract.Expense.TABLE_NAME);
+        db.execSQL("DROP TABLE IF EXISTS " + UserContract.OB.TABLE_NAME);
         // create new tables
         onCreate(db);
     }
@@ -119,16 +120,18 @@ public class DBHelper extends SQLiteOpenHelper {
 
     /**
      * Adds a job to job table.
-     * @param name
-
-     * @param pay
-     * @param ob
+     *
+     * @param title
+     * @param user
+     * @param wage
      * @param db
      */
-    public void addJob(String name, float pay, float ob, SQLiteDatabase db  ){
+
+    public void addJob(String user, String title, float wage, SQLiteDatabase db) {
         ContentValues contentValues = new ContentValues();
-        contentValues.put(UserContract.Job.JOB_NAME,name);
-        contentValues.put(UserContract.Job.JOB_PAY, pay);
+        contentValues.put(UserContract.Job.JOB_USER, user);
+        contentValues.put(UserContract.Job.JOB_TITLE, title);
+        contentValues.put(UserContract.Job.JOB_WAGE, wage);
         db.insert(UserContract.Job.TABLE_NAME, null, contentValues);
         Log.e("DBTAG", "Information added jobTable");
     }
@@ -243,15 +246,17 @@ public class DBHelper extends SQLiteOpenHelper {
         Log.e("DBTAG", "Row deleted: Expense");
     }
 
-    public ArrayList<String> getJobName(SQLiteDatabase db){
-        ArrayList<String> list = new ArrayList<String>();
-        Cursor crs = db.rawQuery("select name from " + UserContract.Job.TABLE_NAME, null);
+    public String[] getJobTitles(SQLiteDatabase db){
+        ArrayList<String> jobs = new ArrayList<String>();
+        Cursor crs = db.rawQuery("SELECT " + UserContract.Job.JOB_TITLE + " FROM " + UserContract.Job.TABLE_NAME, null);
         while(crs.moveToNext()){
-            String jobName = crs.getString(crs.getColumnIndex("name"));
-            list.add(jobName);
+            String jobTitle = crs.getString(crs.getColumnIndex(UserContract.Job.JOB_TITLE));
+            jobs.add(jobTitle);
         }
-        Log.e("DBTAG", list.toString());
-        return list;
+        Log.e("DBTAG", jobs.toString());
+
+        String[] jobTitles = jobs.toArray(new String[jobs.size()]);
+        return jobTitles;
     }
 
 
@@ -259,7 +264,7 @@ public class DBHelper extends SQLiteOpenHelper {
 
     public Float getJobPay(SQLiteDatabase db) {
         Float sum = null;
-        Cursor crs = db.rawQuery("select pay from " + UserContract.Job.JOB_PAY, null);
+        Cursor crs = db.rawQuery("select pay from " + UserContract.Job.JOB_WAGE, null);
         if (crs.moveToFirst()) {
             sum = crs.getFloat(0);
         }

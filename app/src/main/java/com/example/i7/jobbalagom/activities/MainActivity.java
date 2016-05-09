@@ -16,10 +16,12 @@ import android.view.Window;
 import com.example.i7.jobbalagom.R;
 import com.example.i7.jobbalagom.callback_interfaces.AddExpenseFragmentCallback;
 import com.example.i7.jobbalagom.callback_interfaces.AddJobFragmentCallback;
+import com.example.i7.jobbalagom.callback_interfaces.AddShiftFragmentCallback;
 import com.example.i7.jobbalagom.callback_interfaces.LaunchFragmentCallback;
 import com.example.i7.jobbalagom.callback_interfaces.SetupFragmentCallback;
 import com.example.i7.jobbalagom.fragments.AddExpenseFragment;
 import com.example.i7.jobbalagom.fragments.AddJobFragment;
+import com.example.i7.jobbalagom.fragments.AddShiftFragment;
 import com.example.i7.jobbalagom.fragments.LaunchFragment;
 import com.example.i7.jobbalagom.fragments.SetupFragment;
 import com.example.i7.jobbalagom.local.Controller;
@@ -208,9 +210,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void startAddShiftFragment() {
-       // currentFragment = new AddShiftFragment();
-      //  ((AddShiftFragment) currentFragment).setCallBack(new AddShiftFragmentListener());
-      //  changeFragment(currentFragment);
+       currentFragment = new AddShiftFragment();
+      ((AddShiftFragment) currentFragment).setCallBack(new AddShiftFragmentListener());
+      changeFragment(currentFragment);
     }
 
     /**
@@ -222,12 +224,9 @@ public class MainActivity extends AppCompatActivity {
             if (v.getId() == R.id.btnAddExpense) {
                 startAddExpenseFragment();
             } else if (v.getId() == R.id.action_addshift) {
-                startActivity(new Intent(getApplicationContext(), ChangeTaxActivity.class));
+                startAddShiftFragment();
             } else if (v.getId() == R.id.action_addjob) {
                 startAddJobFragment();
-            }
-            else if (v.getId() == R.id.action_addshift) {
-                startAddShiftFragment();
             }
         }
     }
@@ -272,18 +271,18 @@ public class MainActivity extends AppCompatActivity {
 
     private class AddJobFragmentListener implements AddJobFragmentCallback {
         public void addJob(String title, Float wage) {
-            //controller.addJob(title, wage);
+            controller.addJob(title, wage);
         }
         public void addOB(String jobTitle, String day, String fromTime, String toTime, Float obIndex) {
             controller.addOB(jobTitle, day, fromTime, toTime, obIndex);
         }
     }
 
-    //private class AddShiftFragmentListener implements AddShiftFragmentCallback {
-   //     public void addShift(String jobTitle, String startTime, String endTime, Float hoursWorked) {
-    //        Log.d("MainActivity", "Callback from AddShiftFragment");
-    //    }
-   // }
+    private class AddShiftFragmentListener implements AddShiftFragmentCallback {
+        public void addShift(String jobTitle, String startTime, String endTime, Float hoursWorked) {
+            Log.d("MainActivity", "Callback from AddShiftFragment");
+        }
+    }
 
     /**
      * Listener for add expense fragment
@@ -383,5 +382,9 @@ public class MainActivity extends AppCompatActivity {
         dataset1.setColor(getResources().getColor(R.color.green));
         mainDudgetChart.notifyDataSetChanged(); // let the chart know it's data changed
         mainDudgetChart.invalidate(); // refresh
+    }
+
+    public String[] getJobTitles() {
+        return controller.getJobTitles();
     }
 }

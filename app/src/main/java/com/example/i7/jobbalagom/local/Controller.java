@@ -25,6 +25,7 @@ public class Controller  {
     private MessageListener listener;
     private DBHelper dbHelper;
     private SQLiteDatabase sqLiteDatabase;
+    private String user = "ettnamn";
 
     public Controller(Context context){
         Log.e("DBTAG", "Controller created!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
@@ -49,7 +50,7 @@ public class Controller  {
         //getUserEarned();
         //getUserIncome();
 
-//        getJobName();
+//        getJobTitles();
 
 
 
@@ -118,12 +119,14 @@ public class Controller  {
         dbHelper.close();
     }
 
+
     /**
      * Adds job to db
      */
-    public void addJob(String name, float pay, float ob){
+
+    public void addJob(String title, float wage) {
         sqLiteDatabase = dbHelper.getWritableDatabase();
-        dbHelper.addJob(name, pay, ob,sqLiteDatabase);
+        dbHelper.addJob(user, title, wage, sqLiteDatabase);
         Log.d("DBTAG", "Information added");
         dbHelper.close();
     }
@@ -238,13 +241,12 @@ public class Controller  {
 
     }
 
-    public ArrayList<String> getJobName(){
-        ArrayList<String> list;
+    public String[] getJobTitles(){
+        String[] jobTitles;
         sqLiteDatabase = dbHelper.getReadableDatabase();
-        list = dbHelper.getJobName(sqLiteDatabase);
+        jobTitles = dbHelper.getJobTitles(sqLiteDatabase);
         dbHelper.close();
-        return list;
-
+        return jobTitles;
     }
 
     public Float getJobPay() {
