@@ -5,5 +5,5 @@ package com.example.i7.jobbalagom.callback_interfaces;
  */
 
 public interface AddExpenseFragmentCallback {
-    public void addExpense(String title, String amount, String date);
+    public void addExpense(String title, Float amount, int date);
 }

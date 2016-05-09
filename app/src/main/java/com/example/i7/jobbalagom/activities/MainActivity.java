@@ -12,6 +12,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
+import android.widget.Toast;
 
 import com.example.i7.jobbalagom.R;
 import com.example.i7.jobbalagom.callback_interfaces.AddExpenseFragmentCallback;
@@ -286,10 +287,12 @@ public class MainActivity extends AppCompatActivity {
      */
 
     private class AddExpenseListener implements AddExpenseFragmentCallback {
-        public void addExpense(String title, String amount, String date) {
+        public void addExpense(String title, Float amount, int date) {
             removeFragment(currentFragment);
             Log.d("AddExpenseListener", "Button pressed");
-            // --> Send new expense to client database
+            Log.d("AddExpenseFragment", "Button pressed");
+            controller.addExpense(title,amount,date);
+            Toast.makeText(getBaseContext(), "Utgift tillagd", Toast.LENGTH_LONG).show();
         }
     }
 

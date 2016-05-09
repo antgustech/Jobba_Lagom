@@ -30,7 +30,8 @@
         android:layout_marginLeft="45dp"
         android:layout_marginStart="45dp"
         android:layout_marginTop="85dp"
-        android:padding="10px" />
+        android:padding="10px"
+        />
 
     <EditText
         android:layout_width="wrap_content"
@@ -54,7 +55,8 @@
         android:layout_alignStart="@+id/inTitle"
         android:layout_alignRight="@+id/inTitle"
         android:layout_alignEnd="@+id/inTitle"
-        android:padding="10px" />
+        android:padding="10px"
+        android:inputType="number"/>
 
     <CheckBox
         android:layout_width="wrap_content"

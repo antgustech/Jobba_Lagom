@@ -2,18 +2,14 @@ package com.example.i7.jobbalagom.fragments;
 
 import android.app.Fragment;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.Toast;
 
 import com.example.i7.jobbalagom.R;
 import com.example.i7.jobbalagom.callback_interfaces.AddExpenseFragmentCallback;
-import com.example.i7.jobbalagom.local.Controller;
-import com.example.i7.jobbalagom.local.Singleton;
 
 public class AddExpenseFragment extends Fragment {
 
@@ -22,18 +18,16 @@ public class AddExpenseFragment extends Fragment {
     private EditText inputDate;
     private ImageButton btnOK;
     private AddExpenseFragmentCallback callback;
-    private Controller controller;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        controller= Singleton.controller;
+
         return inflater.inflate(R.layout.fragment_add_expense, container, false);
 
     }
 
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
         inputTitle = (EditText) view.findViewById(R.id.inputTitle);
         inputAmount = (EditText) view.findViewById(R.id.inputWage);
         inputDate = (EditText) view.findViewById(R.id.inputDate);
@@ -48,12 +42,30 @@ public class AddExpenseFragment extends Fragment {
 
     private class ButtonListener implements View.OnClickListener {
 
+
+
+
+
         @Override
         //TODO Parse float ccauses errors
         public void onClick(View v) {
-            Log.d("AddExpenseFragment", "Button pressed");
-            controller.addExpense(inputTitle.toString(), Float.parseFloat(inputAmount.getText().toString()),  Integer.parseInt(inputDate.getText().toString()));
-            Toast.makeText(getContext(), "Utgift tillagd", Toast.LENGTH_LONG).show();
+
+            CharSequence emptyInputMsg = null;
+            String title = inputTitle.getText().toString();
+            String amount = inputAmount.getText().toString();
+            String date = inputDate.getText().toString();
+
+            if(title.equals("")) {
+                emptyInputMsg = "Vänta lite, du glömde fylla i utgiftstitle.";
+            }
+            if(title.equals("")) {
+                emptyInputMsg = "Vänta lite, du glömde fylla i utgiftsbelopp.";
+            }
+            if(title.equals("")) {
+                emptyInputMsg = "Vänta lite, du glömde fylla i datumet.";
+            }
+
+            callback.addExpense(inputTitle.toString(), Float.parseFloat(inputAmount.getText().toString()),  Integer.parseInt(inputDate.getText().toString()));
         }
     }
 }
