@@ -9,6 +9,7 @@ import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.example.i7.jobbalagom.R;
 import com.example.i7.jobbalagom.callback_interfaces.SetupFragmentCallback;
@@ -28,7 +29,7 @@ public class SetupFragment extends Fragment {
     private EditText inputName;
     private EditText inputIncomeLimit;
     private AutoCompleteTextView inputMunicipality;
-    private ArrayList<String> kommuner;
+    private ArrayList<String> municipalities;
     private Button btnSetup;
     private ButtonListener buttonListener;
 
@@ -54,55 +55,61 @@ public class SetupFragment extends Fragment {
 
         controller = Singleton.controller;
         updateKommuner();
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(view.getContext(),android.R.layout.simple_list_item_1,kommuner);
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(view.getContext(), android.R.layout.simple_list_item_1, municipalities);
         inputMunicipality.setAdapter(adapter);
     }
 
-    public void updateKommuner(){
-        try{
-            kommuner = controller.getKommun();
-        }catch(IOException e){}
-        catch (ClassNotFoundException e2){}
+    public void updateKommuner() {
+        try {
+            municipalities = controller.getKommun();
+        } catch (IOException e) {
+        } catch (ClassNotFoundException e2) {
+        }
     }
 
-    public void setCallBack(SetupFragmentCallback callback){
+    public void setCallBack(SetupFragmentCallback callback) {
         this.callback = callback;
     }
 
     private class ButtonListener implements View.OnClickListener {
 
-        String errorMsg = "UPS!";
-        boolean inputOK = true;
+        String errorMsg = "";
 
         @Override
         public void onClick(View view) {
 
-            View[] components = new View[6];
-            components[0] = inputName;
-            components[1] = inputMunicipality;
-            components[2] = inputIncomeLimit;
+            String name = inputName.getText().toString();
+            String municipality = inputMunicipality.getText().toString();
+            String incomeLimit = inputIncomeLimit.getText().toString();
 
-            for (View c : components) {
-                if (c instanceof EditText) {
-                    EditText e = (EditText) c;
-                    if (e.getText().toString().equals("")) {
-                        e.setError(errorMsg);
-                        inputOK = false;
-                    }
-                } else if (c instanceof AutoCompleteTextView) {
-                    AutoCompleteTextView a = (AutoCompleteTextView) c;
-                    if (a.getText().toString().equals("")) {
-                        a.setError(errorMsg);
-                        inputOK = false;
-                    }
-                }
+            // Check for invalid input
+
+            errorMsg = "Vänligen ange";
+
+            if(name.equals("")) {
+                addError("ditt namn");
+            }
+            if(municipality.equals("")) {
+                addError("vilken kommun du bor i");
+            }
+            if(incomeLimit.equals("")) {
+                addError("hur hög din inkomst får vara det här halvåret enligt Centrala Studienämnen");
             }
 
-            if (inputOK) {
-                String name = inputName.getText().toString();
-                String municipality = inputMunicipality.getText().toString();
-                String incomeLimit = inputIncomeLimit.getText().toString();
-                callback.addUser(name, municipality, incomeLimit);
+            if (!errorMsg.equals("Vänligen ange")) {
+                errorMsg += ".";
+                Toast.makeText(getActivity(), errorMsg, Toast.LENGTH_LONG).show();
+                return;
+            }
+
+            callback.addUser(name, municipality, incomeLimit);
+        }
+
+        public void addError(String error) {
+            if (errorMsg.charAt(errorMsg.length() - 1) == 'e') {
+                errorMsg += " " + error;
+            } else {
+                errorMsg += ", " + error;
             }
         }
     }
