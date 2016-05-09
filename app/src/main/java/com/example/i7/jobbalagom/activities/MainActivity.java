@@ -96,7 +96,7 @@ public class MainActivity extends AppCompatActivity {
         btnAddJob = findViewById(R.id.action_addjob);
         btnListener = new ButtonListener();
         btnAddShift.setOnClickListener(btnListener);
-        btnBudget.setOnClickListener(btnListener);
+//        btnBudget.setOnClickListener(btnListener);
         // btnChangeTax.setOnClickListener(btnListener);
         btnAddExpense.setOnClickListener(btnListener);
         btnAddJob.setOnClickListener(btnListener);
