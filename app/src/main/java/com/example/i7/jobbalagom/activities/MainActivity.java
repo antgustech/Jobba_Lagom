@@ -70,7 +70,6 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         initComponents();
         //startLaunchFragment();
-
         setupGraphs();
     }
 
@@ -258,9 +257,8 @@ public class MainActivity extends AppCompatActivity {
 
     private class SetupFragmentListener implements SetupFragmentCallback {
         public void addUser(String name, String municipality, String incomeLimit) {
-            Log.d("SetupFragmentListener", "User information\nNamn: " + name + "\nKommun: " + municipality +
-                    "\nFribelopp: " + incomeLimit);
-            //ctrl.addUser(...);
+            Log.d("MainActivity", "User information\nNamn: " + name + "\nKommun: " + municipality + "\nFribelopp: " + incomeLimit);
+            //controller.addUser(...);
             removeFragment(currentFragment);
         }
     }
@@ -280,7 +278,6 @@ public class MainActivity extends AppCompatActivity {
 
     private class AddShiftFragmentListener implements AddShiftFragmentCallback {
         public void addShift(String jobTitle, float startTime, float endTime, float hoursWorked, int date) {
-            Log.d("MainActivity", "New shift: " + hoursWorked + " hours on job " + jobTitle);
             controller.addShift(jobTitle, startTime, endTime, hoursWorked, date);
         }
     }
