@@ -4,7 +4,7 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/grey"
+    android:background="@color/bgSetup"
     android:paddingTop="@dimen/fragment_padding_height"
     android:paddingBottom="@dimen/fragment_padding_height"
     android:clickable="true"
@@ -60,6 +60,7 @@
             android:id="@+id/tvStartTime"
             android:text="Starttid"
             android:textColor="@color/white"
+            android:background="@color/grey"
             android:textSize="@dimen/fragment_tv_text_size"
             android:textAlignment="center"
             />
@@ -70,7 +71,6 @@
             android:id="@+id/inputStartTime"
             android:textSize="@dimen/fragment_et_text_size"
             android:textAlignment="center"
-            android:inputType="time"
             android:background="@color/white"
             android:layout_below="@+id/tvStartTime"
             />
@@ -81,6 +81,7 @@
             android:id="@+id/tvEndTime"
             android:text="Sluttid"
             android:textColor="@color/white"
+            android:background="@color/grey"
             android:textSize="@dimen/fragment_tv_text_size"
             android:textAlignment="center"
             android:layout_below="@+id/inputStartTime"
@@ -92,7 +93,6 @@
             android:id="@+id/inputEndTime"
             android:textSize="@dimen/fragment_et_text_size"
             android:textAlignment="center"
-            android:inputType="time"
             android:background="@color/white"
             android:layout_below="@+id/tvEndTime"
             />
@@ -103,10 +103,12 @@
             android:id="@+id/tvBreakTime"
             android:text="Rast"
             android:textColor="@color/white"
+            android:background="@color/grey"
             android:textSize="@dimen/fragment_tv_text_size"
             android:textAlignment="center"
             android:layout_below="@+id/inputEndTime"
-            />
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true" />
 
         <EditText
             android:layout_width="match_parent"
@@ -114,10 +116,35 @@
             android:id="@+id/inputBreakTime"
             android:textSize="@dimen/fragment_et_text_size"
             android:textAlignment="center"
-            android:inputType="number"
             android:background="@color/white"
             android:layout_below="@+id/tvBreakTime"
-            />
+            android:layout_alignParentLeft="true" />
+
+
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/tvDate"
+            android:text="Datum"
+            android:textColor="@color/white"
+            android:background="@color/grey"
+            android:textSize="@dimen/fragment_tv_text_size"
+            android:textAlignment="center"
+            android:layout_below="@+id/inputBreakTime"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true" />
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/inputDate"
+            android:textSize="@dimen/fragment_et_text_size"
+            android:textAlignment="center"
+            android:background="@color/white"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/tvDate" />
 
         <TextView
             android:layout_width="match_parent"
@@ -125,29 +152,32 @@
             android:id="@+id/tvJobTitle"
             android:text="Arbete"
             android:textColor="@color/white"
+            android:background="@color/grey"
             android:textSize="@dimen/fragment_tv_text_size"
             android:textAlignment="center"
-            android:layout_below="@+id/inputBreakTime"
-            />
+            android:layout_below="@+id/inputDate"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true" />
 
         <Spinner
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/jobTitleList"
+            android:textColor="@color/grey"
+            android:background="@color/white"
             android:textSize="@dimen/fragment_tv_text_size"
             android:layout_below="@+id/tvJobTitle"
-            />
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_above="@+id/btnOK" />
 
-        <Button
-            style="?android:attr/buttonStyleSmall"
+        <ImageButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="OK"
             android:id="@+id/btnOK"
-            android:layout_centerHorizontal="true"
-            android:layout_below="@+id/jobTitleList"
-            android:layout_margin="@dimen/title_margin"
-            />
+            android:background="@drawable/go_icon"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true" />
 
 
     </RelativeLayout>

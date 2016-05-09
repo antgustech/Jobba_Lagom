@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.Toast;
 
 import com.example.i7.jobbalagom.R;
 import com.example.i7.jobbalagom.callback_interfaces.AddExpenseFragmentCallback;
@@ -64,6 +65,12 @@ public class AddExpenseFragment extends Fragment {
             if(title.equals("")) {
                 emptyInputMsg = "Vänta lite, du glömde fylla i datumet.";
             }
+
+            if(emptyInputMsg != null) {
+                Toast.makeText(getActivity(), emptyInputMsg, Toast.LENGTH_LONG).show();
+                return;
+            }
+
 
             callback.addExpense(inputTitle.toString(), Float.parseFloat(inputAmount.getText().toString()),  Integer.parseInt(inputDate.getText().toString()));
         }

@@ -7,8 +7,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -26,8 +26,8 @@ public class AddShiftFragment extends Fragment {
     private String[] jobTitles;
 
     private Spinner jobSpinner;
-    private Button btnOK;
-    private EditText inputStartTime, inputEndTime, inputBreakTime;
+    private ImageButton btnOK;
+    private EditText inputStartTime, inputEndTime, inputBreakTime, date;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -40,11 +40,12 @@ public class AddShiftFragment extends Fragment {
     }
 
     public void initComponents(View view) {
-        btnOK = (Button) view.findViewById(R.id.btnOK);
+        btnOK = (ImageButton) view.findViewById(R.id.btnOK);
         btnOK.setOnClickListener(new ButtonListener());
         inputStartTime = (EditText) view.findViewById(R.id.inputStartTime);
         inputEndTime = (EditText) view.findViewById(R.id.inputEndTime);
         inputBreakTime = (EditText) view.findViewById(R.id.inputBreakTime);
+        date = (EditText) view.findViewById(R.id.inputDate);
 
         jobTitles = ((MainActivity) getActivity()).getJobTitles();
 
@@ -80,6 +81,7 @@ public class AddShiftFragment extends Fragment {
             String start = inputStartTime.getText().toString();
             String end = inputEndTime.getText().toString();
             String breaktime = inputBreakTime.getText().toString();
+            String inputDate = date.getText().toString();
             int date = 160505;
 
             // Check for invalid input
@@ -124,13 +126,14 @@ public class AddShiftFragment extends Fragment {
             float endTime = Float.parseFloat(end.substring(0, 2)) + (Float.parseFloat(end.substring(3)) / 60);
             float breakHours = Float.parseFloat(breaktime) / 60;
             float hoursWorked = endTime - startTime - breakHours;
+            int jobDate = Integer.parseInt(inputDate);
 
             if (hoursWorked <= 0) {
                 Toast.makeText(getActivity(), "Tiden du har arbetat är mindre än noll, stämmer verkligen det?", Toast.LENGTH_LONG).show();
                 return;
             }
 
-            callback.addShift(jobTitle, startTime, endTime, hoursWorked, date);
+            callback.addShift(jobTitle, startTime, endTime, hoursWorked, jobDate);
             clearAll();
             Toast.makeText(getActivity(), "Arbetspasset har registrerats.", Toast.LENGTH_LONG).show();
 
