@@ -60,7 +60,7 @@ public class ChangeTaxActivity extends AppCompatActivity {
      * Retrives tax and sets the textview to it.
      */
     public void getTax(){
-        float taxFloat = controller.getTax(textViewKommun.toString());
+        float taxFloat = controller.getTax(textViewKommun.getText() + "");
         tax.setText(Float.toString(taxFloat));
         currentTax = taxFloat;
     }

@@ -92,7 +92,7 @@ public class Controller  {
 
     public Float getTax(String kommun){
         Float tax = 0f;
-        tax = client.getTax(kommun);
+        tax = client.getTaxFromServer(kommun);
         return tax;
     }
 

@@ -34,6 +34,8 @@ public class Client extends Thread {
     private String IP;
     private int PORT;
 
+    private float clientTax = 0;
+
     public Client(MessageCallback messageCallback, String ip, int port){
         controller  = Singleton.controller;
         this.IP = ip;
@@ -108,16 +110,28 @@ public class Client extends Thread {
      * @param kommun
      * @return
      */
-    public Float getTax(String kommun){
-        float tax = 0f;
-        try {
-            dos.writeInt(3);
-            dos.flush();
-            dos.writeUTF(kommun);
-            tax = dis.readFloat();
-        } catch (IOException e) {
-        }
-        return tax;
+    public Float getTaxFromServer(String kommun){
+        final String kommunGetter = kommun;
+
+        Thread t = new Thread(new Runnable() {
+            public void run(){
+                try {
+                    dos.writeInt(3);
+                    dos.flush();
+                    dos.writeUTF(kommunGetter);
+                    dos.flush();
+                    setTaxClient(dis.readFloat());
+                } catch (IOException e) {
+                }
+            }
+        });
+
+        t.start();
+        return clientTax;
+
+    }
+    public void setTaxClient(float tax){
+        this.clientTax = tax;
     }
 
 
