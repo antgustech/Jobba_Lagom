@@ -18,29 +18,19 @@ public class Calculator {
         //getEnd();
         //getTax();
         //calculateGraphData();
-
     }
-
-    //receives wage like 33.2f
     private void getPay(){
         pay = controller.getJobPay();
     }
-
-    //recive time like 0900f
     private void getStart(){
         startTime = controller.getStartTime();
     }
-
-    //recive time like 1700f
     private void getEnd() {
         endTime = controller.getEndTime();
     }
-
-    //Revcieve tax like 33.4f
     private void getTax(){
         tax = controller.getTax();
     }
-
     private void getOB(){
         ob = controller.getOB();
     }
@@ -51,7 +41,6 @@ public class Calculator {
         obEnd = controller.getOBEnd();
     }
 
-    //Result=hours*pay*tax
     //TODO May need a overlook
     public void calculateGraphData(){
         res = (((endTime-startTime) * pay) * (1-tax));
