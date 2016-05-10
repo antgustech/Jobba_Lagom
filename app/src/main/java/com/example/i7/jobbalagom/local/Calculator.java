@@ -5,6 +5,7 @@ import android.util.Log;
 /**
  * Created by Anton Gustafsson on 2016-04-21.
  * Should get the tax and caluclate it with the hours.
+ * TODO Fix the calculation so it returns the correct wage and associated ob.
  */
 public class Calculator {
     private Controller controller;
