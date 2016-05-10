@@ -1,5 +1,7 @@
 package com.example.i7.jobbalagom.remote;
 
+import android.util.Log;
+
 import com.example.i7.jobbalagom.local.Controller;
 import com.example.i7.jobbalagom.callback_interfaces.MessageCallback;
 import com.example.i7.jobbalagom.local.Singleton;
@@ -112,21 +114,30 @@ public class Client extends Thread {
      */
     public Float getTaxFromServer(String kommun){
         final String kommunGetter = kommun;
+        setTaxClient(0);
 
         Thread t = new Thread(new Runnable() {
             public void run(){
                 try {
                     dos.writeInt(3);
                     dos.flush();
+                    Log.e("dbTag", "written int");
                     dos.writeUTF(kommunGetter);
                     dos.flush();
+                    Log.e("dbTag", "written kommun");
                     setTaxClient(dis.readFloat());
+                   // Log.e("dbTag",dis.readFloat() + "");
+                    Log.e("dbTag","tax read");
                 } catch (IOException e) {
+                    Log.e("dbTag",e.toString());
                 }
             }
         });
-
+        t.setPriority(Thread.MAX_PRIORITY);
         t.start();
+        while(clientTax == 0){ // TODO TA BORT DENNA SKITEN OCH SYNCHA PÅ NÅTT JÄVLA SÄTT
+
+        }
         return clientTax;
 
     }

@@ -50,7 +50,7 @@ public class ChangeTaxActivity extends AppCompatActivity {
     /**
      * Retrives Churchtax and sets the textview to it.
      */
-    public void getChurhTax(){
+    public void getChurchTax(){
         float taxFloat = controller.getChurchTax(textViewKommun.toString());
         tax.setText(Float.toString(taxFloat));
         currentTax = taxFloat;
@@ -87,7 +87,7 @@ public class ChangeTaxActivity extends AppCompatActivity {
         public void onClick(View v) {
             if(v == v.findViewById(R.id.calculateTaxBtn)){
                 if(churchCheckbox.isChecked()){
-                    getChurhTax();
+                    getChurchTax();
                 }
                 else{
                     getTax();
