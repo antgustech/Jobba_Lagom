@@ -306,6 +306,7 @@ public class MainActivity extends AppCompatActivity {
             Log.d("AddExpenseListener", "Button pressed");
             Log.d("AddExpenseFragment", "Button pressed");
             controller.addExpense(title,amount,date);
+            updateDataExpense(controller.getExpenseSum());
             Toast.makeText(getBaseContext(), "Utgift tillagd", Toast.LENGTH_LONG).show();
         }
     }
