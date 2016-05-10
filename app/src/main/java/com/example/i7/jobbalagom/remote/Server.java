@@ -1,5 +1,4 @@
-
-package com.example.i7.jobbalagom.remote;
+package server;
 
 /*
  * Created by Anton 15-04-16
@@ -14,8 +13,12 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
+import com.mysql.jdbc.Statement;
 
 public class Server extends Thread {
 
@@ -24,11 +27,10 @@ public class Server extends Thread {
 	private boolean connected = false;
 
 	/*
-     * ------Handles connection-----------
-     */
+	 * ------Handles connection-----------
+	 */
 	public Server() {
 		System.out.println("Server waiting to establish connection");
-		connectDB();
 		try {
 			serverSocket = new ServerSocket(4545);
 			connected = true;
@@ -65,17 +67,18 @@ public class Server extends Thread {
 			connected = true;
 			this.socket = socket;
 			try {
+
 				dis = new DataInputStream(new BufferedInputStream(socket.getInputStream()));
 				dos = new DataOutputStream(new BufferedOutputStream(socket.getOutputStream()));
 				oos = new ObjectOutputStream(socket.getOutputStream());
 			} catch (IOException e) {
 			}
 			System.out.println("Client connected to server" );
-
+			connectDB();
 		}
 
 		/*
-         * Handles different questions from client.
+         * Handles diffrent questions from client.
          */
 		public void run() {
 			while (connected) {
@@ -86,31 +89,42 @@ public class Server extends Thread {
 					switch (intOperation) {
 
 						case 1://getKommun
-							//oos.writeObject(getKommun());
+							ArrayList<String> list = new ArrayList<String>();
+							list.add("ay");
+							list.add("lmao");
+							list.add("mofo");
+							oos.writeObject(getKommun());
 							break;
 
-						case 2://getChurchTax
-							dos.writeFloat(getChurchTax(dis.readUTF()));
+						case 2://getCity
+							dos.writeUTF(getCity(dis.readUTF()));
+							dos.flush();
 							break;
 
 						case 3://getTax
-							dos.writeFloat(getTax(dis.readUTF()));
+							String taxGetter = dis.readUTF();
+							System.out.println("kommun read");
+							float returnValue = getTax(taxGetter);
+							System.out.println(returnValue);
+							dos.writeFloat(returnValue);
+							dos.flush();
+//							dos.writeFloat(getTax(dis.readUTF()));
 							break;
 					}
 				} catch (IOException e) {
-					System.out.println("[ERROR] File error");
-					//connected=false;
+					System.out.println("[ERROR] IOException or SQLException");
+					connected=false;
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
 				}
-				//catch (SQLException e) {
-				//	System.out.println("[ERROR] Network error");
-				//}
 			}
 		}
 	}
 
 	/*
-     * ----------------------------------DB methods-----------------------------------
-     */
+	 * ----------------------------------DB methods-----------------------------------
+	 */
 	private void connectDB() {
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
@@ -129,8 +143,7 @@ public class Server extends Thread {
 			System.out.println("[ERROR] Problem with disconnecting db");
 		}
 	}
-/*
-	//Read all kommun strings from table skatt16april and returns them in a list.
+	//Should read all kommun strings from table skatt16april
 	private ArrayList<String> getKommun() throws SQLException {
 		String kommuner ="";
 		try (Statement s = (Statement) dbConnection.createStatement()) {
@@ -143,24 +156,33 @@ public class Server extends Thread {
 			}
 		}
 	}
-
-	*/
-
-	//Returns float of the average tax including churchTax from choosen kommyn.
-	private float getChurchTax(String choosenKommun) {
-		String query = "select AVG(SummaInkluderatKyrkan) from skatt16april where kommun='" + choosenKommun + "';";
-		return Float.parseFloat(query);
+	private String getCity(String choosenKommun) {
+		String query = "select Ort" + "from " + "ad8284" + ".skatt16april" + " where " + choosenKommun;
+		System.out.println(query);
+		return query;
 	}
-	//Returns float of the average tax excluding churchTax from choosen kommyn.
-	private float getTax(String choosenKommun) {
-		String query = "select AVG(SummanExkluderatKyrkan) from skatt16april where kommun='" + choosenKommun + "';";
-		return Float.parseFloat(query);
+
+	private float getTax(String choosenOrt) {
+		String query = "select distinct SummanExkluderatKyrkan" + " from " + "ad8284" + ".skatt16april" + " where " + " kommun= " + "'" + choosenOrt + "'";
+		
+		try (Statement s = (Statement) dbConnection.createStatement()) {
+			try (ResultSet rs = s.executeQuery(query)) {
+				System.out.println("Läser skatt");
+				while(rs.next()){
+					return rs.getFloat("SummanExkluderatKyrkan");
+				}
+			}
+		} catch (SQLException e) {
+			System.out.println(e.toString());
+		}
+		System.out.println("Did not work m9");
+		return 0.0f;
 	}
 }
 
 
 //--------------------------------------------------------------------------------------------------------------------
-// skatt16april THIS IS HOW THE TABLE LOOKS LIKE!
+// skatt16april
 //Kommun VARCHAR(15)
 //Ort VARCHAR(36)
 //SummaInkluderatKyrkan NUMERIC(5, 3)
