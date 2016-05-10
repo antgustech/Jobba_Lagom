@@ -8,6 +8,7 @@
     android:paddingBottom="@dimen/layout_padding_height"
     android:paddingLeft="@dimen/layout_padding_width"
     android:paddingRight="@dimen/layout_padding_width"
+    android:clickable="true"
     >
 
 

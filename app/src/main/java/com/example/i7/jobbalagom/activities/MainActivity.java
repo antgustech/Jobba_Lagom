@@ -293,6 +293,8 @@ public class MainActivity extends AppCompatActivity {
     private class AddShiftFragmentListener implements AddShiftFragmentCallback {
         public void addShift(String jobTitle, float startTime, float endTime, float hoursWorked, int date) {
             controller.addShift(jobTitle, startTime, endTime, hoursWorked, date);
+            updateDataIncome(900f);
+            setData(900f);
         }
     }
 
