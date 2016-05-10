@@ -42,6 +42,8 @@ public class MainActivity extends AppCompatActivity {
     private View btnAddShift;
     private View btnBudget;
     private View btnAddJob;
+    private View btnChangeTax;
+
     private ButtonListener btnListener;
     private FragmentTransaction fragmentTransaction;
     private FragmentManager fragmentManager;
@@ -95,12 +97,16 @@ public class MainActivity extends AppCompatActivity {
         btnAddShift = findViewById(R.id.action_addshift);
        // btnBudget = findViewById(R.id.btnBudget);
         btnAddJob = findViewById(R.id.action_addjob);
+        btnChangeTax = findViewById(R.id.action_changeActivity);
+
         btnListener = new ButtonListener();
         btnAddShift.setOnClickListener(btnListener);
 //        btnBudget.setOnClickListener(btnListener);
         // btnChangeTax.setOnClickListener(btnListener);
         btnAddExpense.setOnClickListener(btnListener);
         btnAddJob.setOnClickListener(btnListener);
+        btnChangeTax.setOnClickListener(btnListener);
+
         fragmentManager = getFragmentManager();
         setStatusbarColor();
     }
@@ -179,6 +185,11 @@ public class MainActivity extends AppCompatActivity {
         currentFragment = null;
     }
 
+    public void startChangeTaxActivity() {
+        Intent changeTaxActivity =  new Intent(this, ChangeTaxActivity.class);
+        startActivity(changeTaxActivity);
+    }
+
     public void startWorkRegister(){
         Intent workRegisterActivity =  new Intent(this, WorkRegisterActivity.class);
         startActivityForResult(workRegisterActivity, REQUESTCODE_WORKREGISTER);
@@ -226,6 +237,8 @@ public class MainActivity extends AppCompatActivity {
                 startAddShiftFragment();
             } else if (v.getId() == R.id.action_addjob) {
                 startAddJobFragment();
+            } else if (v.getId() == R.id.action_changeActivity){
+                startChangeTaxActivity();
             }
         }
     }

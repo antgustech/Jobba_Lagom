@@ -60,11 +60,7 @@ public class SetupFragment extends Fragment {
     }
 
     public void updateKommuner() {
-        try {
             municipalities = controller.getKommun();
-        } catch (IOException e) {
-        } catch (ClassNotFoundException e2) {
-        }
     }
 
     public void setCallBack(SetupFragmentCallback callback) {
