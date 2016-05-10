@@ -40,7 +40,7 @@
                 android:layout_height="wrap_content"
                 fab:fab_colorNormal="@color/colorPrimary"
                 fab:fab_icon="@drawable/ic_assignment_turned_in_white_24dp"
-                fab:fab_title="Lägg till arbetspass"
+                fab:fab_title="Ändra skattesats"
                 fab:fab_colorPressed="@color/white_pressed"
                 />
 
