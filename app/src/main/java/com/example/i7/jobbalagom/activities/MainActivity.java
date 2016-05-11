@@ -48,7 +48,6 @@ public class MainActivity extends AppCompatActivity {
     private FragmentTransaction fragmentTransaction;
     private FragmentManager fragmentManager;
     private Fragment currentFragment;
-    private AddExpenseFragment addExpenseFragment;
     private Controller controller;
     private DBHelper dbHelper;
     private final int REQUESTCODE_WORKREGISTER = 1;
@@ -62,8 +61,8 @@ public class MainActivity extends AppCompatActivity {
     //Budgetbar
     private HorizontalBarChart mainDudgetChart;
     private BarData budgetData;
-    private BarDataSet dataset1;
-    private BarDataSet dataset2;
+    private BarDataSet incomeSet;
+    private BarDataSet expenseSet;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,24 +71,25 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         initComponents();
-        setupGraphs();
         startLaunchFragment();
     }
 
     /**
      * Setups both graphs with data from database
      */
+
     public void setupGraphs(){
         setupMainBar();
-        setData(controller.getUserEarned());
+        updateCSNChart(controller.getTotalIncome());
         setupBudgetBar();
-        updateDataExpense(controller.getExpenseSum());
-        updateDataIncome(controller.getUserIncome());
+        updateExpenseChart(controller.getTotalExpense());
+        updateIncomeChart(controller.getTotalIncome());
     }
 
     /**
      * Initializes components.
      */
+
     public void initComponents() {
         btnAddExpense = findViewById(R.id.btnAddExpense);
 
@@ -162,6 +162,7 @@ public class MainActivity extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
+
 
 
     /**
@@ -252,15 +253,12 @@ public class MainActivity extends AppCompatActivity {
             if(choice.equals("btnLogo")) {
                 // Something if we want, or nothing
             } else if(choice.equals("btnNew")) {
-                Log.d("MainActivity", "Changing fragment to SetupFragment");
                 startSetupFragment();
             } else if(choice.equals("btnKey")) {
-                Log.d("MainActivity", "Removing LaunchFragment");
+                setupGraphs();
                 removeFragment(currentFragment);
             } else if(choice.equals("btnInfo")) {
-                Log.d("MainActivity", "Changing fragment to InfoFragment");
                 startActivity(new Intent(getApplicationContext(), AboutActivity.class));
-
             }
         }
     }
@@ -270,9 +268,10 @@ public class MainActivity extends AppCompatActivity {
      */
 
     private class SetupFragmentListener implements SetupFragmentCallback {
-        public void addUser(String name, String municipality, String incomeLimit) {
+        public void addUser(String name, String municipality, float incomeLimit) {
             Log.d("MainActivity", "User information\nNamn: " + name + "\nKommun: " + municipality + "\nFribelopp: " + incomeLimit);
-            //controller.addUser(...);
+            controller.addUser(name, municipality, incomeLimit);
+            setupGraphs();
             removeFragment(currentFragment);
         }
     }
@@ -292,9 +291,10 @@ public class MainActivity extends AppCompatActivity {
 
     private class AddShiftFragmentListener implements AddShiftFragmentCallback {
         public void addShift(String jobTitle, float startTime, float endTime, float hoursWorked, int date) {
-            controller.addShift(jobTitle, startTime, endTime, hoursWorked, date);
-            updateDataIncome(900f);
-            setData(900f);
+            float income = controller.addShift(jobTitle, startTime, endTime, hoursWorked, date);
+            Log.d("MainActivity", "Uppdaterar csn- och inkomstgrafer: " + income + " kr");
+            updateIncomeChart(income);
+            updateCSNChart(income);
         }
     }
 
@@ -305,11 +305,10 @@ public class MainActivity extends AppCompatActivity {
     private class AddExpenseListener implements AddExpenseFragmentCallback {
         public void addExpense(String title, Float amount, int date) {
             removeFragment(currentFragment);
-            Log.d("AddExpenseListener", "Button pressed");
-            Log.d("AddExpenseFragment", "Button pressed");
             controller.addExpense(title,amount,date);
-            updateDataExpense(controller.getExpenseSum());
             Toast.makeText(getBaseContext(), "Utgift tillagd", Toast.LENGTH_LONG).show();
+            Log.d("MainActivity", "Uppdaterar utgiftsgraf med " + amount + " kr");
+            updateExpenseChart(amount);
         }
     }
 
@@ -319,13 +318,15 @@ public class MainActivity extends AppCompatActivity {
     public void setupMainBar(){
 
         mainChart = (BarChart) findViewById(R.id.mainChart);
+
         //create data points
         ArrayList<BarEntry> entries = new ArrayList<>();
-        entries.add(new BarEntry(60000f, 10));
+        //entries.add(new BarEntry(60000f, 10));
+        entries.add(new BarEntry(controller.getIncomeLimit(), 10));
         dataset = new BarDataSet(entries, "Intjänade pengar");
 
         //create labels
-        labels = new ArrayList<String>();
+        labels = new ArrayList<>();
         labels.add(" ");
         data = new BarData(labels, dataset);
         mainChart.setData(data); // set the data and list of lables into chart
@@ -339,7 +340,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     //Updates the chart with specified sum.
-    public void setData(Float sum){
+    public void updateCSNChart(float sum){
         dataset.removeEntry(0);
         data.addEntry(new BarEntry(sum,0), 0);
         dataset.setColor(getResources().getColor(R.color.colorPrimary));
@@ -361,16 +362,16 @@ public class MainActivity extends AppCompatActivity {
         entries1.add(new BarEntry(10000, 5));
         entries2.add(new BarEntry(10000, 5));
 
-        dataset1 = new BarDataSet(entries1, "Inkomst");
-        dataset2 = new BarDataSet(entries2, "Utgifter");
+        incomeSet = new BarDataSet(entries1, "Inkomst");
+        expenseSet = new BarDataSet(entries2, "Utgifter");
 
         //X-axis labels
         ArrayList<String> xVals = new ArrayList<String>();
         xVals.add("Inkomst"); xVals.add("Utgift");;
 
         ArrayList<BarDataSet> dataSets = new ArrayList<BarDataSet>();
-        dataSets.add(dataset1);
-        dataSets.add(dataset2);
+        dataSets.add(incomeSet);
+        dataSets.add(expenseSet);
 
         //Add to chart
         budgetData = new BarData(xVals, dataSets);
@@ -385,18 +386,18 @@ public class MainActivity extends AppCompatActivity {
 
     //setdata methods:
 
-    public void updateDataExpense(Float expenseSum){
-        dataset2.removeEntry(1);
-        budgetData.addEntry(new BarEntry(expenseSum,1), 1);
-        dataset2.setColor(getResources().getColor(R.color.orange));
+    public void updateExpenseChart(float expenseSum){
+        expenseSet.removeEntry(1);
+        budgetData.addEntry(new BarEntry(expenseSum, 1), 1);
+        expenseSet.setColor(getResources().getColor(R.color.orange));
         mainDudgetChart.notifyDataSetChanged(); // let the chart know it's data changed
         mainDudgetChart.invalidate(); // refresh
     }
 
-    public void updateDataIncome(Float incomeSum){
-        dataset1.removeEntry(0);
-        budgetData.addEntry(new BarEntry(incomeSum,0), 0);
-        dataset1.setColor(getResources().getColor(R.color.green));
+    public void updateIncomeChart(float incomeSum){
+        incomeSet.removeEntry(0);
+        budgetData.addEntry(new BarEntry(incomeSum, 0), 0);
+        incomeSet.setColor(getResources().getColor(R.color.green));
         mainDudgetChart.notifyDataSetChanged(); // let the chart know it's data changed
         mainDudgetChart.invalidate(); // refresh
     }

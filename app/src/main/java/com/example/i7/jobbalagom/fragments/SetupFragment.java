@@ -16,7 +16,6 @@ import com.example.i7.jobbalagom.callback_interfaces.SetupFragmentCallback;
 import com.example.i7.jobbalagom.local.Controller;
 import com.example.i7.jobbalagom.local.Singleton;
 
-import java.io.IOException;
 import java.util.ArrayList;
 
 /**
@@ -60,7 +59,7 @@ public class SetupFragment extends Fragment {
     }
 
     public void updateKommuner() {
-            municipalities = controller.getKommun();
+            municipalities = controller.getMunicipalities();
     }
 
     public void setCallBack(SetupFragmentCallback callback) {
@@ -98,7 +97,7 @@ public class SetupFragment extends Fragment {
                 return;
             }
 
-            callback.addUser(name, municipality, incomeLimit);
+            callback.addUser(name, municipality, Float.parseFloat(incomeLimit));
         }
 
         public void addError(String error) {

@@ -1,11 +1,8 @@
 package com.example.i7.jobbalagom.activities;
 
-import android.content.Context;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.AttributeSet;
-import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.widget.ArrayAdapter;
@@ -17,7 +14,6 @@ import com.example.i7.jobbalagom.R;
 import com.example.i7.jobbalagom.local.Controller;
 import com.example.i7.jobbalagom.local.Singleton;
 
-import java.io.IOException;
 import java.util.ArrayList;
 
 
@@ -78,7 +74,7 @@ public class ChangeTaxActivity extends AppCompatActivity {
 
 
     public void updateKommuner(){
-        kommuner = controller.getKommun();
+        kommuner = controller.getMunicipalities();
     }
 
     private class ButtonListener implements View.OnClickListener{

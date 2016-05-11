@@ -13,14 +13,14 @@ public class Calculator {
 
     public Calculator(){
         controller  = Singleton.controller;
-        //getPay();
+        //getWage();
         //getStart();
         //getEnd();
-        //getTax();
+        //getTaxFromServer();
         //calculateGraphData();
     }
-    private void getPay(){
-        pay = controller.getJobPay();
+    private void getWage(String jobTitle){
+        pay = controller.getWage(jobTitle);
     }
     private void getStart(){
         startTime = controller.getStartTime();

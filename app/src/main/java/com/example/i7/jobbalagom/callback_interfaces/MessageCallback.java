@@ -5,7 +5,7 @@ package com.example.i7.jobbalagom.callback_interfaces;
  */
 public interface MessageCallback {
 
-    void updateKommun(String kommun);
+    void updateMunicipality(String kommun);
     void updateCities(String cities);
     void updateTax(float tax);
 

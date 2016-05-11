@@ -1,9 +1,7 @@
 package com.example.i7.jobbalagom.remote;
 
-import android.util.Log;
-
-import com.example.i7.jobbalagom.local.Controller;
 import com.example.i7.jobbalagom.callback_interfaces.MessageCallback;
+import com.example.i7.jobbalagom.local.Controller;
 import com.example.i7.jobbalagom.local.Singleton;
 
 import java.io.BufferedInputStream;
@@ -25,25 +23,24 @@ public class Client extends Thread {
     private DataInputStream dis;
     private DataOutputStream dos;
     private ObjectInputStream ois;
-    private Thread clientThread;
-    private boolean connected = false;
     private Connection dbConnection;
+    private Thread clientThread;
     private Controller controller;
-    private ArrayList<String> kommuner;
+    private boolean connected = false;
+    private ArrayList<String> municipalities;
+    private float clientTax = 0;
 
     // private DataOutputStream dos;
     private MessageCallback messageCallback;
     private String IP;
     private int PORT;
 
-    private float clientTax = 0;
-
     public Client(MessageCallback messageCallback, String ip, int port){
         controller  = Singleton.controller;
         this.IP = ip;
         this.PORT = port;
         this.messageCallback = messageCallback;
-        kommuner = new ArrayList<String>();
+        municipalities = new ArrayList<String>();
         if(!this.isAlive())
             start();
     }
@@ -53,8 +50,7 @@ public class Client extends Thread {
             connected = false;
             socket.close();
             clientThread = null;
-        }catch(IOException e){
-        }
+        } catch(IOException e){}
     }
 
     public void run(){
@@ -63,9 +59,8 @@ public class Client extends Thread {
             dis = new DataInputStream(new BufferedInputStream(socket.getInputStream()));
             dos = new DataOutputStream(new BufferedOutputStream(socket.getOutputStream()));
             ois = new ObjectInputStream((socket.getInputStream()));
-            kommuner = getKommunFromServer();
+            municipalities = getMunicipalitiesFromServer();
         } catch (IOException e) {}
-        catch(ClassNotFoundException e2){}
     }
 
     /**
@@ -74,7 +69,8 @@ public class Client extends Thread {
      * @throws IOException
      * @throws ClassNotFoundException
      */
-    public ArrayList<String> getKommunFromServer() throws IOException, ClassNotFoundException {
+
+    public ArrayList<String> getMunicipalitiesFromServer() {
         ArrayList<String> list = new ArrayList<String>();
         try {
             dos.writeInt(1);
@@ -82,25 +78,28 @@ public class Client extends Thread {
             list = (ArrayList) ois.readObject();
         } catch (IOException e) {
             e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
         }
         return list;
     }
 
-    public ArrayList<String> getKommunFromClient(){
-        return kommuner;
+    public ArrayList<String> getMunicipalities(){
+        return municipalities;
     }
 
     /**
      * Retrieves tax including churchtax as a float.
-     * @param kommun
+     * @param municipality
      * @return
      */
-    public Float getChurchTax(String kommun){
+
+    public float getChurchTax(String municipality){
         float tax = 0f;
         try {
             dos.writeInt(2);
             dos.flush();
-            dos.writeUTF(kommun);
+            dos.writeUTF(municipality);
             tax = dis.readFloat();
         } catch (IOException e) {
         }
@@ -109,11 +108,12 @@ public class Client extends Thread {
 
     /**
      * Retrieves tax excluding churchtax as a float.
-     * @param kommun
+     * @param municipality
      * @return
      */
-    public Float getTaxFromServer(String kommun){
-        final String kommunGetter = kommun;
+
+    public float getTaxFromServer(String municipality){
+        final String kommunGetter = municipality;
         setTaxClient(0);
 
         Thread t = new Thread(new Runnable() {
@@ -121,29 +121,23 @@ public class Client extends Thread {
                 try {
                     dos.writeInt(3);
                     dos.flush();
-                    Log.e("dbTag", "written int");
                     dos.writeUTF(kommunGetter);
                     dos.flush();
-                    Log.e("dbTag", "written kommun");
                     setTaxClient(dis.readFloat());
                    // Log.e("dbTag",dis.readFloat() + "");
-                    Log.e("dbTag","tax read");
-                } catch (IOException e) {
-                    Log.e("dbTag",e.toString());
-                }
+                } catch (IOException e) {}
             }
         });
+
         t.setPriority(Thread.MAX_PRIORITY);
         t.start();
         while(clientTax == 0){ // TODO TA BORT DENNA SKITEN OCH SYNCHA PÅ NÅTT JÄVLA SÄTT
 
         }
         return clientTax;
-
     }
+
     public void setTaxClient(float tax){
         this.clientTax = tax;
     }
-
-
 }

@@ -10,13 +10,11 @@ public class UserContract {
         public static final String TABLE_NAME = "user";
         public static final String USER_NAME = "name";
         public static final String USER_TAX = "tax";
-        public static final String USER_EARNED = "earned";//Behövas retuneras för huvud baren
-        public static final String USER_INCOME = "income";//Behövs retuneras för top bar
+        public static final String USER_INCOME_LIMIT = "incomeLimit";
     }
 
     public static abstract class Job {
         public static final String TABLE_NAME = "job";
-        public static final String JOB_USER="user";
         public static final String JOB_TITLE = "title";
         public static final String JOB_WAGE = "wage";
     }
@@ -29,13 +27,14 @@ public class UserContract {
         public static final String SHIFT_END_TIME = "endTime";
         public static final String SHIFT_HOURS_WORKED = "hoursWorked";
         public static final String SHIFT_DATE = "date";
+        public static final String SHIFT_INCOME = "income";
     }
 
     public static abstract class Expense {
         public static final String TABLE_NAME = "expense";
         public static final String EXPENSE_ID = "expenseID";
         public static final String EXPENSE_NAME = "name";
-        public static final String EXPENSE_SUM = "sum";  //behövs retuneras för top bar
+        public static final String EXPENSE_AMOUNT = "amount";
         public static final String EXPENSE_DATE = "date";
     }
 
