@@ -102,7 +102,9 @@ public class SetupFragment extends Fragment {
             } else if(municipality.equals("")) {
                 Toast.makeText(getActivity(), "Vänligen ange vilken kommun du är folkbokförd i.", Toast.LENGTH_LONG).show();
                 return;
-            } else if(!municipalities.contains(municipality)) {
+            }
+
+            else if(!municipalities.contains(municipality)) {
                 Toast.makeText(getActivity(), "Vänligen ange en giltig kommun.", Toast.LENGTH_LONG).show();
                 return;
             }

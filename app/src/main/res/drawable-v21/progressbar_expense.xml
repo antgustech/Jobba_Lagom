@@ -5,7 +5,7 @@
         <shape
             android:innerRadius="120dp"
             android:shape="ring"
-            android:thicknessRatio="24"
+            android:thicknessRatio="20"
             android:useLevel="false"> <!-- Higher values, thinner line -->
             <solid android:color="@color/white_trans"></solid>
         </shape>
@@ -16,10 +16,9 @@
         <shape
             android:innerRadius="120dp"
             android:shape="ring"
-            android:thicknessRatio="24"
+            android:thicknessRatio="40"
             android:useLevel="true">
-
-            <solid android:color="@color/orange"></solid>
+            <solid android:color="@color/orange_trans"></solid>
         </shape>
     </item>
 </layer-list>

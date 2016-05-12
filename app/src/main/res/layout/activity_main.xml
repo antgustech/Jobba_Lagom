@@ -53,6 +53,7 @@
         android:max="100"
         android:layout_centerVertical="true"
         android:layout_centerHorizontal="true"
+        android:progress="40"
         />
 
     <ProgressBar
@@ -64,6 +65,7 @@
         android:max="100"
         android:layout_centerVertical="true"
         android:layout_centerHorizontal="true"
+        android:progress="70"
         />
 
     <RelativeLayout
