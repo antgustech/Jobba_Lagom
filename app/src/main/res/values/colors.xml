@@ -1,10 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="white">#ffffff</color>
-    <color name="white_trans">#80ffffff</color>
     <color name="bgSetup">#008ba0</color>
-    <color name="grey">#d2d2d2</color>
-    <color name="grey_trans">#50d2d2e2</color>
+
     <color name="colorPrimary">#c6111d</color>
     <color name="colorPrimaryDark">#9c0b23</color>
     <color name="colorAccent">#FFC6111D</color>
@@ -13,7 +11,6 @@
     <color name="half_black">#808080</color>
     <color name="black_overlay">#000000</color>
     <color name="black">#000000</color>
-    <color name="black_trans">#50000000</color>
     <color name="white_pressed">#f1f1f1</color>
     <color name="pink">#e91e63</color>
     <color name="pink_pressed">#9e091f</color>
@@ -22,5 +19,18 @@
     <color name="blue_semi_transparent">#805677fc</color>
     <color name="blue_semi_transparent_pressed">#80738ffe</color>
     <color name="grey_semi_transparent_pressed">#e3d4d4d4</color>
+
+    <color name="grey">#D2D2D2</color>
+    <color name="grey_dark">#777777</color>
+    <color name="grey_trans">#80D2D2D2</color>
+    <color name="grey_trans_light">#98D2D2D2</color>
+
+    <color name="black_trans">#50000000</color>
+
+    <color name="white_trans">#80FFFFFF</color>
+    <color name="btn_color">#008BA0</color>
+    <color name="btn_text_color">#FFFFFF</color>
+
+
 
 </resources>

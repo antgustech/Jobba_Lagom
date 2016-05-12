@@ -18,10 +18,7 @@ public class LaunchFragment extends Fragment {
 
     private LaunchFragmentCallback callback;
     private ButtonListener buttonListener;
-    private ImageButton btnLogo;
-    private ImageButton btnNew;
-    private ImageButton btnKey;
-    private ImageButton btnInfo;
+    private ImageButton btnLogo, btnNew, btnKey, btnInfo;
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_launch, container, false);
@@ -58,7 +55,7 @@ public class LaunchFragment extends Fragment {
                 callback.navigate("btnNew");
             } else if(v.getId() == R.id.btnKey) {
                 callback.navigate("btnKey");
-            } else if(v.getId() == R.id.btnInfo) {
+            } else if(v.getId() == R.id.btnSettings) {
                 callback.navigate("btnInfo");
             }
         }

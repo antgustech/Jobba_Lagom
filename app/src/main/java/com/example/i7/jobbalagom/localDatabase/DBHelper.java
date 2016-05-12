@@ -22,9 +22,10 @@ public class DBHelper extends SQLiteOpenHelper {
 
     private static final String CREATE_USER_QUERY =
             "CREATE TABLE " + UserContract.User.TABLE_NAME
-                    + "( " + UserContract.User.USER_NAME + " TEXT PRIMARY KEY, "
-                    + UserContract.User.USER_TAX + " FLOAT, "
-                    + UserContract.User.USER_INCOME_LIMIT + " FLOAT);";
+                    + "( " + UserContract.User.USER_TAX + " FLOAT, "
+                    + UserContract.User.USER_INCOME_LIMIT + " FLOAT, "
+                    + UserContract.User.USER_EMAIL + " TEXT, "
+                    + UserContract.User.USER_PASSWORD + " TEXT);";
 
     private static final String CREATE_JOB_QUERY =
             "CREATE TABLE " + UserContract.Job.TABLE_NAME
@@ -37,7 +38,9 @@ public class DBHelper extends SQLiteOpenHelper {
                     + UserContract.Shift.SHIFT_JOB_TITLE + " TEXT, "
                     + UserContract.Shift.SHIFT_START_TIME + " FLOAT, "
                     + UserContract.Shift.SHIFT_END_TIME + " FLOAT, "
-                    + UserContract.Shift.SHIFT_DATE + " INTEGER, "
+                    + UserContract.Shift.SHIFT_YEAR + " INTEGER, "
+                    + UserContract.Shift.SHIFT_MONTH + " INTEGER, "
+                    + UserContract.Shift.SHIFT_DAY + " INTEGER, "
                     + UserContract.Shift.SHIFT_INCOME + " FLOAT, "
                     + UserContract.Shift.SHIFT_HOURS_WORKED + " FLOAT);";
 
@@ -79,7 +82,7 @@ public class DBHelper extends SQLiteOpenHelper {
         db.execSQL(CREATE_SHIFT_QUERY);
         db.execSQL(CREATE_EXPENSE_QUERY);
         db.execSQL(CREATE_OB_QUERY);
-        Log.d("DBHelper", "Tables created");
+        Log.e("DBHelper", "Tables created");
     }
 
     /**
@@ -94,7 +97,7 @@ public class DBHelper extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS " + UserContract.Shift.TABLE_NAME);
         db.execSQL("DROP TABLE IF EXISTS " + UserContract.Expense.TABLE_NAME);
         db.execSQL("DROP TABLE IF EXISTS " + UserContract.OB.TABLE_NAME);
-        Log.d("DBHelper", "Dropped all tables");
+        Log.e("DBHelper", "Dropped all tables");
         onCreate(db);
     }
 
@@ -102,13 +105,12 @@ public class DBHelper extends SQLiteOpenHelper {
      * Adds a user to the user table.
      */
 
-    public void addUser(String name, float tax, float incomeLimit, SQLiteDatabase db ){
+    public void addUser(float tax, float incomeLimit, SQLiteDatabase db ){
         ContentValues contentValues = new ContentValues();
-        contentValues.put(UserContract.User.USER_NAME, name);
         contentValues.put(UserContract.User.USER_TAX, tax);
         contentValues.put(UserContract.User.USER_INCOME_LIMIT, incomeLimit);
         db.insert(UserContract.User.TABLE_NAME, null, contentValues);
-        Log.e("Internal DB", "New user: " + name + ", " + tax + " in tax, " + incomeLimit + " in income limit");
+        Log.e("Internal DB", "New user: " + tax + " in tax, " + incomeLimit + " in income limit");
     }
 
     /**
@@ -127,16 +129,18 @@ public class DBHelper extends SQLiteOpenHelper {
      * Adds a shift to shift table.
      */
 
-    public void addShift(String jobTitle, float startTime, float endTime, float hoursWorked, int date, float income, SQLiteDatabase db ){
+    public void addShift(String jobTitle, float startTime, float endTime, float hoursWorked, int year, int month, int day, float income, SQLiteDatabase db ){
         ContentValues contentValues = new ContentValues();
         contentValues.put(UserContract.Shift.SHIFT_JOB_TITLE, jobTitle);
         contentValues.put(UserContract.Shift.SHIFT_START_TIME, startTime);
         contentValues.put(UserContract.Shift.SHIFT_END_TIME, endTime);
         contentValues.put(UserContract.Shift.SHIFT_HOURS_WORKED, hoursWorked);
-        contentValues.put(UserContract.Shift.SHIFT_DATE, date);
+        contentValues.put(UserContract.Shift.SHIFT_YEAR, year);
+        contentValues.put(UserContract.Shift.SHIFT_MONTH, month);
+        contentValues.put(UserContract.Shift.SHIFT_DAY, day);
         contentValues.put(UserContract.Shift.SHIFT_INCOME, income);
         db.insert(UserContract.Shift.TABLE_NAME, null, contentValues);
-        Log.e("Internal DB", "New shift: " + hoursWorked + " hours work on job " + jobTitle + ", date " + date + ", inkomst " + income + " kr");
+        Log.e("Internal DB", "New shift: " + startTime + " - " + endTime + ", " + hoursWorked + " hours work on job " + jobTitle + ", date " + year+""+month+""+day + ", inkomst " + income + " kr");
     }
 
     /**
@@ -163,41 +167,58 @@ public class DBHelper extends SQLiteOpenHelper {
         Log.e("Internal DB", "New OB: " + jobTitle + ", " + (obIndex-1)*100 + " % extra på " + day + "ar");
     }
 
-    public void deleteUser(String name, SQLiteDatabase db){
-        db.execSQL("DELETE FROM " + UserContract.User.TABLE_NAME + " WHERE " + UserContract.User.USER_NAME + " = '" + name + "');");
-        Log.e("Internal DB", "Deleted user: " + name);
+    public void deleteUser(SQLiteDatabase db){
+        db.execSQL("DELETE * FROM " + UserContract.User.TABLE_NAME +"');");
+        Log.e("Internal DB", "Deleted user");
     }
+
     public void deleteJob(String jobTitle, SQLiteDatabase db){
         db.execSQL("DELETE FROM " + UserContract.Job.TABLE_NAME + " WHERE " + UserContract.Job.JOB_TITLE + " = '"+ jobTitle +"';");
         Log.e("Internal DB", "Deleted job: " + jobTitle);
     }
+
     public void deleteShift(int id, SQLiteDatabase db){
         db.execSQL("DELETE FROM " + UserContract.Shift.TABLE_NAME + " WHERE " + UserContract.Shift.SHIFT_ID+ " = '" + id + "';");
         Log.e("Internal DB", "Deleted shift: " + id);
     }
+
     public void deleteExpense(String name, SQLiteDatabase db){
         db.execSQL("DELETE FROM " + UserContract.Expense.TABLE_NAME + " WHERE " + UserContract.Expense.EXPENSE_NAME + " = '" + name + "';");
         Log.e("Internal DB", "Deleted expense: " + name);
     }
 
     public float getTotalExpense(SQLiteDatabase db){
-        float sum = 0;
+        float totalExpense = 0;
         Cursor c = db.rawQuery("SELECT SUM( " + UserContract.Expense.EXPENSE_AMOUNT + " ) FROM " + UserContract.Expense.TABLE_NAME + ";", null);
         if(c.moveToFirst()) {
-            sum = c.getFloat(0);
+            totalExpense = c.getFloat(0);
         }
-        Log.e("Internal DB", "Getting total expense sum from database");
-        return sum;
+        Log.e("Internal DB", "Getting total expense totalExpense from database");
+        return totalExpense;
     }
 
     public float getTotalIncome(SQLiteDatabase db) {
-        float sum = 0;
+        float totalIncome = 0;
         Cursor c = db.rawQuery("SELECT SUM(" + UserContract.Shift.SHIFT_INCOME + ") FROM " + UserContract.Shift.TABLE_NAME + ";", null);
         if(c.moveToFirst()) {
-            sum = c.getFloat(0);
+            totalIncome = c.getFloat(0);
         }
-        Log.e("Internal DB", "Getting total income sum from database");
-        return sum;
+        Log.e("Internal DB", "Getting total income totalIncome from database: " + totalIncome);
+        return totalIncome;
+    }
+
+    public float getThisMonthIncome(SQLiteDatabase db) {
+        int month = 05;
+        float thisMonthIncome = 0;
+        Cursor c = db.rawQuery("SELECT SUM(" + UserContract.Shift.SHIFT_INCOME + ") FROM " + UserContract.Shift.TABLE_NAME
+                                + " WHERE " + UserContract.Shift.SHIFT_MONTH + " = '" + month + "';", null);
+
+        //SELECT SUM( shift_income ) FROM shift WHERE month = 05;
+        if(c.moveToFirst()) {
+            thisMonthIncome = c.getFloat(0);
+        }
+        Log.e("Internal DB", "Getting this month income thisMonthIncome from database: " + thisMonthIncome);
+        return thisMonthIncome;
     }
 
     public float getIncomeLimit(SQLiteDatabase db) {

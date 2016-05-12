@@ -19,19 +19,21 @@ public class Controller  {
     private final String IP = "192.168.0.141";          //ÄNDRA IP VID TESTNING!!!!!! // Kajsa 192.168.0.10
     private final int PORT = 4545;
 
-    private Calculator calc;
+    private Calculator calculator;
     private Client client;
     private MessageListener listener;
     private DBHelper dbHelper;
     private SQLiteDatabase sqLiteDatabase;
 
     public Controller(Context context){
-        calc = new Calculator();
+        calculator = new Calculator();
         client = new Client(listener,IP,PORT);
         listener = new MessageListener();
         dbHelper = new DBHelper(context);
         Singleton.setDBHelper(dbHelper);
     }
+
+
 
 
     private class MessageListener implements MessageCallback {
@@ -55,23 +57,17 @@ public class Controller  {
      */
 
     public ArrayList<String> getMunicipalities(){
-        ArrayList<String> municipalities = null;
-        municipalities = client.getMunicipalities();
-        return municipalities;
+        return client.getMunicipalities();
     }
 
     public float getChurchTax(String municipality){
-        return client.getChurchTax(municipality);
+        return client.getChurchTaxFromServer(municipality);
     }
 
     public float getTax(String municipality){
         return client.getTaxFromServer(municipality);
     }
 
-    public void setTax(float currentTax){
-        sqLiteDatabase = dbHelper.getWritableDatabase();
-        dbHelper.setTax(currentTax, sqLiteDatabase );
-    }
 
 
 
@@ -83,10 +79,10 @@ public class Controller  {
      * Adds user to db
      */
 
-    public void addUser(String name, String municipality, float incomeLimit){
+    public void addUser(String municipality, float incomeLimit){
         float tax = client.getTaxFromServer(municipality);
         sqLiteDatabase = dbHelper.getWritableDatabase();
-        dbHelper.addUser(name, tax, incomeLimit, sqLiteDatabase);
+        dbHelper.addUser(tax, incomeLimit, sqLiteDatabase);
         dbHelper.close();
     }
 
@@ -114,11 +110,13 @@ public class Controller  {
      * Adds shift to db
      */
 
-    public float addShift(String jobTitle, float startTime, float endTime, float hoursWorked, int date){
+    public float addShift(String jobTitle, float startTime, float endTime, float hoursWorked, int year, int month, int day){
         float wage = getWage(jobTitle);
         float income = wage*hoursWorked;
+       // float income = calculator.calculateIncome();
+
         sqLiteDatabase = dbHelper.getWritableDatabase();
-        dbHelper.addShift(jobTitle, startTime, endTime, hoursWorked, date, income, sqLiteDatabase);
+        dbHelper.addShift(jobTitle, startTime, endTime, hoursWorked, year, month, day, income, sqLiteDatabase);
         dbHelper.close();
         return income;
     }
@@ -139,7 +137,7 @@ public class Controller  {
 
     public void deleteUser(String name ) {
         sqLiteDatabase = dbHelper.getWritableDatabase();
-        dbHelper.deleteUser(name,sqLiteDatabase);
+        dbHelper.deleteUser(sqLiteDatabase);
         dbHelper.close();
     }
 
@@ -193,9 +191,9 @@ public class Controller  {
 
     public float getTotalExpense(){
         sqLiteDatabase = dbHelper.getReadableDatabase();
-        float sum = dbHelper.getTotalExpense(sqLiteDatabase);
+        float totalExpense = dbHelper.getTotalExpense(sqLiteDatabase);
         dbHelper.close();
-        return sum;
+        return totalExpense;
     }
 
     /**
@@ -204,11 +202,18 @@ public class Controller  {
      * @return
      */
 
-    public float getTotalIncome(){
+    public float getTotalIncome() {
         sqLiteDatabase = dbHelper.getReadableDatabase();
-        float sum = dbHelper.getTotalIncome(sqLiteDatabase);
+        float totalIncome = dbHelper.getTotalIncome(sqLiteDatabase);
         dbHelper.close();
-        return sum;
+        return totalIncome;
+    }
+
+    public float getThisMonthIncome() {
+        sqLiteDatabase = dbHelper.getReadableDatabase();
+        float thisMonthIncome = dbHelper.getThisMonthIncome(sqLiteDatabase);
+        dbHelper.close();
+        return thisMonthIncome;
     }
 
     public float getIncomeLimit() {
@@ -272,6 +277,11 @@ public class Controller  {
         float sum =dbHelper.getOBEnd(sqLiteDatabase);
         dbHelper.close();
         return sum;
+    }
+
+    public void setTax(float tax){
+        sqLiteDatabase = dbHelper.getWritableDatabase();
+        dbHelper.setTax(tax, sqLiteDatabase );
     }
 }
 

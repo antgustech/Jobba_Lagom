@@ -10,7 +10,8 @@
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
+        android:theme="@android:style/Theme.Black.NoTitleBar">
+
         <activity android:name=".activities.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -21,19 +22,6 @@
         <activity
             android:name=".activities.AboutActivity"
             android:label="@string/title_activity_about" />
-
-        <activity
-            android:name=".activities.BudgetAcitivity"
-            android:label="@string/actionbarTitleBudget" />
-        <activity
-            android:name=".activities.WorkRegisterActivity"
-            android:label="@string/title_activity_work" />
-        <activity
-            android:name=".activities.ChangeTaxActivity"
-            android:label="Ändra skattesatsen" />
-        <activity
-            android:name=".activities.SettingsActivity"
-            android:label="Inställningar"></activity>
     </application>
 
 </manifest>

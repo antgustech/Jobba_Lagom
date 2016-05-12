@@ -1,4 +1,4 @@
-package com.example.i7.jobbalagom.remote;
+package jobbalagom.remote;
 /*
  * Created by Anton 15-04-16
  */
@@ -49,19 +49,19 @@ public class Server extends Thread {
             try {
                 socket = serverSocket.accept();
                 System.out.println("Sever is running.");
-                new ClientHandeler(socket).start();
+                new ClientHandler(socket).start();
             } catch (IOException e) {
             }
         }
     }
 
-    private class ClientHandeler extends Thread {
+    private class ClientHandler extends Thread {
         private Socket socket;
         private DataInputStream dis;
         private DataOutputStream dos;
         private ObjectOutputStream oos;
 
-        public ClientHandeler(Socket socket) {
+        public ClientHandler(Socket socket) {
             connected = true;
             this.socket = socket;
             try {
@@ -75,44 +75,37 @@ public class Server extends Thread {
         }
 
         /*
-         * Handles diffrent questions from client.
+         * Gets requests from client and responds
          */
+
         public void run() {
             while (connected) {
                 try {
                     System.out.println("Waiting on message from Client");
-                    int intOperation = dis.readInt();
-                    System.out.println(intOperation + " Operation");
-                    switch (intOperation) {
+                    int operation = dis.readInt();
+                    System.out.println(operation + " Operation");
+                    switch (operation) {
 
-                        case 1://getMunicipalities
-                            ArrayList<String> list = new ArrayList<String>();
-                            list.add("ay");
-                            list.add("lmao");
-                            list.add("mofo");
-                            oos.writeObject(getKommun());
+                        case 1:	//getKommun
+                            oos.writeObject(getMunicipalities());
                             break;
 
-                        case 2://getCity
+                        case 2:	//getCity
                             dos.writeUTF(getCity(dis.readUTF()));
                             dos.flush();
                             break;
 
-                        case 3://getTaxFromServer
-                            String taxGetter = dis.readUTF();
-                            System.out.println("kommun read");
-                            float returnValue = getTax(taxGetter);
-                            System.out.println(returnValue);
-                            dos.writeFloat(returnValue);
+                        case 3:	//getTax
+                            String municipality = dis.readUTF();
+                            float tax = getTax(municipality);
+                            dos.writeFloat(tax);
                             dos.flush();
-//							dos.writeFloat(getTaxFromServer(dis.readUTF()));
                             break;
                     }
                 } catch (IOException e) {
                     System.out.println("[ERROR] IOException or SQLException");
                     connected = false;
                 } catch (SQLException e) {
-                    // TODO Auto-generated catch block
                     e.printStackTrace();
                 }
             }
@@ -122,15 +115,18 @@ public class Server extends Thread {
     /*
      * ----------------------------------DB methods-----------------------------------
      */
+
     private void connectDB() {
         try {
             Class.forName("com.mysql.jdbc.Driver");
             dbConnection = DriverManager.getConnection("jdbc:mysql://195.178.232.7:4040/ad8284", "ad8284", "hejsan55");
-            System.out.println("Server connected to database");
-        } catch (ClassNotFoundException e1) {
-        } catch (SQLException e2) {
-            System.out.println("[ERROR] Problem with connecting to db");
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
+        System.out.println("Server connected to database");
+
     }
 
     private void disconnectDB() {
@@ -141,19 +137,17 @@ public class Server extends Thread {
         }
     }
 
-    //Should read all kommun strings from table skatt16april
-    private ArrayList<String> getKommun() throws SQLException {
-        String kommuner = "";
+    //Reads all municipalities from table skatt16april
+    private ArrayList<String> getMunicipalities() throws SQLException {
         Statement s = (Statement) dbConnection.createStatement();
         ResultSet rs = s.executeQuery("select distinct Kommun from skatt16april order by Kommun");
-        ArrayList<String> names = new ArrayList<String>();
+        ArrayList<String> municipalities = new ArrayList<String>();
+        System.out.println("Reading municipalities from database");
         while (rs.next()) {
-            names.add(rs.getString(1));
+            municipalities.add(rs.getString(1));
         }
-        System.out.println("Skriver ut kommuner");
-        return names;
+        return municipalities;
     }
-
 
     private String getCity(String choosenKommun) {
         String query = "select Ort" + "from " + "ad8284" + ".skatt16april" + " where " + choosenKommun;
@@ -161,8 +155,8 @@ public class Server extends Thread {
         return query;
     }
 
-    private float getTax(String choosenOrt) {
-        String query = "select distinct SummanExkluderatKyrkan" + " from " + "ad8284" + ".skatt16april" + " where " + " kommun= " + "'" + choosenOrt + "'";
+    private float getTax(String municipality) {
+        String query = "select distinct SummanExkluderatKyrkan" + " from " + "ad8284" + ".skatt16april" + " where " + " kommun= " + "'" + municipality + "'";
 
         Statement s = null;
         ResultSet rs = null;
@@ -171,8 +165,7 @@ public class Server extends Thread {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
-        System.out.println("Läser skatt");
+        System.out.println("Reading tax from database");
         try {
             rs = s.executeQuery(query);
             while (rs.next()) {
