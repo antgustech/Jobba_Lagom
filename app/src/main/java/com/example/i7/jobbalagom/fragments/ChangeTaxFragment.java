@@ -43,48 +43,62 @@ public class ChangeTaxFragment extends Fragment {
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-
         calculateTaxBtn = view.findViewById(R.id.calculateTaxBtn);
         chooseTaxBtn = view.findViewById(R.id.chooseTaxBtn);
         churchCheckbox = (CheckBox)view.findViewById(R.id.churchCheckbox);
         tax = (TextView)view.findViewById(R.id.taxText);
         controller  = Singleton.controller;
 
+        setupChooseTax();
+        setupCalculateTax();
         setupKommunView(view);
-
-        calculateTaxBtn.setOnClickListener(new ButtonListener());
-
 
     }
 
+    /**
+     * Listener for calculateTax
+     */
+    public void setupCalculateTax(){
+        calculateTaxBtn.setOnClickListener(new View.OnClickListener()  {
+            @Override
+            public void onClick(View v) {
+                if(v == v.findViewById(R.id.calculateTaxBtn)){
+                    if(churchCheckbox.isChecked())
+                    {
+
+                            taxCallback.updateTax(controller.getChurchTax(textViewKommun.getText() +""));
+
+                    }
+                    else
+                    {
+
+                            taxCallback.updateTax(controller.getTax(textViewKommun.getText() + ""));
+
+                    }
+                }
+            }
+        });
+    }
+
+    /**
+     * Listener for setTaxbutton.
+     */
+    public void setupChooseTax(){
+        chooseTaxBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                taxCallback.updateTax(Float.parseFloat(tax.getText().toString()));
+            }
+        });
+    }
+
+    /**
+     * Set Callback
+     * @param callback
+     */
     public void setCallBack(ChangeTaxFragmentCallback callback){
         taxCallback = callback;
     }
-
-    /*
-    private void getChurchTax(){
-        float taxFloat = controller.getChurchTax(textViewKommun.toString());
-        tax.setText(Float.toString(taxFloat));
-        currentTax = taxFloat;
-    }
-    */
-
-    /**
-     * Retrives tax and sets the textview to it.
-     */
-    /*
-    private void getTax(){
-        float taxFloat = controller.getTax(textViewKommun.getText() + "");
-        tax.setText(Float.toString(taxFloat));
-        currentTax = taxFloat;
-    }
-    */
-
-    public void setTax(float newTax){
-        this.currentTax = newTax;
-        tax.setText(newTax + "");
-    }
-
 
     /**
      * Setup the textview to show kommuner.
@@ -96,24 +110,20 @@ public class ChangeTaxFragment extends Fragment {
         textViewKommun.setAdapter(adapter);
     }
 
-
+    /**
+     * Get's Municipalities as a list.
+     */
     public void updateKommuner(){
-        kommuner = controller.getMunicipalities();
-    }
 
-    private class ButtonListener implements View.OnClickListener{
+            kommuner = controller.getMunicipalities();
+        if(kommuner != null){
 
-        @Override
-        public void onClick(View v) {
-            if(v == v.findViewById(R.id.calculateTaxBtn)){
-                if(churchCheckbox.isChecked()){
-                    //getChurchTax();
-                }
-                else{
-                    taxCallback.updateTax(controller.getTax(textViewKommun.getText() + ""));
-                }
-            }
+
+        }else{
+            textViewKommun.setEnabled(false);
+            calculateTaxBtn.setEnabled(false);
+            chooseTaxBtn.setEnabled(false);
+            churchCheckbox.setEnabled(false);
         }
     }
-
 }

@@ -56,11 +56,11 @@ public class Controller  {
      *-------------- EXTERNAL DATABASE METHODS, COMMUNICATION GOES THROUGH CLIENT -----------------------
      */
 
-    public ArrayList<String> getMunicipalities(){
+    public ArrayList<String> getMunicipalities() throws NullPointerException{
         return client.getMunicipalities();
     }
 
-    public float getChurchTax(String municipality){
+    public float getChurchTax(String municipality) {
         return client.getChurchTaxFromServer(municipality);
     }
 
@@ -79,7 +79,7 @@ public class Controller  {
      * Adds user to db
      */
 
-    public void addUser(String municipality, float incomeLimit){
+    public void addUser(String municipality, float incomeLimit) {
         float tax = client.getTaxFromServer(municipality);
         sqLiteDatabase = dbHelper.getWritableDatabase();
         dbHelper.addUser(tax, incomeLimit, sqLiteDatabase);

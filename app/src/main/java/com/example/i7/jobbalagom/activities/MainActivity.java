@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -16,16 +17,12 @@ import com.example.i7.jobbalagom.R;
 import com.example.i7.jobbalagom.callback_interfaces.AddExpenseFragmentCallback;
 import com.example.i7.jobbalagom.callback_interfaces.AddJobFragmentCallback;
 import com.example.i7.jobbalagom.callback_interfaces.AddShiftFragmentCallback;
-import com.example.i7.jobbalagom.callback_interfaces.ChangeTaxFragmentCallback;
 import com.example.i7.jobbalagom.callback_interfaces.LaunchFragmentCallback;
-import com.example.i7.jobbalagom.callback_interfaces.SettingsFragmentCallback;
 import com.example.i7.jobbalagom.callback_interfaces.SetupFragmentCallback;
 import com.example.i7.jobbalagom.fragments.AddExpenseFragment;
 import com.example.i7.jobbalagom.fragments.AddJobFragment;
 import com.example.i7.jobbalagom.fragments.AddShiftFragment;
-import com.example.i7.jobbalagom.fragments.ChangeTaxFragment;
 import com.example.i7.jobbalagom.fragments.LaunchFragment;
-import com.example.i7.jobbalagom.fragments.SettingsFragment;
 import com.example.i7.jobbalagom.fragments.SetupFragment;
 import com.example.i7.jobbalagom.local.Controller;
 import com.example.i7.jobbalagom.local.Singleton;
@@ -129,7 +126,7 @@ public class MainActivity extends Activity {
         pbIncome.setProgress(total);
         tvIncome.setText( (int)thisMonthsIncome + "");
         Log.d("MainActivity", "Income progressbar after update: " + pbIncome.getProgress());
-        // Hur ska progressbaren agera när användaren passerar månadsbudgeten?
+        // Hur ska progressbaren agera när användaren passerar månadsbudgeten? Explodera.
     }
 
     /**
@@ -177,6 +174,8 @@ public class MainActivity extends Activity {
         changeFragment(currentFragment);
     }
 
+
+
     public void startSetupFragment() {
         currentFragment = new SetupFragment();
         ((SetupFragment) currentFragment).setCallBack(new SetupFragmentListener());
@@ -189,21 +188,9 @@ public class MainActivity extends Activity {
         changeFragment(currentFragment);
     }
 
-    public void startSettingsFragment() {
-        currentFragment = new SettingsFragment();
-        ((SettingsFragment) currentFragment).setCallBack((new SettingsFragmentListener()));
-        changeFragment(currentFragment);
-    }
-
     public void startAddShiftFragment() {
         currentFragment = new AddShiftFragment();
         ((AddShiftFragment) currentFragment).setCallBack(new AddShiftFragmentListener());
-        changeFragment(currentFragment);
-    }
-
-    public void startChangeTaxFragment() {
-        currentFragment = new ChangeTaxFragment();
-        ((ChangeTaxFragment) currentFragment).setCallBack(new ChangeTaxListener());
         changeFragment(currentFragment);
     }
 
@@ -214,9 +201,9 @@ public class MainActivity extends Activity {
     private class ButtonListener implements View.OnClickListener {
         public void onClick(View v) {
             if (v.getId() == R.id.btnSettings) {
-                startSettingsFragment();
+                startActivity(new Intent(getApplicationContext(), SettingsActivity.class));
             } else if (v.getId() == R.id.btnInfo) {
-                startAddJobFragment();
+                Toast.makeText(getApplicationContext(), "Show budget fragment", Toast.LENGTH_LONG).show();
             } else if(v.getId() == R.id.btnExpense) {
                 startAddExpenseFragment();
             } else if(v.getId() == R.id.btnShift) {
@@ -292,27 +279,8 @@ public class MainActivity extends Activity {
         }
     }
 
-    /**
-     * Listener for settings fragment
-     */
 
-    private class SettingsFragmentListener implements SettingsFragmentCallback {
-        public void showFragment(String fragment) {
-            if(fragment.equals("about")) {
-                //startActivity(new Intent(getApplicationContext(), AboutActivity.class));
-            } else if(fragment.equals("changeTax")) {
-                startChangeTaxFragment();
-            }
-        }
-    }
 
-    /**
-     * Listener for change tax fragment
-     */
 
-    private class ChangeTaxListener implements ChangeTaxFragmentCallback {
-        public void updateTax(float tax) {
-            ((ChangeTaxFragment) currentFragment).setTax(tax);
-        }
-    }
+
 }

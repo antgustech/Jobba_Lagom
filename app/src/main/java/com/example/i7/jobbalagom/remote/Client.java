@@ -62,7 +62,7 @@ public class Client extends Thread {
         } catch (IOException e) {}
     }
 
-    public ArrayList<String> getMunicipalities() {
+    public ArrayList<String> getMunicipalities() throws NullPointerException {
         return municipalities;
     }
 
@@ -70,7 +70,7 @@ public class Client extends Thread {
      * Returns all municipalities as a list
      */
 
-    public ArrayList<String> getMunicipalitiesFromServer() {
+    public ArrayList<String> getMunicipalitiesFromServer() throws NullPointerException {
         Thread thread = new Thread(new Runnable() {
             public void run() {
                 try {
@@ -112,6 +112,9 @@ public class Client extends Thread {
     public float getTaxFromServer(final String municipality) {
         Thread thread = new Thread(new Runnable() {
             public void run() {
+
+
+
                 try {
                     dos.writeInt(3);
                     dos.flush();
