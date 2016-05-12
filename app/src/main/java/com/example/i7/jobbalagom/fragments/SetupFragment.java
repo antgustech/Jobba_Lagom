@@ -106,8 +106,6 @@ public class SetupFragment extends Fragment {
                 Toast.makeText(getActivity(), "Vänligen ange en giltig kommun.", Toast.LENGTH_LONG).show();
                 return;
             }
-
-
             callback.addUser(municipality, Float.parseFloat(incomeLimit));
         }
     }

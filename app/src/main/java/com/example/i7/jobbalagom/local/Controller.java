@@ -16,7 +16,7 @@ import java.util.ArrayList;
 
 public class Controller  {
 
-    private final String IP = "192.168.0.141";          //ÄNDRA IP VID TESTNING!!!!!! // Kajsa 192.168.0.10
+    private final String IP = "192.168.0.10";          //ÄNDRA IP VID TESTNING!!!!!! // Kajsa 192.168.0.10
     private final int PORT = 4545;
 
     private Calculator calculator;
@@ -209,11 +209,18 @@ public class Controller  {
         return totalIncome;
     }
 
-    public float getThisMonthIncome() {
+    public float getThisMonthsIncome() {
         sqLiteDatabase = dbHelper.getReadableDatabase();
-        float thisMonthIncome = dbHelper.getThisMonthIncome(sqLiteDatabase);
+        float thisMonthsIncome = dbHelper.getThisMonthsIncome(sqLiteDatabase);
         dbHelper.close();
-        return thisMonthIncome;
+        return thisMonthsIncome;
+    }
+
+    public float getThisMonthsExpenses() {
+        sqLiteDatabase = dbHelper.getReadableDatabase();
+        float thisMonthsExpenses = dbHelper.getThisMonthsExpenses(sqLiteDatabase);
+        dbHelper.close();
+        return thisMonthsExpenses;
     }
 
     public float getIncomeLimit() {

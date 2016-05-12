@@ -207,18 +207,26 @@ public class DBHelper extends SQLiteOpenHelper {
         return totalIncome;
     }
 
-    public float getThisMonthIncome(SQLiteDatabase db) {
-        int month = 05;
-        float thisMonthIncome = 0;
-        Cursor c = db.rawQuery("SELECT SUM(" + UserContract.Shift.SHIFT_INCOME + ") FROM " + UserContract.Shift.TABLE_NAME
-                                + " WHERE " + UserContract.Shift.SHIFT_MONTH + " = '" + month + "';", null);
-
-        //SELECT SUM( shift_income ) FROM shift WHERE month = 05;
+    public float getThisMonthsIncome(SQLiteDatabase db) {
+        float thisMonthsIncome = 0;
+        Cursor c = db.rawQuery("SELECT SUM(" + UserContract.Shift.SHIFT_INCOME + ") FROM " + UserContract.Shift.TABLE_NAME + ";", null);
+        //SELECT SUM( shift_income ) FROM shift WHERE month .... bla bla
         if(c.moveToFirst()) {
-            thisMonthIncome = c.getFloat(0);
+            thisMonthsIncome = c.getFloat(0);
         }
-        Log.e("Internal DB", "Getting this month income thisMonthIncome from database: " + thisMonthIncome);
-        return thisMonthIncome;
+        Log.e("Internal DB", "Getting this months income from database: " + thisMonthsIncome);
+        return thisMonthsIncome;
+    }
+
+    public float getThisMonthsExpenses(SQLiteDatabase db) {
+        float thisMonthsExpenses = 0;
+        Cursor c = db.rawQuery("SELECT SUM(" + UserContract.Expense.EXPENSE_AMOUNT + ") FROM " + UserContract.Expense.TABLE_NAME + ";", null);
+        //SELECT SUM( expenses_amount ) FROM expenses WHERE month ... bla bla
+        if(c.moveToFirst()) {
+            thisMonthsExpenses = c.getFloat(0);
+        }
+        Log.e("Internal DB", "Getting this months expenses from database: " + thisMonthsExpenses);
+        return thisMonthsExpenses;
     }
 
     public float getIncomeLimit(SQLiteDatabase db) {

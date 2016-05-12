@@ -48,6 +48,8 @@ public class MainActivity extends Activity {
     private TextView tvIncome, tvCSN;
     private ProgressBar pbCSN, pbIncome, pbExpense;
 
+    private float monthlyIncomeLimit, csnIncomeLimit;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         controller = new Controller(this);
@@ -74,6 +76,8 @@ public class MainActivity extends Activity {
         pbIncome = (ProgressBar) findViewById(R.id.pbIncome);
         pbExpense = (ProgressBar) findViewById(R.id.pbExpenses);
         fragmentManager = getFragmentManager();
+        monthlyIncomeLimit = controller.getIncomeLimit()/6;         // --> 100 % av income och expense progress bar
+        csnIncomeLimit = controller.getIncomeLimit();               // --> 100 % av csn progress bar
         loadProgressBars();
     }
 
@@ -90,55 +94,53 @@ public class MainActivity extends Activity {
     }
 
     public void loadProgressBars() {
-        updatePBcsn(controller.getTotalIncome());
-        updatePBincome(controller.getThisMonthIncome());
-        updatePBexpense(controller.getTotalExpense());
+        updatePBcsn(controller.getTotalIncome());                   // --> csn progress bar fills up with total income
+        updatePBincome(controller.getThisMonthsIncome());           // --> income progress bar fills up with this months income
+        updatePBexpense(controller.getThisMonthsExpenses());        // --> expense progress bar fills up with this months expenses
     }
 
     /**
      * Updates CSN progress bar
+     * @param income - representing an income defined in kronor
      */
 
     public void updatePBcsn(float income) {
         Log.d("MainActivity", "CSN progressbar before update: " + pbCSN.getProgress());
-        float totalIncome = controller.getTotalIncome();
-        //float incomeLimit = controller.getIncomeLimit();
-        float incomeLimit = 60000;
-        int increase = (int)(income/incomeLimit*100);
+        int increase = (int)(income/ csnIncomeLimit *100);
         int total = pbCSN.getProgress() + increase;
         pbCSN.setProgress(total);
-        Log.d("MainActivity", "CSN progressbar after update: " + pbCSN.getProgress());
 
-        int left = (int)(incomeLimit - totalIncome);
+        float totalIncome = controller.getTotalIncome();
+        int left = (int)(csnIncomeLimit - totalIncome);
         tvCSN.setText("Du får tjäna " + left + " kr till detta halvår.");
+        Log.d("MainActivity", "CSN progressbar after update: " + pbCSN.getProgress());
     }
 
     /**
      * Updates income progress bar
+     * @param income - representing an income defined in kronor
      */
 
     public void updatePBincome(float income) {
         Log.d("MainActivity", "Income progressbar before update: " + pbIncome.getProgress());
-        float thisMonthsIncome = controller.getThisMonthIncome();
-        tvIncome.setText( (int)thisMonthsIncome + "");
-        float monthlyBudget = controller.getIncomeLimit()/6;
-        //float monthlyBudget = 60000/6;
-        int increase = (int)(income/monthlyBudget*100);
+        float thisMonthsIncome = controller.getThisMonthsIncome();
+        int increase = (int)(income/monthlyIncomeLimit*100);
         int total = pbIncome.getProgress() + increase;
         pbIncome.setProgress(total);
+        tvIncome.setText( (int)thisMonthsIncome + "");
         Log.d("MainActivity", "Income progressbar after update: " + pbIncome.getProgress());
         // Hur ska progressbaren agera när användaren passerar månadsbudgeten?
     }
 
     /**
-     * Updates the expenses progress bar
+     * Updates the expense progress bar
+     * @param expense - representing an expense defined in kronor
      */
 
     public void updatePBexpense(float expense) {
         Log.d("MainActivity", "Expense progressbar before update: " + pbExpense.getProgress());
-        float monthlyBudget = controller.getIncomeLimit()/6;
-        float thisMonthsExpense = controller.getTotalExpense();     // <-- change to getThisMonthExpense();
-        int increase = (int)(expense/monthlyBudget*100);
+        float thisMonthsExpense = controller.getThisMonthsExpenses();
+        int increase = (int)(expense/monthlyIncomeLimit*100);
         int total = pbExpense.getProgress() + increase;
         pbExpense.setProgress(total);
         Log.d("MainActivity", "Expense progressbar after update: " + pbExpense.getProgress());
@@ -230,16 +232,12 @@ public class MainActivity extends Activity {
     private class LaunchFragmentListener implements LaunchFragmentCallback {
         public void navigate(String choice) {
             if(choice.equals("btnLogo")) {
-                Log.d("MainActivity", "Logo button pressed");
                 // Something if we want, or nothing
             } else if(choice.equals("btnNew")) {
-                Log.d("MainActivity", "New button pressed");
                 startSetupFragment();
             } else if(choice.equals("btnKey")) {
-                Log.d("MainActivity", "Key button pressed");
                 removeFragment(currentFragment);
             } else if(choice.equals("btnInfo")) {
-                Log.d("MainActivity", "Info button pressed");
                 //startActivity(new Intent(getApplicationContext(), AboutActivity.class));
             }
         }
@@ -251,7 +249,6 @@ public class MainActivity extends Activity {
 
     private class SetupFragmentListener implements SetupFragmentCallback {
         public void addUser(String municipality, float incomeLimit) {
-            Log.d("MainActivity", "User information\nKommun: " + municipality + "\nFribelopp: " + incomeLimit);
             controller.addUser(municipality, incomeLimit);
             removeFragment(currentFragment);
         }
@@ -279,7 +276,6 @@ public class MainActivity extends Activity {
             float income = controller.addShift(jobTitle, startTime, endTime, hoursWorked, year, month, year);
             updatePBincome(income);
             updatePBcsn(income);
-            Log.d("MainActivity", "Uppdaterar csn- och inkomstgrafer: " + income + " kr");
         }
     }
 
@@ -292,9 +288,7 @@ public class MainActivity extends Activity {
             removeFragment(currentFragment);
             controller.addExpense(title,amount,date);
             Toast.makeText(getBaseContext(), "Utgift tillagd", Toast.LENGTH_LONG).show();
-            Log.d("MainActivity", "Uppdaterar utgiftsgraf med " + amount + " kr");
             updatePBexpense(amount);
-            // uppdatera utgiftsgraf
         }
     }
 
@@ -305,10 +299,8 @@ public class MainActivity extends Activity {
     private class SettingsFragmentListener implements SettingsFragmentCallback {
         public void showFragment(String fragment) {
             if(fragment.equals("about")) {
-                Log.d("MainActivity", "Button about pressed");
                 //startActivity(new Intent(getApplicationContext(), AboutActivity.class));
             } else if(fragment.equals("changeTax")) {
-                Log.d("MainActivity", "Button change tax pressed");
                 startChangeTaxFragment();
             }
         }
