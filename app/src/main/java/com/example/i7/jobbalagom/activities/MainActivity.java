@@ -1,68 +1,52 @@
 package com.example.i7.jobbalagom.activities;
 
+import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
-import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
-import android.view.Window;
+import android.widget.ImageButton;
+import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.i7.jobbalagom.R;
 import com.example.i7.jobbalagom.callback_interfaces.AddExpenseFragmentCallback;
 import com.example.i7.jobbalagom.callback_interfaces.AddJobFragmentCallback;
 import com.example.i7.jobbalagom.callback_interfaces.AddShiftFragmentCallback;
+import com.example.i7.jobbalagom.callback_interfaces.ChangeTaxFragmentCallback;
 import com.example.i7.jobbalagom.callback_interfaces.LaunchFragmentCallback;
+import com.example.i7.jobbalagom.callback_interfaces.SettingsFragmentCallback;
 import com.example.i7.jobbalagom.callback_interfaces.SetupFragmentCallback;
 import com.example.i7.jobbalagom.fragments.AddExpenseFragment;
 import com.example.i7.jobbalagom.fragments.AddJobFragment;
 import com.example.i7.jobbalagom.fragments.AddShiftFragment;
+import com.example.i7.jobbalagom.fragments.ChangeTaxFragment;
 import com.example.i7.jobbalagom.fragments.LaunchFragment;
+import com.example.i7.jobbalagom.fragments.SettingsFragment;
 import com.example.i7.jobbalagom.fragments.SetupFragment;
 import com.example.i7.jobbalagom.local.Controller;
 import com.example.i7.jobbalagom.local.Singleton;
-import com.example.i7.jobbalagom.localDatabase.DBHelper;
-import com.github.mikephil.charting.charts.BarChart;
-import com.github.mikephil.charting.charts.HorizontalBarChart;
-import com.github.mikephil.charting.data.BarData;
-import com.github.mikephil.charting.data.BarDataSet;
-import com.github.mikephil.charting.data.BarEntry;
 
-import java.util.ArrayList;
+/**
+ * Created by Kajsa on 2016-05-09.
+ */
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends Activity {
 
-    private View btnAddExpense;
-    private View btnAddShift;
-    private View btnBudget;
-    private View btnAddJob;
-    private View btnChangeTax;
-
-    private ButtonListener btnListener;
-    private FragmentTransaction fragmentTransaction;
-    private FragmentManager fragmentManager;
-    private Fragment currentFragment;
     private Controller controller;
-    private DBHelper dbHelper;
+
     private final int REQUESTCODE_WORKREGISTER = 1;
 
-    //Mainbar
-    private BarChart mainChart;
-    private BarData data;
-    private BarDataSet dataset;
-    private ArrayList<String> labels;
+    private Fragment currentFragment;
+    private FragmentTransaction fragmentTransaction;
+    private FragmentManager fragmentManager;
 
-    //Budgetbar
-    private HorizontalBarChart mainDudgetChart;
-    private BarData budgetData;
-    private BarDataSet incomeSet;
-    private BarDataSet expenseSet;
+    private ImageButton btnSettings, btnInfo, btnExpense, btnShift;
+    private TextView tvIncome, tvCSN;
+    private ProgressBar pbCSN, pbIncome, pbExpense;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,52 +58,23 @@ public class MainActivity extends AppCompatActivity {
         startLaunchFragment();
     }
 
-    /**
-     * Setups both graphs with data from database
-     */
-
-    public void setupGraphs(){
-        setupMainBar();
-        updateCSNChart(controller.getTotalIncome());
-        setupBudgetBar();
-        updateExpenseChart(controller.getTotalExpense());
-        updateIncomeChart(controller.getTotalIncome());
-    }
-
-    /**
-     * Initializes components.
-     */
-
     public void initComponents() {
-        btnAddExpense = findViewById(R.id.btnAddExpense);
-
-        //btnAddShift = findViewById(R.id.btnAddShift);
-        btnAddShift = findViewById(R.id.action_addshift);
-       // btnBudget = findViewById(R.id.btnBudget);
-        btnAddJob = findViewById(R.id.action_addjob);
-        btnChangeTax = findViewById(R.id.action_changeActivity);
-
-        btnListener = new ButtonListener();
-        btnAddShift.setOnClickListener(btnListener);
-//        btnBudget.setOnClickListener(btnListener);
-        // btnChangeTax.setOnClickListener(btnListener);
-        btnAddExpense.setOnClickListener(btnListener);
-        btnAddJob.setOnClickListener(btnListener);
-        btnChangeTax.setOnClickListener(btnListener);
-
+        btnSettings = (ImageButton) findViewById(R.id.btnSettings);
+        btnInfo = (ImageButton) findViewById(R.id.btnInfo);
+        btnExpense = (ImageButton) findViewById(R.id.btnExpense);
+        btnShift = (ImageButton) findViewById(R.id.btnShift);
+        ButtonListener btnListener = new ButtonListener();
+        btnSettings.setOnClickListener(btnListener);
+        btnInfo.setOnClickListener(btnListener);
+        btnExpense.setOnClickListener(btnListener);
+        btnShift.setOnClickListener(btnListener);
+        tvIncome = (TextView) findViewById(R.id.tvIncome);
+        tvCSN = (TextView) findViewById(R.id.tvCSN);
+        pbCSN = (ProgressBar) findViewById(R.id.pbCSN);
+        pbIncome = (ProgressBar) findViewById(R.id.pbIncome);
+        pbExpense = (ProgressBar) findViewById(R.id.pbExpenses);
         fragmentManager = getFragmentManager();
-        setStatusbarColor();
-    }
-
-    /**
-     * Setups the statusbar color for older android versions
-     */
-
-    private  void setStatusbarColor(){
-        Window window = this.getWindow();
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            window.setStatusBarColor(getResources().getColor(R.color.colorPrimaryDark));
-        }
+        loadProgressBars();
     }
 
     public void onBackPressed() {
@@ -127,47 +82,70 @@ public class MainActivity extends AppCompatActivity {
             super.onBackPressed();
         } else if(currentFragment instanceof SetupFragment) {
             startLaunchFragment();
+        } else if(currentFragment instanceof AddJobFragment) {
+            startAddShiftFragment();
         } else {
             removeFragment(currentFragment);
         }
     }
 
-    /**
-     * Controls hamburger button
-     * @param menu
-     * @return
-     */
-
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
+    public void loadProgressBars() {
+        updatePBcsn(controller.getTotalIncome());
+        updatePBincome(controller.getThisMonthIncome());
+        updatePBexpense(controller.getTotalExpense());
     }
 
     /**
-     *  Handler for buttons on the hamburger button
-     * @param item
-     * @return
+     * Updates CSN progress bar
      */
 
-    public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
+    public void updatePBcsn(float income) {
+        Log.d("MainActivity", "CSN progressbar before update: " + pbCSN.getProgress());
+        float totalIncome = controller.getTotalIncome();
+        //float incomeLimit = controller.getIncomeLimit();
+        float incomeLimit = 60000;
+        int increase = (int)(income/incomeLimit*100);
+        int total = pbCSN.getProgress() + increase;
+        pbCSN.setProgress(total);
+        Log.d("MainActivity", "CSN progressbar after update: " + pbCSN.getProgress());
 
-        if (id == R.id.action_settings) {
-            startActivity(new Intent(getApplicationContext(), SettingsActivity.class));
-            return true;
-        } else if(id == R.id.action_about) {
-            startActivity(new Intent(getApplicationContext(), AboutActivity.class));
-            return true;
-        }else if(id == R.id.action_vote){
-        }
-        return super.onOptionsItemSelected(item);
+        int left = (int)(incomeLimit - totalIncome);
+        tvCSN.setText("Du får tjäna " + left + " kr till detta halvår.");
     }
 
+    /**
+     * Updates income progress bar
+     */
 
+    public void updatePBincome(float income) {
+        Log.d("MainActivity", "Income progressbar before update: " + pbIncome.getProgress());
+        float thisMonthsIncome = controller.getThisMonthIncome();
+        tvIncome.setText( (int)thisMonthsIncome + "");
+        float monthlyBudget = controller.getIncomeLimit()/6;
+        //float monthlyBudget = 60000/6;
+        int increase = (int)(income/monthlyBudget*100);
+        int total = pbIncome.getProgress() + increase;
+        pbIncome.setProgress(total);
+        Log.d("MainActivity", "Income progressbar after update: " + pbIncome.getProgress());
+        // Hur ska progressbaren agera när användaren passerar månadsbudgeten?
+    }
 
     /**
-     * Changes fragments
-     * @param fragment
+     * Updates the expenses progress bar
+     */
+
+    public void updatePBexpense(float expense) {
+        Log.d("MainActivity", "Expense progressbar before update: " + pbExpense.getProgress());
+        float monthlyBudget = controller.getIncomeLimit()/6;
+        float thisMonthsExpense = controller.getTotalExpense();     // <-- change to getThisMonthExpense();
+        int increase = (int)(expense/monthlyBudget*100);
+        int total = pbExpense.getProgress() + increase;
+        pbExpense.setProgress(total);
+        Log.d("MainActivity", "Expense progressbar after update: " + pbExpense.getProgress());
+    }
+
+    /**
+     * Replaces fragments on the display
      */
 
     private void changeFragment(Fragment fragment){
@@ -177,23 +155,12 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /**
-     * Removes fragments from fragmentManager
-     * @param fragment
+     * Removes fragments from the display
      */
 
     private void removeFragment(Fragment fragment) {
         fragmentManager.beginTransaction().remove(fragment).commit();
         currentFragment = null;
-    }
-
-    public void startChangeTaxActivity() {
-        Intent changeTaxActivity =  new Intent(this, ChangeTaxActivity.class);
-        startActivity(changeTaxActivity);
-    }
-
-    public void startWorkRegister(){
-        Intent workRegisterActivity =  new Intent(this, WorkRegisterActivity.class);
-        startActivityForResult(workRegisterActivity, REQUESTCODE_WORKREGISTER);
     }
 
     public void startAddExpenseFragment() {
@@ -220,26 +187,38 @@ public class MainActivity extends AppCompatActivity {
         changeFragment(currentFragment);
     }
 
+    public void startSettingsFragment() {
+        currentFragment = new SettingsFragment();
+        ((SettingsFragment) currentFragment).setCallBack((new SettingsFragmentListener()));
+        changeFragment(currentFragment);
+    }
+
     public void startAddShiftFragment() {
-       currentFragment = new AddShiftFragment();
-      ((AddShiftFragment) currentFragment).setCallBack(new AddShiftFragmentListener());
-      changeFragment(currentFragment);
+        currentFragment = new AddShiftFragment();
+        ((AddShiftFragment) currentFragment).setCallBack(new AddShiftFragmentListener());
+        changeFragment(currentFragment);
+    }
+
+    public void startChangeTaxFragment() {
+        currentFragment = new ChangeTaxFragment();
+        ((ChangeTaxFragment) currentFragment).setCallBack(new ChangeTaxListener());
+        changeFragment(currentFragment);
     }
 
     /**
-     * Button btnListener for fab
+     * Listener for the four main buttons in main activity
      */
 
     private class ButtonListener implements View.OnClickListener {
         public void onClick(View v) {
-            if (v.getId() == R.id.btnAddExpense) {
-                startAddExpenseFragment();
-            } else if (v.getId() == R.id.action_addshift) {
-                startAddShiftFragment();
-            } else if (v.getId() == R.id.action_addjob) {
+            if (v.getId() == R.id.btnSettings) {
+                startSettingsFragment();
+            } else if (v.getId() == R.id.btnInfo) {
                 startAddJobFragment();
-            } else if (v.getId() == R.id.action_changeActivity){
-                startChangeTaxActivity();
+            } else if(v.getId() == R.id.btnExpense) {
+                startAddExpenseFragment();
+            } else if(v.getId() == R.id.btnShift) {
+                startAddShiftFragment();
             }
         }
     }
@@ -251,14 +230,17 @@ public class MainActivity extends AppCompatActivity {
     private class LaunchFragmentListener implements LaunchFragmentCallback {
         public void navigate(String choice) {
             if(choice.equals("btnLogo")) {
+                Log.d("MainActivity", "Logo button pressed");
                 // Something if we want, or nothing
             } else if(choice.equals("btnNew")) {
+                Log.d("MainActivity", "New button pressed");
                 startSetupFragment();
             } else if(choice.equals("btnKey")) {
-                setupGraphs();
+                Log.d("MainActivity", "Key button pressed");
                 removeFragment(currentFragment);
             } else if(choice.equals("btnInfo")) {
-                startActivity(new Intent(getApplicationContext(), AboutActivity.class));
+                Log.d("MainActivity", "Info button pressed");
+                //startActivity(new Intent(getApplicationContext(), AboutActivity.class));
             }
         }
     }
@@ -268,10 +250,9 @@ public class MainActivity extends AppCompatActivity {
      */
 
     private class SetupFragmentListener implements SetupFragmentCallback {
-        public void addUser(String name, String municipality, float incomeLimit) {
-            Log.d("MainActivity", "User information\nNamn: " + name + "\nKommun: " + municipality + "\nFribelopp: " + incomeLimit);
-            controller.addUser(name, municipality, incomeLimit);
-            setupGraphs();
+        public void addUser(String municipality, float incomeLimit) {
+            Log.d("MainActivity", "User information\nKommun: " + municipality + "\nFribelopp: " + incomeLimit);
+            controller.addUser(municipality, incomeLimit);
             removeFragment(currentFragment);
         }
     }
@@ -289,12 +270,16 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * Listener for add shift fragment
+     */
+
     private class AddShiftFragmentListener implements AddShiftFragmentCallback {
-        public void addShift(String jobTitle, float startTime, float endTime, float hoursWorked, int date) {
-            float income = controller.addShift(jobTitle, startTime, endTime, hoursWorked, date);
+        public void addShift(String jobTitle, float startTime, float endTime, float hoursWorked, int year, int month, int day) {
+            float income = controller.addShift(jobTitle, startTime, endTime, hoursWorked, year, month, year);
+            updatePBincome(income);
+            updatePBcsn(income);
             Log.d("MainActivity", "Uppdaterar csn- och inkomstgrafer: " + income + " kr");
-            updateIncomeChart(income);
-            updateCSNChart(income);
         }
     }
 
@@ -308,101 +293,34 @@ public class MainActivity extends AppCompatActivity {
             controller.addExpense(title,amount,date);
             Toast.makeText(getBaseContext(), "Utgift tillagd", Toast.LENGTH_LONG).show();
             Log.d("MainActivity", "Uppdaterar utgiftsgraf med " + amount + " kr");
-            updateExpenseChart(amount);
+            updatePBexpense(amount);
+            // uppdatera utgiftsgraf
         }
     }
 
+    /**
+     * Listener for settings fragment
+     */
 
-    //METHODS FOR GRAPHS
-
-    public void setupMainBar(){
-
-        mainChart = (BarChart) findViewById(R.id.mainChart);
-
-        //create data points
-        ArrayList<BarEntry> entries = new ArrayList<>();
-        //entries.add(new BarEntry(60000f, 10));
-        entries.add(new BarEntry(controller.getIncomeLimit(), 10));
-        dataset = new BarDataSet(entries, "Intjänade pengar");
-
-        //create labels
-        labels = new ArrayList<>();
-        labels.add(" ");
-        data = new BarData(labels, dataset);
-        mainChart.setData(data); // set the data and list of lables into chart
-
-        //description
-        mainChart.setDescription("");  // set the description
-        mainChart.setScaleYEnabled(false);
-        mainChart.setTouchEnabled(false);
-        mainChart.animateY(2000);
-
+    private class SettingsFragmentListener implements SettingsFragmentCallback {
+        public void showFragment(String fragment) {
+            if(fragment.equals("about")) {
+                Log.d("MainActivity", "Button about pressed");
+                //startActivity(new Intent(getApplicationContext(), AboutActivity.class));
+            } else if(fragment.equals("changeTax")) {
+                Log.d("MainActivity", "Button change tax pressed");
+                startChangeTaxFragment();
+            }
+        }
     }
 
-    //Updates the chart with specified sum.
-    public void updateCSNChart(float sum){
-        dataset.removeEntry(0);
-        data.addEntry(new BarEntry(sum,0), 0);
-        dataset.setColor(getResources().getColor(R.color.colorPrimary));
-        mainChart.notifyDataSetChanged(); // let the chart know it's data changed
-        mainChart.invalidate(); // refresh
-    }
+    /**
+     * Listener for change tax fragment
+     */
 
-
-    //BUDGET FRAGMENT METHODS:
-
-
-    public void setupBudgetBar(){
-        mainDudgetChart = (HorizontalBarChart) findViewById(R.id.mainBudgetChart);
-
-        //create data points
-        ArrayList<BarEntry> entries1 = new ArrayList<>();
-        ArrayList<BarEntry> entries2 = new ArrayList<>();
-
-        entries1.add(new BarEntry(10000, 5));
-        entries2.add(new BarEntry(10000, 5));
-
-        incomeSet = new BarDataSet(entries1, "Inkomst");
-        expenseSet = new BarDataSet(entries2, "Utgifter");
-
-        //X-axis labels
-        ArrayList<String> xVals = new ArrayList<String>();
-        xVals.add("Inkomst"); xVals.add("Utgift");;
-
-        ArrayList<BarDataSet> dataSets = new ArrayList<BarDataSet>();
-        dataSets.add(incomeSet);
-        dataSets.add(expenseSet);
-
-        //Add to chart
-        budgetData = new BarData(xVals, dataSets);
-        mainDudgetChart.setData(budgetData);
-
-        //Description and animation
-        mainDudgetChart.setDescription("");  // set the description
-        mainDudgetChart.setScaleYEnabled(false);
-        mainDudgetChart.setTouchEnabled(false);
-        mainDudgetChart.animateY(2000);
-    }
-
-    //setdata methods:
-
-    public void updateExpenseChart(float expenseSum){
-        expenseSet.removeEntry(1);
-        budgetData.addEntry(new BarEntry(expenseSum, 1), 1);
-        expenseSet.setColor(getResources().getColor(R.color.orange));
-        mainDudgetChart.notifyDataSetChanged(); // let the chart know it's data changed
-        mainDudgetChart.invalidate(); // refresh
-    }
-
-    public void updateIncomeChart(float incomeSum){
-        incomeSet.removeEntry(0);
-        budgetData.addEntry(new BarEntry(incomeSum, 0), 0);
-        incomeSet.setColor(getResources().getColor(R.color.green));
-        mainDudgetChart.notifyDataSetChanged(); // let the chart know it's data changed
-        mainDudgetChart.invalidate(); // refresh
-    }
-
-    public String[] getJobTitles() {
-        return controller.getJobTitles();
+    private class ChangeTaxListener implements ChangeTaxFragmentCallback {
+        public void updateTax(float tax) {
+            ((ChangeTaxFragment) currentFragment).setTax(tax);
+        }
     }
 }

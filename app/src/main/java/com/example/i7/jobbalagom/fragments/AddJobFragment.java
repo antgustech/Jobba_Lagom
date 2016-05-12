@@ -98,17 +98,17 @@ public class AddJobFragment extends Fragment {
         obRates.clear();
     }
 
-    public void clearOBLayout() {
+    public void showOBLayout() {
+        obLayout.setVisibility(View.VISIBLE);
+    }
+
+    public void hideOBLayout() {
         obLayout.setVisibility(View.INVISIBLE);
         inputFromTime.setText("");
         inputToTime.setText("");
         inputOB.setText("");
         rgDay.clearCheck();
         rgType.clearCheck();
-    }
-
-    public void displayOBLayout() {
-        obLayout.setVisibility(View.VISIBLE);
     }
 
     private class BtnAddOBListener implements View.OnClickListener {
@@ -187,7 +187,7 @@ public class AddJobFragment extends Fragment {
 
             String obRate = day + "," + fromTime + "," + toTime + "," + ob + "," + type;
             obRates.add(obRate);
-            clearOBLayout();
+            hideOBLayout();
             Toast.makeText(getActivity(), "OB har registrerats: " + ob + " " + type + " tillägg, " + day + ", från " + fromTime
                     + " till " + toTime, Toast.LENGTH_LONG).show();
         }
@@ -208,7 +208,7 @@ public class AddJobFragment extends Fragment {
     private class BtnDisplayOBListener implements View.OnClickListener {
         @Override
         public void onClick(View v) {
-            displayOBLayout();
+            showOBLayout();
         }
     }
 
@@ -219,7 +219,7 @@ public class AddJobFragment extends Fragment {
     private class ReturnListener implements View.OnClickListener {
         @Override
         public void onClick(View v) {
-            clearOBLayout();
+            hideOBLayout();
         }
     }
 

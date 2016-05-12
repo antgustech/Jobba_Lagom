@@ -8,6 +8,12 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="drop_down_style">
+        <item name="android:dropDownSelector">@android:color/transparent</item>
+        <item name="android:popupBackground">@color/grey</item>
+        <item name="android:spinnerMode">dropdown</item>
+    </style>
+
 
 
     <style name="menu_labels_style">

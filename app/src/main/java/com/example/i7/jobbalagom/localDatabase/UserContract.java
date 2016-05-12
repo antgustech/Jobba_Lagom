@@ -8,9 +8,10 @@ public class UserContract {
 
     public static abstract class User {
         public static final String TABLE_NAME = "user";
-        public static final String USER_NAME = "name";
         public static final String USER_TAX = "tax";
         public static final String USER_INCOME_LIMIT = "incomeLimit";
+        public static final String USER_EMAIL = "email";
+        public static final String USER_PASSWORD = "password";
     }
 
     public static abstract class Job {
@@ -26,7 +27,9 @@ public class UserContract {
         public static final String SHIFT_START_TIME = "startTime";
         public static final String SHIFT_END_TIME = "endTime";
         public static final String SHIFT_HOURS_WORKED = "hoursWorked";
-        public static final String SHIFT_DATE = "date";
+        public static final String SHIFT_YEAR = "year";
+        public static final String SHIFT_MONTH = "month";
+        public static final String SHIFT_DAY = "day";
         public static final String SHIFT_INCOME = "income";
     }
 

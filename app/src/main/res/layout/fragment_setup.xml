@@ -1,117 +1,172 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/setupLayout"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/bgSetup"
-    android:paddingRight="@dimen/fragment_padding_width"
-    android:paddingLeft="@dimen/fragment_padding_width"
-    android:gravity="center_vertical"
+    android:background="@drawable/background1"
+    android:clickable="true"
+    android:gravity="center"
     >
 
     <TextView
+        android:id="@+id/tvTitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Ett sätt att nå \n balans mellan arbete \n och studier"
         android:textSize="@dimen/fragment_sub_title_size"
         android:textColor="@color/white"
-        android:id="@+id/tvTitle"
         android:textAlignment="center"
+        android:padding="@dimen/fragment_padding"
         />
+
+    <RelativeLayout
+        android:id="@+id/inputLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="@dimen/fragment_padding"
+        android:paddingLeft="@dimen/fragment_padding"
+        android:paddingRight="@dimen/fragment_padding"
+        android:layout_below="@+id/tvTitle">
+
+
+        <EditText
+            android:id="@+id/inputIncomeLimit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/et_rounded_corners"
+            android:padding="@dimen/input_text_padding"
+            android:drawableLeft="@drawable/csn_icon"
+            android:drawablePadding="10dp"
+            android:hint="Fribelopp"
+            android:textColorHint="@color/grey_dark"
+            android:textSize="@dimen/input_text_size"
+            android:inputType="number"
+            />
+
+        <AutoCompleteTextView
+            android:id="@+id/inputMunicipality"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/et_rounded_corners"
+            android:backgroundTint="@color/grey"
+            android:padding="@dimen/input_text_padding"
+            android:drawableLeft="@drawable/municipality_icon"
+            android:drawablePadding="10dp"
+            android:hint="Kommun"
+            android:textSize="@dimen/input_text_size"
+            android:textColor="@color/grey_dark"
+            android:textColorHint="@color/grey_dark"
+            android:layout_below="@+id/inputIncomeLimit"
+            android:layout_marginTop="@dimen/input_margin"
+            android:inputType="text"
+            android:dropDownWidth="wrap_content"
+            style="@style/drop_down_style"
+            />
+
+        <Button
+            android:id="@+id/btnSetup"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/btn_rounded_corners"
+            android:padding="@dimen/btn_text_padding"
+            android:text="Fortsätt"
+            android:textColor="@color/btn_text_color"
+            android:textSize="@dimen/btn_text_size"
+            android:layout_below="@+id/inputMunicipality"
+            android:layout_marginTop="@dimen/input_margin"
+            />
+    </RelativeLayout>
+
 
     <TextView
-        android:layout_width="fill_parent"
+        android:id="@+id/tvBackup"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Namn"
-        android:textColor="@color/white"
-        android:id="@+id/tvName"
-        android:layout_below="@+id/tvTitle"
-        android:textAlignment="center"
-        android:textSize="@dimen/fragment_tv_text_size"
-        android:background="@color/grey"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="@dimen/text_margin"
-        />
-
-    <EditText
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/inputName"
-        android:layout_gravity="center_horizontal"
-        android:layout_below="@+id/tvName"
-        android:background="@color/white"
-        />
-
-    <TextView
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:text="Kommun"
-        android:textColor="@color/white"
-        android:id="@+id/tvMunicipality"
-        android:layout_below="@+id/tvTitle"
-        android:textAlignment="center"
-        android:textSize="@dimen/fragment_tv_text_size"
-        android:background="@color/grey"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="@dimen/text_margin"
-        />
-
-    <AutoCompleteTextView
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/inputMunicipality"
-        android:layout_gravity="center_horizontal"
-        android:layout_below="@+id/tvMunicipality"
-        android:background="@color/white"
-        android:inputType="text"
-        />
-
-    <TextView
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:text="Fribelopp (CSN)"
-        android:textColor="@color/white"
-        android:id="@+id/tvIncomeLimit"
-        android:layout_below="@+id/inputMunicipality"
-        android:textAlignment="center"
-        android:textSize="@dimen/fragment_tv_text_size"
-        android:background="@color/grey"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="@dimen/text_margin"
-        />
-
-    <EditText
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/inputIncomeLimit"
-        android:layout_gravity="center_horizontal"
-        android:layout_below="@+id/tvName"
-        android:background="@color/white"
-        android:inputType="number"
-        />
-
-
-    <CheckBox
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/checkBox"
-        android:layout_gravity="center_horizontal"
-        android:text="Ja, jag vill lagra \n information i molnet \n som backup."
+        android:text="Vill du lagra information\n i molnet som backup?"
+        android:textSize="@dimen/sub_text_size"
         android:textColor="@color/white"
         android:textAlignment="center"
-        android:layout_marginTop="@dimen/text_margin"
-        android:textSize="@dimen/fragment_sub_title_size"
-        android:buttonTint="@color/white"
+        android:layout_gravity="center"
+        android:layout_below="@+id/inputLayout"
+        android:paddingRight="@dimen/fragment_padding"
+        android:paddingLeft="@dimen/fragment_padding"
         />
+    <RelativeLayout
+        android:id="@+id/registerLayout"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:background="@color/black_trans"
+        android:padding="@dimen/fragment_padding"
+        android:gravity="center_vertical">
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="OK"
-        android:id="@+id/btnSetup"
-        android:layout_gravity="center_horizontal"
-        android:textColor="@color/white"
-        android:layout_marginTop="12dp"/>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/popup_layout"
+            android:padding="@dimen/fragment_padding"
+            android:clickable="true">
 
-</LinearLayout>
+            <EditText
+                android:id="@+id/inputEmail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/et_rounded_corners"
+                android:padding="@dimen/input_text_padding"
+                android:drawableLeft="@drawable/email_icon"
+                android:drawablePadding="10dp"
+                android:hint="Email"
+                android:textColorHint="@color/grey_dark"
+                android:textSize="@dimen/input_text_size_popup"
+                android:inputType="textWebEmailAddress"
+                />
+            <EditText
+                android:id="@+id/inputPassword"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/et_rounded_corners"
+                android:padding="@dimen/input_text_padding"
+                android:drawableLeft="@drawable/password_icon"
+                android:drawablePadding="10dp"
+                android:hint="Password"
+                android:textColorHint="@color/grey_dark"
+                android:textSize="@dimen/input_text_size_popup"
+                android:inputType="textWebPassword"
+                android:layout_below="@+id/inputEmail"
+                android:layout_marginTop="@dimen/input_margin"
+                />
+            <EditText
+                android:id="@+id/inputConfirm"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/et_rounded_corners"
+                android:padding="@dimen/input_text_padding"
+                android:drawableLeft="@drawable/password_icon"
+                android:drawablePadding="10dp"
+                android:hint="Confirm"
+                android:textColorHint="@color/grey_dark"
+                android:textSize="@dimen/input_text_size_popup"
+                android:inputType="textWebPassword"
+                android:layout_below="@+id/inputPassword"
+                android:layout_marginTop="@dimen/input_margin"
+                />
+            <Button
+                android:id="@+id/btnRegister"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/btn_rounded_corners"
+                android:padding="@dimen/btn_text_padding"
+                android:text="Registrera"
+                android:textColor="@color/btn_text_color"
+                android:textSize="@dimen/btn_text_size"
+                android:layout_below="@+id/inputConfirm"
+                android:layout_marginTop="@dimen/input_margin"
+                />
+
+        </RelativeLayout>
+
+    </RelativeLayout>
+
+</RelativeLayout>
+
