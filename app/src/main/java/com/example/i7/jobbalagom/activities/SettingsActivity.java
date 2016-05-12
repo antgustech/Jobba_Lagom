@@ -120,7 +120,9 @@ public class SettingsActivity extends Activity {
     }
     private class RemoveJobFragmentListener implements RemoveJobFragmentCallback {
         @Override
-        public void removeJob(String string) {
+        public void removeJob(String jobTitle) {
+            controller.removeJob(jobTitle);
+            Toast.makeText(getApplicationContext(), jobTitle+"removed", Toast.LENGTH_LONG).show();
         }
     }
 

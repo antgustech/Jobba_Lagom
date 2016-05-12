@@ -22,6 +22,7 @@ public class RemoveJobFragment extends Fragment {
     private Controller controller;
     private String[] jobTitles;
     private Spinner jobSpinner;
+    private View btnRemoveJob;
 
 
 
@@ -32,18 +33,36 @@ public class RemoveJobFragment extends Fragment {
 
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        initComponents(view);
+
+        controller = Singleton.controller;
+        btnRemoveJob = view.findViewById(R.id.btnRemoveJob);
+        initSpinner(view);
+        setupBtnRemoveJob();
     }
 
 
 
 
-    private void initComponents(View view){
-        controller = Singleton.controller;
+    private void initSpinner(View view){
+
         jobTitles = controller.getJobTitles();
         ArrayAdapter adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, jobTitles);
         jobSpinner = (Spinner) view.findViewById(R.id.jobTitleList);
         jobSpinner.setAdapter(adapter);
+
+
+    }
+
+    private void setupBtnRemoveJob(){
+
+        btnRemoveJob.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                final String jobTitle = jobSpinner.getSelectedItem().toString();
+                callback.removeJob(jobTitle);
+
+            }
+        });
 
     }
 

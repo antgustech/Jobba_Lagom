@@ -289,6 +289,13 @@ public class Controller  {
     public void setTax(float tax){
         sqLiteDatabase = dbHelper.getWritableDatabase();
         dbHelper.setTax(tax, sqLiteDatabase );
+        dbHelper.close();
+    }
+
+    public void removeJob(String jobTitle){
+        sqLiteDatabase = dbHelper.getWritableDatabase();
+        dbHelper.deleteJob(jobTitle,sqLiteDatabase);
+        dbHelper.close();
     }
 }
 
