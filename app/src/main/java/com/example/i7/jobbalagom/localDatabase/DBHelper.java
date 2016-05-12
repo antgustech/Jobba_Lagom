@@ -17,7 +17,7 @@ import java.util.ArrayList;
 
 public class DBHelper extends SQLiteOpenHelper {
     private static final String DATABASE_NAME = "INTENAL.DB";
-    private static final int DATABASE_VERSION = 3;
+    private static final int DATABASE_VERSION = 40;
 
 
     private static final String CREATE_USER_QUERY =

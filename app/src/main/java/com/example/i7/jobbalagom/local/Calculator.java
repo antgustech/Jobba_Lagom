@@ -18,6 +18,7 @@ public class Calculator {
         //getEnd();
         //getTaxFromServer();
         //calculateGraphData();
+        //
     }
     private void getWage(String jobTitle){
         pay = controller.getWage(jobTitle);
