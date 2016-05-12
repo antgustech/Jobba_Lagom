@@ -18,6 +18,7 @@ import java.util.ArrayList;
 
 
 public class ChangeTaxActivity extends AppCompatActivity {
+
     private AutoCompleteTextView textViewKommun;
     private ArrayList<String> kommuner;
     private Controller controller;
@@ -30,7 +31,7 @@ public class ChangeTaxActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_change_tax);
+        setContentView(R.layout.fragment_change_tax);
         calculateTaxBtn = findViewById(R.id.calculateTaxBtn);
         chooseTaxBtn = findViewById(R.id.chooseTaxBtn);
         churchCheckbox = (CheckBox)findViewById(R.id.churchCheckbox);
@@ -41,7 +42,6 @@ public class ChangeTaxActivity extends AppCompatActivity {
 
         calculateTaxBtn.setOnClickListener(new ButtonListener());
     }
-
 
     /**
      * Retrives Churchtax and sets the textview to it.

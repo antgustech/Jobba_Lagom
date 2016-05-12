@@ -18,11 +18,13 @@ import com.example.i7.jobbalagom.R;
 import com.example.i7.jobbalagom.callback_interfaces.AddExpenseFragmentCallback;
 import com.example.i7.jobbalagom.callback_interfaces.AddJobFragmentCallback;
 import com.example.i7.jobbalagom.callback_interfaces.AddShiftFragmentCallback;
+import com.example.i7.jobbalagom.callback_interfaces.ChangeTaxFragmentCallback;
 import com.example.i7.jobbalagom.callback_interfaces.LaunchFragmentCallback;
 import com.example.i7.jobbalagom.callback_interfaces.SetupFragmentCallback;
 import com.example.i7.jobbalagom.fragments.AddExpenseFragment;
 import com.example.i7.jobbalagom.fragments.AddJobFragment;
 import com.example.i7.jobbalagom.fragments.AddShiftFragment;
+import com.example.i7.jobbalagom.fragments.ChangeTaxFragment;
 import com.example.i7.jobbalagom.fragments.LaunchFragment;
 import com.example.i7.jobbalagom.fragments.SetupFragment;
 import com.example.i7.jobbalagom.local.Controller;
@@ -186,9 +188,10 @@ public class MainActivity extends AppCompatActivity {
         currentFragment = null;
     }
 
-    public void startChangeTaxActivity() {
-        Intent changeTaxActivity =  new Intent(this, ChangeTaxActivity.class);
-        startActivity(changeTaxActivity);
+    public void startChangeTaxFragment() {
+        currentFragment = new ChangeTaxFragment();
+        ((ChangeTaxFragment) currentFragment).setCallBack(new ChangeTaxListener());
+        changeFragment(currentFragment);
     }
 
     public void startWorkRegister(){
@@ -239,7 +242,7 @@ public class MainActivity extends AppCompatActivity {
             } else if (v.getId() == R.id.action_addjob) {
                 startAddJobFragment();
             } else if (v.getId() == R.id.action_changeActivity){
-                startChangeTaxActivity();
+                startChangeTaxFragment();
             }
         }
     }
@@ -309,6 +312,16 @@ public class MainActivity extends AppCompatActivity {
             Toast.makeText(getBaseContext(), "Utgift tillagd", Toast.LENGTH_LONG).show();
             Log.d("MainActivity", "Uppdaterar utgiftsgraf med " + amount + " kr");
             updateExpenseChart(amount);
+        }
+    }
+
+    //ChangeTaxListener
+
+    private class ChangeTaxListener implements ChangeTaxFragmentCallback {
+
+        @Override
+        public void updateTax(float tax) {
+                ((ChangeTaxFragment) currentFragment).setTax(tax);
         }
     }
 
