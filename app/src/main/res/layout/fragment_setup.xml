@@ -93,19 +93,32 @@
         android:paddingRight="@dimen/fragment_padding"
         android:paddingLeft="@dimen/fragment_padding"
         />
+
     <RelativeLayout
         android:id="@+id/registerLayout"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:background="@color/black_trans"
-        android:padding="@dimen/fragment_padding"
-        android:gravity="center_vertical">
+        android:clickable="true"
+        >
+
+        <Button
+            android:id="@+id/btnExit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/exit_icon"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentRight="true"
+            android:layout_margin="@dimen/icon_margin"
+            />
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/popup_layout"
             android:padding="@dimen/fragment_padding"
+            android:layout_margin="@dimen/fragment_padding"
+            android:layout_centerVertical="true"
             android:clickable="true">
 
             <EditText

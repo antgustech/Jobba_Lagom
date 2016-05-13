@@ -14,6 +14,13 @@
         <item name="android:spinnerMode">dropdown</item>
     </style>
 
+    <style name="timepicker_style" parent="@style/Theme.AppCompat.Light.Dialog">
+        <item name="colorPrimary">#ff2d6073</item> <!-- no effect -->
+        <item name="colorPrimaryDark">#ff2d6073</item> <!-- no effect -->
+        <item name="colorAccent">#ff2d6073</item>
+        <item name="android:textColor">#ffD0D102</item>
+        <item name="android:textColorPrimary">#ffD0D102</item>
+    </style>
 
 
     <style name="menu_labels_style">

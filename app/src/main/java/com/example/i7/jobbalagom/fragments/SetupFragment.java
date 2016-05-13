@@ -28,8 +28,8 @@ public class SetupFragment extends Fragment {
     private TextView tvBackup;
     private EditText inputIncomeLimit,inputEmail, inputPassword, inputConfirm;
     private AutoCompleteTextView inputMunicipality;
-    private Button btnSetup, btnRegister;
-    private RelativeLayout setupLayout, registerLayout;
+    private Button btnSetup, btnRegister, btnExit;
+    private RelativeLayout registerLayout;
 
     private Controller controller;
     private SetupFragmentCallback callback;
@@ -59,8 +59,8 @@ public class SetupFragment extends Fragment {
         tvBackup.setOnClickListener(backupListener);
         btnRegister = (Button) view.findViewById(R.id.btnRegister);
         btnRegister.setOnClickListener(backupListener);
-        setupLayout = (RelativeLayout) view.findViewById(R.id.setupLayout);
-        setupLayout.setOnClickListener(new ReturnListener());
+        btnExit = (Button) view.findViewById(R.id.btnExit);
+        btnExit.setOnClickListener(new ReturnListener());
         registerLayout = (RelativeLayout) view.findViewById(R.id.registerLayout);
         registerLayout.setVisibility(View.INVISIBLE);
 
@@ -133,7 +133,7 @@ public class SetupFragment extends Fragment {
 
                 Log.d("SetupFragment", "Register button pressed, e-mail: " + email + ", password: " + password);
                 hideRegisterLayout();
-                Toast.makeText(getActivity(), "Din data kommer att lagras i molnet", Toast.LENGTH_LONG).show();
+                Toast.makeText(getActivity(), "Din data kommer att lagras i molnet.", Toast.LENGTH_LONG).show();
             }
         }
     }
