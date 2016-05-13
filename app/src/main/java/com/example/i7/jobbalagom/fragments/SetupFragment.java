@@ -104,11 +104,12 @@ public class SetupFragment extends Fragment {
                 return;
             }
 
-            else if(!municipalities.contains(municipality)) {
+            else if(municipality == null || !municipalities.contains(municipality)) {
                 Toast.makeText(getActivity(), "Vänligen ange en giltig kommun.", Toast.LENGTH_LONG).show();
                 return;
             }
             callback.addUser(municipality, Float.parseFloat(incomeLimit));
+
         }
     }
 

@@ -20,9 +20,12 @@ import android.widget.Toast;
 import com.example.i7.jobbalagom.R;
 import com.example.i7.jobbalagom.callback_interfaces.AddJobFragmentCallback;
 import com.example.i7.jobbalagom.callback_interfaces.ChangeTaxFragmentCallback;
+import com.example.i7.jobbalagom.callback_interfaces.ChangeIncomeLimitFragmentCallback;
 import com.example.i7.jobbalagom.callback_interfaces.RemoveJobFragmentCallback;
+import com.example.i7.jobbalagom.fragments.AboutFragment;
 import com.example.i7.jobbalagom.fragments.AddJobFragment;
 import com.example.i7.jobbalagom.fragments.ChangeTaxFragment;
+import com.example.i7.jobbalagom.fragments.ChangeIncomeLimitFragment;
 import com.example.i7.jobbalagom.fragments.RemoveJobFragment;
 import com.example.i7.jobbalagom.local.Controller;
 import com.example.i7.jobbalagom.local.Singleton;
@@ -51,7 +54,7 @@ public class SettingsActivity extends Activity {
         setStatusbarColor();
         setContentView(R.layout.activity_settings);
         myList = (ListView)findViewById(R.id.settingListView);
-        String[] values = new String[] { "Allmänt", "Ändra skattesats", "Lägg till jobb", "Ta bort jobb" };
+        String[] values = new String[] { "Allmänt", "Ändra skattesats","Ändra fribelopp", "Lägg till jobb", "Ta bort jobb", "Om" };
         list = new ArrayList<String>();
         Collections.addAll(list, values);
         adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, values);
@@ -72,6 +75,10 @@ public class SettingsActivity extends Activity {
                 startAddJobFragment();
             }else if(itemValue == "Ta bort jobb"){
                 startRemoveJobFragment();
+            }else if(itemValue == "Om"){
+                startAboutFragment();
+            }else if(itemValue == "Ändra fribelopp"){
+                startChangeIncomeLimit();
             }
         }
     }
@@ -134,6 +141,30 @@ public class SettingsActivity extends Activity {
     private class ChangeTaxListener implements ChangeTaxFragmentCallback {
         public void updateTax(float tax) {
             controller.setTax(tax);
+        }
+    }
+
+    public void startAboutFragment(){
+        currentFragment = new AboutFragment();
+        changeFragment(currentFragment);
+    }
+
+    public void startChangeIncomeLimit(){
+        currentFragment = new ChangeIncomeLimitFragment();
+        ((ChangeIncomeLimitFragment) currentFragment).setCallBack(new ChangeIncomeLimitListener());
+        changeFragment(currentFragment);
+    }
+    private class ChangeIncomeLimitListener implements ChangeIncomeLimitFragmentCallback {
+
+        @Override
+        public void setIncomeLimit(float limit) {
+            controller.setIncomeLimit(limit);
+        }
+
+        @Override
+        public float getIncomeLimit() {
+            return controller.getIncomeLimit();
+
         }
     }
 

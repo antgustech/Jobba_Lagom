@@ -1,4 +1,4 @@
-package jobbalagom.remote;
+package com.example.i7.jobbalagom.remote;
 /*
  * Created by Anton 15-04-16
  */
@@ -13,10 +13,8 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.ArrayList;
+
 
 public class Server extends Thread {
 
@@ -29,6 +27,7 @@ public class Server extends Thread {
      */
     public Server() {
         System.out.println("Server waiting to establish connection");
+        connectDB();
         try {
             serverSocket = new ServerSocket(4545);
             connected = true;
@@ -49,19 +48,19 @@ public class Server extends Thread {
             try {
                 socket = serverSocket.accept();
                 System.out.println("Sever is running.");
-                new ClientHandler(socket).start();
+                new ClientHandeler(socket).start();
             } catch (IOException e) {
             }
         }
     }
 
-    private class ClientHandler extends Thread {
+    private class ClientHandeler extends Thread {
         private Socket socket;
         private DataInputStream dis;
         private DataOutputStream dos;
         private ObjectOutputStream oos;
 
-        public ClientHandler(Socket socket) {
+        public ClientHandeler(Socket socket) {
             connected = true;
             this.socket = socket;
             try {
@@ -70,44 +69,40 @@ public class Server extends Thread {
                 oos = new ObjectOutputStream(socket.getOutputStream());
             } catch (IOException e) {
             }
-            System.out.println("Client connected to server");
-            connectDB();
+            System.out.println("Client connected to server" );
+
         }
 
         /*
-         * Gets requests from client and responds
+         * Handles different questions from client.
          */
-
         public void run() {
             while (connected) {
                 try {
                     System.out.println("Waiting on message from Client");
-                    int operation = dis.readInt();
-                    System.out.println(operation + " Operation");
-                    switch (operation) {
+                    int intOperation = dis.readInt();
+                    System.out.println(intOperation + " Operation");
+                    switch (intOperation) {
 
-                        case 1:	//getKommun
-                            oos.writeObject(getMunicipalities());
+                        case 1://getKommun
+                           // oos.writeObject(getKommun());
                             break;
 
-                        case 2:	//getCity
-                            dos.writeUTF(getCity(dis.readUTF()));
-                            dos.flush();
+                        case 2://getChurchTax
+                        //    dos.writeFloat(getChurchTax(dis.readUTF()));
                             break;
 
-                        case 3:	//getTax
-                            String municipality = dis.readUTF();
-                            float tax = getTax(municipality);
-                            dos.writeFloat(tax);
-                            dos.flush();
+                        case 3://getTax
+                          //  dos.writeFloat(getTax(dis.readUTF()));
                             break;
                     }
                 } catch (IOException e) {
-                    System.out.println("[ERROR] IOException or SQLException");
-                    connected = false;
-                } catch (SQLException e) {
-                    e.printStackTrace();
+                    System.out.println("[ERROR] File error");
+                    //connected=false;
                 }
+               // catch (SQLException e) {
+                //    System.out.println("[ERROR] Network error");
+              //  }
             }
         }
     }
@@ -115,18 +110,15 @@ public class Server extends Thread {
     /*
      * ----------------------------------DB methods-----------------------------------
      */
-
     private void connectDB() {
         try {
             Class.forName("com.mysql.jdbc.Driver");
-            dbConnection = DriverManager.getConnection("jdbc:mysql://195.178.232.7:4040/ad8284", "ad8284", "hejsan55");
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        } catch (SQLException e) {
-            e.printStackTrace();
+            dbConnection = DriverManager.getConnection("jdbc:mysql://195.178.227.53:4040/ad8284", "ad8284", "hejsan55");
+            System.out.println("Server connected to database");
+        } catch (ClassNotFoundException e1) {
+        } catch (SQLException e2) {
+            System.out.println("[ERROR] Problem with connecting to db");
         }
-        System.out.println("Server connected to database");
-
     }
 
     private void disconnectDB() {
@@ -137,50 +129,65 @@ public class Server extends Thread {
         }
     }
 
-    //Reads all municipalities from table skatt16april
-    private ArrayList<String> getMunicipalities() throws SQLException {
-        Statement s = (Statement) dbConnection.createStatement();
-        ResultSet rs = s.executeQuery("select distinct Kommun from skatt16april order by Kommun");
-        ArrayList<String> municipalities = new ArrayList<String>();
-        System.out.println("Reading municipalities from database");
-        while (rs.next()) {
-            municipalities.add(rs.getString(1));
+    //Read all kommun strings from table skatt16april and returns them in a list.
+   /* private ArrayList<String> getKommun() throws SQLException {
+        String kommuner ="";
+        try (Statement s = (Statement) dbConnection.createStatement()) {
+            try (ResultSet rs = s.executeQuery("select distinct Kommun from skatt16april order by Kommun")) {
+                ArrayList<String> names = new ArrayList<String>();
+                while (rs.next()) {
+                    names.add( rs.getString(1));
+                }System.out.println("Skriver ut kommuner");
+                return names;
+            }
         }
-        return municipalities;
     }
-
-    private String getCity(String choosenKommun) {
-        String query = "select Ort" + "from " + "ad8284" + ".skatt16april" + " where " + choosenKommun;
-        System.out.println(query);
-        return query;
-    }
-
-    private float getTax(String municipality) {
-        String query = "select distinct SummanExkluderatKyrkan" + " from " + "ad8284" + ".skatt16april" + " where " + " kommun= " + "'" + municipality + "'";
-
-        Statement s = null;
-        ResultSet rs = null;
+    //Returns float of the average tax including churchTax from choosen kommyn.
+    private float getChurchTax(String choosenKommun) {
+        float tax = 0f;
         try {
-            s = (Statement) dbConnection.createStatement();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        System.out.println("Reading tax from database");
-        try {
-            rs = s.executeQuery(query);
+            Statement s = (Statement) dbConnection.createStatement();
+            ResultSet rs = s.executeQuery("select AVG(SummaInkluderatKyrkan) from skatt16april where kommun='" + choosenKommun + "';");
+            int columnCount = rs.getMetaData().getColumnCount();
             while (rs.next()) {
-                return rs.getFloat("SummanExkluderatKyrkan");
+                for (int i=0; i <columnCount ; i++)
+                {
+                    tax = Float.parseFloat( rs.getString(i + 1));
+                }
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return 0.0f;
+        System.out.println("ChurchTax requested: " + tax);
+        return tax;
     }
+
+    //Returns float of the average tax excluding churchTax from choosen kommyn.
+    private float getTax(String choosenKommun) {
+        float tax = 0f;
+        try {
+            Statement s = (Statement) dbConnection.createStatement();
+            ResultSet rs = s.executeQuery("select AVG(SummanExkluderatKyrkan) from skatt16april where kommun='" + choosenKommun + "';");
+            int columnCount = rs.getMetaData().getColumnCount();
+            while (rs.next()) {
+                for (int i=0; i <columnCount ; i++)
+                {
+                    tax = Float.parseFloat( rs.getString(i + 1));
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        System.out.println("Tax requested: " + tax);
+        return tax;
+
+    }
+    */
 }
 
 
 //--------------------------------------------------------------------------------------------------------------------
-// skatt16april
+// skatt16april THIS IS HOW THE TABLE LOOKS LIKE!
 //Kommun VARCHAR(15)
 //Ort VARCHAR(36)
 //SummaInkluderatKyrkan NUMERIC(5, 3)

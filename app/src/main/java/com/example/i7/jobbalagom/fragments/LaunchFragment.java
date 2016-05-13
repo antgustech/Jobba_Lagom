@@ -37,8 +37,6 @@ public class LaunchFragment extends Fragment {
         btnNew.setOnClickListener(buttonListener);
         btnKey = (ImageButton) view.findViewById(R.id.btnKey);
         btnKey.setOnClickListener(buttonListener);
-        btnInfo = (ImageButton) view.findViewById(R.id.btnInfo);
-        btnInfo.setOnClickListener(buttonListener);
     }
 
     public void setCallBack(LaunchFragmentCallback callback){

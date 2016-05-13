@@ -16,7 +16,7 @@ import java.util.ArrayList;
 
 public class Controller  {
 
-    private final String IP = "192.168.0.10";          //ÄNDRA IP VID TESTNING!!!!!! // Kajsa 192.168.0.10
+    private final String IP = "192.168.1.136";          //ÄNDRA IP VID TESTNING!!!!!! // Kajsa 192.168.0.10
     private final int PORT = 4545;
 
     private Calculator calculator;
@@ -67,8 +67,6 @@ public class Controller  {
     public float getTax(String municipality){
         return client.getTaxFromServer(municipality);
     }
-
-
 
 
     /**
@@ -172,19 +170,6 @@ public class Controller  {
     }
 
     /**
-     * Returns stuff as a list.
-     */
-  /*  public ArrayList<Float> getTotalExpense(){
-        ArrayList<Float> list;
-        sqLiteDatabase = dbHelper.getReadableDatabase();
-        list = dbHelper.getTotalExpense(sqLiteDatabase);
-        dbHelper.close();
-        return list;
-
-    }
-    */
-
-    /**
      * Returns sum of all expenses as a float.
      * Could possible be used when setting the expense bar in mainactivity.
      */
@@ -228,6 +213,12 @@ public class Controller  {
         float incomeLimit = dbHelper.getIncomeLimit(sqLiteDatabase);
         dbHelper.close();
         return incomeLimit;
+    }
+
+    public void setIncomeLimit(float limit){
+        sqLiteDatabase = dbHelper.getReadableDatabase();
+        dbHelper.setIncomeLimit(limit, sqLiteDatabase);
+        dbHelper.close();
     }
 
     public String[] getJobTitles(){

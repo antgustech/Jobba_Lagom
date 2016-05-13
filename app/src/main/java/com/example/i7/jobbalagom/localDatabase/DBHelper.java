@@ -349,7 +349,10 @@ public class DBHelper extends SQLiteOpenHelper {
         return list;
     }
     */
-
+    public void setIncomeLimit(float limit, SQLiteDatabase db){
+        db.execSQL("UPDATE " + UserContract.User.TABLE_NAME + " SET " + UserContract.User.USER_INCOME_LIMIT + "='"+ limit + "';");
+        Log.e("Internal DB", "Setting income limit in db");
+    }
 
 
 
