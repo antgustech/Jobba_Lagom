@@ -3,7 +3,7 @@
     android:padding="10dp"
     android:shape="rectangle">
 
-    <solid android:color="@color/btn_color_pinkish" />
+    <solid android:color="@color/pink_soft" />
 
     <corners
         android:bottomLeftRadius="15dp"

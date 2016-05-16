@@ -44,10 +44,11 @@ public class MainActivity extends Activity {
 
     private FloatingActionButton btnAddShift, btnAddExpense, btnAddJob;
     private ImageButton btnSettings, btnBudget;
-    private TextView tvIncome, tvCSN;
+    private TextView tvCSN, tvIncome, tvExpense, tvBalance;
     private ProgressBar pbCSN, pbIncome, pbExpense;
 
     private float monthlyIncomeLimit, csnIncomeLimit;
+    private int pbMaxProgress;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,15 +72,14 @@ public class MainActivity extends Activity {
         btnBudget = (ImageButton) findViewById(R.id.btnBudget);
         btnSettings.setOnClickListener(new SettingsButtonListener());
         btnBudget.setOnClickListener(new BudgetButtonListener());
-        tvIncome = (TextView) findViewById(R.id.tvIncome);
         tvCSN = (TextView) findViewById(R.id.tvCSN);
+        tvIncome = (TextView) findViewById(R.id.tvIncome);
+        tvExpense = (TextView) findViewById(R.id.tvExpense);
+        tvBalance = (TextView) findViewById(R.id.tvBalance);
         pbCSN = (ProgressBar) findViewById(R.id.pbCSN);
         pbIncome = (ProgressBar) findViewById(R.id.pbIncome);
         pbExpense = (ProgressBar) findViewById(R.id.pbExpenses);
         fragmentManager = getFragmentManager();
-        monthlyIncomeLimit = controller.getIncomeLimit()/6;         // --> 100 % av income och expense progress bar
-        csnIncomeLimit = controller.getIncomeLimit();               // --> 100 % av csn progress bar
-        loadProgressBars();
     }
 
     public void onBackPressed() {
@@ -95,9 +95,12 @@ public class MainActivity extends Activity {
     }
 
     public void loadProgressBars() {
-        updatePBcsn(controller.getTotalIncome());                   // --> csn progress bar fills up with total income
-        updatePBincome(controller.getThisMonthsIncome());           // --> income progress bar fills up with this months income
-        updatePBexpense(controller.getThisMonthsExpenses());        // --> expense progress bar fills up with this months expenses
+        monthlyIncomeLimit = controller.getIncomeLimit()/6;         // --> 100 % av income och expense progress bar
+        csnIncomeLimit = controller.getIncomeLimit();               // --> 100 % av csn progress bar
+        pbMaxProgress = 100;
+        updatePBcsn(controller.getTotalIncome());              // --> csn progress bar fills up with total income, should only be this 1/2 year
+        updatePBincome(controller.getThisMonthsIncome());      // --> income progress bar fills up with this months income
+        updatePBexpense(controller.getThisMonthsExpenses());   // --> expense progress bar fills up with this months expenses
     }
 
     /**
@@ -107,13 +110,19 @@ public class MainActivity extends Activity {
 
     public void updatePBcsn(float income) {
         Log.d("MainActivity", "CSN progressbar before update: " + pbCSN.getProgress());
-        int increase = (int)(income/ csnIncomeLimit *100);
+
+        int increase = (int)(income / csnIncomeLimit *100);
         int total = pbCSN.getProgress() + increase;
         pbCSN.setProgress(total);
 
         float totalIncome = controller.getTotalIncome();
-        int left = (int)(csnIncomeLimit - totalIncome);
-        tvCSN.setText("Du får tjäna " + left + " kr till detta halvår.");
+        float left = csnIncomeLimit - totalIncome;
+
+        if(left < 0) {
+            tvCSN.setText("Du har överskridit det av CSN erhållna fribeloppet med " + (int)left*-1 + " kr");
+        } else {
+            tvCSN.setText("Du kan tjäna " + (int)left + " kr innan det av CSN erhållna fribeloppet passeras");
+        }
         Log.d("MainActivity", "CSN progressbar after update: " + pbCSN.getProgress());
     }
 
@@ -123,14 +132,9 @@ public class MainActivity extends Activity {
      */
 
     public void updatePBincome(float income) {
-        Log.d("MainActivity", "Income progressbar before update: " + pbIncome.getProgress());
-        float thisMonthsIncome = controller.getThisMonthsIncome();
         int increase = (int)(income/monthlyIncomeLimit*100);
-        int total = pbIncome.getProgress() + increase;
-        pbIncome.setProgress(total);
-        tvIncome.setText( (int)thisMonthsIncome + "");
-        Log.d("MainActivity", "Income progressbar after update: " + pbIncome.getProgress());
-        // Hur ska progressbaren agera när användaren passerar månadsbudgeten? Explodera.
+        int totalProgress = pbIncome.getProgress() + increase;
+        expandProgressBar(pbIncome, totalProgress);
     }
 
     /**
@@ -139,12 +143,41 @@ public class MainActivity extends Activity {
      */
 
     public void updatePBexpense(float expense) {
-        Log.d("MainActivity", "Expense progressbar before update: " + pbExpense.getProgress());
-        float thisMonthsExpense = controller.getThisMonthsExpenses();
         int increase = (int)(expense/monthlyIncomeLimit*100);
-        int total = pbExpense.getProgress() + increase;
-        pbExpense.setProgress(total);
-        Log.d("MainActivity", "Expense progressbar after update: " + pbExpense.getProgress());
+        int totalProgress = pbExpense.getProgress() + increase;
+        expandProgressBar(pbExpense, totalProgress);
+    }
+
+    public void expandProgressBar(ProgressBar pb, int totalProgress) {
+
+        Log.d("MainActivity", "Expense progressbar before update, max value: " + pbExpense.getMax() + ", progress:" + pbExpense.getProgress());
+        Log.d("MainActivity", "Income progressbar before update, max value: " + pbIncome.getMax() + ", progress:" + pbIncome.getProgress());
+
+        if(totalProgress > pbMaxProgress) {
+            pbMaxProgress = totalProgress;
+            pbIncome.setMax(pbMaxProgress);
+            pbExpense.setMax(pbMaxProgress);
+        }
+        pb.setProgress(totalProgress);
+
+        float thisMonthsIncome = controller.getThisMonthsIncome();
+        float thisMonthsExpenses = controller.getThisMonthsExpenses();
+        float balance = thisMonthsIncome-thisMonthsExpenses;
+
+        tvIncome.setText("Inkomst " + (int)thisMonthsIncome + ":-");
+        tvExpense.setText("Utgifter " + (int)thisMonthsExpenses + ":-");
+        tvBalance.setText((int)balance + "");
+       /**
+        if(balance < 0) {
+            tvBalance.setTextColor(Color.parseColor("#F67280"));
+        } else {
+            tvBalance.setTextColor(Color.parseColor("#71B238"));
+        }
+        **/
+
+        Log.d("MainActivity", "Expense progressbar after update, max value: " + pbExpense.getMax() + ", progress: " + pbExpense.getProgress());
+        Log.d("MainActivity", "Income progressbar after update, max value: " + pbIncome.getMax() + ", progress: " + pbIncome.getProgress());
+
     }
 
     /**
@@ -248,6 +281,7 @@ public class MainActivity extends Activity {
                 startSetupFragment();
             } else if(choice.equals("btnKey")) {
                 removeFragment(currentFragment);
+                loadProgressBars();
             } else if(choice.equals("btnBudget")) {
                 //startActivity(new Intent(getApplicationContext(), AboutActivity.class));
             }
@@ -261,6 +295,7 @@ public class MainActivity extends Activity {
     private class SetupFragmentListener implements SetupFragmentCallback {
         public void addUser(String municipality, float incomeLimit) {
             controller.addUser(municipality, incomeLimit);
+            loadProgressBars();
             removeFragment(currentFragment);
         }
     }

@@ -109,7 +109,6 @@ public class SetupFragment extends Fragment {
                 return;
             }
             callback.addUser(municipality, Float.parseFloat(incomeLimit));
-
         }
     }
 

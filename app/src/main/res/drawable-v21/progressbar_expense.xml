@@ -18,7 +18,7 @@
             android:shape="ring"
             android:thicknessRatio="40"
             android:useLevel="true">
-            <solid android:color="@color/orange_trans"></solid>
+            <solid android:color="@color/expense"></solid>
         </shape>
     </item>
 </layer-list>

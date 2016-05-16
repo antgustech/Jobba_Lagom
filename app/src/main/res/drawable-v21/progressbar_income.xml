@@ -20,7 +20,7 @@
             android:thicknessRatio="40"
             android:useLevel="true">
 
-            <solid android:color="@color/green_soft_trans"></solid>
+            <solid android:color="@color/green_soft"></solid>
         </shape>
     </item>
 </layer-list>

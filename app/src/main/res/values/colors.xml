@@ -3,6 +3,8 @@
     <color name="white">#ffffff</color>
     <color name="bgBlueish">#008ba0</color>
 
+    <color name="expense">#b0c6111d</color>
+
     <color name="colorPrimary">#c6111d</color>
     <color name="colorPrimaryDark">#9c0b23</color>
     <color name="colorAccent">#FFC6111D</color>
@@ -28,17 +30,13 @@
     <color name="black_trans">#50000000</color>
 
     <color name="white_trans">#80FFFFFF</color>
-    <color name="btn_color_blueish">#008BA0</color>
-    <color name="btn_color_pinkish">#F67280</color>
+    <color name="blueish">#026262</color>
+    <color name="pink_soft">#F67280</color>
     <color name="btn_text_color">#FFFFFF</color>
     <color name="orange">#ff7e15</color>
     <color name="orange_trans">#90FF7E15</color>
     <color name="green_soft">#71B238</color>
     <color name="green_soft_trans">#9071B238</color>
-
-
-
-
-
+    <color name="iconblue">#4b97cb</color>
 
 </resources>
