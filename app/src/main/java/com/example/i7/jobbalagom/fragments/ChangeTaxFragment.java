@@ -32,7 +32,7 @@ public class ChangeTaxFragment extends Fragment {
 
     private float currentTax = 0;
 
-    private ChangeTaxFragmentCallback taxCallback;
+    //private ChangeTaxFragmentCallback taxCallback;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -49,8 +49,8 @@ public class ChangeTaxFragment extends Fragment {
         tax = (TextView)view.findViewById(R.id.taxText);
         controller  = Singleton.controller;
 
-        setupChooseTax();
-        setupCalculateTax();
+      //  setupChooseTax();
+      //  setupCalculateTax();
         setupKommunView(view);
 
     }
@@ -63,17 +63,11 @@ public class ChangeTaxFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 if(v == v.findViewById(R.id.calculateTaxBtn)){
-                    if(churchCheckbox.isChecked())
-                    {
-
-                            taxCallback.updateTax(controller.getChurchTax(textViewKommun.getText() +""));
-
+                    if(churchCheckbox.isChecked()) {
+                        tax.setText(controller.getChurchTax(textViewKommun.getText()+"")+"");
                     }
-                    else
-                    {
-
-                            taxCallback.updateTax(controller.getTax(textViewKommun.getText() + ""));
-
+                    else {
+                        tax.setText(controller.getTax(textViewKommun.getText()+"")+"");
                     }
                 }
             }
@@ -87,7 +81,7 @@ public class ChangeTaxFragment extends Fragment {
         chooseTaxBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                taxCallback.updateTax(Float.parseFloat(tax.getText().toString()));
+                //taxCallback.updateTax(Float.parseFloat(tax.getText().toString()));
             }
         });
     }
@@ -97,7 +91,7 @@ public class ChangeTaxFragment extends Fragment {
      * @param callback
      */
     public void setCallBack(ChangeTaxFragmentCallback callback){
-        taxCallback = callback;
+       // taxCallback = callback;
     }
 
     /**
