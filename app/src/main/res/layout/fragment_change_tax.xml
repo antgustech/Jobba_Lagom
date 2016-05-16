@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".fragments.ChangeTaxFragment"
-    android:background="@color/bgSetup"
+    android:background="@color/bgBlueish"
     android:paddingTop="@dimen/layout_padding_height"
     android:paddingBottom="@dimen/layout_padding_height"
     android:paddingLeft="@dimen/layout_padding_width"

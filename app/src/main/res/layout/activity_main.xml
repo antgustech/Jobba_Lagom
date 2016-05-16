@@ -1,175 +1,209 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:fab="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/bgSetup">
+    android:background="@color/grey"
+    android:orientation="vertical">
 
     <RelativeLayout
+        android:id="@+id/header"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/header"
-        android:padding="@dimen/main_activity_padding"
-        >
+        android:padding="@dimen/main_activity_padding">
+
         <ProgressBar
+            android:id="@+id/pbCSN"
             style="?android:attr/progressBarStyleHorizontal"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/pbCSN"
-            android:progressDrawable="@drawable/progressbar_csn"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="5dp"
-            />
+            android:progressDrawable="@drawable/progressbar_csn" />
+
         <TextView
             android:id="@+id/tvCSN"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignLeft="@+id/pbCSN"
             android:layout_below="@+id/pbCSN"
-            android:textColor="@color/white"
-            android:textSize="15sp"
-            android:textAlignment="center"
-            android:layout_marginTop="5dp"
             android:layout_gravity="center_horizontal"
-            />
+            android:layout_marginTop="5dp"
+            android:textAlignment="center"
+            android:textColor="@color/white"
+            android:textSize="15sp" />
     </RelativeLayout>
 
     <View
+        android:id="@+id/header_line"
         android:layout_width="fill_parent"
         android:layout_height="1dp"
-        android:id="@+id/header_line"
-        android:background="@color/white"
         android:layout_below="@+id/header"
         android:layout_gravity="center_horizontal"
-        />
+        android:background="@color/white" />
 
     <ProgressBar
-        style="?android:attr/progressBarStyleHorizontal"
-        android:layout_width="300dp"
-        android:layout_height="300dp"
         android:id="@+id/pbExpenses"
-        android:progressDrawable="@drawable/progressbar_expense"
-        android:max="100"
-        android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true"
-        />
-
-    <ProgressBar
         style="?android:attr/progressBarStyleHorizontal"
         android:layout_width="300dp"
         android:layout_height="300dp"
-        android:id="@+id/pbIncome"
-        android:progressDrawable="@drawable/progressbar_income"
-        android:max="100"
-        android:layout_centerVertical="true"
         android:layout_centerHorizontal="true"
-        />
+        android:layout_centerVertical="true"
+        android:max="100"
+        android:progressDrawable="@drawable/progressbar_expense" />
+
+    <ProgressBar
+        android:id="@+id/pbIncome"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="300dp"
+        android:layout_height="300dp"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:max="100"
+        android:progressDrawable="@drawable/progressbar_income" />
 
     <RelativeLayout
+        android:id="@+id/tvIncomeLayout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/tvIncomeLayout"
-        android:layout_centerVertical="true"
         android:layout_centerHorizontal="true"
-        >
+        android:layout_centerVertical="true">
 
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
             android:id="@+id/tvIncomeTitleTop"
-            android:text="Preliminär\ninkomst denna\nmånad"
-            android:textSize="20sp"
-            android:textColor="@color/white"
-            android:textAlignment="center"
-            android:layout_centerHorizontal="true"
-            />
-
-        <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/tvIncome"
-            android:text="0"
-            android:textSize="50sp"
-            android:textColor="@color/white"
+            android:layout_centerHorizontal="true"
+            android:text="Preliminär\ninkomst denna\nmånad"
             android:textAlignment="center"
+            android:textColor="@color/white"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/tvIncome"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_below="@+id/tvIncomeTitleTop"
             android:layout_centerHorizontal="true"
-            />
+            android:text="0"
+            android:textAlignment="center"
+            android:textColor="@color/white"
+            android:textSize="50sp" />
 
         <TextView
+            android:id="@+id/tvIncomeTitleBottom"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/tvIncomeTitleBottom"
-            android:text="kronor"
-            android:textSize="20sp"
-            android:textColor="@color/white"
-            android:textAlignment="center"
             android:layout_below="@+id/tvIncome"
             android:layout_centerHorizontal="true"
-            />
+            android:text="kronor"
+            android:textAlignment="center"
+            android:textColor="@color/white"
+            android:textSize="20sp" />
 
     </RelativeLayout>
 
 
     <View
+        android:id="@+id/footer_line"
         android:layout_width="fill_parent"
         android:layout_height="1dp"
-        android:id="@+id/footer_line"
-        android:background="@color/white"
-        android:layout_above="@+id/footer"
-        android:layout_gravity="center_horizontal"
+        android:layout_below="@+id/pbIncome"
+        android:layout_marginTop="20dp"
+        android:background="@color/white" />
+
+
+    <com.getbase.floatingactionbutton.FloatingActionsMenu
+        android:id="@+id/add_actions"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginBottom="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_toEndOf="@+id/tvIncomeLayout"
+        android:layout_toRightOf="@+id/tvIncomeLayout"
+        fab:fab_addButtonColorNormal="@color/green_soft"
+        fab:fab_addButtonColorPressed="@color/half_black"
+        fab:fab_addButtonPlusIconColor="@color/white"
+        fab:fab_labelStyle="@style/menu_labels_style">
+
+        <com.getbase.floatingactionbutton.FloatingActionButton
+            android:id="@+id/action_addJob"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            fab:fab_colorNormal="@color/green_soft"
+            fab:fab_colorPressed="@color/white_pressed"
+            fab:fab_icon="@drawable/job_icon"
+            fab:fab_title="Lägg till jobb" />
+
+        <com.getbase.floatingactionbutton.FloatingActionButton
+            android:id="@+id/action_addExpense"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            fab:fab_colorNormal="@color/green_soft"
+            fab:fab_colorPressed="@color/white_pressed"
+            fab:fab_icon="@drawable/expense_icon"
+            fab:fab_title="Lägg till utgift" />
+
+        <com.getbase.floatingactionbutton.FloatingActionButton
+            android:id="@+id/action_addShift"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            fab:fab_colorNormal="@color/green_soft"
+            fab:fab_colorPressed="@color/white_pressed"
+            fab:fab_icon="@drawable/clock_icon"
+            fab:fab_title="Lägg till arbetspass" />
+
+
+    </com.getbase.floatingactionbutton.FloatingActionsMenu>
+
+    <ImageButton
+        android:id="@+id/btnBudget"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/budget_icon"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="30dp"
+        android:layout_centerInParent="true"
         />
 
-    <LinearLayout
-        android:layout_width="match_parent"
+    <ImageButton
+        android:id="@+id/btnSettings"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/footer"
+        android:layout_alignBottom="@+id/add_actions"
         android:layout_alignParentBottom="true"
-        android:layout_gravity="center_horizontal"
-        android:gravity="center"
-        android:padding="@dimen/main_activity_padding"
-        >
+        android:layout_marginBottom="30dp"
+        android:layout_marginLeft="30dp"
+        android:background="@drawable/settings_icon" />
+
+    <!--
 
         <ImageButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/btnSettings"
-            android:background="@drawable/settings_icon"
-            android:layout_marginRight="33dp"
-            />
-
-        <ImageButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
             android:id="@+id/btnInfo"
-            android:background="@drawable/info_icon2"
-            android:layout_marginRight="33dp"
-            />
-
-        <ImageButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginRight="33dp"
+            android:background="@drawable/info_icon2" />
+
+        <ImageButton
             android:id="@+id/btnExpense"
-            android:background="@drawable/addexpense_icon"
-            android:layout_marginRight="33dp"
-            />
-
-        <ImageButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginRight="33dp"
+            android:background="@drawable/addexpense_icon" />
+
+        <ImageButton
             android:id="@+id/btnShift"
-            android:background="@drawable/time_icon"
-            />
-
-    </LinearLayout>
-
-
-
-
-
-
-
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/addshift_icon" />
+-->
 
 
 </RelativeLayout>

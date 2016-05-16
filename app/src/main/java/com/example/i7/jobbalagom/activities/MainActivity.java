@@ -26,6 +26,8 @@ import com.example.i7.jobbalagom.fragments.LaunchFragment;
 import com.example.i7.jobbalagom.fragments.SetupFragment;
 import com.example.i7.jobbalagom.local.Controller;
 import com.example.i7.jobbalagom.local.Singleton;
+import com.getbase.floatingactionbutton.FloatingActionButton;
+import com.getbase.floatingactionbutton.FloatingActionsMenu;
 
 /**
  * Created by Kajsa on 2016-05-09.
@@ -37,11 +39,17 @@ public class MainActivity extends Activity {
 
     private final int REQUESTCODE_WORKREGISTER = 1;
 
+    // Test
+
+    private FloatingActionsMenu floatingMenu;
+    private FloatingActionButton btnAddShift, btnAddExpense, btnAddJob;
+
+
     private Fragment currentFragment;
     private FragmentTransaction fragmentTransaction;
     private FragmentManager fragmentManager;
 
-    private ImageButton btnSettings, btnInfo, btnExpense, btnShift;
+    private ImageButton btnSettings, btnBudget, btnExpense, btnShift;
     private TextView tvIncome, tvCSN;
     private ProgressBar pbCSN, pbIncome, pbExpense;
 
@@ -58,21 +66,27 @@ public class MainActivity extends Activity {
     }
 
     public void initComponents() {
+
+        floatingMenu = (FloatingActionsMenu) findViewById(R.id.add_actions);
+        btnAddShift = (FloatingActionButton) findViewById(R.id.action_addShift);
+        btnAddExpense = (FloatingActionButton) findViewById(R.id.action_addExpense);
+        btnAddJob = (FloatingActionButton) findViewById(R.id.action_addJob);
+        AddButtonListener addButtonListener = new AddButtonListener();
+        btnAddShift.setOnClickListener(addButtonListener);
+        btnAddExpense.setOnClickListener(addButtonListener);
+        btnAddJob.setOnClickListener(addButtonListener);
+
         btnSettings = (ImageButton) findViewById(R.id.btnSettings);
-        btnInfo = (ImageButton) findViewById(R.id.btnInfo);
-        btnExpense = (ImageButton) findViewById(R.id.btnExpense);
-        btnShift = (ImageButton) findViewById(R.id.btnShift);
-        ButtonListener btnListener = new ButtonListener();
-        btnSettings.setOnClickListener(btnListener);
-        btnInfo.setOnClickListener(btnListener);
-        btnExpense.setOnClickListener(btnListener);
-        btnShift.setOnClickListener(btnListener);
+        btnBudget = (ImageButton) findViewById(R.id.btnBudget);
+        btnSettings.setOnClickListener(new SettingsButtonListener());
+        btnBudget.setOnClickListener(new BudgetButtonListener());
         tvIncome = (TextView) findViewById(R.id.tvIncome);
         tvCSN = (TextView) findViewById(R.id.tvCSN);
         pbCSN = (ProgressBar) findViewById(R.id.pbCSN);
         pbIncome = (ProgressBar) findViewById(R.id.pbIncome);
         pbExpense = (ProgressBar) findViewById(R.id.pbExpenses);
         fragmentManager = getFragmentManager();
+
         monthlyIncomeLimit = controller.getIncomeLimit()/6;         // --> 100 % av income och expense progress bar
         csnIncomeLimit = controller.getIncomeLimit();               // --> 100 % av csn progress bar
         loadProgressBars();
@@ -194,23 +208,41 @@ public class MainActivity extends Activity {
         changeFragment(currentFragment);
     }
 
-    /**
-     * Listener for the four main buttons in main activity
-     */
 
-    private class ButtonListener implements View.OnClickListener {
+    private class SettingsButtonListener implements View.OnClickListener {
+        @Override
         public void onClick(View v) {
-            if (v.getId() == R.id.btnSettings) {
-                startActivity(new Intent(getApplicationContext(), SettingsActivity.class));
-            } else if (v.getId() == R.id.btnInfo) {
-                Toast.makeText(getApplicationContext(), "Show budget fragment", Toast.LENGTH_LONG).show();
-            } else if(v.getId() == R.id.btnExpense) {
-                startAddExpenseFragment();
-            } else if(v.getId() == R.id.btnShift) {
+            startActivity(new Intent(getApplicationContext(), SettingsActivity.class));
+        }
+    }
+
+    private class BudgetButtonListener implements View.OnClickListener {
+        @Override
+        public void onClick(View v) {
+            Toast.makeText(getApplicationContext(), "Show budget fragment", Toast.LENGTH_LONG).show();
+            // startBudgetFragment();
+        }
+    }
+
+    private class AddButtonListener implements View.OnClickListener {
+        @Override
+        public void onClick(View v) {
+            if (v.getId() == R.id.action_addShift) {
                 startAddShiftFragment();
+            } else if (v.getId() == R.id.action_addExpense) {
+                startAddExpenseFragment();
+            } else if (v.getId() == R.id.action_addJob) {
+                startAddJobFragment();
             }
         }
     }
+
+
+
+
+
+
+
 
     /**
      * Listener for launch fragment
@@ -224,7 +256,7 @@ public class MainActivity extends Activity {
                 startSetupFragment();
             } else if(choice.equals("btnKey")) {
                 removeFragment(currentFragment);
-            } else if(choice.equals("btnInfo")) {
+            } else if(choice.equals("btnBudget")) {
                 //startActivity(new Intent(getApplicationContext(), AboutActivity.class));
             }
         }
@@ -264,6 +296,9 @@ public class MainActivity extends Activity {
             updatePBincome(income);
             updatePBcsn(income);
         }
+        public void showAddJobFragment() {
+
+        }
     }
 
     /**
@@ -278,9 +313,5 @@ public class MainActivity extends Activity {
             updatePBexpense(amount);
         }
     }
-
-
-
-
 
 }

@@ -47,7 +47,7 @@ public class RemoveJobFragment extends Fragment {
 
         jobTitles = controller.getJobTitles();
         ArrayAdapter adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, jobTitles);
-        jobSpinner = (Spinner) view.findViewById(R.id.jobTitleList);
+        jobSpinner = (Spinner) view.findViewById(R.id.jobSpinner);
         jobSpinner.setAdapter(adapter);
 
 

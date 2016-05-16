@@ -44,7 +44,7 @@
         <ImageButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/btnInfo"
+            android:id="@+id/btnBudget"
             android:background="@drawable/info_icon"
             android:layout_alignParentBottom="true"
             android:layout_alignParentRight="true"

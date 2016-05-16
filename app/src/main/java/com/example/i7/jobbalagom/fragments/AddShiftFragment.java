@@ -7,8 +7,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -28,8 +28,8 @@ public class AddShiftFragment extends Fragment {
     private String[] jobTitles;
 
     private Spinner jobSpinner;
-    private ImageButton btnOK;
-    private EditText inputStartTime, inputEndTime, inputBreakTime, inputDate;
+    private Button btnAdd, btnAddJob;
+    private EditText inputStart, inputEnd, inputBreak, inputDate;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -43,11 +43,13 @@ public class AddShiftFragment extends Fragment {
 
     public void initComponents(View view) {
         controller = Singleton.controller;
-        btnOK = (ImageButton) view.findViewById(R.id.btnOK);
-        btnOK.setOnClickListener(new ButtonListener());
-        inputStartTime = (EditText) view.findViewById(R.id.inputStartTime);
-        inputEndTime = (EditText) view.findViewById(R.id.inputEndTime);
-        inputBreakTime = (EditText) view.findViewById(R.id.inputBreakTime);
+        btnAdd = (Button) view.findViewById(R.id.btnAdd);
+        btnAdd.setOnClickListener(new ButtonAddShiftListener());
+        btnAddJob = (Button) view.findViewById(R.id.btnAddJob);
+        btnAddJob.setOnClickListener(new ButtonAddJobListener());
+        inputStart = (EditText) view.findViewById(R.id.inputStart);
+        inputEnd = (EditText) view.findViewById(R.id.inputEnd);
+        inputBreak = (EditText) view.findViewById(R.id.inputBreak);
         inputDate = (EditText) view.findViewById(R.id.inputDate);
 
         jobTitles = controller.getJobTitles();
@@ -59,8 +61,9 @@ public class AddShiftFragment extends Fragment {
         Log.d("AddShiftFragment", log);
 
         ArrayAdapter adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, jobTitles);
-        jobSpinner = (Spinner) view.findViewById(R.id.jobTitleList);
+        jobSpinner = (Spinner) view.findViewById(R.id.jobSpinner);
         jobSpinner.setAdapter(adapter);
+
     }
 
     public void setCallBack(AddShiftFragmentCallback callback) {
@@ -68,12 +71,20 @@ public class AddShiftFragment extends Fragment {
     }
 
     public void clearAll() {
-        inputStartTime.setText("");
-        inputEndTime.setText("");
-        inputBreakTime.setText("");
+        inputStart.setText("");
+        inputEnd.setText("");
+        inputBreak.setText("");
     }
 
-    private class ButtonListener implements View.OnClickListener {
+    private class ButtonAddJobListener implements View.OnClickListener {
+
+        @Override
+        public void onClick(View v) {
+
+        }
+    }
+
+    private class ButtonAddShiftListener implements View.OnClickListener {
 
         String errorMsg;
 
@@ -81,9 +92,9 @@ public class AddShiftFragment extends Fragment {
         public void onClick(View v) {
 
             String jobTitle = jobSpinner.getSelectedItem().toString();
-            String start = inputStartTime.getText().toString();
-            String end = inputEndTime.getText().toString();
-            String breaktime = inputBreakTime.getText().toString();
+            String start = inputStart.getText().toString();
+            String end = inputEnd.getText().toString();
+            String breaktime = inputBreak.getText().toString();
             String date = inputDate.getText().toString();
 
             // Check for invalid input

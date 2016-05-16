@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="white">#ffffff</color>
-    <color name="bgSetup">#008ba0</color>
+    <color name="bgBlueish">#008ba0</color>
 
     <color name="colorPrimary">#c6111d</color>
     <color name="colorPrimaryDark">#9c0b23</color>
@@ -28,7 +28,8 @@
     <color name="black_trans">#50000000</color>
 
     <color name="white_trans">#80FFFFFF</color>
-    <color name="btn_color">#008BA0</color>
+    <color name="btn_color_blueish">#008BA0</color>
+    <color name="btn_color_pinkish">#F67280</color>
     <color name="btn_text_color">#FFFFFF</color>
     <color name="orange">#ff7e15</color>
     <color name="orange_trans">#90FF7E15</color>

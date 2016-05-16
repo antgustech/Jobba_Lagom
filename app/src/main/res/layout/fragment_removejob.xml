@@ -2,7 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/bgSetup"
+    android:background="@color/bgBlueish"
     android:paddingTop="@dimen/layout_padding_height"
     android:paddingBottom="@dimen/layout_padding_height"
     android:paddingLeft="@dimen/layout_padding_width"
@@ -51,7 +51,7 @@
     <Spinner
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/jobTitleList"
+        android:id="@+id/jobSpinner"
         android:textColor="@color/grey"
         android:background="@color/white"
         android:textSize="@dimen/fragment_tv_text_size"

@@ -3,7 +3,8 @@
     android:padding="10dp"
     android:shape="rectangle">
 
-    <solid android:color="@color/btn_color" />
+    <solid
+        android:color="@color/btn_color_blueish" />
 
     <corners
         android:bottomLeftRadius="15dp"

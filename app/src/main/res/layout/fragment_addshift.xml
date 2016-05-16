@@ -4,187 +4,194 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/bgSetup"
-    android:paddingTop="@dimen/fragment_padding_height"
-    android:paddingBottom="@dimen/fragment_padding_height"
+    android:background="@color/grey"
     android:clickable="true"
+    android:gravity="center_horizontal"
    >
 
-    <LinearLayout
+    <TextView
+        android:id="@+id/header"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/header"
-        android:gravity="center_horizontal"
-        >
+        android:text="Lägg till arbetspass"
+        android:textSize="30sp"
+        android:textColor="@color/white"
+        android:textAlignment="center"
+        android:padding="20dp"
+        />
 
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/icon"
-            android:background="@drawable/time_icon"
-            />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/fragment_title"
-            android:text="Lägg till\narbetspass"
-            android:textSize="@dimen/fragment_title_size"
-            android:textColor="@color/white"
-            android:layout_marginLeft="10dp"
-            android:textAlignment="center"
-            />
-    </LinearLayout>
 
     <View
-        android:layout_width="fill_parent"
+        android:layout_width="match_parent"
         android:layout_height="1dp"
         android:id="@+id/header_line"
         android:background="@color/white"
         android:layout_below="@+id/header"
-        android:layout_margin="@dimen/text_margin"
+        />
+<!--
+    <EditText
+        android:id="@+id/inputDate"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/et_rounded_corners"
+        android:drawableLeft="@drawable/date_icon"
+        android:drawablePadding="@dimen/drawable_padding"
+        android:paddingTop="@dimen/input_text_padding_icon"
+        android:paddingLeft="@dimen/input_text_padding_icon"
+        android:paddingBottom="@dimen/input_text_padding_icon"
+        android:paddingRight="@dimen/text_padding"
+        android:hint="Datum"
+        android:textColor="@color/black"
+        android:textColorHint="@color/grey_dark"
+        android:textSize="@dimen/input_text_size"
+        android:inputType="number"
+        android:layout_marginTop="@dimen/input_margin"
+        android:layout_below="@+id/header"
+        android:layout_marginBottom="@dimen/input_margin"
         />
 
-    <RelativeLayout
+        -->
+
+
+        <RelativeLayout
+            android:id="@+id/inputLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/header_line"
+            android:padding="20dp">
+
+            <EditText
+                android:id="@+id/inputStart"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/et_rounded_corners"
+                android:drawableLeft="@drawable/clock_icon"
+                android:drawablePadding="@dimen/drawable_padding"
+                android:paddingTop="@dimen/input_text_padding_icon"
+                android:paddingLeft="@dimen/input_text_padding_icon"
+                android:paddingBottom="@dimen/input_text_padding_icon"
+                android:paddingRight="@dimen/input_text_padding_icon"
+                android:hint="Från"
+                android:textColorHint="@color/grey_dark"
+                android:textColor="@color/black"
+                android:textSize="@dimen/input_text_size"
+                android:inputType="time"
+                />
+
+            <EditText
+                android:id="@+id/inputEnd"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/et_rounded_corners"
+                android:drawableLeft="@drawable/clock_icon"
+                android:drawablePadding="@dimen/drawable_padding"
+                android:paddingTop="@dimen/input_text_padding_icon"
+                android:paddingLeft="@dimen/input_text_padding_icon"
+                android:paddingBottom="@dimen/input_text_padding_icon"
+                android:paddingRight="@dimen/input_text_padding_icon"
+                android:hint="Till"
+                android:textColor="@color/black"
+                android:textColorHint="@color/grey_dark"
+                android:textSize="@dimen/input_text_size"
+                android:inputType="time"
+                android:layout_below="@id/inputStart"
+                android:layout_marginTop="@dimen/input_margin"
+                />
+
+            <EditText
+                android:id="@+id/inputBreak"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/et_rounded_corners"
+                android:drawableLeft="@drawable/coffee_icon"
+                android:drawablePadding="@dimen/drawable_padding"
+                android:paddingTop="@dimen/input_text_padding_icon"
+                android:paddingLeft="@dimen/input_text_padding_icon"
+                android:paddingBottom="@dimen/input_text_padding_icon"
+                android:paddingRight="@dimen/input_text_padding_icon"
+                android:hint="Rast i minuter"
+                android:textColor="@color/black"
+                android:textColorHint="@color/grey_dark"
+                android:textSize="@dimen/input_text_size"
+                android:inputType="time"
+                android:layout_below="@id/inputEnd"
+                android:layout_marginTop="@dimen/input_margin"
+                />
+
+            <EditText
+                android:id="@+id/inputDate"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/et_rounded_corners"
+                android:drawableLeft="@drawable/calendar_icon"
+                android:drawablePadding="@dimen/drawable_padding"
+                android:paddingTop="@dimen/input_text_padding_icon"
+                android:paddingLeft="@dimen/input_text_padding_icon"
+                android:paddingBottom="@dimen/input_text_padding_icon"
+                android:paddingRight="@dimen/input_text_padding_icon"
+                android:hint="Datum"
+                android:textColor="@color/black"
+                android:textColorHint="@color/grey_dark"
+                android:textSize="@dimen/input_text_size"
+                android:inputType="time"
+                android:layout_below="@id/inputBreak"
+                android:layout_marginTop="@dimen/input_margin"
+                />
+
+            <Spinner
+                android:id="@+id/jobSpinner"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/et_rounded_corners"
+                android:padding="@dimen/input_text_padding_icon"
+                android:textColor="@color/black"
+                android:textColorHint="@color/grey_dark"
+                android:textSize="@dimen/input_text_size"
+                android:layout_below="@+id/inputDate"
+                android:layout_marginTop="@dimen/input_margin"
+                />
+
+            <Button
+                android:id="@+id/btnAddJob"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/btn_rounded_cornes_pinkish"
+                android:text="Nytt jobb"
+                android:textColor="@color/btn_text_color"
+                android:textSize="@dimen/input_text_size"
+                android:padding="@dimen/input_text_padding"
+                android:layout_below="@+id/jobSpinner"
+                android:layout_marginTop="@dimen/input_margin"
+                />
+
+        </RelativeLayout>
+
+    <View
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/body"
-        android:layout_below="@+id/header_line"
-        android:layout_marginLeft="100dp"
-        android:layout_marginRight="100dp">
+        android:layout_height="1dp"
+        android:id="@+id/footer_line"
+        android:background="@color/white"
+        android:layout_below="@+id/inputLayout"
+        />
+
+    <Button
+        android:id="@+id/btnAdd"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/btn_rounded_corners_blueish"
+        android:padding="@dimen/btn_text_padding"
+        android:text="Lägg till"
+        android:textColor="@color/btn_text_color"
+        android:textSize="@dimen/btn_text_size"
+        android:layout_below="@id/footer_line"
+        android:layout_margin="20dp"
+        />
+
+      <RelativeLayout
+          android:layout_width="match_parent"
+          android:layout_height="match_parent">
 
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/tvStartTime"
-            android:text="Starttid"
-            android:textColor="@color/white"
-            android:background="@color/grey"
-            android:textSize="@dimen/fragment_tv_text_size"
-            android:textAlignment="center"
-
-            />
-
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/inputStartTime"
-            android:textSize="@dimen/fragment_et_text_size"
-            android:textAlignment="center"
-            android:background="@color/white"
-            android:layout_below="@+id/tvStartTime"
-            android:inputType="none" />
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/tvEndTime"
-            android:text="Sluttid"
-            android:textColor="@color/white"
-            android:background="@color/grey"
-            android:textSize="@dimen/fragment_tv_text_size"
-            android:textAlignment="center"
-            android:layout_below="@+id/inputStartTime"
-            />
-
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/inputEndTime"
-            android:textSize="@dimen/fragment_et_text_size"
-            android:textAlignment="center"
-            android:background="@color/white"
-            android:layout_below="@+id/tvEndTime"
-            android:inputType="none"
-            />
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/tvBreakTime"
-            android:text="Rast"
-            android:textColor="@color/white"
-            android:background="@color/grey"
-            android:textSize="@dimen/fragment_tv_text_size"
-            android:textAlignment="center"
-            android:layout_below="@+id/inputEndTime"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true" />
-
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/inputBreakTime"
-            android:textSize="@dimen/fragment_et_text_size"
-            android:textAlignment="center"
-            android:background="@color/white"
-            android:layout_below="@+id/tvBreakTime"
-            android:layout_alignParentLeft="true"
-            android:inputType="number"/>
-
-
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/tvDate"
-            android:text="Datum"
-            android:textColor="@color/white"
-            android:background="@color/grey"
-            android:textSize="@dimen/fragment_tv_text_size"
-            android:textAlignment="center"
-            android:layout_below="@+id/inputBreakTime"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true" />
-
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/inputDate"
-            android:textSize="@dimen/fragment_et_text_size"
-            android:textAlignment="center"
-            android:background="@color/white"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:layout_below="@+id/tvDate"
-            android:inputType="number"/>
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/tvJobTitle"
-            android:text="Arbete"
-            android:textColor="@color/white"
-            android:background="@color/grey"
-            android:textSize="@dimen/fragment_tv_text_size"
-            android:textAlignment="center"
-            android:layout_below="@+id/inputDate"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true" />
-
-        <Spinner
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/jobTitleList"
-            android:textColor="@color/grey"
-            android:background="@color/white"
-            android:textSize="@dimen/fragment_tv_text_size"
-            android:layout_below="@+id/tvJobTitle"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:layout_above="@+id/btnOK" />
-
-        <ImageButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/btnOK"
-            android:background="@drawable/go_icon"
-            android:layout_alignParentBottom="true"
-            android:layout_centerHorizontal="true" />
-
-
-    </RelativeLayout>
-
+      </RelativeLayout>
 
 </RelativeLayout>
