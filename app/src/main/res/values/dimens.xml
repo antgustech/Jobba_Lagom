@@ -19,7 +19,8 @@
 
 
     <dimen name="main_activity_padding">30dp</dimen>
-    <dimen name="fragment_padding">45dp</dimen>
+    <dimen name="setup_fragment_padding">45dp</dimen>
+    <dimen name="addshift_fragment_padding">35dp</dimen>
     <dimen name="fragment_title_size">32sp</dimen>
     <dimen name="fragment_sub_title_size">28sp</dimen>
 

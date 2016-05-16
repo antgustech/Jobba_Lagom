@@ -17,7 +17,7 @@
         android:textSize="30sp"
         android:textColor="@color/white"
         android:textAlignment="center"
-        android:padding="20dp"
+        android:layout_margin="@dimen/addshift_fragment_padding"
         />
 
 
@@ -28,29 +28,6 @@
         android:background="@color/white"
         android:layout_below="@+id/header"
         />
-<!--
-    <EditText
-        android:id="@+id/inputDate"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/et_rounded_corners"
-        android:drawableLeft="@drawable/date_icon"
-        android:drawablePadding="@dimen/drawable_padding"
-        android:paddingTop="@dimen/input_text_padding_icon"
-        android:paddingLeft="@dimen/input_text_padding_icon"
-        android:paddingBottom="@dimen/input_text_padding_icon"
-        android:paddingRight="@dimen/text_padding"
-        android:hint="Datum"
-        android:textColor="@color/black"
-        android:textColorHint="@color/grey_dark"
-        android:textSize="@dimen/input_text_size"
-        android:inputType="number"
-        android:layout_marginTop="@dimen/input_margin"
-        android:layout_below="@+id/header"
-        android:layout_marginBottom="@dimen/input_margin"
-        />
-
-        -->
 
 
         <RelativeLayout
@@ -58,7 +35,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/header_line"
-            android:padding="20dp">
+            android:padding="@dimen/addshift_fragment_padding">
 
             <EditText
                 android:id="@+id/inputStart"
@@ -67,10 +44,7 @@
                 android:background="@drawable/et_rounded_corners"
                 android:drawableLeft="@drawable/clock_icon"
                 android:drawablePadding="@dimen/drawable_padding"
-                android:paddingTop="@dimen/input_text_padding_icon"
-                android:paddingLeft="@dimen/input_text_padding_icon"
-                android:paddingBottom="@dimen/input_text_padding_icon"
-                android:paddingRight="@dimen/input_text_padding_icon"
+                android:padding="@dimen/input_text_padding_icon"
                 android:hint="Från"
                 android:textColorHint="@color/grey_dark"
                 android:textColor="@color/black"
@@ -85,10 +59,7 @@
                 android:background="@drawable/et_rounded_corners"
                 android:drawableLeft="@drawable/clock_icon"
                 android:drawablePadding="@dimen/drawable_padding"
-                android:paddingTop="@dimen/input_text_padding_icon"
-                android:paddingLeft="@dimen/input_text_padding_icon"
-                android:paddingBottom="@dimen/input_text_padding_icon"
-                android:paddingRight="@dimen/input_text_padding_icon"
+                android:padding="@dimen/input_text_padding_icon"
                 android:hint="Till"
                 android:textColor="@color/black"
                 android:textColorHint="@color/grey_dark"
@@ -105,10 +76,7 @@
                 android:background="@drawable/et_rounded_corners"
                 android:drawableLeft="@drawable/coffee_icon"
                 android:drawablePadding="@dimen/drawable_padding"
-                android:paddingTop="@dimen/input_text_padding_icon"
-                android:paddingLeft="@dimen/input_text_padding_icon"
-                android:paddingBottom="@dimen/input_text_padding_icon"
-                android:paddingRight="@dimen/input_text_padding_icon"
+                android:padding="@dimen/input_text_padding_icon"
                 android:hint="Rast i minuter"
                 android:textColor="@color/black"
                 android:textColorHint="@color/grey_dark"
@@ -125,10 +93,7 @@
                 android:background="@drawable/et_rounded_corners"
                 android:drawableLeft="@drawable/calendar_icon"
                 android:drawablePadding="@dimen/drawable_padding"
-                android:paddingTop="@dimen/input_text_padding_icon"
-                android:paddingLeft="@dimen/input_text_padding_icon"
-                android:paddingBottom="@dimen/input_text_padding_icon"
-                android:paddingRight="@dimen/input_text_padding_icon"
+                android:padding="@dimen/input_text_padding_icon"
                 android:hint="Datum"
                 android:textColor="@color/black"
                 android:textColorHint="@color/grey_dark"
@@ -143,24 +108,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/et_rounded_corners"
-                android:padding="@dimen/input_text_padding_icon"
+                android:padding="10dp"
                 android:textColor="@color/black"
                 android:textColorHint="@color/grey_dark"
-                android:textSize="@dimen/input_text_size"
                 android:layout_below="@+id/inputDate"
-                android:layout_marginTop="@dimen/input_margin"
-                />
-
-            <Button
-                android:id="@+id/btnAddJob"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@drawable/btn_rounded_cornes_pinkish"
-                android:text="Nytt jobb"
-                android:textColor="@color/btn_text_color"
-                android:textSize="@dimen/input_text_size"
-                android:padding="@dimen/input_text_padding"
-                android:layout_below="@+id/jobSpinner"
                 android:layout_marginTop="@dimen/input_margin"
                 />
 
@@ -184,14 +135,12 @@
         android:textColor="@color/btn_text_color"
         android:textSize="@dimen/btn_text_size"
         android:layout_below="@id/footer_line"
-        android:layout_margin="20dp"
+        android:layout_margin="@dimen/addshift_fragment_padding"
         />
 
       <RelativeLayout
           android:layout_width="match_parent"
           android:layout_height="match_parent">
-
-
       </RelativeLayout>
 
 </RelativeLayout>

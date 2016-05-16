@@ -28,7 +28,7 @@ public class AddShiftFragment extends Fragment {
     private String[] jobTitles;
 
     private Spinner jobSpinner;
-    private Button btnAdd, btnAddJob;
+    private Button btnAdd;
     private EditText inputStart, inputEnd, inputBreak, inputDate;
 
     @Override
@@ -45,8 +45,6 @@ public class AddShiftFragment extends Fragment {
         controller = Singleton.controller;
         btnAdd = (Button) view.findViewById(R.id.btnAdd);
         btnAdd.setOnClickListener(new ButtonAddShiftListener());
-        btnAddJob = (Button) view.findViewById(R.id.btnAddJob);
-        btnAddJob.setOnClickListener(new ButtonAddJobListener());
         inputStart = (EditText) view.findViewById(R.id.inputStart);
         inputEnd = (EditText) view.findViewById(R.id.inputEnd);
         inputBreak = (EditText) view.findViewById(R.id.inputBreak);
@@ -64,7 +62,7 @@ public class AddShiftFragment extends Fragment {
         jobSpinner = (Spinner) view.findViewById(R.id.jobSpinner);
         jobSpinner.setAdapter(adapter);
 
-    }
+      }
 
     public void setCallBack(AddShiftFragmentCallback callback) {
         this.callback = callback;
@@ -74,14 +72,6 @@ public class AddShiftFragment extends Fragment {
         inputStart.setText("");
         inputEnd.setText("");
         inputBreak.setText("");
-    }
-
-    private class ButtonAddJobListener implements View.OnClickListener {
-
-        @Override
-        public void onClick(View v) {
-
-        }
     }
 
     private class ButtonAddShiftListener implements View.OnClickListener {
