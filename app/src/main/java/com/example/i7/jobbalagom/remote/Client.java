@@ -1,5 +1,7 @@
 package com.example.i7.jobbalagom.remote;
 
+import android.provider.ContactsContract;
+
 import com.example.i7.jobbalagom.callback_interfaces.MessageCallback;
 import com.example.i7.jobbalagom.local.Controller;
 import com.example.i7.jobbalagom.local.Singleton;
@@ -110,26 +112,43 @@ public class Client extends Thread {
      */
 
     public float getTaxFromServer(final String municipality) {
-        Thread thread = new Thread(new Runnable() {
-            public void run() {
+        return new TaxGetter(dos,dis,municipality).getTax();
+    }
 
+    private class TaxGetter extends Thread {
 
+        private float tax = 0;
+        private DataOutputStream dos;
+        private DataInputStream dis;
+        private String kommun;
 
-                try {
-                    dos.writeInt(3);
-                    dos.flush();
-                    dos.writeUTF(municipality);
-                    dos.flush();
-                    tax = dis.readFloat();
-                } catch (IOException e) {
+        public TaxGetter(DataOutputStream dos, DataInputStream dis, String kommun){
+            this.dos = dos;
+            this.dis = dis;
+            this.kommun = kommun;
+        }
+
+        public void run(){
+            try {
+                dos.writeInt(3);
+                dos.flush();
+                dos.writeUTF(kommun);
+                dos.flush();
+                tax = dis.readFloat();
+            } catch (IOException e) {
+            }
+        }
+
+        public float getTax(){
+            start();
+            while(tax == 0){
+                if(this.isInterrupted()){
+                    start();
                 }
             }
-        });
-        thread.setPriority(Thread.MAX_PRIORITY);
-        thread.start();
-
-        while (tax == 0) { // TODO TA BORT DENNA SKITEN OCH SYNCHA PÅ NÅTT JÄVLA SÄTT
+            return tax;
         }
-        return tax;
+
     }
 }
+
