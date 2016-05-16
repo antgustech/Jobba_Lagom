@@ -116,7 +116,7 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/popup_layout"
+            android:background="@drawable/popup_layout_grey"
             android:padding="@dimen/setup_fragment_padding"
             android:layout_margin="@dimen/setup_fragment_padding"
             android:layout_centerVertical="true"

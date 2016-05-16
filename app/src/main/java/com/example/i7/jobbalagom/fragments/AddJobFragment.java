@@ -7,11 +7,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.i7.jobbalagom.R;
@@ -28,8 +26,8 @@ public class AddJobFragment extends Fragment {
     private AddJobFragmentCallback callback;
     private EditText inputTitle;
     private EditText inputWage;
-    private TextView tvAddOB;
-    private ImageButton btnAddJob;
+    private Button inputCreateOB;
+    private Button btnAddJob;
     private LinearLayout obLayout;
     private EditText inputFromTime;
     private EditText inputToTime;
@@ -53,10 +51,10 @@ public class AddJobFragment extends Fragment {
     public void initComponents(View view) {
         inputTitle = (EditText) view.findViewById(R.id.inputTitle);
         inputWage = (EditText) view.findViewById(R.id.inputWage);
-        btnAddJob = (ImageButton) view.findViewById(R.id.btnAdd);
+        btnAddJob = (Button) view.findViewById(R.id.btnAdd);
         btnAddJob.setOnClickListener(new BtnAddJobListener());
-        tvAddOB = (TextView) view.findViewById(R.id.tvAddOB);
-        tvAddOB.setOnClickListener(new BtnDisplayOBListener());
+        inputCreateOB = (Button) view.findViewById(R.id.btnCreateOB);
+        inputCreateOB.setOnClickListener(new BtnCreateOBListener());
         obLayout = (LinearLayout) view.findViewById(R.id.obLayout);
         obLayout.setOnClickListener(new ReturnListener());
         obLayout.setVisibility(View.INVISIBLE);
@@ -205,7 +203,7 @@ public class AddJobFragment extends Fragment {
      * Displays a gui where the user can provide information about the OB of the new job
      */
 
-    private class BtnDisplayOBListener implements View.OnClickListener {
+    private class BtnCreateOBListener implements View.OnClickListener {
         @Override
         public void onClick(View v) {
             showOBLayout();
