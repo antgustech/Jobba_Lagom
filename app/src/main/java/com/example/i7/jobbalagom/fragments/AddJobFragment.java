@@ -161,7 +161,7 @@ public class AddJobFragment extends Fragment {
             int toTimeHour = Integer.parseInt(toTime.substring(0,2));
             int toTimeMin = Integer.parseInt(toTime.substring(3));
 
-            if(fromTimeHour > 23 || fromTimeMin > 59 || toTimeHour > 23 || toTimeMin > 59) {
+            if(fromTimeHour > 24 || fromTimeMin > 59 || toTimeHour > 24 || toTimeMin > 59) {
                 invalidInputMsg = "Tiden som angetts är inte en giltig tid.";
                 Toast.makeText(getActivity(), invalidInputMsg, Toast.LENGTH_LONG).show();
                 return;
