@@ -182,29 +182,5 @@
         android:layout_marginLeft="30dp"
         android:background="@drawable/settings_icon" />
 
-    <!--
-
-        <ImageButton
-            android:id="@+id/btnInfo"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="33dp"
-            android:background="@drawable/info_icon2" />
-
-        <ImageButton
-            android:id="@+id/btnExpense"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="33dp"
-            android:background="@drawable/addexpense_icon" />
-
-        <ImageButton
-            android:id="@+id/btnShift"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@drawable/addshift_icon" />
--->
-
-
 </RelativeLayout>
 
