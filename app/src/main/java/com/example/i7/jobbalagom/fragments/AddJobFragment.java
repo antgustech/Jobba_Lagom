@@ -7,9 +7,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.example.i7.jobbalagom.R;
@@ -28,14 +28,14 @@ public class AddJobFragment extends Fragment {
     private EditText inputWage;
     private Button inputCreateOB;
     private Button btnAddJob;
-    private LinearLayout obLayout;
+    private RelativeLayout obLayout;
     private EditText inputFromTime;
     private EditText inputToTime;
     private EditText inputOB;
     private RadioButton rbWorkday, rbSaturday, rbSunday;
     private RadioButton rbPercent, rbKronor;
     private RadioGroup rgDay, rgType;
-    private Button btnAddOB;
+    private Button btnAddOB, btnExit;
     private LinkedList<String> obRates;
 
     @Override
@@ -55,8 +55,7 @@ public class AddJobFragment extends Fragment {
         btnAddJob.setOnClickListener(new BtnAddJobListener());
         inputCreateOB = (Button) view.findViewById(R.id.btnCreateOB);
         inputCreateOB.setOnClickListener(new BtnCreateOBListener());
-        obLayout = (LinearLayout) view.findViewById(R.id.obLayout);
-        obLayout.setOnClickListener(new ReturnListener());
+        obLayout = (RelativeLayout) view.findViewById(R.id.obLayout);
         obLayout.setVisibility(View.INVISIBLE);
         inputFromTime = (EditText) view.findViewById(R.id.inputFromTime);
         inputToTime = (EditText) view.findViewById(R.id.inputToTime);
@@ -70,6 +69,8 @@ public class AddJobFragment extends Fragment {
         rgType = (RadioGroup) view.findViewById(R.id.rgType);
         btnAddOB = (Button) view.findViewById(R.id.btnAddOB);
         btnAddOB.setOnClickListener(new BtnAddOBListener());
+        btnExit = (Button) view.findViewById(R.id.btnExit);
+        btnExit.setOnClickListener(new ReturnListener());
         obRates = new LinkedList<String>();
     }
 

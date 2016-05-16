@@ -36,7 +36,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/et_rounded_corners"
-            android:drawableLeft="@drawable/clock_icon"
+            android:drawableLeft="@drawable/title_icon"
             android:drawablePadding="@dimen/drawable_padding"
             android:hint="Titel"
             android:inputType="text"
@@ -52,7 +52,7 @@
             android:layout_below="@id/inputTitle"
             android:layout_marginTop="@dimen/input_margin"
             android:background="@drawable/et_rounded_corners"
-            android:drawableLeft="@drawable/clock_icon"
+            android:drawableLeft="@drawable/wage_icon"
             android:drawablePadding="@dimen/drawable_padding"
             android:hint="Timlön"
             android:inputType="number"
@@ -78,15 +78,15 @@
         android:id="@+id/footer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingBottom="@dimen/addjob_fragment_padding"
-        android:layout_below="@id/inputLayout">
+        android:layout_below="@id/inputLayout"
+        android:paddingBottom="@dimen/addjob_fragment_padding">
 
         <View
             android:id="@+id/footer_line"
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:background="@color/white"
-            android:layout_above="@+id/btnAdd"/>
+            android:layout_above="@+id/btnAdd"
+            android:background="@color/white" />
 
         <Button
             android:id="@+id/btnAdd"
@@ -104,339 +104,224 @@
     </RelativeLayout>
 
 
-    <!--
+    <!-- ob popup layout -->
+
+    <RelativeLayout
+        android:id="@+id/obLayout"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:background="@color/black_trans"
+        android:clickable="true"
+        >
+
+        <Button
+            android:id="@+id/btnExit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/exit_icon"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentRight="true"
+            android:layout_margin="@dimen/icon_margin"
+            />
+
 
         <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_margin="50dp"
-            >
-
-            <LinearLayout
-                android:id="@+id/header"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center_horizontal">
-
-                <ImageView
-                    android:id="@+id/expense_icon"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginRight="@dimen/icon_margin"
-                    android:background="@drawable/expense_icon" />
-
-                <TextView
-                    android:id="@+id/tvHeader"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="@dimen/title_margin"
-                    android:text="Lägg till jobb"
-                    android:textColor="@color/white"
-                    android:textSize="@dimen/fragment_title_size" />
-            </LinearLayout>
-
-            <TextView
-                android:id="@+id/tvTitle"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/header"
-                android:background="@color/grey"
-                android:text="Titel"
-                android:textAlignment="center"
-                android:textColor="@color/white"
-                android:textSize="@dimen/fragment_tv_text_size" />
-
-            <EditText
-                android:id="@+id/inputTitle"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/tvTitle"
-                android:background="@color/white"
-                android:inputType="text"
-                android:textAlignment="center"
-                android:textSize="@dimen/fragment_et_text_size" />
-
-            <TextView
-                android:id="@+id/tvWage"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/inputTitle"
-                android:layout_marginTop="@dimen/text_margin"
-                android:background="@color/grey"
-                android:text="Timlön"
-                android:textAlignment="center"
-                android:textColor="@color/white"
-                android:textSize="@dimen/fragment_tv_text_size" />
-
-            <EditText
-                android:id="@+id/inputWage"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/tvWage"
-                android:background="@color/white"
-                android:inputType="number"
-                android:textAlignment="center"
-                android:textSize="@dimen/fragment_et_text_size" />
-
-            <TextView
-                android:id="@+id/titleOB"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/inputWage"
-                android:layout_marginTop="@dimen/text_margin"
-                android:background="@color/grey"
-                android:text="OB-tillägg"
-                android:textAlignment="center"
-                android:textColor="@color/white"
-                android:textSize="@dimen/fragment_tv_text_size" />
-
-            <TextView
-                android:id="@+id/tvAddOB"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/titleOB"
-                android:background="@color/white"
-                android:hint="+"
-                android:textColorHint="@color/grey"
-                android:textStyle="italic"
-                android:inputType="date"
-                android:textAlignment="center"
-                android:textSize="@dimen/fragment_et_text_size"
-                />
-
-            <ImageButton
-                android:id="@+id/btnAdd"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/tvAddOB"
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="@dimen/text_margin"
-                android:text="Lägg till"
-                android:textColor="@color/white"
-                android:background="@drawable/go_icon"
-                />
-
-        </RelativeLayout>
-
-
-
-    -->
-
-
-
-
-
-
-        <LinearLayout
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
-            android:id="@+id/obLayout"
-            android:background="@color/black_trans">
+            android:layout_centerInParent="true"
+            android:layout_margin="@dimen/popup_margin"
+            android:background="@drawable/popup_layout_white"
+            android:clickable="true"
+            android:gravity="center_horizontal">
+
+            <TextView
+                android:id="@+id/tvTitleDayAndTime"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/obHeader"
+                android:background="@color/grey_trans"
+                android:padding="@dimen/text_padding"
+                android:text="Ange dag och tid"
+                android:textAlignment="center"
+                android:textColor="@color/black"
+                android:textSize="@dimen/fragment_sub_title_size" />
 
             <RelativeLayout
-                android:layout_width="fill_parent"
-                android:layout_height="fill_parent"
-                android:layout_centerInParent="true"
-                android:background="@drawable/popup_layout_white"
-                android:layout_margin="@dimen/popup_margin"
-                android:clickable="true"
-                android:gravity="center_horizontal">
-
-                <TextView
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/tvTitleDayAndTime"
-                    android:padding="@dimen/text_padding"
-                    android:layout_marginBottom="@dimen/text_margin"
-                    android:layout_below="@+id/obHeader"
-                    android:background="@color/grey_trans"
-                    android:text="Ange dag och tid"
-                    android:textColor="@color/black"
-                    android:textSize="@dimen/fragment_sub_title_size"
-                    android:textAlignment="center"
-                    />
-
-                <RelativeLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/layoutDay"
-                    android:layout_alignParentLeft="true"
-                    android:layout_below="@+id/tvTitleDayAndTime"
-                    android:layout_marginLeft="@dimen/text_margin">
-
-                    <RadioGroup
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/rgDay">
-
-                        <RadioButton
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Vardag"
-                            android:textColor="@color/black"
-                            android:id="@+id/rbWorkday"
-                            />
-
-                        <RadioButton
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Lördag"
-                            android:textColor="@color/black"
-                            android:id="@+id/rbSaturday"
-                            android:layout_below="@+id/rbWorkday"
-                            />
-
-                        <RadioButton
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Söndag"
-                            android:textColor="@color/black"
-                            android:id="@+id/rbSunday"
-                            android:layout_below="@+id/rbSaturday"
-                            />
-
-                    </RadioGroup>
-
-
-                </RelativeLayout>
-
-                <RelativeLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/layoutTime"
-                    android:layout_below="@+id/tvTitleDayAndTime"
-                    android:layout_marginRight="@dimen/text_margin"
-                    >
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/tvFromTime"
-                        android:padding="@dimen/text_padding"
-                        android:text="Från"
-                        android:textColor="@color/black"
-                        android:textSize="@dimen/fragment_tv_text_size"
-                        android:layout_toLeftOf="@+id/inputFromTime"
-                        />
-
-                    <EditText
-                        android:layout_width="70dp"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/inputFromTime"
-                        android:layout_alignBottom="@+id/tvFromTime"
-                        android:layout_alignParentRight="true"
-                        android:inputType="time"
-                        android:textAlignment="center"
-                        android:textSize="16sp"
-                        android:textColor="@color/black"
-                        android:hint="TT:MM"
-                        android:textColorHint="@color/grey"
-                        />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/tvToTime"
-                        android:padding="@dimen/text_padding"
-                        android:textSize="@dimen/fragment_tv_text_size"
-                        android:text="Till"
-                        android:textColor="@color/black"
-                        android:layout_toLeftOf="@+id/inputToTime"
-                        android:layout_below="@+id/tvFromTime"
-                        />
-
-                    <EditText
-                        android:layout_width="70dp"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/inputToTime"
-                        android:layout_below="@+id/inputFromTime"
-                        android:layout_alignParentRight="true"
-                        android:inputType="time"
-                        android:textAlignment="center"
-                        android:textSize="16sp"
-                        android:textColor="@color/black"
-                        android:hint="TT:MM"
-                        android:textColorHint="@color/grey"
-                        />
-
-                </RelativeLayout>
-
-                <TextView
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/tvTitleOB"
-                    android:padding="@dimen/text_padding"
-                    android:layout_below="@+id/layoutDay"
-                    android:background="@color/grey_trans"
-                    android:text="Ange tillägg"
-                    android:textSize="@dimen/fragment_sub_title_size"
-                    android:textColor="@color/black"
-                    android:textAlignment="center"
-                    android:layout_marginTop="@dimen/title_margin"
-                    />
-
-                <EditText
-                    android:layout_width="120dp"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/inputOB"
-                    android:layout_below="@+id/tvTitleOB"
-                    android:textSize="@dimen/fragment_title_size"
-                    android:layout_margin="@dimen/title_margin"
-                    android:inputType="number"
-                    android:textAlignment="center"
-                    android:hint="OB"
-                    android:textColorHint="@color/grey"
-                    />
+                android:id="@+id/layoutDay"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_below="@+id/tvTitleDayAndTime"
+                android:layout_margin="12dp">
 
                 <RadioGroup
+                    android:id="@+id/rgDay"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/rgType"
-                    android:layout_toRightOf="@+id/inputOB"
-                    android:layout_below="@+id/tvTitleOB"
-                    android:layout_centerHorizontal="true"
-                    android:layout_marginTop="@dimen/title_margin">
+                    android:layout_height="wrap_content">
 
                     <RadioButton
+                        android:id="@+id/rbWorkday"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Procent"
-                        android:textColor="@color/black"
-                        android:id="@+id/rbPercent"
-                        />
+                        android:text="Vardag"
+                        android:textColor="@color/black" />
 
                     <RadioButton
+                        android:id="@+id/rbSaturday"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Kronor"
-                        android:textColor="@color/black"
-                        android:id="@+id/rbKronor"
-                        android:layout_below="@+id/rbPercent"
-                        android:layout_alignLeft="@+id/rbPercent" />
+                        android:layout_below="@+id/rbWorkday"
+                        android:text="Lördag"
+                        android:textColor="@color/black" />
+
+                    <RadioButton
+                        android:id="@+id/rbSunday"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/rbSaturday"
+                        android:text="Söndag"
+                        android:textColor="@color/black" />
 
                 </RadioGroup>
 
 
-                <Button
-                    android:id="@+id/btnAddOB"
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/layoutTime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tvTitleDayAndTime"
+                android:layout_marginRight="12dp"
+                android:layout_marginTop="15dp"
+                android:layout_toEndOf="@+id/layoutDay"
+                android:layout_toRightOf="@+id/layoutDay">
+
+                <TextView
+                    android:id="@+id/tvFromTime"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/btn_rounded_corners_blueish"
-                    android:text="Lägg till"
-                    android:textColor="@color/btn_text_color"
-                    android:textSize="@dimen/btn_text_size"
-                    android:padding="@dimen/btn_text_padding"
-                    android:layout_centerHorizontal="true"
-                    android:layout_below="@+id/rgType"
-                    android:layout_margin="@dimen/title_margin"
-                    />
+                    android:layout_toLeftOf="@+id/inputFromTime"
+                    android:padding="@dimen/text_padding"
+                    android:text="Från"
+                    android:textColor="@color/black"
+                    android:textSize="18sp" />
 
+                <EditText
+                    android:id="@+id/inputFromTime"
+                    android:layout_width="70dp"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBottom="@+id/tvFromTime"
+                    android:layout_alignParentRight="true"
+                    android:hint="TT:MM"
+                    android:inputType="time"
+                    android:textAlignment="center"
+                    android:textColor="@color/black"
+                    android:textColorHint="@color/grey"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:id="@+id/tvToTime"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/tvFromTime"
+                    android:layout_toLeftOf="@+id/inputToTime"
+                    android:padding="@dimen/text_padding"
+                    android:text="Till"
+                    android:textColor="@color/black"
+                    android:textSize="18sp" />
+
+                <EditText
+                    android:id="@+id/inputToTime"
+                    android:layout_width="70dp"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_below="@+id/inputFromTime"
+                    android:hint="TT:MM"
+                    android:inputType="time"
+                    android:textAlignment="center"
+                    android:textColor="@color/black"
+                    android:textColorHint="@color/grey"
+                    android:textSize="16sp" />
 
             </RelativeLayout>
 
-        </LinearLayout>
+            <TextView
+                android:id="@+id/tvTitleOB"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/layoutDay"
+                android:background="@color/grey_trans"
+                android:padding="@dimen/text_padding"
+                android:text="Ange tillägg"
+                android:textAlignment="center"
+                android:textColor="@color/black"
+                android:textSize="@dimen/fragment_sub_title_size" />
+
+            <EditText
+                android:id="@+id/inputOB"
+                android:layout_width="120dp"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tvTitleOB"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="14dp"
+                android:layout_marginTop="30dp"
+                android:hint="OB"
+                android:inputType="number"
+                android:textAlignment="center"
+                android:textColorHint="@color/grey"
+                android:textSize="@dimen/fragment_title_size" />
+
+            <RadioGroup
+                android:id="@+id/rgType"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tvTitleOB"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="15dp"
+                android:layout_toRightOf="@+id/inputOB">
+
+                <RadioButton
+                    android:id="@+id/rbPercent"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Procent"
+                    android:textColor="@color/black" />
+
+                <RadioButton
+                    android:id="@+id/rbKronor"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignLeft="@+id/rbPercent"
+                    android:layout_below="@+id/rbPercent"
+                    android:text="Kronor"
+                    android:textColor="@color/black" />
+
+            </RadioGroup>
 
 
+            <Button
+                android:id="@+id/btnAddOB"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/rgType"
+                android:layout_centerHorizontal="true"
+                android:layout_margin="5dp"
+                android:layout_marginBottom="20dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:background="@drawable/btn_rounded_corners_blueish"
+                android:padding="@dimen/btn_text_padding"
+                android:text="OK"
+                android:textColor="@color/btn_text_color"
+                android:textSize="20sp" />
+
+
+        </RelativeLayout>
+
+    </RelativeLayout>
 
 
 </RelativeLayout>
