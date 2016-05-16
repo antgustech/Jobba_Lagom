@@ -2,6 +2,8 @@
 <resources>
     <color name="white">#ffffff</color>
     <color name="bgBlueish">#008ba0</color>
+    <color name="bgBlueishFAB">#92008ba0</color>
+
 
     <color name="expense">#b0c6111d</color>
 

@@ -122,12 +122,13 @@
         android:layout_alignParentRight="true"
         android:layout_marginBottom="20dp"
         android:layout_marginRight="20dp"
-        android:layout_toEndOf="@+id/centerTextLayout"
-        android:layout_toRightOf="@+id/centerTextLayout"
+        android:layout_toEndOf="@+id/btnBudget"
         fab:fab_addButtonColorNormal="@color/green_soft"
         fab:fab_addButtonColorPressed="@color/half_black"
         fab:fab_addButtonPlusIconColor="@color/white"
-        fab:fab_labelStyle="@style/menu_labels_style">
+        fab:fab_labelStyle="@style/menu_labels_style"
+        android:layout_alignLeft="@+id/centerTextLayout"
+        android:layout_alignStart="@+id/centerTextLayout">
 
         <com.getbase.floatingactionbutton.FloatingActionButton
             android:id="@+id/action_addJob"
