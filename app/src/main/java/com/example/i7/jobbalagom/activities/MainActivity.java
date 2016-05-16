@@ -27,7 +27,6 @@ import com.example.i7.jobbalagom.fragments.SetupFragment;
 import com.example.i7.jobbalagom.local.Controller;
 import com.example.i7.jobbalagom.local.Singleton;
 import com.getbase.floatingactionbutton.FloatingActionButton;
-import com.getbase.floatingactionbutton.FloatingActionsMenu;
 
 /**
  * Created by Kajsa on 2016-05-09.
@@ -39,17 +38,12 @@ public class MainActivity extends Activity {
 
     private final int REQUESTCODE_WORKREGISTER = 1;
 
-    // Test
-
-    private FloatingActionsMenu floatingMenu;
-    private FloatingActionButton btnAddShift, btnAddExpense, btnAddJob;
-
-
     private Fragment currentFragment;
     private FragmentTransaction fragmentTransaction;
     private FragmentManager fragmentManager;
 
-    private ImageButton btnSettings, btnBudget, btnExpense, btnShift;
+    private FloatingActionButton btnAddShift, btnAddExpense, btnAddJob;
+    private ImageButton btnSettings, btnBudget;
     private TextView tvIncome, tvCSN;
     private ProgressBar pbCSN, pbIncome, pbExpense;
 
@@ -66,8 +60,6 @@ public class MainActivity extends Activity {
     }
 
     public void initComponents() {
-
-        floatingMenu = (FloatingActionsMenu) findViewById(R.id.add_actions);
         btnAddShift = (FloatingActionButton) findViewById(R.id.action_addShift);
         btnAddExpense = (FloatingActionButton) findViewById(R.id.action_addExpense);
         btnAddJob = (FloatingActionButton) findViewById(R.id.action_addJob);
@@ -75,7 +67,6 @@ public class MainActivity extends Activity {
         btnAddShift.setOnClickListener(addButtonListener);
         btnAddExpense.setOnClickListener(addButtonListener);
         btnAddJob.setOnClickListener(addButtonListener);
-
         btnSettings = (ImageButton) findViewById(R.id.btnSettings);
         btnBudget = (ImageButton) findViewById(R.id.btnBudget);
         btnSettings.setOnClickListener(new SettingsButtonListener());
@@ -86,7 +77,6 @@ public class MainActivity extends Activity {
         pbIncome = (ProgressBar) findViewById(R.id.pbIncome);
         pbExpense = (ProgressBar) findViewById(R.id.pbExpenses);
         fragmentManager = getFragmentManager();
-
         monthlyIncomeLimit = controller.getIncomeLimit()/6;         // --> 100 % av income och expense progress bar
         csnIncomeLimit = controller.getIncomeLimit();               // --> 100 % av csn progress bar
         loadProgressBars();
@@ -188,8 +178,6 @@ public class MainActivity extends Activity {
         changeFragment(currentFragment);
     }
 
-
-
     public void startSetupFragment() {
         currentFragment = new SetupFragment();
         ((SetupFragment) currentFragment).setCallBack(new SetupFragmentListener());
@@ -208,6 +196,9 @@ public class MainActivity extends Activity {
         changeFragment(currentFragment);
     }
 
+    /**
+     * Listens to the settings icon in the main layout
+     */
 
     private class SettingsButtonListener implements View.OnClickListener {
         @Override
@@ -216,6 +207,10 @@ public class MainActivity extends Activity {
         }
     }
 
+    /**
+     * Listens to the budget icon in the main layout
+     */
+
     private class BudgetButtonListener implements View.OnClickListener {
         @Override
         public void onClick(View v) {
@@ -223,6 +218,10 @@ public class MainActivity extends Activity {
             // startBudgetFragment();
         }
     }
+
+    /**
+     * Listens to the add icon in the main layout
+     */
 
     private class AddButtonListener implements View.OnClickListener {
         @Override
@@ -236,13 +235,6 @@ public class MainActivity extends Activity {
             }
         }
     }
-
-
-
-
-
-
-
 
     /**
      * Listener for launch fragment
