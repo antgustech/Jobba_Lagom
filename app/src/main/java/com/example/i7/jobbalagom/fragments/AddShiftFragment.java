@@ -136,7 +136,8 @@ public class AddShiftFragment extends Fragment {
             float hoursWorked = endTime - startTime - breakHours;
             int year = Integer.parseInt(date.substring(0, 2));
             int month = Integer.parseInt(date.substring(2, 4));
-            int day = Integer.parseInt(date.substring(4));
+            int day = Integer.parseInt(date.substring(4, 6));
+            Log.e("Calculation ", "result from editext:" + year + "," + month + "," + day);
 
             if (hoursWorked <= 0) {
                 Toast.makeText(getActivity(), "Tiden du har arbetat är mindre än noll, stämmer verkligen det?", Toast.LENGTH_LONG).show();

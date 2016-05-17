@@ -306,7 +306,7 @@ public class Controller  {
 
     /**
      * When user have pressed addShift, the shift is added. Then this method should be called to update the total income.
-     * TODO Uncertain what happens when no day is selected. STILL NEEDS WORK.
+     * TODO Loop thorugh all obs and the day isn't quite right.
      * @param jobTitle
      */
     public void calculateData(String jobTitle, float startTime, float endTime, int year, int month, int day){
@@ -317,25 +317,25 @@ public class Controller  {
         String obDay ="";
         switch (dayOfWeek) {
             case 1:
-                obDay = "söndag";
+                obDay = "Söndag";
                 break;
             case 2:
-                obDay = "måndag";
+                obDay = "Vardag";
                 break;
             case 3:
-                obDay = "tisdag";
+                obDay = "Vardag";
                 break;
             case 4:
-                obDay = "onsdag";
+                obDay = "Vardag";
                 break;
             case 5:
-                obDay = "torsdag";
+                obDay = "Vardag";
                 break;
             case 6:
-                obDay = "fredag";
+                obDay = "Vardag";
                 break;
             case 7:
-                obDay = "lördag";
+                obDay = "Lördag";
                 break;
         }
         wage = getWage(jobTitle);
@@ -349,8 +349,11 @@ public class Controller  {
             obIndex++;
         }
 
+        //float workedPay = ((endTime-startTime) * wage);
+        //float workedObPay=((obEnd-obStart) * (obIndex-1));
         float workedPay = ((endTime-startTime) * wage);
-        float workedObPay=((obEnd-obStart) * (obIndex-1));
+        float workedObPay=(((obEnd-obStart) * ((obIndex-1)*wage))) ;
+
         float realTax=(1-tax);
         res = ((workedPay + workedObPay) * realTax);
         Log.e("Calculation ", "Variables after calculation: wage: " + wage +" StartTime: " + startTime +" EndTime" + endTime +" tax " + tax + " obIndex " + obIndex + " obStart " + obStart + " obEnd " + obEnd +" day " + dayOfWeek);
