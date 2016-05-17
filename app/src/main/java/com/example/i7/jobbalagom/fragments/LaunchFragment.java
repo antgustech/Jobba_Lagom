@@ -17,7 +17,7 @@ import com.example.i7.jobbalagom.callback_interfaces.LaunchFragmentCallback;
 public class LaunchFragment extends Fragment {
 
     private LaunchFragmentCallback callback;
-    private ButtonListener buttonListener;
+    private ButtonListener btnListener;
     private ImageButton btnLogo, btnNew, btnKey, btnInfo;
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -30,13 +30,15 @@ public class LaunchFragment extends Fragment {
     }
 
     public void initComponents(View view) {
-        buttonListener = new ButtonListener();
+        btnListener = new ButtonListener();
         btnLogo = (ImageButton) view.findViewById(R.id.btnLogo);
-        btnLogo.setOnClickListener(buttonListener);
+        btnLogo.setOnClickListener(btnListener);
         btnNew = (ImageButton) view.findViewById(R.id.btnNew);
-        btnNew.setOnClickListener(buttonListener);
+        btnNew.setOnClickListener(btnListener);
         btnKey = (ImageButton) view.findViewById(R.id.btnKey);
-        btnKey.setOnClickListener(buttonListener);
+        btnKey.setOnClickListener(btnListener);
+        btnInfo = (ImageButton) view.findViewById(R.id.btnInfo);
+        btnInfo.setOnClickListener(btnListener);
     }
 
     public void setCallBack(LaunchFragmentCallback callback){
@@ -53,7 +55,7 @@ public class LaunchFragment extends Fragment {
                 callback.navigate("btnNew");
             } else if(v.getId() == R.id.btnKey) {
                 callback.navigate("btnKey");
-            } else if(v.getId() == R.id.btnSettings) {
+            } else if(v.getId() == R.id.btnInfo) {
                 callback.navigate("btnInfo");
             }
         }

@@ -18,7 +18,7 @@ import java.util.Calendar;
 
 public class Controller  {
 
-    private final String IP = "192.168.1.136";          //ÄNDRA IP VID TESTNING!!!!!! // Kajsa 192.168.0.10
+    private final String IP = "192.168.0.10";          //ÄNDRA IP VID TESTNING!!!!!! // Kajsa 192.168.0.10
     private final int PORT = 4545;
 
     private Client client;
@@ -34,8 +34,6 @@ public class Controller  {
         listener = new MessageListener();
         dbHelper = new DBHelper(context);
         Singleton.setDBHelper(dbHelper);
-
-
     }
 
 
@@ -176,6 +174,14 @@ public class Controller  {
         sqLiteDatabase = dbHelper.getWritableDatabase();
         dbHelper.deleteExpense(name,sqLiteDatabase);
         dbHelper.close();
+    }
+
+
+    public boolean isUserCreated() {
+        sqLiteDatabase = dbHelper.getReadableDatabase();
+        boolean userCreated = dbHelper.isUserCreated(sqLiteDatabase);
+        dbHelper.close();
+        return userCreated;
     }
 
     /**

@@ -6,6 +6,7 @@ import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ProgressBar;
@@ -58,7 +59,15 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         initComponents();
-        startLaunchFragment();
+
+        //boolean isCreated = controller.isUserCreated();
+        //Log.d("MainActivity", "User created: " + isCreated);
+
+        if(!controller.isUserCreated()) {
+            startLaunchFragment();
+        } else {
+            loadProgressBars();
+        }
     }
 
     public void initComponents() {
@@ -273,9 +282,9 @@ public class MainActivity extends Activity {
             } else if(choice.equals("btnNew")) {
                 startSetupFragment();
             } else if(choice.equals("btnKey")) {
-                removeFragment(currentFragment);
-                loadProgressBars();
-            } else if(choice.equals("btnBudget")) {
+                Log.d("MainActivity", "Key button pressed");
+            } else if(choice.equals("btnInfo")) {
+                Log.d("MainActivity", "Info button pressed");
                 //startActivity(new Intent(getApplicationContext(), AboutActivity.class));
             }
         }

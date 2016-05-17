@@ -270,7 +270,6 @@ public class DBHelper extends SQLiteOpenHelper {
         }
         Log.e("Internal DB", "Getting shift start time from database");
         return sum;
-
     }
 
     public float getEndTime(SQLiteDatabase db) {
@@ -322,6 +321,15 @@ public class DBHelper extends SQLiteOpenHelper {
         }
         Log.e("Internal DB", "Getting OB end time from database");
         return sum;
+    }
+
+    public boolean isUserCreated(SQLiteDatabase db) {
+        Cursor c = db.rawQuery("SELECT * FROM " + UserContract.User.TABLE_NAME + ";", null);
+
+        boolean isCreated;
+        if(c.getCount() == 0) {
+            return false;
+        } return true;
     }
 
     /**
