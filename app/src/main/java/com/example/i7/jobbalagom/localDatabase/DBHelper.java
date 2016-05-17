@@ -289,24 +289,24 @@ public class DBHelper extends SQLiteOpenHelper {
         if (c.moveToFirst()) {
             sum = c.getFloat(c.getColumnIndex(UserContract.User.USER_TAX));
         }
-        Log.e("Internal DB", "Getting user tax from database");
+        Log.e("Internal DB", "Getting user tax from database" );
         return sum;
 
     }
 
-    public float getOB(SQLiteDatabase db){
+    public float getOB(String jobTitle, String day, SQLiteDatabase db){
         float sum = 0;
-        Cursor c = db.rawQuery("SELET " + UserContract.OB.OB_INDEX + " FROM " + UserContract.OB.TABLE_NAME + ";", null);
+        Cursor c = db.rawQuery("SELECT " + UserContract.OB.OB_INDEX + " FROM " + UserContract.OB.TABLE_NAME + " WHERE jobTitle='" + jobTitle +"' AND day='"+ day +"';", null);
         if (c.moveToFirst()) {
             sum = c.getFloat(c.getColumnIndex(UserContract.OB.OB_INDEX));
         }
-        Log.e("Internal DB", "Getting OB from database");
+        Log.e("Internal DB", "Getting OB from database jobb:" + jobTitle+" day: "+ day + " obindex: " + sum);
         return sum;
     }
 
-    public float getOBStart(SQLiteDatabase db){
+    public float getOBStart(String jobTitle, String obDay, SQLiteDatabase db){
         float sum = 0;
-        Cursor c = db.rawQuery("SELECT " + UserContract.OB.OB_FROMTIME + " FROM " + UserContract.OB.TABLE_NAME + ";", null);
+        Cursor c = db.rawQuery("SELECT " + UserContract.OB.OB_FROMTIME + " FROM " + UserContract.OB.TABLE_NAME + " WHERE jobTitle ='" + jobTitle +"' AND day='"+obDay+"';", null);
         if (c.moveToFirst()) {
             sum = c.getFloat(c.getColumnIndex(UserContract.OB.OB_FROMTIME));
         }
@@ -314,9 +314,9 @@ public class DBHelper extends SQLiteOpenHelper {
         return sum;
     }
 
-    public float getOBEnd(SQLiteDatabase db){
+    public float getOBEnd(String jobTitle, String obDay, SQLiteDatabase db){
         float sum = 0;
-        Cursor c = db.rawQuery("SELECT " + UserContract.OB.OB_TOTIME + " FROM " + UserContract.OB.TABLE_NAME + ";", null);
+        Cursor c = db.rawQuery("SELECT " + UserContract.OB.OB_TOTIME + " FROM " + UserContract.OB.TABLE_NAME + " WHERE jobTitle ='" + jobTitle+"' AND day='"+obDay+"';", null);
         if (c.moveToFirst()) {
             sum = c.getFloat(c.getColumnIndex(UserContract.OB.OB_TOTIME));
         }

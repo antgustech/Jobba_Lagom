@@ -2,12 +2,14 @@ package com.example.i7.jobbalagom.local;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
 
 import com.example.i7.jobbalagom.callback_interfaces.MessageCallback;
 import com.example.i7.jobbalagom.localDatabase.DBHelper;
 import com.example.i7.jobbalagom.remote.Client;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 
 /**
  * Created by Strandberg95 on 2016-03-21.
@@ -19,18 +21,21 @@ public class Controller  {
     private final String IP = "192.168.0.10";          //ÄNDRA IP VID TESTNING!!!!!! // Kajsa 192.168.0.10
     private final int PORT = 4545;
 
-    private Calculator calculator;
     private Client client;
     private MessageListener listener;
     private DBHelper dbHelper;
     private SQLiteDatabase sqLiteDatabase;
 
+    private float tax, startTime,endTime,res,wage,obIndex,obStart,obEnd, obDay;
+
+
     public Controller(Context context){
-        calculator = new Calculator();
         client = new Client(listener,IP,PORT);
         listener = new MessageListener();
         dbHelper = new DBHelper(context);
         Singleton.setDBHelper(dbHelper);
+
+
     }
 
 
@@ -116,6 +121,10 @@ public class Controller  {
         sqLiteDatabase = dbHelper.getWritableDatabase();
         dbHelper.addShift(jobTitle, startTime, endTime, hoursWorked, year, month, day, income, sqLiteDatabase);
         dbHelper.close();
+
+        //Sets the income
+        calculateData(jobTitle, startTime, endTime, year, month, day );
+
         return income;
     }
 
@@ -256,23 +265,25 @@ public class Controller  {
         return sum;
     }
 
-    public float getOB(){
+    public float getOB( String jobTitle, String day){
+
         sqLiteDatabase = dbHelper.getWritableDatabase();
-        float sum = dbHelper.getOB(sqLiteDatabase);
+        float sum = dbHelper.getOB(jobTitle, day, sqLiteDatabase);
+        dbHelper.close();
+
+        return sum;
+    }
+
+    public float getOBStart(String jobTitle, String obDay){
+        sqLiteDatabase = dbHelper.getWritableDatabase();
+        float sum = dbHelper.getOBStart(jobTitle, obDay, sqLiteDatabase);
         dbHelper.close();
         return sum;
     }
 
-    public float getOBStart(){
+    public float getOBEnd(String jobTitle, String obDay){
         sqLiteDatabase = dbHelper.getWritableDatabase();
-        float sum = dbHelper.getOBStart(sqLiteDatabase);
-        dbHelper.close();
-        return sum;
-    }
-
-    public float getOBEnd(){
-        sqLiteDatabase = dbHelper.getWritableDatabase();
-        float sum =dbHelper.getOBEnd(sqLiteDatabase);
+        float sum =dbHelper.getOBEnd(jobTitle, obDay, sqLiteDatabase);
         dbHelper.close();
         return sum;
     }
@@ -288,5 +299,67 @@ public class Controller  {
         dbHelper.deleteJob(jobTitle,sqLiteDatabase);
         dbHelper.close();
     }
+
+
+
+    //CALCULATION METHODS-------------------------------------------------------------------
+
+    /**
+     * When user have pressed addShift, the shift is added. Then this method should be called to update the total income.
+     * TODO Uncertain what happens when no day is selected. STILL NEEDS WORK.
+     * @param jobTitle
+     */
+    public void calculateData(String jobTitle, float startTime, float endTime, int year, int month, int day){
+
+        Calendar c = Calendar.getInstance();
+        c.set(year,month,day);
+        int dayOfWeek = c.get(Calendar.DAY_OF_WEEK) ; //Sunday is day 1, saturday is day 7
+        String obDay ="";
+        switch (dayOfWeek) {
+            case 1:
+                obDay = "söndag";
+                break;
+            case 2:
+                obDay = "måndag";
+                break;
+            case 3:
+                obDay = "tisdag";
+                break;
+            case 4:
+                obDay = "onsdag";
+                break;
+            case 5:
+                obDay = "torsdag";
+                break;
+            case 6:
+                obDay = "fredag";
+                break;
+            case 7:
+                obDay = "lördag";
+                break;
+        }
+        wage = getWage(jobTitle);
+        tax = getTax();
+        obIndex = getOB(jobTitle, obDay);
+        obStart= getOBStart(jobTitle, obDay);
+        obEnd = getOBEnd(jobTitle, obDay);
+        res = 0;
+
+        if(obIndex == 0){
+            obIndex++;
+        }
+
+        float workedPay = ((endTime-startTime) * wage);
+        float workedObPay=((obEnd-obStart) * (obIndex-1));
+        float realTax=(1-tax);
+        res = ((workedPay + workedObPay) * realTax);
+        Log.e("Calculation ", "Variables after calculation: wage: " + wage +" StartTime: " + startTime +" EndTime" + endTime +" tax " + tax + " obIndex " + obIndex + " obStart " + obStart + " obEnd " + obEnd +" day " + dayOfWeek);
+        Log.e("Calculation ", "Result after calculation: " + res);
+    }
+
+
+
+
+
 }
 

@@ -94,7 +94,7 @@
                 android:drawableLeft="@drawable/calendar_icon"
                 android:drawablePadding="@dimen/drawable_padding"
                 android:padding="@dimen/input_text_padding_icon"
-                android:hint="Datum"
+                android:hint="ÅÅMMDD"
                 android:textColor="@color/black"
                 android:textColorHint="@color/grey_dark"
                 android:textSize="@dimen/input_text_size"
