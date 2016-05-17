@@ -28,7 +28,7 @@ public class AddShiftFragment extends Fragment {
     private String[] jobTitles;
 
     private Spinner jobSpinner;
-    private Button btnAdd;
+    private Button btnAddShift, btnAddJob;
     private EditText inputStart, inputEnd, inputBreak, inputDate;
 
     @Override
@@ -43,8 +43,8 @@ public class AddShiftFragment extends Fragment {
 
     public void initComponents(View view) {
         controller = Singleton.controller;
-        btnAdd = (Button) view.findViewById(R.id.btnAdd);
-        btnAdd.setOnClickListener(new ButtonAddShiftListener());
+        btnAddShift = (Button) view.findViewById(R.id.btnAddShift);
+        btnAddShift.setOnClickListener(new ButtonAddShiftListener());
         inputStart = (EditText) view.findViewById(R.id.inputStart);
         inputEnd = (EditText) view.findViewById(R.id.inputEnd);
         inputBreak = (EditText) view.findViewById(R.id.inputBreak);
@@ -58,7 +58,7 @@ public class AddShiftFragment extends Fragment {
         }
         Log.d("AddShiftFragment", log);
 
-        ArrayAdapter adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, jobTitles);
+        ArrayAdapter adapter = new ArrayAdapter<String>(getActivity(), R.layout.spinner_row, R.id.text, jobTitles);
         jobSpinner = (Spinner) view.findViewById(R.id.jobSpinner);
         jobSpinner.setAdapter(adapter);
 

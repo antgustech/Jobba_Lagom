@@ -51,7 +51,7 @@ public class AddJobFragment extends Fragment {
     public void initComponents(View view) {
         inputTitle = (EditText) view.findViewById(R.id.inputTitle);
         inputWage = (EditText) view.findViewById(R.id.inputWage);
-        btnAddJob = (Button) view.findViewById(R.id.btnAdd);
+        btnAddJob = (Button) view.findViewById(R.id.btnAddShift);
         btnAddJob.setOnClickListener(new BtnAddJobListener());
         inputCreateOB = (Button) view.findViewById(R.id.btnCreateOB);
         inputCreateOB.setOnClickListener(new BtnCreateOBListener());

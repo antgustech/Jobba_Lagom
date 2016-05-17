@@ -85,11 +85,11 @@
             android:id="@+id/footer_line"
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:layout_above="@+id/btnAdd"
+            android:layout_above="@+id/btnAddShift"
             android:background="@color/white" />
 
         <Button
-            android:id="@+id/btnAdd"
+            android:id="@+id/btnAddShift"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"

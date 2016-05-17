@@ -1,146 +1,154 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/grey"
     android:clickable="true"
     android:gravity="center_horizontal"
-   >
+    android:orientation="vertical">
 
     <TextView
         android:id="@+id/header"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Lägg till arbetspass"
-        android:textSize="30sp"
-        android:textColor="@color/white"
-        android:textAlignment="center"
         android:layout_margin="@dimen/addshift_fragment_padding"
-        />
+        android:text="Lägg till arbetspass"
+        android:textAlignment="center"
+        android:textColor="@color/white"
+        android:textSize="30sp" />
 
 
     <View
+        android:id="@+id/header_line"
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:id="@+id/header_line"
-        android:background="@color/white"
         android:layout_below="@+id/header"
-        />
+        android:background="@color/white" />
 
 
-        <RelativeLayout
-            android:id="@+id/inputLayout"
+    <RelativeLayout
+        android:id="@+id/inputLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/header_line"
+        android:padding="@dimen/addshift_fragment_padding">
+
+        <EditText
+            android:id="@+id/inputStart"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/header_line"
-            android:padding="@dimen/addshift_fragment_padding">
+            android:background="@drawable/et_rounded_corners"
+            android:drawableLeft="@drawable/clock_icon"
+            android:drawablePadding="@dimen/drawable_padding"
+            android:hint="Från"
+            android:inputType="time"
+            android:padding="@dimen/input_text_padding_icon"
+            android:textColor="@color/black"
+            android:textColorHint="@color/grey_dark"
+            android:textSize="@dimen/input_text_size" />
 
-            <EditText
-                android:id="@+id/inputStart"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@drawable/et_rounded_corners"
-                android:drawableLeft="@drawable/clock_icon"
-                android:drawablePadding="@dimen/drawable_padding"
-                android:padding="@dimen/input_text_padding_icon"
-                android:hint="Från"
-                android:textColorHint="@color/grey_dark"
-                android:textColor="@color/black"
-                android:textSize="@dimen/input_text_size"
-                android:inputType="time"
-                />
+        <EditText
+            android:id="@+id/inputEnd"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/inputStart"
+            android:layout_marginTop="@dimen/input_margin"
+            android:background="@drawable/et_rounded_corners"
+            android:drawableLeft="@drawable/clock_icon"
+            android:drawablePadding="@dimen/drawable_padding"
+            android:hint="Till"
+            android:inputType="time"
+            android:padding="@dimen/input_text_padding_icon"
+            android:textColor="@color/black"
+            android:textColorHint="@color/grey_dark"
+            android:textSize="@dimen/input_text_size" />
 
-            <EditText
-                android:id="@+id/inputEnd"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@drawable/et_rounded_corners"
-                android:drawableLeft="@drawable/clock_icon"
-                android:drawablePadding="@dimen/drawable_padding"
-                android:padding="@dimen/input_text_padding_icon"
-                android:hint="Till"
-                android:textColor="@color/black"
-                android:textColorHint="@color/grey_dark"
-                android:textSize="@dimen/input_text_size"
-                android:inputType="time"
-                android:layout_below="@id/inputStart"
-                android:layout_marginTop="@dimen/input_margin"
-                />
+        <EditText
+            android:id="@+id/inputBreak"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/inputEnd"
+            android:layout_marginTop="@dimen/input_margin"
+            android:background="@drawable/et_rounded_corners"
+            android:drawableLeft="@drawable/coffee_icon"
+            android:drawablePadding="@dimen/drawable_padding"
+            android:hint="Rast i minuter"
+            android:inputType="number"
+            android:padding="@dimen/input_text_padding_icon"
+            android:textColor="@color/black"
+            android:textColorHint="@color/grey_dark"
+            android:textSize="@dimen/input_text_size" />
 
-            <EditText
-                android:id="@+id/inputBreak"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@drawable/et_rounded_corners"
-                android:drawableLeft="@drawable/coffee_icon"
-                android:drawablePadding="@dimen/drawable_padding"
-                android:padding="@dimen/input_text_padding_icon"
-                android:hint="Rast i minuter"
-                android:textColor="@color/black"
-                android:textColorHint="@color/grey_dark"
-                android:textSize="@dimen/input_text_size"
-                android:inputType="number"
-                android:layout_below="@id/inputEnd"
-                android:layout_marginTop="@dimen/input_margin"
-                />
+        <EditText
+            android:id="@+id/inputDate"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/inputBreak"
+            android:layout_marginTop="@dimen/input_margin"
+            android:background="@drawable/et_rounded_corners"
+            android:drawableLeft="@drawable/calendar_icon"
+            android:drawablePadding="@dimen/drawable_padding"
+            android:hint="ÅÅMMDD"
+            android:inputType="time"
+            android:padding="@dimen/input_text_padding_icon"
+            android:textColor="@color/black"
+            android:textColorHint="@color/grey_dark"
+            android:textSize="@dimen/input_text_size" />
 
-            <EditText
-                android:id="@+id/inputDate"
-                android:layout_width="match_parent"
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/inputDate"
+            android:layout_marginTop="@dimen/input_margin"
+            android:background="@drawable/et_rounded_corners">
+
+            <ImageView
+                android:id="@+id/scroll_icon"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@drawable/et_rounded_corners"
-                android:drawableLeft="@drawable/calendar_icon"
-                android:drawablePadding="@dimen/drawable_padding"
-                android:padding="@dimen/input_text_padding_icon"
-                android:hint="ÅÅMMDD"
-                android:textColor="@color/black"
-                android:textColorHint="@color/grey_dark"
-                android:textSize="@dimen/input_text_size"
-                android:inputType="time"
-                android:layout_below="@id/inputBreak"
-                android:layout_marginTop="@dimen/input_margin"
+                android:background="@drawable/scroll_icon"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="5dp"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
                 />
 
             <Spinner
                 android:id="@+id/jobSpinner"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@drawable/et_rounded_corners"
-                android:padding="10dp"
-                android:textColor="@color/black"
                 android:textColorHint="@color/grey_dark"
-                android:layout_below="@+id/inputDate"
-                android:layout_marginTop="@dimen/input_margin"
+                android:background="@color/invisible"
+                android:layout_toRightOf="@+id/scroll_icon"
+                android:layout_alignParentRight="true"
                 />
-
         </RelativeLayout>
 
+
+    </RelativeLayout>
+
     <View
+        android:id="@+id/footer_line"
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:id="@+id/footer_line"
-        android:background="@color/white"
         android:layout_below="@+id/inputLayout"
-        />
+        android:background="@color/white" />
 
     <Button
-        android:id="@+id/btnAdd"
+        android:id="@+id/btnAddShift"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_below="@id/footer_line"
+        android:layout_margin="@dimen/addshift_fragment_padding"
         android:background="@drawable/btn_rounded_corners_blueish"
         android:padding="@dimen/btn_text_padding"
         android:text="Lägg till"
         android:textColor="@color/btn_text_color"
         android:textSize="@dimen/btn_text_size"
-        android:layout_below="@id/footer_line"
-        android:layout_margin="@dimen/addshift_fragment_padding"
         />
 
-      <RelativeLayout
-          android:layout_width="match_parent"
-          android:layout_height="match_parent">
-      </RelativeLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"></RelativeLayout>
 
 </RelativeLayout>

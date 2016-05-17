@@ -40,5 +40,6 @@
     <color name="green_soft">#71B238</color>
     <color name="green_soft_trans">#9071B238</color>
     <color name="iconblue">#4b97cb</color>
+    <color name="invisible">#00000000</color>
 
 </resources>

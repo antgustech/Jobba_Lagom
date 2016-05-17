@@ -6,7 +6,6 @@ import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ProgressBar;
@@ -27,6 +26,7 @@ import com.example.i7.jobbalagom.fragments.SetupFragment;
 import com.example.i7.jobbalagom.local.Controller;
 import com.example.i7.jobbalagom.local.Singleton;
 import com.getbase.floatingactionbutton.FloatingActionButton;
+import com.getbase.floatingactionbutton.FloatingActionsMenu;
 
 /**
  * Created by Kajsa on 2016-05-09.
@@ -42,6 +42,7 @@ public class MainActivity extends Activity {
     private FragmentTransaction fragmentTransaction;
     private FragmentManager fragmentManager;
 
+    private FloatingActionsMenu floatingMenu;
     private FloatingActionButton btnAddShift, btnAddExpense, btnAddJob;
     private ImageButton btnSettings, btnBudget;
     private TextView tvCSN, tvIncome, tvExpense, tvBalance;
@@ -72,6 +73,7 @@ public class MainActivity extends Activity {
         btnBudget = (ImageButton) findViewById(R.id.btnBudget);
         btnSettings.setOnClickListener(new SettingsButtonListener());
         btnBudget.setOnClickListener(new BudgetButtonListener());
+        floatingMenu = (FloatingActionsMenu) findViewById(R.id.floatingMenu);
         tvCSN = (TextView) findViewById(R.id.tvCSN);
         tvIncome = (TextView) findViewById(R.id.tvIncome);
         tvExpense = (TextView) findViewById(R.id.tvExpense);
@@ -87,9 +89,13 @@ public class MainActivity extends Activity {
             super.onBackPressed();
         } else if(currentFragment instanceof SetupFragment) {
             startLaunchFragment();
-        } else if(currentFragment instanceof AddJobFragment) {
+        }
+        /**
+        else if(currentFragment instanceof AddJobFragment) {
             startAddShiftFragment();
-        } else {
+        }
+         **/
+        else {
             removeFragment(currentFragment);
         }
     }
@@ -109,21 +115,16 @@ public class MainActivity extends Activity {
      */
 
     public void updatePBcsn(float income) {
-        Log.d("MainActivity", "CSN progressbar before update: " + pbCSN.getProgress());
-
         int increase = (int)(income / csnIncomeLimit *100);
         int total = pbCSN.getProgress() + increase;
         pbCSN.setProgress(total);
-
         float totalIncome = controller.getTotalIncome();
         float left = csnIncomeLimit - totalIncome;
-
         if(left < 0) {
             tvCSN.setText("Du har överskridit det av CSN erhållna fribeloppet med " + (int)left*-1 + " kr");
         } else {
             tvCSN.setText("Du kan tjäna " + (int)left + " kr innan det av CSN erhållna fribeloppet passeras");
         }
-        Log.d("MainActivity", "CSN progressbar after update: " + pbCSN.getProgress());
     }
 
     /**
@@ -149,10 +150,6 @@ public class MainActivity extends Activity {
     }
 
     public void expandProgressBar(ProgressBar pb, int totalProgress) {
-
-        Log.d("MainActivity", "Expense progressbar before update, max value: " + pbExpense.getMax() + ", progress:" + pbExpense.getProgress());
-        Log.d("MainActivity", "Income progressbar before update, max value: " + pbIncome.getMax() + ", progress:" + pbIncome.getProgress());
-
         if(totalProgress > pbMaxProgress) {
             pbMaxProgress = totalProgress;
             pbIncome.setMax(pbMaxProgress);
@@ -163,7 +160,6 @@ public class MainActivity extends Activity {
         float thisMonthsIncome = controller.getThisMonthsIncome();
         float thisMonthsExpenses = controller.getThisMonthsExpenses();
         float balance = thisMonthsIncome-thisMonthsExpenses;
-
         tvIncome.setText("Inkomst " + (int)thisMonthsIncome + ":-");
         tvExpense.setText("Utgifter " + (int)thisMonthsExpenses + ":-");
         tvBalance.setText((int)balance + "");
@@ -174,10 +170,6 @@ public class MainActivity extends Activity {
             tvBalance.setTextColor(Color.parseColor("#71B238"));
         }
         **/
-
-        Log.d("MainActivity", "Expense progressbar after update, max value: " + pbExpense.getMax() + ", progress: " + pbExpense.getProgress());
-        Log.d("MainActivity", "Income progressbar after update, max value: " + pbIncome.getMax() + ", progress: " + pbIncome.getProgress());
-
     }
 
     /**
@@ -259,6 +251,7 @@ public class MainActivity extends Activity {
     private class AddButtonListener implements View.OnClickListener {
         @Override
         public void onClick(View v) {
+            floatingMenu.collapse();
             if (v.getId() == R.id.action_addShift) {
                 startAddShiftFragment();
             } else if (v.getId() == R.id.action_addExpense) {
@@ -323,9 +316,6 @@ public class MainActivity extends Activity {
             updatePBincome(income);
             updatePBcsn(income);
         }
-        public void showAddJobFragment() {
-
-        }
     }
 
     /**
@@ -340,5 +330,4 @@ public class MainActivity extends Activity {
             updatePBexpense(amount);
         }
     }
-
 }
