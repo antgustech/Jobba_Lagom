@@ -202,11 +202,11 @@ public class Controller  {
      * @return
      */
 
-    public float getTotalIncome() {
+    public float getHalfYearIncome() {
         sqLiteDatabase = dbHelper.getReadableDatabase();
-        float totalIncome = dbHelper.getTotalIncome(sqLiteDatabase);
+        float halfYearIncome = dbHelper.getHalfYearIncome(sqLiteDatabase);
         dbHelper.close();
-        return totalIncome;
+        return halfYearIncome;
     }
 
     public float getThisMonthsIncome() {

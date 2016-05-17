@@ -52,7 +52,7 @@ public class MainActivity extends Activity {
     private ProgressBar pbCSN, pbIncome, pbExpense;
 
     private float monthlyIncomeLimit, csnIncomeLimit;
-    private int pbMaxProgress, month;
+    private int pbMaxProgress;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -106,10 +106,10 @@ public class MainActivity extends Activity {
     }
 
     public void loadProgressBars() {
-        monthlyIncomeLimit = controller.getIncomeLimit()/6;         // --> 100 % av income och expense progress bar
-        csnIncomeLimit = controller.getIncomeLimit();               // --> 100 % av csn progress bar
+        monthlyIncomeLimit = controller.getIncomeLimit()/6;    // --> 100 % av income och expense progress bar
+        csnIncomeLimit = controller.getIncomeLimit();          // --> 100 % av csn progress bar
         pbMaxProgress = 100;
-        updatePBcsn(controller.getTotalIncome());              // --> csn progress bar fills up with total income, should only be this 1/2 year
+        updatePBcsn(controller.getHalfYearIncome());
         updatePBincome(controller.getThisMonthsIncome());      // --> income progress bar fills up with this months income
         updatePBexpense(controller.getThisMonthsExpenses());   // --> expense progress bar fills up with this months expenses
     }
@@ -123,7 +123,7 @@ public class MainActivity extends Activity {
         int increase = (int)(income / csnIncomeLimit *100);
         int total = pbCSN.getProgress() + increase;
         pbCSN.setProgress(total);
-        float totalIncome = controller.getTotalIncome();
+        float totalIncome = controller.getHalfYearIncome();
         float left = csnIncomeLimit - totalIncome;
         if(left < 0) {
             tvCSN.setText("Du har överskridit det av CSN erhållna fribeloppet med " + (int)left*-1 + " kr");
@@ -317,10 +317,15 @@ public class MainActivity extends Activity {
 
     private class AddShiftFragmentListener implements AddShiftFragmentCallback {
         public void addShift(String jobTitle, float startTime, float endTime, float hoursWorked, int year, int month, int day) {
-            float income = controller.addShift(jobTitle, startTime, endTime, hoursWorked, year, month, year);
-            if(month == Calendar.getInstance().get(Calendar.MONTH) + 1) {
+            float income = controller.addShift(jobTitle, startTime, endTime, hoursWorked, year, month, day);
+
+            int currentMonth = Calendar.getInstance().get(Calendar.MONTH) + 1;
+            if(month == currentMonth) {
                 updatePBincome(income);
-            } updatePBcsn(income);
+            }
+            if( (currentMonth <= 6 && month <= 6) || (currentMonth > 6 && month > 6) ) {
+                updatePBcsn(income);
+            }
         }
     }
 

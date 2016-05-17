@@ -202,20 +202,30 @@ public class DBHelper extends SQLiteOpenHelper {
         return totalExpense;
     }
 
-    public float getTotalIncome(SQLiteDatabase db) {
-        float totalIncome = 0;
-        Cursor c = db.rawQuery("SELECT SUM(" + UserContract.Shift.SHIFT_INCOME + ") FROM " + UserContract.Shift.TABLE_NAME + ";", null);
-        if(c.moveToFirst()) {
-            totalIncome = c.getFloat(0);
+    public float getHalfYearIncome(SQLiteDatabase db) {
+        float halfYearIncome = 0;
+        int currentMonth = Calendar.getInstance().get(Calendar.MONTH) + 1;
+        //int currentMonth = 7;           // for testing different months
+
+        Cursor c;
+        if(currentMonth <= 6) {
+            c = db.rawQuery("SELECT SUM(" + UserContract.Shift.SHIFT_INCOME + ") FROM " + UserContract.Shift.TABLE_NAME
+                    + " WHERE " + UserContract.Shift.SHIFT_MONTH + " >= 1 AND " + UserContract.Shift.SHIFT_MONTH + " <= 6;", null);
+        } else {
+            c = db.rawQuery("SELECT SUM(" + UserContract.Shift.SHIFT_INCOME + ") FROM " + UserContract.Shift.TABLE_NAME
+                    + " WHERE " + UserContract.Shift.SHIFT_MONTH + " >= 7 AND " + UserContract.Shift.SHIFT_MONTH + " <= 12;", null);
         }
-        Log.e("Internal DB", "Getting total income totalIncome from database: " + totalIncome);
-        return totalIncome;
+        if(c.moveToFirst()) {
+            halfYearIncome = c.getFloat(0);
+        }
+        Log.e("Internal DB", "Getting total income halfYearIncome from database: " + halfYearIncome);
+        return halfYearIncome;
     }
 
     public float getThisMonthsIncome(SQLiteDatabase db) {
         float thisMonthsIncome = 0;
         int currentMonth = Calendar.getInstance().get(Calendar.MONTH) + 1;
-        //int currentMonth = 10;                  // for testing different months
+        //int currentMonth = 7;                  // for testing different months
 
         Cursor c = db.rawQuery("SELECT SUM(" + UserContract.Shift.SHIFT_INCOME + ") FROM " + UserContract.Shift.TABLE_NAME
                                 + " WHERE " + UserContract.Shift.SHIFT_MONTH + " = '" + currentMonth + "';", null);
@@ -229,7 +239,7 @@ public class DBHelper extends SQLiteOpenHelper {
     public float getThisMonthsExpenses(SQLiteDatabase db) {
         float thisMonthsExpenses = 0;
         int currentMonth = Calendar.getInstance().get(Calendar.MONTH) + 1;
-        //int currentMonth = 10;                  // for testing different months
+        //int currentMonth = 7;                  // for testing different months
 
         Cursor c = db.rawQuery("SELECT SUM(" + UserContract.Expense.EXPENSE_AMOUNT + ") FROM " + UserContract.Expense.TABLE_NAME
                 + " WHERE " + UserContract.Expense.EXPENSE_MONTH + " = '" + currentMonth + "';", null);
