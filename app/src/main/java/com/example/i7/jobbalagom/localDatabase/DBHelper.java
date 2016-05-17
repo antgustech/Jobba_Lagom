@@ -233,9 +233,9 @@ public class DBHelper extends SQLiteOpenHelper {
         float incomeLimit = 0;
         Cursor c = db.rawQuery("SELECT " + UserContract.User.USER_INCOME_LIMIT + " FROM " + UserContract.User.TABLE_NAME + ";", null);
         if(c.moveToFirst()) {
-            incomeLimit = c.getFloat(c.getColumnIndex(UserContract.User.USER_INCOME_LIMIT));
+            incomeLimit = c.getFloat(0);
         }
-        Log.e("Internal DB", "Getting income limit sum from database");
+        Log.e("Internal DB", "Getting income limit sum from database " + incomeLimit );
         return incomeLimit;
     }
 
@@ -350,7 +350,7 @@ public class DBHelper extends SQLiteOpenHelper {
     }
     */
     public void setIncomeLimit(float limit, SQLiteDatabase db){
-        db.execSQL("UPDATE " + UserContract.User.TABLE_NAME + " SET " + UserContract.User.USER_INCOME_LIMIT + "='"+ limit + "';");
+        db.execSQL("UPDATE " + UserContract.User.TABLE_NAME + " SET " + UserContract.User.USER_INCOME_LIMIT + "='"+ String.valueOf(limit) + "';");
         Log.e("Internal DB", "Setting income limit in db");
     }
 

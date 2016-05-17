@@ -49,6 +49,7 @@ public class ChangeIncomeLimitFragment extends Fragment {
                 if(newLimit >0f && newLimit<100000f) {
                     callback.setIncomeLimit(newLimit);
                     setTextEditTax();
+                    Toast.makeText(getActivity(), "Fribeloppet ändrat", Toast.LENGTH_LONG).show();
                 }
                 else{
                     Toast.makeText(getActivity(), "Fribeloppet måste vara mellan 0-100 000kr.", Toast.LENGTH_LONG).show();

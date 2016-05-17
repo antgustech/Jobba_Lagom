@@ -18,7 +18,7 @@ import java.util.Calendar;
 
 public class Controller  {
 
-    private final String IP = "192.168.0.194";          //ÄNDRA IP VID TESTNING!!!!!! // Kajsa 192.168.0.10
+    private final String IP = "192.168.1.136";          //ÄNDRA IP VID TESTNING!!!!!! // Kajsa 192.168.0.10
     private final int PORT = 4545;
 
     private Client client;

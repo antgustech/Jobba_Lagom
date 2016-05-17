@@ -53,7 +53,8 @@
         android:id="@+id/newIncomeLimitField"
         android:layout_below="@+id/textView7"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="34dp" />
+        android:layout_marginTop="34dp"
+        android:inputType="number"/>
 
     <ImageButton
         android:layout_width="wrap_content"
