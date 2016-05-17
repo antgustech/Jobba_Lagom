@@ -42,7 +42,7 @@ public class Calculator {
         obEnd = controller.getOBEnd();
     }
 
-    //TODO May need a overlook
+    //TODO May need an overlook
     public void calculateGraphData(){
         res = (((endTime-startTime) * pay) * (1-tax));
         Log.e("Calc", "RES:" + res);

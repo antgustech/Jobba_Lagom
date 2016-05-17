@@ -50,7 +50,7 @@ public class ChangeTaxFragment extends Fragment {
         controller  = Singleton.controller;
 
       //  setupChooseTax();
-      //  setupCalculateTax();
+        setupCalculateTax();
         setupKommunView(view);
 
     }
