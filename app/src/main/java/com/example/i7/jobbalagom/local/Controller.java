@@ -111,7 +111,7 @@ public class Controller  {
      * Adds shift to db
      */
 
-    public float addShift(String jobTitle, float startTime, float endTime, float hoursWorked, int year, int month, int day){
+    public float addShift(String jobTitle, float startTime, float endTime, float hoursWorked, int year, int month, int day, int breakMinutes){
         float wage = getWage(jobTitle);
         float income = wage*hoursWorked;
        // float income = calculator.calculateIncome();
@@ -121,7 +121,7 @@ public class Controller  {
         dbHelper.close();
 
         //Sets the income
-        calculateData(jobTitle, startTime, endTime, year, month, day );
+
 
         return income;
     }
@@ -312,38 +312,27 @@ public class Controller  {
 
     /**
      * When user have pressed addShift, the shift is added. Then this method should be called to update the total income.
-     * TODO Loop thorugh all obs and the day isn't quite right.
+     * TODO *Breaktime checking
      * @param jobTitle
      */
-    public void calculateData(String jobTitle, float startTime, float endTime, int year, int month, int day){
+    public float calculateData(String jobTitle, float startTime, float endTime, int year, int month, int day, int breakMinutes){
+        float obTime,workedPay,workedObPay = 0,realTax = 0f;
+        int calYear, dayOfWeek = 0;
+        String obDay ="";
 
         Calendar c = Calendar.getInstance();
-        c.set(year,month,day);
-        int dayOfWeek = c.get(Calendar.DAY_OF_WEEK) ; //Sunday is day 1, saturday is day 7
-        String obDay ="";
-        switch (dayOfWeek) {
-            case 1:
-                obDay = "Söndag";
-                break;
-            case 2:
-                obDay = "Vardag";
-                break;
-            case 3:
-                obDay = "Vardag";
-                break;
-            case 4:
-                obDay = "Vardag";
-                break;
-            case 5:
-                obDay = "Vardag";
-                break;
-            case 6:
-                obDay = "Vardag";
-                break;
-            case 7:
-                obDay = "Lördag";
-                break;
+        calYear = c.get(Calendar.YEAR)/100*100+year;
+        c.set(calYear,month-1,day);
+        dayOfWeek = c.get(Calendar.DAY_OF_WEEK) ; //Sunday is day 1, saturday is day 7
+
+        if(dayOfWeek>1 || dayOfWeek>7){
+            obDay ="Vardag";
+        }else if(dayOfWeek == 7){
+            obDay ="Lördag";
+        }else {
+            obDay ="Söndag";
         }
+
         wage = getWage(jobTitle);
         tax = getTax();
         obIndex = getOB(jobTitle, obDay);
@@ -354,16 +343,22 @@ public class Controller  {
         if(obIndex == 0){
             obIndex++;
         }
+        if(obStart<endTime){
+            if(endTime>obEnd){
+                workedObPay=((obEnd - obStart) * ((obIndex-1)*wage)) ;
+            }else if(endTime<obEnd){
+                workedObPay= ((endTime-obStart)* ((obIndex-1)*wage));
+            }
+        }
 
-        //float workedPay = ((endTime-startTime) * wage);
-        //float workedObPay=((obEnd-obStart) * (obIndex-1));
-        float workedPay = ((endTime-startTime) * wage);
-        float workedObPay=(((obEnd-obStart) * ((obIndex-1)*wage))) ;
-
-        float realTax=(1-tax);
+        workedPay = ((endTime-startTime) * wage);
+        realTax=(1-tax);
         res = ((workedPay + workedObPay) * realTax);
+
         Log.e("Calculation ", "Variables after calculation: wage: " + wage +" StartTime: " + startTime +" EndTime" + endTime +" tax " + tax + " obIndex " + obIndex + " obStart " + obStart + " obEnd " + obEnd +" day " + dayOfWeek);
         Log.e("Calculation ", "Result after calculation: " + res);
+
+        return res;
     }
 
 

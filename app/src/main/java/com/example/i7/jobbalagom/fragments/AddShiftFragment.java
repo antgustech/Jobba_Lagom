@@ -116,6 +116,7 @@ public class AddShiftFragment extends Fragment {
             int startMin = Integer.parseInt(start.substring(3));
             int endHour = Integer.parseInt(end.substring(0, 2));
             int endMin = Integer.parseInt(end.substring(3));
+            int breakMinutes = Integer.parseInt(breaktime);
 
             if (startHour > 23 || startMin > 59 || endHour > 23 || endMin > 59) {
                 addError("en giltig tid");
@@ -144,7 +145,7 @@ public class AddShiftFragment extends Fragment {
                 return;
             }
 
-            callback.addShift(jobTitle, startTime, endTime, hoursWorked, year, month, day);
+            callback.addShift(jobTitle, startTime, endTime, hoursWorked, year, month, day, breakMinutes);
             clearAll();
             Toast.makeText(getActivity(), "Arbetspasset har registrerats.", Toast.LENGTH_LONG).show();
 
