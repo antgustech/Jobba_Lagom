@@ -1,6 +1,7 @@
 package com.example.i7.jobbalagom.remote;
 
 import android.provider.ContactsContract;
+import android.util.Log;
 
 import com.example.i7.jobbalagom.callback_interfaces.MessageCallback;
 import com.example.i7.jobbalagom.local.Controller;
@@ -95,16 +96,27 @@ public class Client extends Thread {
      * Returns the related tax including church tax as a float
      */
 
-    public float getChurchTaxFromServer(String municipality){
-        float tax = 0f;
-        try {
-            dos.writeInt(2);
-            dos.flush();
-            dos.writeUTF(municipality);
-            tax = dis.readFloat();
-        } catch (IOException e) {
+    public float getChurchTaxFromServer(final String municipality){
+        tax = 0;
+        Thread thread = new Thread(new Runnable() {
+            public void run() {
+                try {
+                    dos.writeInt(2);
+                    dos.flush();
+                    dos.writeUTF(municipality);
+                    dos.flush();
+                    tax = dis.readFloat();
+                    Log.e("ThreadTag",tax + "");
+
+                } catch (IOException e) {}
+            }
+        });
+        thread.start();
+        while(tax == 0){
+            Log.e("ThreadTag","tax not changed");
         }
         return tax;
+
     }
 
     /**
@@ -112,7 +124,26 @@ public class Client extends Thread {
      */
 
     public float getTaxFromServer(final String municipality) {
-        return new TaxGetter(dos,dis,municipality).getTax();
+        tax = 0;
+        Thread thread = new Thread(new Runnable() {
+            public void run() {
+                try {
+                    dos.writeInt(3);
+                    dos.flush();
+                    dos.writeUTF(municipality);
+                    dos.flush();
+                    tax = dis.readFloat();
+                    Log.e("ThreadTag",tax + "");
+
+                } catch (IOException e) {}
+            }
+            });
+        thread.start();
+        while(tax == 0){
+            Log.e("ThreadTag","tax not changed");
+        }
+        return tax;
+
     }
 
     private class TaxGetter extends Thread {
