@@ -130,9 +130,9 @@ public class Controller  {
      * Adds expense to db
      */
 
-    public void addExpense(String name, Float sum, int date){
+    public void addExpense(String name, float sum, int year, int month, int day) {
         sqLiteDatabase = dbHelper.getWritableDatabase();
-        dbHelper.addExpense(name, sum, date, sqLiteDatabase);
+        dbHelper.addExpense(name, sum, year, month, day, sqLiteDatabase);
         dbHelper.close();
     }
 

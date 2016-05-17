@@ -38,7 +38,9 @@ public class UserContract {
         public static final String EXPENSE_ID = "expenseID";
         public static final String EXPENSE_NAME = "name";
         public static final String EXPENSE_AMOUNT = "amount";
-        public static final String EXPENSE_DATE = "date";
+        public static final String EXPENSE_YEAR = "year";
+        public static final String EXPENSE_MONTH = "month";
+        public static final String EXPENSE_DAY = "day";
     }
 
     public static abstract class OB {

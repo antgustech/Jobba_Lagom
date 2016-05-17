@@ -55,13 +55,15 @@ public class AddExpenseFragment extends Fragment {
             String title = inputTitle.getText().toString();
             String amount = inputAmount.getText().toString();
             String date = inputDate.getText().toString();
+            int year = Integer.parseInt(date.substring(0, 2));        // --> need more input validation on these numbers
+            int month = Integer.parseInt(date.substring(2, 4));
+            int day = Integer.parseInt(date.substring(4));
 
-
-            try{      float amountF = Float.parseFloat(inputAmount.getText().toString());
-            }catch(NumberFormatException e){
+            try {
+                float amountF = Float.parseFloat(inputAmount.getText().toString());
+            } catch(NumberFormatException e){
                 Toast.makeText(getActivity(), "Ogiltlig summa", Toast.LENGTH_LONG).show();
             }
-
 
             if(title.equals("")) {
                 emptyInputMsg = "Vänta lite, du glömde fylla i utgiftstitle.";
@@ -72,21 +74,15 @@ public class AddExpenseFragment extends Fragment {
             if(title.equals("")) {
                 emptyInputMsg = "Vänta lite, du glömde fylla i datumet.";
             }
-
             if(emptyInputMsg != null) {
                 Toast.makeText(getActivity(), emptyInputMsg, Toast.LENGTH_LONG).show();
                 return;
             }
-
-
             if(date.length() != 6){
                 Toast.makeText(getActivity(), "Du måste ange datum på formatet DDMMÅÅ", Toast.LENGTH_LONG).show();
                 return;
             }
-
-
-
-            callback.addExpense(inputTitle.toString(), Float.parseFloat(inputAmount.getText().toString()),  Integer.parseInt(inputDate.getText().toString()));
+            callback.addExpense(title, Float.parseFloat(amount), year, month, day);
         }
     }
 }

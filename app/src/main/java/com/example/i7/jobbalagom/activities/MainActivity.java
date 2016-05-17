@@ -29,6 +29,8 @@ import com.example.i7.jobbalagom.local.Singleton;
 import com.getbase.floatingactionbutton.FloatingActionButton;
 import com.getbase.floatingactionbutton.FloatingActionsMenu;
 
+import java.util.Calendar;
+
 /**
  * Created by Kajsa on 2016-05-09.
  */
@@ -50,7 +52,7 @@ public class MainActivity extends Activity {
     private ProgressBar pbCSN, pbIncome, pbExpense;
 
     private float monthlyIncomeLimit, csnIncomeLimit;
-    private int pbMaxProgress;
+    private int pbMaxProgress, month;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,15 +61,7 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         initComponents();
-
-        //boolean isCreated = controller.isUserCreated();
-        //Log.d("MainActivity", "User created: " + isCreated);
-
-        if(!controller.isUserCreated()) {
-            startLaunchFragment();
-        } else {
-            loadProgressBars();
-        }
+        userCheck();
     }
 
     public void initComponents() {
@@ -93,18 +87,20 @@ public class MainActivity extends Activity {
         fragmentManager = getFragmentManager();
     }
 
+    public void userCheck() {
+        if(!controller.isUserCreated()) {
+            startLaunchFragment();
+        } else {
+            loadProgressBars();
+        }
+    }
+
     public void onBackPressed() {
         if(currentFragment == null || currentFragment instanceof LaunchFragment) {
             super.onBackPressed();
         } else if(currentFragment instanceof SetupFragment) {
             startLaunchFragment();
-        }
-        /**
-        else if(currentFragment instanceof AddJobFragment) {
-            startAddShiftFragment();
-        }
-         **/
-        else {
+        } else {
             removeFragment(currentFragment);
         }
     }
@@ -322,8 +318,9 @@ public class MainActivity extends Activity {
     private class AddShiftFragmentListener implements AddShiftFragmentCallback {
         public void addShift(String jobTitle, float startTime, float endTime, float hoursWorked, int year, int month, int day) {
             float income = controller.addShift(jobTitle, startTime, endTime, hoursWorked, year, month, year);
-            updatePBincome(income);
-            updatePBcsn(income);
+            if(month == Calendar.getInstance().get(Calendar.MONTH) + 1) {
+                updatePBincome(income);
+            } updatePBcsn(income);
         }
     }
 
@@ -332,11 +329,11 @@ public class MainActivity extends Activity {
      */
 
     private class AddExpenseListener implements AddExpenseFragmentCallback {
-        public void addExpense(String title, Float amount, int date) {
-            removeFragment(currentFragment);
-            controller.addExpense(title,amount,date);
-            Toast.makeText(getBaseContext(), "Utgift tillagd", Toast.LENGTH_LONG).show();
-            updatePBexpense(amount);
+        public void addExpense(String title, float amount, int year, int month, int day) {
+            controller.addExpense(title, amount, year, month, day);
+            if(month == Calendar.getInstance().get(Calendar.MONTH) + 1) {
+                updatePBexpense(amount);
+            }
         }
     }
 }

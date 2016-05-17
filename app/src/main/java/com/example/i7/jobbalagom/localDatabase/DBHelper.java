@@ -8,6 +8,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 
 /**
  * Created by Strandberg95 on 2016-05-01.
@@ -49,7 +50,9 @@ public class DBHelper extends SQLiteOpenHelper {
                     + "( " +UserContract.Expense.EXPENSE_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
                     + UserContract.Expense.EXPENSE_NAME + " TEXT, "
                     + UserContract.Expense.EXPENSE_AMOUNT + " FLOAT, "
-                    + UserContract.Expense.EXPENSE_DATE + " INTEGER); ";
+                    + UserContract.Expense.EXPENSE_YEAR + " INTEGER, "
+                    + UserContract.Expense.EXPENSE_MONTH + " INTEGER, "
+                    + UserContract.Expense.EXPENSE_DAY + " INTEGER);";
 
     private static final String CREATE_OB_QUERY =
             "CREATE TABLE " + UserContract.OB.TABLE_NAME
@@ -147,13 +150,15 @@ public class DBHelper extends SQLiteOpenHelper {
      * Adds an expense to expense table.
      */
 
-    public void addExpense(String name, float sum, int date, SQLiteDatabase db ){
+    public void addExpense(String name, float sum, int year, int month, int day, SQLiteDatabase db ){
         ContentValues contentValues = new ContentValues();
         contentValues.put(UserContract.Expense.EXPENSE_NAME,name);
         contentValues.put(UserContract.Expense.EXPENSE_AMOUNT,sum);
-        contentValues.put(UserContract.Expense.EXPENSE_DATE, date);
+        contentValues.put(UserContract.Expense.EXPENSE_YEAR, year);
+        contentValues.put(UserContract.Expense.EXPENSE_MONTH, month);
+        contentValues.put(UserContract.Expense.EXPENSE_DAY, day);
         db.insert(UserContract.Expense.TABLE_NAME, null, contentValues);
-        Log.e("Internal DB", "New expense: " + date + ", " + name + ", " + sum + " kr");
+        Log.e("Internal DB", "New expense: " + year + "" + month + "" + day + ", " + name + ", " + sum + " kr");
     }
 
     public void addOB(String jobTitle, String day, String fromTime, String toTime, Float obIndex, SQLiteDatabase db) {
@@ -209,23 +214,29 @@ public class DBHelper extends SQLiteOpenHelper {
 
     public float getThisMonthsIncome(SQLiteDatabase db) {
         float thisMonthsIncome = 0;
-        Cursor c = db.rawQuery("SELECT SUM(" + UserContract.Shift.SHIFT_INCOME + ") FROM " + UserContract.Shift.TABLE_NAME + ";", null);
-        //SELECT SUM( shift_income ) FROM shift WHERE month .... bla bla
+        int currentMonth = Calendar.getInstance().get(Calendar.MONTH) + 1;
+        //int currentMonth = 10;                  // for testing different months
+
+        Cursor c = db.rawQuery("SELECT SUM(" + UserContract.Shift.SHIFT_INCOME + ") FROM " + UserContract.Shift.TABLE_NAME
+                                + " WHERE " + UserContract.Shift.SHIFT_MONTH + " = '" + currentMonth + "';", null);
         if(c.moveToFirst()) {
             thisMonthsIncome = c.getFloat(0);
         }
-        Log.e("Internal DB", "Getting this months income from database: " + thisMonthsIncome);
+        Log.e("Internal DB", "Getting this months (" + currentMonth + ") income from database: " + thisMonthsIncome);
         return thisMonthsIncome;
     }
 
     public float getThisMonthsExpenses(SQLiteDatabase db) {
         float thisMonthsExpenses = 0;
-        Cursor c = db.rawQuery("SELECT SUM(" + UserContract.Expense.EXPENSE_AMOUNT + ") FROM " + UserContract.Expense.TABLE_NAME + ";", null);
-        //SELECT SUM( expenses_amount ) FROM expenses WHERE month ... bla bla
+        int currentMonth = Calendar.getInstance().get(Calendar.MONTH) + 1;
+        //int currentMonth = 10;                  // for testing different months
+
+        Cursor c = db.rawQuery("SELECT SUM(" + UserContract.Expense.EXPENSE_AMOUNT + ") FROM " + UserContract.Expense.TABLE_NAME
+                + " WHERE " + UserContract.Expense.EXPENSE_MONTH + " = '" + currentMonth + "';", null);
         if(c.moveToFirst()) {
             thisMonthsExpenses = c.getFloat(0);
         }
-        Log.e("Internal DB", "Getting this months expenses from database: " + thisMonthsExpenses);
+        Log.e("Internal DB", "Getting this months (" + currentMonth + ") expenses from database: " + thisMonthsExpenses);
         return thisMonthsExpenses;
     }
 
