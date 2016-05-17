@@ -317,18 +317,19 @@ public class MainActivity extends Activity {
 
     private class AddShiftFragmentListener implements AddShiftFragmentCallback {
         public void addShift(String jobTitle, float startTime, float endTime, float hoursWorked, int year, int month, int day, int breakMinutes) {
-            float income = controller.addShift(jobTitle, startTime, endTime, hoursWorked, year, month, day, breakMinutes);
-            float calculateIncome = controller.calculateData(jobTitle, startTime, endTime, year, month, day, breakMinutes );
+            controller.addShift(jobTitle, startTime, endTime, hoursWorked, year, month, day, breakMinutes);
 
+            float income = controller.calculateData(jobTitle, startTime, endTime, year, month, day, breakMinutes );
             int currentMonth = Calendar.getInstance().get(Calendar.MONTH) + 1;
-            if(month == currentMonth) {
-                updatePBincome(calculateIncome);
+            int currentYear = Calendar.getInstance().get(Calendar.YEAR)%100;
+
+            if(month == currentMonth && year == currentYear) {
+                updatePBincome(income);
             }
-            if( (currentMonth <= 6 && month <= 6) || (currentMonth > 6 && month > 6) ) {
-                updatePBcsn(calculateIncome);
+            if( ((currentMonth <= 6 && month <= 6) || (currentMonth > 6 && month > 6)) && year == currentYear) {
+                updatePBcsn(income);
             }
         }
-
     }
 
     /**
