@@ -298,6 +298,8 @@ public class MainActivity extends Activity {
             } else if(choice.equals("btnNew")) {
                     startSetupFragment();
             } else if(choice.equals("btnKey")) {
+                //TODO REMOVE THIS CALL WHEN APP IS FINISHED!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+               removeFragment(currentFragment);
                 Log.d("MainActivity", "Key button pressed");
             } else if(choice.equals("btnInfo")) {
                 Log.d("MainActivity", "Info button pressed");
