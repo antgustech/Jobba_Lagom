@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.Toast;
 
 import com.example.i7.jobbalagom.R;
 import com.example.i7.jobbalagom.callback_interfaces.LaunchFragmentCallback;
@@ -52,7 +53,12 @@ public class LaunchFragment extends Fragment {
             if(v.getId() == R.id.btnLogo) {
                 callback.navigate("btnLogo");
             } else if(v.getId() == R.id.btnNew) {
-                callback.navigate("btnNew");
+                if(callback.checkConnection()){
+                    callback.navigate("btnNew");
+                }
+                Toast.makeText(getActivity(), "Appen saknar anslutning till servern.", Toast.LENGTH_LONG).show();
+
+
             } else if(v.getId() == R.id.btnKey) {
                 callback.navigate("btnKey");
             } else if(v.getId() == R.id.btnInfo) {
@@ -60,4 +66,5 @@ public class LaunchFragment extends Fragment {
             }
         }
     }
+
 }

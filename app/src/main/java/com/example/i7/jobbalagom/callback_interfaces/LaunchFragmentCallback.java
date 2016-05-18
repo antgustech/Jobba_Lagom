@@ -5,4 +5,5 @@ package com.example.i7.jobbalagom.callback_interfaces;
  */
 public interface LaunchFragmentCallback {
     public void navigate(String choice);
+    public boolean checkConnection();
 }

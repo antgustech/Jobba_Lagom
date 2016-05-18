@@ -64,7 +64,7 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         initComponents();
-        //userCheck();
+        userCheck();
     }
 
     public void initComponents() {
@@ -298,6 +298,19 @@ public class MainActivity extends Activity {
                 //startActivity(new Intent(getApplicationContext(), AboutActivity.class));
             }
         }
+
+        @Override
+        public boolean checkConnection() {
+        boolean connection = false;
+
+            if(controller.checkConnection()){
+                connection = true;
+            }
+
+            return connection;
+        }
+
+
     }
 
     /**

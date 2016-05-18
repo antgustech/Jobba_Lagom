@@ -1,6 +1,5 @@
 package com.example.i7.jobbalagom.remote;
 
-import android.provider.ContactsContract;
 import android.util.Log;
 
 import com.example.i7.jobbalagom.callback_interfaces.MessageCallback;
@@ -47,6 +46,11 @@ public class Client extends Thread {
         }
     }
 
+    public boolean checkConnection(){
+
+        return connected;
+    }
+
     public void closeConnection(){
         try {
             connected = false;
@@ -62,6 +66,7 @@ public class Client extends Thread {
             dos = new DataOutputStream(new BufferedOutputStream(socket.getOutputStream()));
             ois = new ObjectInputStream((socket.getInputStream()));
             municipalities = getMunicipalitiesFromServer();
+            connected = true;
         } catch (IOException e) {}
     }
 

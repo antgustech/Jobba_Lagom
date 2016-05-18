@@ -60,6 +60,8 @@ public class Controller  {
         }
     }
 
+
+
     /**
      *-------------- EXTERNAL DATABASE METHODS, COMMUNICATION GOES THROUGH CLIENT -----------------------
      */
@@ -74,6 +76,10 @@ public class Controller  {
 
     public float getTax(String municipality){
         return client.getTaxFromServer(municipality);
+    }
+
+    public boolean checkConnection(){
+        return client.checkConnection();
     }
 
 
