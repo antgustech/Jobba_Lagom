@@ -180,6 +180,8 @@ public class AddJobFragment extends Fragment {
 
 
 
+
+
             int id2 = rgType.getCheckedRadioButtonId();
             RadioButton rb2 = (RadioButton) rgType.findViewById(id2);
             String type = rb2.getText().toString();
@@ -194,6 +196,8 @@ public class AddJobFragment extends Fragment {
                     + " till " + toTime, Toast.LENGTH_LONG).show();
         }
 
+
+
         public void addError(String error) {
             if(emptyInputMsg.charAt(emptyInputMsg.length()-1) == 'i') {
                 emptyInputMsg = emptyInputMsg + " " + error;
@@ -201,6 +205,8 @@ public class AddJobFragment extends Fragment {
                 emptyInputMsg = emptyInputMsg + ", " + error;
             }
         }
+
+
     }
 
     /**
@@ -287,7 +293,10 @@ public class AddJobFragment extends Fragment {
                     }
                 }
                 */
+
+
                 callback.addOB(jobTitle, day, fromTime, toTime, obIndex);
+
 
 
 
