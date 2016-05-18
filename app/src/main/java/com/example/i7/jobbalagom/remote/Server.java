@@ -1,4 +1,4 @@
-package com.example.i7.jobbalagom.remote;
+package server;
 /*
  * Created by Anton 15-04-16
  */
@@ -13,7 +13,11 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+
+import com.mysql.jdbc.Statement;
 
 
 public class Server extends Thread {
@@ -83,26 +87,39 @@ public class Server extends Thread {
                     int intOperation = dis.readInt();
                     System.out.println(intOperation + " Operation");
                     switch (intOperation) {
+                    
+                    	case 0:
+                    		dos.writeInt(1);
+                    		System.out.println("Server pinged");
+                    		dos.flush();
+                    		break;
 
                         case 1://getKommun
-                           // oos.writeObject(getKommun());
+                            oos.writeObject(getKommun());
+                            oos.flush();
                             break;
 
                         case 2://getChurchTax
-                        //    dos.writeFloat(getChurchTax(dis.readUTF()));
+                        	String kommun = dis.readUTF();
+                        	float tax = getChurchTax(kommun);
+                            dos.writeFloat(tax);
+                            dos.flush();
                             break;
 
                         case 3://getTax
-                          //  dos.writeFloat(getTax(dis.readUTF()));
+                            dos.writeFloat(getTax(dis.readUTF()));
+                            dos.flush();
+                            System.out.println("Tax Sent to Client");
+                            
                             break;
                     }
                 } catch (IOException e) {
                     System.out.println("[ERROR] File error");
                     //connected=false;
                 }
-               // catch (SQLException e) {
-                //    System.out.println("[ERROR] Network error");
-              //  }
+                catch (SQLException e) {
+                    System.out.println("[ERROR] Network error");
+                }
             }
         }
     }
@@ -113,7 +130,7 @@ public class Server extends Thread {
     private void connectDB() {
         try {
             Class.forName("com.mysql.jdbc.Driver");
-            dbConnection = DriverManager.getConnection("jdbc:mysql://195.178.227.53:4040/ad8284", "ad8284", "hejsan55");
+            dbConnection = DriverManager.getConnection("jdbc:mysql://195.178.232.16:3306/ad8284", "ad8284", "hejsan55");
             System.out.println("Server connected to database");
         } catch (ClassNotFoundException e1) {
         } catch (SQLException e2) {
@@ -130,7 +147,7 @@ public class Server extends Thread {
     }
 
     //Read all kommun strings from table skatt16april and returns them in a list.
-   /* private ArrayList<String> getKommun() throws SQLException {
+   private ArrayList<String> getKommun() throws SQLException {
         String kommuner ="";
         try (Statement s = (Statement) dbConnection.createStatement()) {
             try (ResultSet rs = s.executeQuery("select distinct Kommun from skatt16april order by Kommun")) {
@@ -142,7 +159,7 @@ public class Server extends Thread {
             }
         }
     }
-    //Returns float of the average tax including churchTax from choosen kommyn.
+    //eturns float of the average tax including churchTax from choosen kommyn.
     private float getChurchTax(String choosenKommun) {
         float tax = 0f;
         try {
@@ -162,7 +179,7 @@ public class Server extends Thread {
         return tax;
     }
 
-    //Returns float of the average tax excluding churchTax from choosen kommyn.
+   // Returns float of the average tax excluding churchTax from choosen kommyn.
     private float getTax(String choosenKommun) {
         float tax = 0f;
         try {
@@ -182,7 +199,7 @@ public class Server extends Thread {
         return tax;
 
     }
-    */
+    
 }
 
 

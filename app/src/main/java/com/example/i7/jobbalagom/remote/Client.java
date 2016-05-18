@@ -1,6 +1,7 @@
 package com.example.i7.jobbalagom.remote;
 
 import android.util.Log;
+import android.widget.Toast;
 
 import com.example.i7.jobbalagom.callback_interfaces.MessageCallback;
 import com.example.i7.jobbalagom.local.Controller;
@@ -15,6 +16,8 @@ import java.io.ObjectInputStream;
 import java.net.Socket;
 import java.sql.Connection;
 import java.util.ArrayList;
+import java.util.Timer;
+import java.util.TimerTask;
 
 /**
  * Created by Anton Gustafsson on 2016-04-19.
@@ -41,9 +44,22 @@ public class Client extends Thread {
         this.host = host;
         this.port = port;
         this.messageCallback = messageCallback;
+        startPinger();
         if(!isAlive()) {
             start();
         }
+    }
+
+    public void startPinger(){
+        Log.e("PingTag","Starting pinger");
+        Timer timer = new Timer();
+        timer.scheduleAtFixedRate(new TimerTask() {
+            @Override
+            public void run() {
+                Log.e("PingTag","Pinger started");
+                new Pinger().start();
+            }
+        }, 0, 6000);
     }
 
     public boolean checkConnection(){
@@ -67,7 +83,9 @@ public class Client extends Thread {
             ois = new ObjectInputStream((socket.getInputStream()));
             municipalities = getMunicipalitiesFromServer();
             connected = true;
-        } catch (IOException e) {}
+        } catch (IOException e) {
+            connected = false;
+        }
     }
 
     public ArrayList<String> getMunicipalities() throws NullPointerException {
@@ -149,6 +167,53 @@ public class Client extends Thread {
         }
         return tax;
 
+    }
+
+    private class Pinger extends Thread {
+
+        private Socket newSocket;
+        private DataInputStream newDis;
+        private DataOutputStream newDos;
+        private ObjectInputStream newOis;
+
+        public void run(){
+            try {
+                Log.e("PingTag","Trying to connect");
+                newSocket = new Socket(host, port);
+                newDis = new DataInputStream(new BufferedInputStream(newSocket.getInputStream()));
+                newDos = new DataOutputStream(new BufferedOutputStream(newSocket.getOutputStream()));
+                newOis = new ObjectInputStream((newSocket.getInputStream()));
+
+                newDos.writeInt(0);
+                newDos.flush();
+
+                Log.e("PingTag","Server Pinged");
+
+                int answer = newDis.readInt();
+
+                Log.e("PingTag",answer + "");
+
+                if(municipalities == null){
+                    municipalities = getMunicipalitiesFromServer();
+                }
+
+                dis = newDis;
+                dos = newDos;
+                ois = newOis;
+                if(connected == false){
+                    connected = true;
+                   // Toast.makeText(null,"Now connected to server", Toast.LENGTH_SHORT);
+                    Log.e("PingTag", "new Connected!");
+
+                }
+
+
+            }catch(IOException e){
+                connected = false;
+                //Toast.makeText(null,"Server still down",Toast.LENGTH_SHORT);
+                Log.e("PingTag","Server still down");
+            }
+        }
     }
 
     private class TaxGetter extends Thread {

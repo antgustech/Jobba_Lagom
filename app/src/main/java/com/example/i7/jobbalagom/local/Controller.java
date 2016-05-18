@@ -20,7 +20,7 @@ public class Controller  {
     /**
      * -------ÄNDRA IP VID TESTNING-----------!
      */
-        private final String IP = "192.168.1.136"; // Kajsa 192.168.0.10
+        private final String IP = "192.168.0.141"; // Kajsa 192.168.0.10
     /**
      * ----------------------------------------!
      */
@@ -40,9 +40,6 @@ public class Controller  {
         dbHelper = new DBHelper(context);
         Singleton.setDBHelper(dbHelper);
     }
-
-
-
 
     private class MessageListener implements MessageCallback {
 
