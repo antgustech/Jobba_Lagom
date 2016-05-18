@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/grey"
+    android:clickable="true"
+    android:padding="30dp">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="En lista över alla inkomster och utgifter, svep till höger för att se nästa månad och till vänster för att se föregående månad. Här kan du ta bort och korrigera arbetspass och utgifter."
+        android:textSize="30dp"
+        android:textColor="@color/black"
+        android:textStyle="bold"
+        />
+
+</RelativeLayout>

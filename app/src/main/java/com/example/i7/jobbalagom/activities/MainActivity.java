@@ -11,18 +11,19 @@ import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.i7.jobbalagom.R;
 import com.example.i7.jobbalagom.callback_interfaces.AddExpenseFragmentCallback;
 import com.example.i7.jobbalagom.callback_interfaces.AddJobFragmentCallback;
 import com.example.i7.jobbalagom.callback_interfaces.AddShiftFragmentCallback;
+import com.example.i7.jobbalagom.callback_interfaces.BudgetFragmentCallback;
 import com.example.i7.jobbalagom.callback_interfaces.InitialFragmentCallback;
 import com.example.i7.jobbalagom.callback_interfaces.LaunchFragmentCallback;
 import com.example.i7.jobbalagom.callback_interfaces.SetupFragmentCallback;
 import com.example.i7.jobbalagom.fragments.AddExpenseFragment;
 import com.example.i7.jobbalagom.fragments.AddJobFragment;
 import com.example.i7.jobbalagom.fragments.AddShiftFragment;
+import com.example.i7.jobbalagom.fragments.BudgetFragment;
 import com.example.i7.jobbalagom.fragments.InitialFragment;
 import com.example.i7.jobbalagom.fragments.LaunchFragment;
 import com.example.i7.jobbalagom.fragments.SetupFragment;
@@ -234,6 +235,12 @@ public class MainActivity extends Activity {
         changeFragment(currentFragment);
     }
 
+    public void startBudgetFragment() {
+        currentFragment = new BudgetFragment();
+        ((BudgetFragment) currentFragment).setCallBack(new BudgetFragmentListener());
+        changeFragment(currentFragment);
+    }
+
     /**
      * Listens to the settings icon in the main layout
      */
@@ -252,8 +259,7 @@ public class MainActivity extends Activity {
     private class BudgetButtonListener implements View.OnClickListener {
         @Override
         public void onClick(View v) {
-            Toast.makeText(getApplicationContext(), "Show budget fragment", Toast.LENGTH_LONG).show();
-            // startBudgetFragment();
+            startBudgetFragment();
         }
     }
 
@@ -358,5 +364,9 @@ public class MainActivity extends Activity {
         public void showLaunchFragment() {
             startLaunchFragment();
         }
+    }
+
+    private class BudgetFragmentListener implements BudgetFragmentCallback {
+        // method to communicate with budget fragment
     }
 }
