@@ -81,7 +81,7 @@
             android:layout_centerHorizontal="true"
             android:text="Inkomster 4500"
             android:textAlignment="center"
-            android:textColor="@color/green_soft"
+            android:textColor="@color/white"
             android:textSize="20sp" />
 
         <TextView
@@ -103,7 +103,7 @@
             android:layout_centerHorizontal="true"
             android:text="Utgifter 5000"
             android:textAlignment="center"
-            android:textColor="@color/orange_trans"
+            android:textColor="@color/white"
             android:textSize="20sp" />
 
     </RelativeLayout>

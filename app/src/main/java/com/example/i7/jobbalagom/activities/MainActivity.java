@@ -6,6 +6,7 @@ import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
@@ -196,6 +197,10 @@ public class MainActivity extends Activity {
         fragmentTransaction.commit();
     }
 
+    private void changeFragmentWithFade(Fragment fragment) {
+        // something
+    }
+
     /**
      * Removes fragments from the display
      */
@@ -218,9 +223,16 @@ public class MainActivity extends Activity {
     }
 
     public void startInitialFragment() {
+
         currentFragment = new InitialFragment();
         ((InitialFragment) currentFragment).setCallBack(new InitialFragmentListener());
         changeFragment(currentFragment);
+
+        new Handler().postDelayed(new Runnable() {
+            public void run() {
+                startLaunchFragment();
+            }
+        }, 3000);
     }
 
     public void startSetupFragment() {
