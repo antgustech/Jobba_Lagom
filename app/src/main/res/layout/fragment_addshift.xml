@@ -40,7 +40,7 @@
             android:background="@drawable/et_rounded_corners"
             android:drawableLeft="@drawable/clock_icon"
             android:drawablePadding="@dimen/drawable_padding"
-            android:hint="Från"
+            android:hint="Från HH:MM"
             android:inputType="time"
             android:padding="@dimen/input_text_padding_icon"
             android:textColor="@color/black"
@@ -56,7 +56,7 @@
             android:background="@drawable/et_rounded_corners"
             android:drawableLeft="@drawable/clock_icon"
             android:drawablePadding="@dimen/drawable_padding"
-            android:hint="Till"
+            android:hint="Till HH:MM"
             android:inputType="time"
             android:padding="@dimen/input_text_padding_icon"
             android:textColor="@color/black"
@@ -72,12 +72,14 @@
             android:background="@drawable/et_rounded_corners"
             android:drawableLeft="@drawable/coffee_icon"
             android:drawablePadding="@dimen/drawable_padding"
-            android:hint="MM Dras från mitten "
+            android:hint="Rast MM "
             android:inputType="number"
             android:padding="@dimen/input_text_padding_icon"
             android:textColor="@color/black"
             android:textColorHint="@color/grey_dark"
             android:textSize="@dimen/input_text_size" />
+
+
 
         <EditText
             android:id="@+id/inputDate"
@@ -88,7 +90,7 @@
             android:background="@drawable/et_rounded_corners"
             android:drawableLeft="@drawable/calendar_icon"
             android:drawablePadding="@dimen/drawable_padding"
-            android:hint="ÅÅMMDD"
+            android:hint="Datum ÅÅMMDD"
             android:inputType="time"
             android:padding="@dimen/input_text_padding_icon"
             android:textColor="@color/black"
@@ -149,6 +151,19 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"></RelativeLayout>
+        android:layout_height="match_parent"
+        android:layout_alignParentTop="true">
+
+
+        <ImageButton
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:id="@+id/btnBreakInfo"
+            android:background="@drawable/ic_report_black_24dp"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="254dp" />
+    </RelativeLayout>
 
 </RelativeLayout>

@@ -1,6 +1,8 @@
 package com.example.i7.jobbalagom.fragments;
 
+import android.app.AlertDialog;
 import android.app.Fragment;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -9,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -29,6 +32,7 @@ public class AddShiftFragment extends Fragment {
 
     private Spinner jobSpinner;
     private Button btnAddShift, btnAddJob;
+    private ImageButton btnBreakInfo;
     private EditText inputStart, inputEnd, inputBreak, inputDate;
 
     @Override
@@ -44,6 +48,7 @@ public class AddShiftFragment extends Fragment {
     public void initComponents(View view) {
         controller = Singleton.controller;
         btnAddShift = (Button) view.findViewById(R.id.btnAddShift);
+        btnBreakInfo =(ImageButton) view.findViewById(R.id.btnBreakInfo);
         btnAddShift.setOnClickListener(new ButtonAddShiftListener());
         inputStart = (EditText) view.findViewById(R.id.inputStart);
         inputEnd = (EditText) view.findViewById(R.id.inputEnd);
@@ -61,6 +66,24 @@ public class AddShiftFragment extends Fragment {
             toast.setGravity(Gravity.CENTER_HORIZONTAL|Gravity.CENTER_VERTICAL, 0, 0);
             toast.show();
         }
+
+        btnBreakInfo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                new AlertDialog.Builder(getActivity(), R.style.AppCompatAlertDialogStyle)
+                        .setTitle("Info")
+                        .setMessage("Rasten du lägger till kommer att dras från mitten utav ditt arbetspass.")
+                        .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                // nothing
+                            }
+                        })
+                        .setIcon(android.R.drawable.ic_dialog_alert)
+                        .show();
+
+            }
+        });
+
     }
 
     public void setCallBack(AddShiftFragmentCallback callback) {
