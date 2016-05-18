@@ -68,6 +68,12 @@ public class MainActivity extends Activity {
         //userCheck();
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        loadProgressBars();
+    }
+
     public void initComponents() {
         btnAddShift = (FloatingActionButton) findViewById(R.id.action_addShift);
         btnAddExpense = (FloatingActionButton) findViewById(R.id.action_addExpense);
