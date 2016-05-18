@@ -122,19 +122,10 @@ public class Controller  {
      * Adds shift to db
      */
 
-    public float addShift(String jobTitle, float startTime, float endTime, float hoursWorked, int year, int month, int day){
-        float wage = getWage(jobTitle);
-        float income = wage*hoursWorked;
-       // float income = calculator.calculateIncome();
-
+    public void addShift(String jobTitle, float startTime, float endTime, float hoursWorked, int year, int month, int day , float income){
         sqLiteDatabase = dbHelper.getWritableDatabase();
         dbHelper.addShift(jobTitle, startTime, endTime, hoursWorked, year, month, day, income, sqLiteDatabase);
         dbHelper.close();
-
-        //Sets the income
-
-
-        return income;
     }
 
     /**
@@ -379,6 +370,7 @@ public class Controller  {
         Log.e("Calculation ", "Result after calculation: wage: " + wage +" StartTime: " + startTime +" EndTime" + endTime +" tax " + tax + " obIndex " + obIndex + " obStart " + obStart + " obEnd " + obEnd +" day " + dayOfWeek + " = "+obDay + " RESULT= " + res);
 
 
+        addShift(jobTitle, startTime, endTime, workedTime, year, month, day , res);
         return res;
     }
 
