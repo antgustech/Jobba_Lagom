@@ -167,7 +167,7 @@ public class AddShiftFragment extends Fragment {
             }
 
             callback.addShift(jobTitle, startTime, endTime, hoursWorked, year, month, day, breakHours);
-            //clearAll();
+            clearAll();
             Toast.makeText(getActivity(), "Arbetspasset har registrerats.", Toast.LENGTH_LONG).show();
 
         }

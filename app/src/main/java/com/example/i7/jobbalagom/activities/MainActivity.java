@@ -361,7 +361,11 @@ public class MainActivity extends Activity {
             if( ((currentMonth <= 6 && month <= 6) || (currentMonth > 6 && month > 6)) && year == currentYear) {
                 updatePBcsn(income);
             }
+
+            loadProgressBars();
         }
+
+
     }
 
     /**
@@ -374,6 +378,8 @@ public class MainActivity extends Activity {
             if(month == Calendar.getInstance().get(Calendar.MONTH) + 1) {
                 updatePBexpense(amount);
             }
+
+            loadProgressBars();
         }
     }
 

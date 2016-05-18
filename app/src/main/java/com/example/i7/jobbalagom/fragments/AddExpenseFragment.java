@@ -48,16 +48,13 @@ public class AddExpenseFragment extends Fragment {
 
 
         @Override
-        //TODO Parse float ccauses errors
         public void onClick(View v) {
 
             CharSequence emptyInputMsg = null;
             String title = inputTitle.getText().toString();
             String expense = inputExpense.getText().toString();
             String date = inputDate.getText().toString();
-            int year = Integer.parseInt(date.substring(0, 2));        // --> need more input validation on these numbers
-            int month = Integer.parseInt(date.substring(2, 4));
-            int day = Integer.parseInt(date.substring(4));
+
 
             try {
                 float expenseF = Float.parseFloat(inputExpense.getText().toString());
@@ -68,10 +65,10 @@ public class AddExpenseFragment extends Fragment {
             if(title.equals("")) {
                 emptyInputMsg = "Vänta lite, du glömde fylla i utgiftstitle.";
             }
-            if(title.equals("")) {
+            if(expense.equals("")) {
                 emptyInputMsg = "Vänta lite, du glömde fylla i utgiftsbelopp.";
             }
-            if(title.equals("")) {
+            if(date.equals("")) {
                 emptyInputMsg = "Vänta lite, du glömde fylla i datumet.";
             }
             if(emptyInputMsg != null) {
@@ -79,10 +76,32 @@ public class AddExpenseFragment extends Fragment {
                 return;
             }
             if(date.length() != 6){
-                Toast.makeText(getActivity(), "Du måste ange datum på formatet DDMMÅÅ", Toast.LENGTH_LONG).show();
+                Toast.makeText(getActivity(), "Du måste ange datum på formatet ÅÅMMDD", Toast.LENGTH_LONG).show();
                 return;
             }
+
+            int year = Integer.parseInt(date.substring(0, 2));        // --> need more input validation on these numbers
+            int month = Integer.parseInt(date.substring(2, 4));
+            int day = Integer.parseInt(date.substring(4, 6));
+
+
+            Toast.makeText(getActivity(), "Utgiften " + title + " är tillagd", Toast.LENGTH_LONG).show();
             callback.addExpense(title, Float.parseFloat(expense), year, month, day);
+            try {
+                Thread.sleep(500);
+            } catch (InterruptedException e) {
+
+            }
+
+
+            clearAll();
         }
+    }
+
+    public void clearAll(){
+        inputTitle.setText("");
+        inputExpense.setText("");
+        inputDate.setText("");
+
     }
 }
