@@ -87,15 +87,6 @@ public class Controller  {
      *-------------- INTERNAL DATABASE METHODS, COMMUNICATION GOEST THROUGH DBHELPER -----------------------
      */
 
-    public ArrayList<String> checkOB(String jobTitle, String day){
-        ArrayList<String> jobs;
-        sqLiteDatabase = dbHelper.getWritableDatabase();
-        jobs = dbHelper.checkOB(jobTitle, day, sqLiteDatabase);
-        dbHelper.close();
-        return jobs;
-    }
-
-
     /**
      * Adds user to db
      */

@@ -122,12 +122,6 @@ public class SettingsActivity extends Activity {
         public void addOB(String jobTitle, String day, String fromTime, String toTime, float obIndex) {
             controller.addOB(jobTitle, day, fromTime, toTime, obIndex);
         }
-
-        @Override
-        public ArrayList<String> checkOB(String jobTitle, String day) {
-            ArrayList<String> jobs = controller.checkOB(jobTitle, day);
-            return jobs;
-        }
     }
 
     public void startRemoveJobFragment(){

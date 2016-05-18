@@ -178,22 +178,33 @@ public class AddJobFragment extends Fragment {
             String day = rb.getText().toString();
 
 
-
-
-
-
             int id2 = rgType.getCheckedRadioButtonId();
             RadioButton rb2 = (RadioButton) rgType.findViewById(id2);
             String type = rb2.getText().toString();
             String ob = inputOB.getText().toString();
 
-            // day, fromTime, toTime, ob, type
+
+
+
+
 
             String obRate = day + "," + fromTime + "," + toTime + "," + ob + "," + type;
             obRates.add(obRate);
             hideOBLayout();
             Toast.makeText(getActivity(), "OB har registrerats: " + ob + " " + type + " tillägg, " + day + ", från " + fromTime
                     + " till " + toTime, Toast.LENGTH_LONG).show();
+
+            //Deactivates radiobuttons for days that already have been used
+            if(day.equals("Vardag")) {
+                rbWorkday.setEnabled(false);
+                rbWorkday.setTextColor(getResources().getColor(R.color.grey));
+            } else if (day.equals("Lördag")) {
+                rbSaturday.setEnabled(false);
+                rbWorkday.setTextColor(getResources().getColor(R.color.grey));
+            }else if(day.equals("Söndag")) {
+                rbSunday.setEnabled(false);
+                rbWorkday.setTextColor(getResources().getColor(R.color.grey));
+            }
         }
 
 
@@ -274,40 +285,8 @@ public class AddJobFragment extends Fragment {
                 } else if(type.equals("Procent")) {
                     obIndex = 1 + Float.parseFloat(ob)/100;
                 }
-
-                //Checks if ob already exists.TODO FIX!
-                /*
-                ArrayList<String> dbOb = callback.checkOB(jobTitle, day);
-                String first;
-                String second;
-                int i = 0;
-                for(; i<dbOb.size()-1;i+=2){
-
-                   first = dbOb.get(i);
-                   second = dbOb.get(i+1);
-                    if(first.equals(jobTitle) && second.equals(day)){
-                        Toast.makeText(getActivity(), "Du kan endast lägga till en ob sats per dag.", Toast.LENGTH_LONG).show();
-                    }else{
-                        callback.addOB(jobTitle, day, fromTime, toTime, obIndex);
-                        break;
-                    }
-                }
-                */
-
-
                 callback.addOB(jobTitle, day, fromTime, toTime, obIndex);
-
-
-
-
-
-
-
-
-
-
             }
-
             clearAll();
             Toast.makeText(getActivity(), jobTitle + " är tillagt som ett nytt jobb.", Toast.LENGTH_LONG).show();
         }

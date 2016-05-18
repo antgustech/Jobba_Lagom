@@ -33,7 +33,6 @@ import com.example.i7.jobbalagom.local.Singleton;
 import com.getbase.floatingactionbutton.FloatingActionButton;
 import com.getbase.floatingactionbutton.FloatingActionsMenu;
 
-import java.util.ArrayList;
 import java.util.Calendar;
 
 /**
@@ -336,11 +335,6 @@ public class MainActivity extends Activity {
         }
         public void addOB(String jobTitle, String day, String fromTime, String toTime, float obIndex) {
             controller.addOB(jobTitle, day, fromTime, toTime, obIndex);
-        }
-
-        @Override
-        public ArrayList<String> checkOB(String jobTitle, String day) {
-            return null;
         }
     }
 

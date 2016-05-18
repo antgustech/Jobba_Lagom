@@ -392,20 +392,6 @@ public class DBHelper extends SQLiteOpenHelper {
         Log.e("Internal DB", "Setting income limit in db");
     }
 
-    public ArrayList<String> checkOB(String jobTitle, String day, SQLiteDatabase db ){
-        ArrayList<String> jobOB = new ArrayList<String>();
-        Cursor c = db.rawQuery("SELECT " + UserContract.OB.OB_JOBTITLE+ ", " + UserContract.OB.OB_DAY + " FROM " + UserContract.OB.TABLE_NAME + " WHERE " + UserContract.OB.OB_JOBTITLE+  " ='" + jobTitle+ "';", null);
-        while(c.moveToNext()){
-            String obTitle = c.getString(c.getColumnIndex(UserContract.OB.OB_JOBTITLE));
-            String obDay = c.getString(c.getColumnIndex( UserContract.OB.OB_DAY));
-            jobOB.add(obTitle);
-           // jobOB.add(",");
-            jobOB.add(obDay);
-        }
-        Log.e("Internal DB", "Checking obs");
-        return jobOB;
-
-    }
 
 
 
