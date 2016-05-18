@@ -268,7 +268,35 @@ public class AddJobFragment extends Fragment {
                 } else if(type.equals("Procent")) {
                     obIndex = 1 + Float.parseFloat(ob)/100;
                 }
+
+                //Checks if ob already exists.TODO FIX!
+                /*
+                ArrayList<String> dbOb = callback.checkOB(jobTitle, day);
+                String first;
+                String second;
+                int i = 0;
+                for(; i<dbOb.size()-1;i+=2){
+
+                   first = dbOb.get(i);
+                   second = dbOb.get(i+1);
+                    if(first.equals(jobTitle) && second.equals(day)){
+                        Toast.makeText(getActivity(), "Du kan endast lägga till en ob sats per dag.", Toast.LENGTH_LONG).show();
+                    }else{
+                        callback.addOB(jobTitle, day, fromTime, toTime, obIndex);
+                        break;
+                    }
+                }
+                */
                 callback.addOB(jobTitle, day, fromTime, toTime, obIndex);
+
+
+
+
+
+
+
+
+
             }
 
             clearAll();

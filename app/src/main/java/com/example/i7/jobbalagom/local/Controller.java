@@ -87,6 +87,15 @@ public class Controller  {
      *-------------- INTERNAL DATABASE METHODS, COMMUNICATION GOEST THROUGH DBHELPER -----------------------
      */
 
+    public ArrayList<String> checkOB(String jobTitle, String day){
+        ArrayList<String> jobs;
+        sqLiteDatabase = dbHelper.getWritableDatabase();
+        jobs = dbHelper.checkOB(jobTitle, day, sqLiteDatabase);
+        dbHelper.close();
+        return jobs;
+    }
+
+
     /**
      * Adds user to db
      */
@@ -314,7 +323,7 @@ public class Controller  {
 
     /**
      * When user have pressed addShift, the shift is added. Then this method should be called to update the total income.
-     * TODO *More test to make sure it calculates correct!
+     * TODO *More tests to make sure it calculates correct!
      * @param jobTitle
      */
     public float calculateData(String jobTitle, float startTime, float endTime, int year, int month, int day, float breakMinutes){
@@ -369,7 +378,7 @@ public class Controller  {
         Log.e("Calculation ", "Result after calculation: CALCULATED OB:" + workedObPay);
         Log.e("Calculation ", "Result after calculation: wage: " + wage +" StartTime: " + startTime +" EndTime" + endTime +" tax " + tax + " obIndex " + obIndex + " obStart " + obStart + " obEnd " + obEnd +" day " + dayOfWeek + " = "+obDay + " RESULT= " + res);
 
-
+        //Send data to database and return the result.
         addShift(jobTitle, startTime, endTime, workedTime, year, month, day , res);
         return res;
     }

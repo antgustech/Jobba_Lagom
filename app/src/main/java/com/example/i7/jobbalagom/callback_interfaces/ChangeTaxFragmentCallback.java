@@ -5,4 +5,5 @@ package com.example.i7.jobbalagom.callback_interfaces;
  */
 public interface ChangeTaxFragmentCallback {
     public void updateTax(float tax);
+    public boolean checkConnection();
 }

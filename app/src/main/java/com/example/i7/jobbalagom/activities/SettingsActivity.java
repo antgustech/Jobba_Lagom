@@ -70,7 +70,11 @@ public class SettingsActivity extends Activity {
             //Start intent or something
                 Toast.makeText(getApplicationContext(), "Nothing here yet :)", Toast.LENGTH_LONG).show();
             }else if(itemValue =="Ändra skattesats"){
-                startChangeTaxFragment();
+                if (checkConnection()) {
+                    startChangeTaxFragment();
+                }else{
+                    Toast.makeText(getBaseContext(), "Appen saknar anslutning till servern.", Toast.LENGTH_LONG).show();
+                }
             }else if(itemValue == "Lägg till jobb"){
                 startAddJobFragment();
             }else if(itemValue == "Ta bort jobb"){
@@ -118,6 +122,12 @@ public class SettingsActivity extends Activity {
         public void addOB(String jobTitle, String day, String fromTime, String toTime, float obIndex) {
             controller.addOB(jobTitle, day, fromTime, toTime, obIndex);
         }
+
+        @Override
+        public ArrayList<String> checkOB(String jobTitle, String day) {
+            ArrayList<String> jobs = controller.checkOB(jobTitle, day);
+            return jobs;
+        }
     }
 
     public void startRemoveJobFragment(){
@@ -141,6 +151,17 @@ public class SettingsActivity extends Activity {
     private class ChangeTaxListener implements ChangeTaxFragmentCallback {
         public void updateTax(float tax) {
             controller.setTax(tax);
+        }
+
+        @Override
+        public boolean checkConnection() {
+            boolean connection = false;
+
+            if(controller.checkConnection()){
+                connection = true;
+            }
+
+            return connection;
         }
     }
 
@@ -166,6 +187,14 @@ public class SettingsActivity extends Activity {
             return controller.getIncomeLimit();
 
         }
+    }
+
+    public boolean checkConnection() {
+        boolean connection = false;
+        if(controller.checkConnection()){
+            connection = true;
+        }
+        return connection;
     }
 
 
