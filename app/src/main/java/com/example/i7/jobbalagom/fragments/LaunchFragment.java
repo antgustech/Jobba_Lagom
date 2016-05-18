@@ -55,8 +55,8 @@ public class LaunchFragment extends Fragment {
             } else if(v.getId() == R.id.btnNew) {
                 if(callback.checkConnection()){
                     callback.navigate("btnNew");
-                }
-                Toast.makeText(getActivity(), "Appen saknar anslutning till servern.", Toast.LENGTH_LONG).show();
+                }else
+                 Toast.makeText(getActivity(), "Appen saknar anslutning till servern.", Toast.LENGTH_LONG).show();
 
 
             } else if(v.getId() == R.id.btnKey) {

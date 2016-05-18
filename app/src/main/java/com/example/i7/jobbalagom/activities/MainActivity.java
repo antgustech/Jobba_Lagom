@@ -11,7 +11,6 @@ import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.i7.jobbalagom.R;
 import com.example.i7.jobbalagom.callback_interfaces.AddExpenseFragmentCallback;
@@ -65,7 +64,7 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         initComponents();
-        //userCheck();
+        userCheck();
     }
 
     @Override
@@ -297,11 +296,7 @@ public class MainActivity extends Activity {
             if(choice.equals("btnLogo")) {
                 // Something if we want, or nothing
             } else if(choice.equals("btnNew")) {
-                if (checkConnection()) {
                     startSetupFragment();
-                }else{
-                    Toast.makeText(getBaseContext(), "Appen saknar anslutning till servern.", Toast.LENGTH_LONG).show();
-                }
             } else if(choice.equals("btnKey")) {
                 Log.d("MainActivity", "Key button pressed");
             } else if(choice.equals("btnInfo")) {
@@ -325,6 +320,7 @@ public class MainActivity extends Activity {
 
     private class SetupFragmentListener implements SetupFragmentCallback {
         public void addUser(String municipality, float incomeLimit) {
+
             controller.addUser(municipality, incomeLimit);
             loadProgressBars();
             removeFragment(currentFragment);
