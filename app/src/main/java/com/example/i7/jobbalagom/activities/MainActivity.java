@@ -17,11 +17,13 @@ import com.example.i7.jobbalagom.R;
 import com.example.i7.jobbalagom.callback_interfaces.AddExpenseFragmentCallback;
 import com.example.i7.jobbalagom.callback_interfaces.AddJobFragmentCallback;
 import com.example.i7.jobbalagom.callback_interfaces.AddShiftFragmentCallback;
+import com.example.i7.jobbalagom.callback_interfaces.InitialFragmentCallback;
 import com.example.i7.jobbalagom.callback_interfaces.LaunchFragmentCallback;
 import com.example.i7.jobbalagom.callback_interfaces.SetupFragmentCallback;
 import com.example.i7.jobbalagom.fragments.AddExpenseFragment;
 import com.example.i7.jobbalagom.fragments.AddJobFragment;
 import com.example.i7.jobbalagom.fragments.AddShiftFragment;
+import com.example.i7.jobbalagom.fragments.InitialFragment;
 import com.example.i7.jobbalagom.fragments.LaunchFragment;
 import com.example.i7.jobbalagom.fragments.SetupFragment;
 import com.example.i7.jobbalagom.local.Controller;
@@ -89,14 +91,14 @@ public class MainActivity extends Activity {
 
     public void userCheck() {
         if(!controller.isUserCreated()) {
-            startLaunchFragment();
+            startInitialFragment();
         } else {
             loadProgressBars();
         }
     }
 
     public void onBackPressed() {
-        if(currentFragment == null || currentFragment instanceof LaunchFragment) {
+        if(currentFragment == null || currentFragment instanceof LaunchFragment || currentFragment instanceof InitialFragment) {
             super.onBackPressed();
         } else if(currentFragment instanceof SetupFragment) {
             startLaunchFragment();
@@ -205,6 +207,12 @@ public class MainActivity extends Activity {
     public void startAddJobFragment() {
         currentFragment = new AddJobFragment();
         ((AddJobFragment) currentFragment).setCallBack(new AddJobFragmentListener());
+        changeFragment(currentFragment);
+    }
+
+    public void startInitialFragment() {
+        currentFragment = new InitialFragment();
+        ((InitialFragment) currentFragment).setCallBack(new InitialFragmentListener());
         changeFragment(currentFragment);
     }
 
@@ -342,6 +350,12 @@ public class MainActivity extends Activity {
             if(month == Calendar.getInstance().get(Calendar.MONTH) + 1) {
                 updatePBexpense(amount);
             }
+        }
+    }
+
+    private class InitialFragmentListener implements InitialFragmentCallback {
+        public void showLaunchFragment() {
+            startLaunchFragment();
         }
     }
 }

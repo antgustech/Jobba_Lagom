@@ -1,119 +1,234 @@
+<?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".fragments.AddExpenseFragment"
-    android:background="@color/bgBlueish"
-    android:paddingTop="@dimen/layout_padding_height"
-    android:paddingBottom="@dimen/layout_padding_height"
-    android:paddingLeft="@dimen/layout_padding_width"
-    android:paddingRight="@dimen/layout_padding_width"
+    android:background="@color/grey"
     android:clickable="true"
-    >
+    android:gravity="center_horizontal"
+    android:orientation="vertical">
 
-
-    <LinearLayout
-        android:layout_width="fill_parent"
+    <TextView
+        android:id="@+id/header"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center_horizontal"
-        android:id="@+id/obHeader"
-        >
+        android:layout_margin="@dimen/addshift_fragment_padding"
+        android:text="Lägg till utgift"
+        android:textAlignment="center"
+        android:textColor="@color/white"
+        android:textSize="30sp" />
 
-        <ImageView
-            android:layout_width="wrap_content"
+
+    <View
+        android:id="@+id/header_line"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_below="@+id/header"
+        android:background="@color/white" />
+
+
+    <RelativeLayout
+        android:id="@+id/inputLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/header_line"
+        android:padding="@dimen/addshift_fragment_padding">
+
+        <EditText
+            android:id="@+id/inputTitle"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/expense_icon"
-            android:background="@drawable/expense_icon"
+            android:background="@drawable/et_rounded_corners"
+            android:drawableLeft="@drawable/title_icon"
+            android:drawablePadding="@dimen/drawable_padding"
+            android:hint="Titel"
+            android:inputType="text"
+            android:padding="@dimen/input_text_padding_icon"
+            android:textColor="@color/black"
+            android:textColorHint="@color/grey_dark"
+            android:textSize="@dimen/input_text_size" />
+
+        <EditText
+            android:id="@+id/inputExpense"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/et_rounded_corners"
+            android:drawableLeft="@drawable/exp_icon"
+            android:drawablePadding="@dimen/drawable_padding"
+            android:hint="Belopp"
+            android:inputType="number"
+            android:padding="@dimen/input_text_padding_icon"
+            android:textColor="@color/black"
+            android:textColorHint="@color/grey_dark"
+            android:textSize="@dimen/input_text_size"
+            android:layout_below="@+id/inputTitle"
+            android:layout_marginTop="@dimen/input_margin"
             />
 
-        <TextView
-            android:layout_width="wrap_content"
+        <EditText
+            android:id="@+id/inputDate"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Lägg till utgift"
-            android:id="@+id/tvHeader"
-            android:textColor="@color/white"
-            android:textSize="30sp"
+            android:background="@drawable/et_rounded_corners"
+            android:drawableLeft="@drawable/calendar_icon"
+            android:drawablePadding="@dimen/drawable_padding"
+            android:hint="Datum"
+            android:inputType="text"
+            android:padding="@dimen/input_text_padding_icon"
+            android:textColor="@color/black"
+            android:textColorHint="@color/grey_dark"
+            android:textSize="@dimen/input_text_size"
+            android:layout_below="@+id/inputExpense"
+            android:layout_marginTop="@dimen/input_margin"
             />
 
-    </LinearLayout>
+        </RelativeLayout>
 
-    <TextView
-        android:layout_width="fill_parent"
+    <View
+        android:id="@+id/footer_line"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_below="@+id/inputLayout"
+        android:background="@color/white" />
+
+    <Button
+        android:id="@+id/btnAddExpense"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/tvTitle"
-        android:text="Titel"
-        android:textColor="@color/white"
-        android:background="@color/grey"
-        android:textSize="@dimen/fragment_tv_text_size"
-        android:textAlignment="center"
-        android:layout_below="@+id/obHeader"
-        android:layout_marginTop="@dimen/text_margin"
+        android:layout_below="@id/footer_line"
+        android:layout_margin="@dimen/addshift_fragment_padding"
+        android:background="@drawable/btn_rounded_corners_blueish"
+        android:padding="@dimen/btn_text_padding"
+        android:text="Lägg till"
+        android:textColor="@color/btn_text_color"
+        android:textSize="@dimen/btn_text_size"
         />
 
-    <EditText
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/inputTitle"
-        android:layout_below="@+id/tvTitle"
-        android:background="@color/white"
-        android:textAlignment="center"
-        android:inputType="text"
-        />
-
-    <TextView
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/tvWage"
-        android:text="Belopp"
-        android:textColor="@color/white"
-        android:background="@color/grey"
-        android:textSize="@dimen/fragment_tv_text_size"
-        android:textAlignment="center"
-        android:layout_below="@+id/inputTitle"
-        android:layout_marginTop="@dimen/text_margin"
-        />
-
-    <EditText
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/inputWage"
-        android:layout_below="@+id/tvWage"
-        android:background="@color/white"
-        android:textAlignment="center"
-        android:inputType="number"
-        />
-
-    <TextView
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/tvTitleOB"
-        android:text="Datum"
-        android:textColor="@color/white"
-        android:background="@color/grey"
-        android:textSize="@dimen/fragment_tv_text_size"
-        android:textAlignment="center"
-        android:layout_below="@+id/inputWage"
-        android:layout_marginTop="@dimen/text_margin"
-        />
-
-    <EditText
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/inputDate"
-        android:layout_below="@+id/tvTitleOB"
-        android:background="@color/white"
-        android:textAlignment="center"
-        android:inputType="date"
-        />
-
-    <ImageButton
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/btnAddOB"
-        android:background="@drawable/go_icon"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        />
+    </RelativeLayout>
 
 
-</RelativeLayout>
+
+
+
+
+
+        <!--
+        <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:tools="http://schemas.android.com/tools"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:context=".fragments.AddExpenseFragment"
+            android:background="@color/bgBlueish"
+            android:paddingTop="@dimen/layout_padding_height"
+            android:paddingBottom="@dimen/layout_padding_height"
+            android:paddingLeft="@dimen/layout_padding_width"
+            android:paddingRight="@dimen/layout_padding_width"
+            android:clickable="true"
+            >
+
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:id="@+id/obHeader"
+                >
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/expense_icon"
+                    android:background="@drawable/expense_icon"
+                    />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Lägg till utgift"
+                    android:id="@+id/tvHeader"
+                    android:textColor="@color/white"
+                    android:textSize="30sp"
+                    />
+
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/tvTitle"
+                android:text="Titel"
+                android:textColor="@color/white"
+                android:background="@color/grey"
+                android:textSize="@dimen/fragment_tv_text_size"
+                android:textAlignment="center"
+                android:layout_below="@+id/obHeader"
+                android:layout_marginTop="@dimen/text_margin"
+                />
+
+            <EditText
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/inputTitle"
+                android:layout_below="@+id/tvTitle"
+                android:background="@color/white"
+                android:textAlignment="center"
+                android:inputType="text"
+                />
+
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/tvWage"
+                android:text="Belopp"
+                android:textColor="@color/white"
+                android:background="@color/grey"
+                android:textSize="@dimen/fragment_tv_text_size"
+                android:textAlignment="center"
+                android:layout_below="@+id/inputTitle"
+                android:layout_marginTop="@dimen/text_margin"
+                />
+
+            <EditText
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/inputWage"
+                android:layout_below="@+id/tvWage"
+                android:background="@color/white"
+                android:textAlignment="center"
+                android:inputType="number"
+                />
+
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/tvTitleOB"
+                android:text="Datum"
+                android:textColor="@color/white"
+                android:background="@color/grey"
+                android:textSize="@dimen/fragment_tv_text_size"
+                android:textAlignment="center"
+                android:layout_below="@+id/inputWage"
+                android:layout_marginTop="@dimen/text_margin"
+                />
+
+            <EditText
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/inputDate"
+                android:layout_below="@+id/tvTitleOB"
+                android:background="@color/white"
+                android:textAlignment="center"
+                android:inputType="date"
+                />
+
+            <ImageButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/btnAddOB"
+                android:background="@drawable/go_icon"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                />
+
+
+        </RelativeLayout>
+        -->

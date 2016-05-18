@@ -5,8 +5,8 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.Toast;
 
 import com.example.i7.jobbalagom.R;
@@ -15,9 +15,9 @@ import com.example.i7.jobbalagom.callback_interfaces.AddExpenseFragmentCallback;
 public class AddExpenseFragment extends Fragment {
 
     private EditText inputTitle;
-    private EditText inputAmount;
+    private EditText inputExpense;
     private EditText inputDate;
-    private ImageButton btnOK;
+    private Button btnAddExpense;
     private AddExpenseFragmentCallback callback;
 
     @Override
@@ -30,10 +30,10 @@ public class AddExpenseFragment extends Fragment {
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         inputTitle = (EditText) view.findViewById(R.id.inputTitle);
-        inputAmount = (EditText) view.findViewById(R.id.inputWage);
+        inputExpense = (EditText) view.findViewById(R.id.inputExpense);
         inputDate = (EditText) view.findViewById(R.id.inputDate);
-        btnOK = (ImageButton) view.findViewById(R.id.btnAddOB);
-        btnOK.setOnClickListener(new ButtonListener());
+        btnAddExpense = (Button) view.findViewById(R.id.btnAddExpense);
+        btnAddExpense.setOnClickListener(new ButtonListener());
 
     }
 
@@ -53,14 +53,14 @@ public class AddExpenseFragment extends Fragment {
 
             CharSequence emptyInputMsg = null;
             String title = inputTitle.getText().toString();
-            String amount = inputAmount.getText().toString();
+            String expense = inputExpense.getText().toString();
             String date = inputDate.getText().toString();
             int year = Integer.parseInt(date.substring(0, 2));        // --> need more input validation on these numbers
             int month = Integer.parseInt(date.substring(2, 4));
             int day = Integer.parseInt(date.substring(4));
 
             try {
-                float amountF = Float.parseFloat(inputAmount.getText().toString());
+                float expenseF = Float.parseFloat(inputExpense.getText().toString());
             } catch(NumberFormatException e){
                 Toast.makeText(getActivity(), "Ogiltlig summa", Toast.LENGTH_LONG).show();
             }
@@ -82,7 +82,7 @@ public class AddExpenseFragment extends Fragment {
                 Toast.makeText(getActivity(), "Du måste ange datum på formatet DDMMÅÅ", Toast.LENGTH_LONG).show();
                 return;
             }
-            callback.addExpense(title, Float.parseFloat(amount), year, month, day);
+            callback.addExpense(title, Float.parseFloat(expense), year, month, day);
         }
     }
 }
