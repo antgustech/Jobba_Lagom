@@ -3,6 +3,7 @@ package com.example.i7.jobbalagom.fragments;
 import android.app.Fragment;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -52,17 +53,16 @@ public class AddShiftFragment extends Fragment {
 
         jobTitles = controller.getJobTitles();
 
-        String log = "Lagrade jobb: ";
-        for (String s : jobTitles) {
-            log += s + " ";
-        }
-        Log.d("AddShiftFragment", log);
-
         ArrayAdapter adapter = new ArrayAdapter<String>(getActivity(), R.layout.spinner_row, R.id.text, jobTitles);
         jobSpinner = (Spinner) view.findViewById(R.id.jobSpinner);
         jobSpinner.setAdapter(adapter);
 
-      }
+        if (jobTitles.length == 0) {
+            Toast toast = Toast.makeText(getActivity(), "Du måste lägga till ett jobb först!", Toast.LENGTH_LONG);
+            toast.setGravity(Gravity.CENTER_HORIZONTAL|Gravity.CENTER_VERTICAL, 0, 0);
+            toast.show();
+        }
+    }
 
     public void setCallBack(AddShiftFragmentCallback callback) {
         this.callback = callback;
@@ -101,7 +101,7 @@ public class AddShiftFragment extends Fragment {
                 addError("rast i minuter");
             }
 
-            if(date.length() != 6){
+            if (date.length() != 6) {
                 Toast.makeText(getActivity(), "Du måste ange datum på formatet ÅÅMMDD", Toast.LENGTH_LONG).show();
                 return;
             }

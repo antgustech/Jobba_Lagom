@@ -10,7 +10,11 @@
         android:id="@+id/header"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="@dimen/main_activity_padding">
+        android:paddingTop="@dimen/main_activity_padding"
+        android:paddingLeft="@dimen/main_activity_padding"
+        android:paddingRight="@dimen/main_activity_padding"
+        android:paddingBottom="20dp"
+        >
 
         <ProgressBar
             android:id="@+id/pbCSN"
@@ -60,7 +64,8 @@
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
         android:max="100"
-        android:progressDrawable="@drawable/progressbar_income" />
+        android:progressDrawable="@drawable/progressbar_income"
+        android:indeterminate="false" />
 
     <RelativeLayout
         android:id="@+id/centerTextLayout"

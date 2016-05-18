@@ -167,8 +167,8 @@ public class MainActivity extends Activity {
         float thisMonthsIncome = controller.getThisMonthsIncome();
         float thisMonthsExpenses = controller.getThisMonthsExpenses();
         float balance = thisMonthsIncome-thisMonthsExpenses;
-        tvIncome.setText("Inkomst " + (int)thisMonthsIncome + ":-");
-        tvExpense.setText("Utgifter " + (int)thisMonthsExpenses + ":-");
+        tvIncome.setText("Inkomst " + (int)thisMonthsIncome);
+        tvExpense.setText("Utgifter " + (int)thisMonthsExpenses);
         tvBalance.setText((int)balance + "");
        /**
         if(balance < 0) {
@@ -328,6 +328,7 @@ public class MainActivity extends Activity {
             controller.addShift(jobTitle, startTime, endTime, hoursWorked, year, month, day, breakMinutes);
 
             float income = controller.calculateData(jobTitle, startTime, endTime, year, month, day, breakMinutes );
+            Log.d("MainActivity", "Inkomst av shift: " + income);
             int currentMonth = Calendar.getInstance().get(Calendar.MONTH) + 1;
             int currentYear = Calendar.getInstance().get(Calendar.YEAR)%100;
 
