@@ -18,7 +18,7 @@ import java.util.Calendar;
 
 public class DBHelper extends SQLiteOpenHelper {
     private static final String DATABASE_NAME = "INTENAL.DB";
-    private static final int DATABASE_VERSION = 40;
+    private static final int DATABASE_VERSION = 41;
 
 
     private static final String CREATE_USER_QUERY =
@@ -169,7 +169,7 @@ public class DBHelper extends SQLiteOpenHelper {
         contentValues.put(UserContract.OB.OB_TOTIME, toTime);
         contentValues.put(UserContract.OB.OB_INDEX, obIndex);
         db.insert(UserContract.OB.TABLE_NAME, null, contentValues);
-        Log.e("Internal DB", "New OB: " + jobTitle + ", " + (obIndex-1)*100 + " % extra på " + day + "ar");
+        Log.e("Internal DB", "New OB: " + jobTitle + ", " + (obIndex-1)*100 + " % extra på " + day);
     }
 
     public void deleteUser(SQLiteDatabase db){

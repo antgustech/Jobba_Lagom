@@ -177,6 +177,9 @@ public class AddJobFragment extends Fragment {
             RadioButton rb = (RadioButton) rgDay.findViewById(id);
             String day = rb.getText().toString();
 
+
+
+
             int id2 = rgType.getCheckedRadioButtonId();
             RadioButton rb2 = (RadioButton) rgType.findViewById(id2);
             String type = rb2.getText().toString();

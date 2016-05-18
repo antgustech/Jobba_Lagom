@@ -64,7 +64,7 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         initComponents();
-        userCheck();
+        //userCheck();
     }
 
     public void initComponents() {
@@ -330,8 +330,8 @@ public class MainActivity extends Activity {
      */
 
     private class AddShiftFragmentListener implements AddShiftFragmentCallback {
-        public void addShift(String jobTitle, float startTime, float endTime, float hoursWorked, int year, int month, int day, int breakMinutes) {
-            controller.addShift(jobTitle, startTime, endTime, hoursWorked, year, month, day, breakMinutes);
+        public void addShift(String jobTitle, float startTime, float endTime, float hoursWorked, int year, int month, int day, float breakMinutes) {
+            controller.addShift(jobTitle, startTime, endTime, hoursWorked, year, month, day);
 
             float income = controller.calculateData(jobTitle, startTime, endTime, year, month, day, breakMinutes );
             Log.d("MainActivity", "Inkomst av shift: " + income);

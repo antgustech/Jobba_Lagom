@@ -2,7 +2,6 @@ package com.example.i7.jobbalagom.fragments;
 
 import android.app.Fragment;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -138,15 +137,14 @@ public class AddShiftFragment extends Fragment {
             int year = Integer.parseInt(date.substring(0, 2));
             int month = Integer.parseInt(date.substring(2, 4));
             int day = Integer.parseInt(date.substring(4, 6));
-            Log.e("Calculation ", "result from editext:" + year + "," + month + "," + day);
 
             if (hoursWorked <= 0) {
                 Toast.makeText(getActivity(), "Tiden du har arbetat är mindre än noll, stämmer verkligen det?", Toast.LENGTH_LONG).show();
                 return;
             }
 
-            callback.addShift(jobTitle, startTime, endTime, hoursWorked, year, month, day, breakMinutes);
-            clearAll();
+            callback.addShift(jobTitle, startTime, endTime, hoursWorked, year, month, day, breakHours);
+            //clearAll();
             Toast.makeText(getActivity(), "Arbetspasset har registrerats.", Toast.LENGTH_LONG).show();
 
         }

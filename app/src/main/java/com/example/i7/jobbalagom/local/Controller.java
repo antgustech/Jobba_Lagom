@@ -17,16 +17,21 @@ import java.util.Calendar;
  */
 
 public class Controller  {
+    /**
+     * -------ÄNDRA IP VID TESTNING-----------!
+     */
+        private final String IP = "192.168.1.136"; // Kajsa 192.168.0.10
+    /**
+     * ----------------------------------------!
+     */
 
-    private final String IP = "192.168.0.10";          //ÄNDRA IP VID TESTNING!!!!!! // Kajsa 192.168.0.10
     private final int PORT = 4545;
-
     private Client client;
     private MessageListener listener;
     private DBHelper dbHelper;
     private SQLiteDatabase sqLiteDatabase;
 
-    private float tax, startTime,endTime,res,wage,obIndex,obStart,obEnd, obDay;
+    private float tax,res,wage,obIndex,obStart,obEnd;
 
 
     public Controller(Context context){
@@ -111,7 +116,7 @@ public class Controller  {
      * Adds shift to db
      */
 
-    public float addShift(String jobTitle, float startTime, float endTime, float hoursWorked, int year, int month, int day, int breakMinutes){
+    public float addShift(String jobTitle, float startTime, float endTime, float hoursWorked, int year, int month, int day){
         float wage = getWage(jobTitle);
         float income = wage*hoursWorked;
        // float income = calculator.calculateIncome();
@@ -312,11 +317,11 @@ public class Controller  {
 
     /**
      * When user have pressed addShift, the shift is added. Then this method should be called to update the total income.
-     * TODO *Breaktime checking
+     * TODO *More test to make sure it calculates correct!
      * @param jobTitle
      */
-    public float calculateData(String jobTitle, float startTime, float endTime, int year, int month, int day, int breakMinutes){
-        float obTime,workedPay,workedObPay = 0,realTax = 0f;
+    public float calculateData(String jobTitle, float startTime, float endTime, int year, int month, int day, float breakMinutes){
+        float obTime,workedPay, workedTime, workedObPay = 0f,realTax = 0f;
         int calYear, dayOfWeek = 0;
         String obDay ="";
 
@@ -325,7 +330,7 @@ public class Controller  {
         c.set(calYear,month-1,day);
         dayOfWeek = c.get(Calendar.DAY_OF_WEEK) ; //Sunday is day 1, saturday is day 7
 
-        if(dayOfWeek>1 || dayOfWeek>7){
+        if(dayOfWeek>1 && dayOfWeek <7){
             obDay ="Vardag";
         }else if(dayOfWeek == 7){
             obDay ="Lördag";
@@ -343,20 +348,30 @@ public class Controller  {
         if(obIndex == 0){
             obIndex++;
         }
-        if(obStart<endTime){
-            if(endTime>obEnd){
+
+        //Check if ob hours are within working hours.
+        if(obStart<endTime){//sant
+            if(endTime>obEnd){//falskt
                 workedObPay=((obEnd - obStart) * ((obIndex-1)*wage)) ;
-            }else if(endTime<obEnd){
+            }else if(endTime<=obEnd){
                 workedObPay= ((endTime-obStart)* ((obIndex-1)*wage));
             }
         }
 
-        workedPay = ((endTime-startTime) * wage);
-        realTax=(1-tax);
-        res = ((workedPay + workedObPay) * realTax);
+        //Break handling
+        workedTime = (endTime-startTime);
+        float findMiddleTime = workedTime/2;
+        float newFirstHalf = findMiddleTime-breakMinutes;
+        float newSecondHalf = findMiddleTime;
+        float newWorkedTime = (newFirstHalf+newSecondHalf);
 
-        Log.e("Calculation ", "Variables after calculation: wage: " + wage +" StartTime: " + startTime +" EndTime" + endTime +" tax " + tax + " obIndex " + obIndex + " obStart " + obStart + " obEnd " + obEnd +" day " + dayOfWeek);
-        Log.e("Calculation ", "Result after calculation: " + res);
+        //Final calculation
+        workedPay = newWorkedTime * wage;
+        realTax=(1-tax);  //0
+        res = ((workedPay + workedObPay) * realTax);
+        Log.e("Calculation ", "Result after calculation: CALCULATED OB:" + workedObPay);
+        Log.e("Calculation ", "Result after calculation: wage: " + wage +" StartTime: " + startTime +" EndTime" + endTime +" tax " + tax + " obIndex " + obIndex + " obStart " + obStart + " obEnd " + obEnd +" day " + dayOfWeek + " = "+obDay + " RESULT= " + res);
+
 
         return res;
     }

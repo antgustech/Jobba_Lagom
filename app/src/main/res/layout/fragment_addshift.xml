@@ -72,7 +72,7 @@
             android:background="@drawable/et_rounded_corners"
             android:drawableLeft="@drawable/coffee_icon"
             android:drawablePadding="@dimen/drawable_padding"
-            android:hint="Rast i minuter"
+            android:hint="MM Dras från mitten "
             android:inputType="number"
             android:padding="@dimen/input_text_padding_icon"
             android:textColor="@color/black"
