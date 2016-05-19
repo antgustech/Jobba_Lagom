@@ -44,25 +44,18 @@ public class Client extends Thread {
         this.host = host;
         this.port = port;
         this.messageCallback = messageCallback;
-        startPinger();
+      //  startPinger();
         if(!isAlive()) {
             start();
         }
     }
 
-    public void startPinger(){
-        Log.e("PingTag","Starting pinger");
-        Timer timer = new Timer();
-        timer.scheduleAtFixedRate(new TimerTask() {
-            @Override
-            public void run() {
-                Log.e("PingTag","Pinger started");
-                new Pinger().start();
-            }
-        }, 0, 6000);
-    }
-
     public boolean checkConnection(){
+        Pinger pinger = new Pinger();
+        pinger.start();
+        while(pinger.isAlive()){
+
+        }
         return connected;
     }
 

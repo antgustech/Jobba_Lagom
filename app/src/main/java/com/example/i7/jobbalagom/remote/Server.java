@@ -93,7 +93,7 @@ public class Server extends Thread {
                     		break;
 
                         case 1://getKommun
-                            oos.writeObject(getKommun());
+                          //  oos.writeObject(getKommun());
                             oos.flush();
                             break;
 
@@ -115,9 +115,9 @@ public class Server extends Thread {
                     System.out.println("[ERROR] File error");
                     //connected=false;
                 }
-                catch (SQLException e) {
+                //catch (SQLException e) {
                     System.out.println("[ERROR] Network error");
-                }
+               // }
             }
         }
     }
@@ -143,7 +143,7 @@ public class Server extends Thread {
             System.out.println("[ERROR] Problem with disconnecting db");
         }
     }
-
+/*
     //Read all kommun strings from table skatt16april and returns them in a list.
    private ArrayList<String> getKommun() throws SQLException {
         String kommuner ="";
@@ -157,6 +157,7 @@ public class Server extends Thread {
             }
         }
     }
+    */
     //eturns float of the average tax including churchTax from choosen kommyn.
     private float getChurchTax(String choosenKommun) {
         float tax = 0f;
