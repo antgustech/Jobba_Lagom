@@ -1,4 +1,4 @@
-package server;
+package com.example.i7.jobbalagom.remote;
 /*
  * Created by Anton 15-04-16
  */
@@ -86,7 +86,7 @@ public class Server extends Thread {
                     System.out.println(intOperation + " Operation");
                     switch (intOperation) {
                     
-                    	case 0:
+                    	case 0://checkConnection
                     		dos.writeInt(1);
                     		System.out.println("Server pinged");
                     		dos.flush();

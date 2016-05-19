@@ -63,7 +63,6 @@ public class Client extends Thread {
     }
 
     public boolean checkConnection(){
-
         return connected;
     }
 

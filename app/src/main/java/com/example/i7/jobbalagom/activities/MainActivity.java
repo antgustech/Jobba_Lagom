@@ -360,7 +360,7 @@ public class MainActivity extends Activity {
 
     private class AddShiftFragmentListener implements AddShiftFragmentCallback {
         public void addShift(String jobTitle, float startTime, float endTime, float hoursWorked, int year, int month, int day, float breakMinutes) {
-            float income = controller.calculateData(jobTitle, startTime, endTime, year, month, day, breakMinutes );
+            float income = controller.caculateShift(jobTitle, startTime, endTime, year, month, day, breakMinutes );
             Log.d("MainActivity", "Inkomst av shift: " + income);
             int currentMonth = Calendar.getInstance().get(Calendar.MONTH) + 1;
             int currentYear = Calendar.getInstance().get(Calendar.YEAR)%100;

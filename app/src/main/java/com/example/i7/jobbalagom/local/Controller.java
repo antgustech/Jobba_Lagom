@@ -31,7 +31,7 @@ public class Controller  {
     private DBHelper dbHelper;
     private SQLiteDatabase sqLiteDatabase;
 
-    private float tax,res,wage,obIndex,obStart,obEnd;
+    private float tax, result,wage,obIndex,obStart,obEnd;
 
 
     public Controller(Context context){
@@ -305,75 +305,62 @@ public class Controller  {
         dbHelper.close();
     }
 
-
-
-    //CALCULATION METHODS-------------------------------------------------------------------
-
     /**
-     * When user have pressed addShift, the shift is added. Then this method should be called to update the total income.
-     * TODO *More tests to make sure it calculates correct!
-     * @param jobTitle
+     * When user have pressed addShift this method is called to calculate the shift and then call addShift method to add the result.
+     * TODO *More tests to make sure it calculates correct
      */
-    public float calculateData(String jobTitle, float startTime, float endTime, int year, int month, int day, float breakMinutes){
-        float obTime,workedPay, workedTime, workedObPay = 0f,realTax = 0f;
-        int calYear, dayOfWeek = 0;
-        String obDay ="";
+    public float caculateShift(String jobTitle, float startTime, float endTime, int year, int month, int day, float breakMinutes){
+        float workedPay, workedTime,realTax, workedObPay = 0;
+        int  dayOfWeek;
+        String dayName;
 
+        //Calculate which day it is.
         Calendar c = Calendar.getInstance();
-        calYear = c.get(Calendar.YEAR)/100*100+year;
-        c.set(calYear,month-1,day);
-        dayOfWeek = c.get(Calendar.DAY_OF_WEEK) ; //Sunday is day 1, saturday is day 7
-
+        year = c.get(Calendar.YEAR)/100*100+year;
+        c.set(year,month-1,day);
+        dayOfWeek = c.get(Calendar.DAY_OF_WEEK) ; //Sunday = 1, Saturday = 7
         if(dayOfWeek>1 && dayOfWeek <7){
-            obDay ="Vardag";
+            dayName ="Vardag";
         }else if(dayOfWeek == 7){
-            obDay ="Lördag";
+            dayName ="Lördag";
         }else {
-            obDay ="Söndag";
+            dayName ="Söndag";
         }
 
+        //Get data from the database
         wage = getWage(jobTitle);
         tax = getTax();
-        obIndex = getOB(jobTitle, obDay);
-        obStart= getOBStart(jobTitle, obDay);
-        obEnd = getOBEnd(jobTitle, obDay);
-        res = 0;
+        obIndex = getOB(jobTitle, dayName);
+        obStart= getOBStart(jobTitle, dayName);
+        obEnd = getOBEnd(jobTitle, dayName);
+        result = 0;
 
+        //If ob is 0, it will be set to 1 so later it will just multiply with 1 instead of 0.
         if(obIndex == 0){
             obIndex++;
         }
 
         //Check if ob hours are within working hours.
-        if(obStart<endTime){//sant
-            if(endTime>obEnd){//falskt
+        if(obStart<endTime){
+            if(endTime>obEnd){
                 workedObPay=((obEnd - obStart) * ((obIndex-1)*wage)) ;
             }else if(endTime<=obEnd){
                 workedObPay= ((endTime-obStart)* ((obIndex-1)*wage));
             }
         }
 
-        //Break handling
-        workedTime = (endTime-startTime);
-        float findMiddleTime = workedTime/2;
-        float newFirstHalf = findMiddleTime-breakMinutes;
-        float newSecondHalf = findMiddleTime;
-        float newWorkedTime = (newFirstHalf+newSecondHalf);
+        //Break handling, removes the breakMinutes from the middle of the shift.
+        workedTime = (((endTime-startTime)/2) - breakMinutes) + ((endTime-startTime)/2);
 
         //Final calculation
-        workedPay = newWorkedTime * wage;
-        realTax=(1-tax);  //0
-        res = ((workedPay + workedObPay) * realTax);
-        Log.e("Calculation ", "Result after calculation: CALCULATED OB:" + workedObPay);
-        Log.e("Calculation ", "Result after calculation: wage: " + wage +" StartTime: " + startTime +" EndTime" + endTime +" tax " + tax + " obIndex " + obIndex + " obStart " + obStart + " obEnd " + obEnd +" day " + dayOfWeek + " = "+obDay + " RESULT= " + res);
+        workedPay = workedTime * wage;
+        realTax=(1-tax);
+        result = ((workedPay + workedObPay) * realTax);
 
         //Send data to database and return the result.
-        addShift(jobTitle, startTime, endTime, workedTime, year, month, day , res);
-        return res;
+        addShift(jobTitle, startTime, endTime, workedTime, year, month, day , result);
+        Log.e("Calculation ", "Result after calculation: wage: " + wage +" StartTime: " + startTime +" EndTime" + endTime +" tax " + tax + " obIndex " + obIndex + " obStart " + obStart + " obEnd " + obEnd +" day " + dayOfWeek + " = "+dayName + "calbulated ob " + workedObPay + " Res= " + result);
+        return result;
     }
-
-
-
-
-
 }
 
