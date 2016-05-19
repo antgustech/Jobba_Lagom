@@ -115,8 +115,13 @@ public class MainActivity extends Activity {
         Log.e("SomeTag","Updating tax");
         String kommun = controller.getMunicipality();
         float newTax = controller.getTax(kommun);
+        float oldTax = controller.getTax();
+        if(newTax != oldTax){
+            controller.setTax(newTax);
+            Toast.makeText(this,"The tax for " + kommun +" is now updated",Toast.LENGTH_LONG);
+        }
         Log.e("SomeTag",newTax + "");
-        controller.setTax(newTax);
+
     }
 
     public void onBackPressed() {
