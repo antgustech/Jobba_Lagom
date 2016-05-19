@@ -19,6 +19,11 @@
    <string name="action_about_disclaimer">Denna applikation är skapad av en grupp studenter på Malmö högskola. Applikationen befinner sig för tillfället i ett tidigt
      utvecklings stadie och diverse buggar och fel kan inträffa. Vi tar inget ansvar för felaktiga beräkningar, krascher eller att du missade din tvättid.
     </string>
+    <string name="aboutAnton">anton.gustafsson@live.com</string>
+    <string name="aboutChristoffer">Christoffer@lulz.com</string>
+    <string name="aboutKajsa">Kajsa@lulz.com</string>
+    <string name="aboutMorgan">hedstrom.morgan@gmail.com</string>
+    <string name="aboutJakup">jakup@lulz.com</string>
 
     <!--Floating button strings-->
     <string name="fButtonExpanse">Lägg till utgift</string>
