@@ -104,7 +104,9 @@ public class MainActivity extends Activity {
             startInitialFragment();
         } else {
             loadProgressBars();
-            checkForTaxUpdate();
+            if(controller.checkConnection()){
+                checkForTaxUpdate();
+            }
             //Log.e("SomeTag",controller.getMunicipality());
         }
     }
