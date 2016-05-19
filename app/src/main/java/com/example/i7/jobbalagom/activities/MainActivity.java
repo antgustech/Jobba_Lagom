@@ -12,6 +12,7 @@ import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.i7.jobbalagom.R;
 import com.example.i7.jobbalagom.callback_interfaces.AddExpenseFragmentCallback;
@@ -72,6 +73,7 @@ public class MainActivity extends Activity {
     protected void onResume() {
         super.onResume();
         loadProgressBars();
+
     }
 
     public void initComponents() {
@@ -102,7 +104,17 @@ public class MainActivity extends Activity {
             startInitialFragment();
         } else {
             loadProgressBars();
+            checkForTaxUpdate();
+            //Log.e("SomeTag",controller.getMunicipality());
         }
+    }
+
+    private void checkForTaxUpdate(){
+        Log.e("SomeTag","Updating tax");
+        String kommun = controller.getMunicipality();
+        float newTax = controller.getTax(kommun);
+        Log.e("SomeTag",newTax + "");
+        controller.setTax(newTax);
     }
 
     public void onBackPressed() {
@@ -177,7 +189,7 @@ public class MainActivity extends Activity {
         float balance = thisMonthsIncome-thisMonthsExpenses;
         tvIncome.setText("Inkomst " + (int)thisMonthsIncome);
         tvExpense.setText("Utgifter " + (int)thisMonthsExpenses);
-        tvBalance.setText((int)balance + "");
+        tvBalance.setText((int) balance + "");
        /**
         if(balance < 0) {
             tvBalance.setTextColor(Color.parseColor("#F67280"));
@@ -360,7 +372,8 @@ public class MainActivity extends Activity {
 
     private class AddShiftFragmentListener implements AddShiftFragmentCallback {
         public void addShift(String jobTitle, float startTime, float endTime, float hoursWorked, int year, int month, int day, float breakMinutes) {
-            float income = controller.caculateShift(jobTitle, startTime, endTime, year, month, day, breakMinutes );
+            float income = 1000;
+            // float income = controller.caculateShift(jobTitle, startTime, endTime, year, month, day, breakMinutes );
             Log.d("MainActivity", "Inkomst av shift: " + income);
             int currentMonth = Calendar.getInstance().get(Calendar.MONTH) + 1;
             int currentYear = Calendar.getInstance().get(Calendar.YEAR)%100;
@@ -368,6 +381,7 @@ public class MainActivity extends Activity {
             if(month == currentMonth && year == currentYear) {
                 updatePBincome(income);
             }
+
             if( ((currentMonth <= 6 && month <= 6) || (currentMonth > 6 && month > 6)) && year == currentYear) {
                 updatePBcsn(income);
             }

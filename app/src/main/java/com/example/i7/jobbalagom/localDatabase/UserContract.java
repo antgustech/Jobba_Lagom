@@ -12,6 +12,7 @@ public class UserContract {
         public static final String USER_INCOME_LIMIT = "incomeLimit";
         public static final String USER_EMAIL = "email";
         public static final String USER_PASSWORD = "password";
+        public static final String USER_MUNICIPALITY = "municipality";
     }
 
     public static abstract class Job {

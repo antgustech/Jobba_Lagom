@@ -20,7 +20,7 @@ public class Controller  {
     /**
      * -------ÄNDRA IP VID TESTNING-----------!
      */
-        private final String IP = "192.168.44.144"; // Kajsa 192.168.0.10
+        private final String IP = "192.168.0.194"; // Kajsa 192.168.0.10
     /**
      * ----------------------------------------!
      */
@@ -91,7 +91,7 @@ public class Controller  {
     public void addUser(String municipality, float incomeLimit) {
         float tax = client.getTaxFromServer(municipality);
         sqLiteDatabase = dbHelper.getWritableDatabase();
-        dbHelper.addUser(tax, incomeLimit, sqLiteDatabase);
+        dbHelper.addUser(tax, incomeLimit, sqLiteDatabase, municipality);
         dbHelper.close();
     }
 
@@ -151,7 +151,7 @@ public class Controller  {
 
     public void deleteJob(String name ) {
         sqLiteDatabase = dbHelper.getWritableDatabase();
-        dbHelper.deleteJob(name,sqLiteDatabase);
+        dbHelper.deleteJob(name, sqLiteDatabase);
         dbHelper.close();
     }
 
@@ -161,7 +161,7 @@ public class Controller  {
 
     public void deleteShift(int id ) {
         sqLiteDatabase = dbHelper.getWritableDatabase();
-        dbHelper.deleteShift(id,sqLiteDatabase);
+        dbHelper.deleteShift(id, sqLiteDatabase);
         dbHelper.close();
     }
 
@@ -171,7 +171,7 @@ public class Controller  {
 
     public void deleteExpense(String name ) {
         sqLiteDatabase = dbHelper.getWritableDatabase();
-        dbHelper.deleteExpense(name,sqLiteDatabase);
+        dbHelper.deleteExpense(name, sqLiteDatabase);
         dbHelper.close();
     }
 
@@ -268,6 +268,14 @@ public class Controller  {
         float sum = dbHelper.getUserTax(sqLiteDatabase);
         dbHelper.close();
         return sum;
+    }
+
+
+    public String getMunicipality() {
+        sqLiteDatabase = dbHelper.getReadableDatabase();
+        String municipality = dbHelper.getUserMunicipality(sqLiteDatabase);
+        dbHelper.close();
+        return municipality;
     }
 
     public float getOB( String jobTitle, String day){

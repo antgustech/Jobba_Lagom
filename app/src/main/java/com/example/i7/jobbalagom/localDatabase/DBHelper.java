@@ -25,8 +25,9 @@ public class DBHelper extends SQLiteOpenHelper {
             "CREATE TABLE " + UserContract.User.TABLE_NAME
                     + "( " + UserContract.User.USER_TAX + " FLOAT, "
                     + UserContract.User.USER_INCOME_LIMIT + " FLOAT, "
-                    + UserContract.User.USER_EMAIL + " TEXT, "
-                    + UserContract.User.USER_PASSWORD + " TEXT);";
+                    + UserContract.User.USER_EMAIL + " TEXT,"
+                    + UserContract.User.USER_PASSWORD + " TEXT," +
+                    UserContract.User.USER_MUNICIPALITY + " TEXT" + ");";
 
     private static final String CREATE_JOB_QUERY =
             "CREATE TABLE " + UserContract.Job.TABLE_NAME
@@ -108,10 +109,11 @@ public class DBHelper extends SQLiteOpenHelper {
      * Adds a user to the user table.
      */
 
-    public void addUser(float tax, float incomeLimit, SQLiteDatabase db ){
+    public void addUser(float tax, float incomeLimit, SQLiteDatabase db, String municipality ){
         ContentValues contentValues = new ContentValues();
         contentValues.put(UserContract.User.USER_TAX, tax);
         contentValues.put(UserContract.User.USER_INCOME_LIMIT, incomeLimit);
+        contentValues.put(UserContract.User.USER_MUNICIPALITY, municipality);
         db.insert(UserContract.User.TABLE_NAME, null, contentValues);
         Log.e("Internal DB", "New user: " + tax + " in tax, " + incomeLimit + " in income limit");
     }
@@ -173,7 +175,7 @@ public class DBHelper extends SQLiteOpenHelper {
     }
 
     public void deleteUser(SQLiteDatabase db){
-        db.execSQL("DELETE * FROM " + UserContract.User.TABLE_NAME +"');");
+        db.execSQL("DELETE * FROM " + UserContract.User.TABLE_NAME + "');");
         Log.e("Internal DB", "Deleted user");
     }
 
@@ -284,7 +286,7 @@ public class DBHelper extends SQLiteOpenHelper {
     public float getWage(String jobTitle, SQLiteDatabase db) {
         float wage = 0;
         Cursor c = db.rawQuery("SELECT " + UserContract.Job.JOB_WAGE + " FROM " + UserContract.Job.TABLE_NAME
-                        + " WHERE " + UserContract.Job.JOB_TITLE + " = \"" + jobTitle + "\"", null);
+                + " WHERE " + UserContract.Job.JOB_TITLE + " = \"" + jobTitle + "\"", null);
         if (c.moveToFirst()) {
             wage = c.getFloat(c.getColumnIndex(UserContract.Job.JOB_WAGE));
         }
@@ -321,6 +323,16 @@ public class DBHelper extends SQLiteOpenHelper {
         Log.e("Internal DB", "Getting user tax from database" );
         return sum;
 
+    }
+
+    public String getUserMunicipality(SQLiteDatabase db){
+        String municipality = "";
+        Cursor c = db.rawQuery("SELECT " + UserContract.User.USER_MUNICIPALITY + " FROM " + UserContract.User.TABLE_NAME + ";", null);
+        if(c.moveToFirst()){
+            municipality = c.getString(c.getColumnIndex(UserContract.User.USER_MUNICIPALITY));
+        }
+
+        return municipality;
     }
 
     public float getOB(String jobTitle, String day, SQLiteDatabase db){
