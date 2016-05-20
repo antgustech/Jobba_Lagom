@@ -5,9 +5,9 @@ import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
 import com.example.i7.jobbalagom.callback_interfaces.MessageCallback;
+import com.example.i7.jobbalagom.callback_interfaces.TaxCallbacks.UpdateTaxCallback;
 import com.example.i7.jobbalagom.localDatabase.DBHelper;
 import com.example.i7.jobbalagom.remote.Client;
-
 import java.util.ArrayList;
 import java.util.Calendar;
 
@@ -75,6 +75,14 @@ public class Controller  {
         return client.getTaxFromServer(municipality);
     }
 
+    public void getChurchTax(String municipality, UpdateTaxCallback callback) {
+        client.getChurchTaxFromServer(municipality,callback);
+    }
+
+    public void getTax(String municipality, UpdateTaxCallback callback){
+        client.getTaxFromServer(municipality,callback);
+    }
+
     public boolean checkConnection(){
         return client.checkConnection();
     }
@@ -90,19 +98,34 @@ public class Controller  {
 
     public void addUser(String municipality, float incomeLimit, boolean church) {
 
+        CreateUserListener callback = new CreateUserListener(municipality,incomeLimit);
         if(church){
-            float tax = client.getChurchTaxFromServer(municipality);
+            client.getChurchTaxFromServer(municipality,callback);
         }else{
-            float tax = client.getTaxFromServer(municipality);
+            client.getTaxFromServer(municipality,callback);
         }
-        Log.e("controller", "ChurchTAX LOGGING: " + church + " är boolean och tax är : " +  tax);
-
-
-        sqLiteDatabase = dbHelper.getWritableDatabase();
-        dbHelper.addUser(tax, incomeLimit, sqLiteDatabase, municipality);
-        dbHelper.close();
+        Log.e("controller", "ChurchTAX LOGGING: " + church + " är boolean och tax är : " + tax);
     }
 
+    private class CreateUserListener implements com.example.i7.jobbalagom.callback_interfaces.TaxCallbacks.UpdateTaxCallback {
+
+        String municipality;
+        float incomeLimit;
+
+        public CreateUserListener(String municipality, float incomeLimit){
+            this.municipality = municipality;
+            this.incomeLimit = incomeLimit;
+        }
+
+        @Override
+        public void UpdateTax(float tax) {
+
+            sqLiteDatabase = dbHelper.getWritableDatabase();
+            dbHelper.addUser(tax, incomeLimit, sqLiteDatabase, municipality);
+            dbHelper.close();
+            Log.e("CallbackTag", "Jay! It worked " + tax);
+        }
+    }
     /**
      * Adds job to db
      */

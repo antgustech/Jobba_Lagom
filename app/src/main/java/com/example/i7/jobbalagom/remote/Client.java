@@ -1,9 +1,9 @@
 package com.example.i7.jobbalagom.remote;
 
 import android.util.Log;
-import android.widget.Toast;
 
 import com.example.i7.jobbalagom.callback_interfaces.MessageCallback;
+import com.example.i7.jobbalagom.callback_interfaces.TaxCallbacks.UpdateTaxCallback;
 import com.example.i7.jobbalagom.local.Controller;
 import com.example.i7.jobbalagom.local.Singleton;
 
@@ -16,8 +16,6 @@ import java.io.ObjectInputStream;
 import java.net.Socket;
 import java.sql.Connection;
 import java.util.ArrayList;
-import java.util.Timer;
-import java.util.TimerTask;
 
 /**
  * Created by Anton Gustafsson on 2016-04-19.
@@ -107,6 +105,8 @@ public class Client extends Thread {
         return municipalities;
     }
 
+
+
     /**
      * Returns the related tax including church tax as a float
      */
@@ -126,12 +126,33 @@ public class Client extends Thread {
                 } catch (IOException e) {}
             }
         });
+        thread.setPriority(Thread.MAX_PRIORITY);
         thread.start();
         while(tax == 0){
             Log.e("ThreadTag","tax not changed");
         }
         return tax;
 
+    }
+
+    public void getChurchTaxFromServer(final String municipality, final UpdateTaxCallback callback){
+        tax = 0;
+        Thread thread = new Thread(new Runnable() {
+            public void run() {
+                try {
+                    dos.writeInt(2);
+                    dos.flush();
+                    dos.writeUTF(municipality);
+                    dos.flush();
+                    tax = dis.readFloat();
+                    callback.UpdateTax(tax);
+                    Log.e("ThreadTag",tax + "");
+
+                } catch (IOException e) {}
+            }
+        });
+        thread.setPriority(Thread.MAX_PRIORITY);
+        thread.start();
     }
 
     /**
@@ -153,12 +174,33 @@ public class Client extends Thread {
                 } catch (IOException e) {}
             }
             });
+        thread.setPriority(Thread.MAX_PRIORITY);
         thread.start();
         while(tax == 0){
             Log.e("ThreadTag","tax not changed");
         }
         return tax;
 
+    }
+
+    public void getTaxFromServer(final String municipality, final UpdateTaxCallback callback) {
+        tax = 0;
+        Thread thread = new Thread(new Runnable() {
+            public void run() {
+                try {
+                    dos.writeInt(3);
+                    dos.flush();
+                    dos.writeUTF(municipality);
+                    dos.flush();
+                    tax = dis.readFloat();
+                    callback.UpdateTax(tax);
+                    Log.e("ThreadTag",tax + "");
+
+                } catch (IOException e) {}
+            }
+        });
+        thread.setPriority(Thread.MAX_PRIORITY);
+        thread.start();
     }
 
     private class Pinger extends Thread {

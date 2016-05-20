@@ -22,6 +22,7 @@ import com.example.i7.jobbalagom.callback_interfaces.BudgetFragmentCallback;
 import com.example.i7.jobbalagom.callback_interfaces.InitialFragmentCallback;
 import com.example.i7.jobbalagom.callback_interfaces.LaunchFragmentCallback;
 import com.example.i7.jobbalagom.callback_interfaces.SetupFragmentCallback;
+import com.example.i7.jobbalagom.callback_interfaces.TaxCallbacks.UpdateTaxCallback;
 import com.example.i7.jobbalagom.fragments.AddExpenseFragment;
 import com.example.i7.jobbalagom.fragments.AddJobFragment;
 import com.example.i7.jobbalagom.fragments.AddShiftFragment;
@@ -112,16 +113,28 @@ public class MainActivity extends Activity {
     }
 
     private void checkForTaxUpdate(){
-        Log.e("SomeTag","Updating tax");
+        //TODO: DEN UPPDATERAR INTE FÖR KYRKOSKATT
         String kommun = controller.getMunicipality();
-        float newTax = controller.getTax(kommun);
-        float oldTax = controller.getTax();
-        if(newTax != oldTax){
-            controller.setTax(newTax);
-            Toast.makeText(this,"The tax for " + kommun +" is now updated",Toast.LENGTH_LONG);
-        }
-        Log.e("SomeTag",newTax + "");
+        TaxUpdateListener listener = new TaxUpdateListener(kommun);
+        controller.getTax(kommun, listener);
+    }
 
+    private class TaxUpdateListener implements UpdateTaxCallback {
+        String kommun;
+
+        public TaxUpdateListener(String kommun){
+            this.kommun = kommun;
+        }
+
+        @Override
+        public void UpdateTax(float tax) {
+            float oldTax = controller.getTax();
+            if(tax != oldTax){
+                controller.setTax(tax);
+               // Toast.makeText(getBaseContext(), "The tax for " + kommun + " is now updated", Toast.LENGTH_LONG);
+                Log.e("CallbackTag","Jay! It works!");
+            }
+        }
     }
 
     public void onBackPressed() {

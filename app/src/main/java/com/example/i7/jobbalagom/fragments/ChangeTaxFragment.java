@@ -2,6 +2,7 @@ package com.example.i7.jobbalagom.fragments;
 
 import android.app.Fragment;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,7 +12,9 @@ import android.widget.CheckBox;
 import android.widget.TextView;
 
 import com.example.i7.jobbalagom.R;
+import com.example.i7.jobbalagom.activities.MainActivity;
 import com.example.i7.jobbalagom.callback_interfaces.ChangeTaxFragmentCallback;
+import com.example.i7.jobbalagom.callback_interfaces.TaxCallbacks.UpdateTaxCallback;
 import com.example.i7.jobbalagom.local.Controller;
 import com.example.i7.jobbalagom.local.Singleton;
 
@@ -28,7 +31,7 @@ public class ChangeTaxFragment extends Fragment {
     private View calculateTaxBtn;
     private View chooseTaxBtn;
     private CheckBox churchCheckbox;
-    private TextView tax;
+    private TextView taxTextView;
 
     private float currentTax = 0;
 
@@ -46,7 +49,7 @@ public class ChangeTaxFragment extends Fragment {
         calculateTaxBtn = view.findViewById(R.id.calculateTaxBtn);
         chooseTaxBtn = view.findViewById(R.id.chooseTaxBtn);
         churchCheckbox = (CheckBox)view.findViewById(R.id.churchCheckbox);
-        tax = (TextView)view.findViewById(R.id.taxText);
+        taxTextView = (TextView)view.findViewById(R.id.taxText);
         controller  = Singleton.controller;
 
       //  setupChooseTax();
@@ -62,17 +65,37 @@ public class ChangeTaxFragment extends Fragment {
         calculateTaxBtn.setOnClickListener(new View.OnClickListener()  {
             @Override
             public void onClick(View v) {
+                SetTaxListener callback = new SetTaxListener();
                 if(v == v.findViewById(R.id.calculateTaxBtn)){
                     if(churchCheckbox.isChecked()) {
-                        tax.setText(controller.getChurchTax(textViewKommun.getText()+"")+"");
+                        controller.getChurchTax(textViewKommun.getText() + "", callback);
                     }
                     else {
-                        tax.setText(controller.getTax(textViewKommun.getText()+"")+"");
+                        controller.getTax(textViewKommun.getText() + "", callback);
                     }
                 }
             }
         });
     }
+
+    private class SetTaxListener implements UpdateTaxCallback {
+
+        @Override
+        public void UpdateTax(float tax) {
+            setTaxText(tax + "");
+            Log.e("CallbackTag", "Cool: " + tax);
+        }
+    }
+
+    public void setTaxText(final String text){
+        getActivity().runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                taxTextView.setText(text);
+            }
+        });
+    }
+
 
     /**
      * Listener for setTaxbutton.
