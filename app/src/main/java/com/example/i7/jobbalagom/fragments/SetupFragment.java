@@ -99,6 +99,11 @@ public class SetupFragment extends Fragment {
             if(incomeLimit.equals("")) {
                 Toast.makeText(getActivity(), "Vänligen ange hur hög inkomst du får ha detta halvåret enligt Centrala Studiestödnämnen.", Toast.LENGTH_LONG).show();
                 return;
+
+            }else if(Float.parseFloat(incomeLimit) >0f && Float.parseFloat(incomeLimit)<200000f){
+                Toast.makeText(getActivity(), "Fribeloppet måste vara mellan 0-200 000kr.", Toast.LENGTH_LONG).show();
+                return;
+
             } else if(municipality.equals("")) {
                 Toast.makeText(getActivity(), "Vänligen ange vilken kommun du är folkbokförd i.", Toast.LENGTH_LONG).show();
                 return;

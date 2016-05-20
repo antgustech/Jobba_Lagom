@@ -46,13 +46,13 @@ public class ChangeIncomeLimitFragment extends Fragment {
             public void onClick(View v) {
                 float newLimit = Float.parseFloat(newIncomeLimitField.getText().toString());
 
-                if(newLimit >0f && newLimit<100000f) {
+                if(newLimit >0f && newLimit<200000f) {
                     callback.setIncomeLimit(newLimit);
                     setTextEditTax();
                     Toast.makeText(getActivity(), "Fribeloppet ändrat", Toast.LENGTH_LONG).show();
                 }
                 else{
-                    Toast.makeText(getActivity(), "Fribeloppet måste vara mellan 0-100 000kr.", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getActivity(), "Fribeloppet måste vara mellan 0-200 000kr.", Toast.LENGTH_LONG).show();
                 }
 
 
