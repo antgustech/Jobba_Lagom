@@ -20,7 +20,7 @@ public class Controller  {
     /**
      * -------ÄNDRA IP VID TESTNING-----------!
      */
-        private final String IP = "192.168.1.136"; // Kajsa 192.168.0.10
+        private final String IP = "192.168.0.194"; // Kajsa 192.168.0.10
     /**
      * ----------------------------------------!
      */
@@ -375,7 +375,7 @@ public class Controller  {
 
         //Send data to database and return the result.
         Log.e("Calculation ", "Result after calculation: wage: " + wage + " StartTime: " + startTime + " EndTime " + endTime + " tax " + tax + " new tax " + realTax + " obIndex " + obIndex + " obStart " + obStart + " obEnd " + obEnd + " day " + dayOfWeek + " = " + dayName + " calculated ob " + workedObPay + " Result= " + result);
-        addShift(jobTitle, startTime, endTime, workedTime, year, month, day , result);
+        addShift(jobTitle, startTime, endTime, workedTime, year, month, day, result);
 
         return result;
     }
