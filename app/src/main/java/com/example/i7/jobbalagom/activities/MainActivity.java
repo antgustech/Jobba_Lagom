@@ -352,9 +352,9 @@ public class MainActivity extends Activity {
      */
 
     private class SetupFragmentListener implements SetupFragmentCallback {
-        public void addUser(String municipality, float incomeLimit) {
+        public void addUser(String municipality, float incomeLimit, boolean church) {
 
-            controller.addUser(municipality, incomeLimit);
+            controller.addUser(municipality, incomeLimit, church);
             loadProgressBars();
             removeFragment(currentFragment);
         }

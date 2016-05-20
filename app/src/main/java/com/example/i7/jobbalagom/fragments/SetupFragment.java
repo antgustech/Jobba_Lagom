@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -28,6 +29,8 @@ public class SetupFragment extends Fragment {
     private TextView tvBackup;
     private EditText inputIncomeLimit,inputEmail, inputPassword, inputConfirm;
     private AutoCompleteTextView inputMunicipality;
+    private CheckBox churchCheckboxSetup;
+    private boolean churchTax = true;
     private Button btnSetup, btnRegister, btnExit;
     private RelativeLayout registerLayout;
 
@@ -46,6 +49,7 @@ public class SetupFragment extends Fragment {
     }
 
     public void initComponents(View view) {
+        churchCheckboxSetup =(CheckBox) view.findViewById(R.id.churchCheckboxSetup);
         inputIncomeLimit = (EditText) view.findViewById(R.id.inputIncomeLimit);
         inputMunicipality = (AutoCompleteTextView) view.findViewById(R.id.inputMunicipality);
         inputEmail = (EditText) view.findViewById(R.id.inputEmail);
@@ -100,7 +104,7 @@ public class SetupFragment extends Fragment {
                 Toast.makeText(getActivity(), "Vänligen ange hur hög inkomst du får ha detta halvåret enligt Centrala Studiestödnämnen.", Toast.LENGTH_LONG).show();
                 return;
 
-            }else if(Float.parseFloat(incomeLimit) >0f && Float.parseFloat(incomeLimit)<200000f){
+            }else if(Float.parseFloat(incomeLimit) <0f || Float.parseFloat(incomeLimit)>200000f){
                 Toast.makeText(getActivity(), "Fribeloppet måste vara mellan 0-200 000kr.", Toast.LENGTH_LONG).show();
                 return;
 
@@ -113,7 +117,16 @@ public class SetupFragment extends Fragment {
                 Toast.makeText(getActivity(), "Vänligen ange en giltig kommun.", Toast.LENGTH_LONG).show();
                 return;
             }
-            callback.addUser(municipality, Float.parseFloat(incomeLimit));
+            if(churchCheckboxSetup.isChecked()) {
+                churchTax= true;
+            }
+            else {
+                churchTax= false;
+            }
+
+
+
+            callback.addUser(municipality, Float.parseFloat(incomeLimit), churchTax);
         }
     }
 

@@ -88,8 +88,16 @@ public class Controller  {
      * Adds user to db
      */
 
-    public void addUser(String municipality, float incomeLimit) {
-        float tax = client.getTaxFromServer(municipality);
+    public void addUser(String municipality, float incomeLimit, boolean church) {
+
+        if(church){
+            float tax = client.getChurchTaxFromServer(municipality);
+        }else{
+            float tax = client.getTaxFromServer(municipality);
+        }
+        Log.e("controller", "ChurchTAX LOGGING: " + church + " är boolean och tax är : " +  tax);
+
+
         sqLiteDatabase = dbHelper.getWritableDatabase();
         dbHelper.addUser(tax, incomeLimit, sqLiteDatabase, municipality);
         dbHelper.close();
