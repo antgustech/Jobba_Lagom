@@ -20,7 +20,7 @@ public class Controller  {
     /**
      * -------ÄNDRA IP VID TESTNING-----------!
      */
-        private final String IP = "192.168.0.194"; // Kajsa 192.168.0.10
+        private final String IP = "10.2.11.91"; // Kajsa 192.168.0.10
     /**
      * ----------------------------------------!
      */
@@ -122,7 +122,7 @@ public class Controller  {
 
             sqLiteDatabase = dbHelper.getWritableDatabase();
             dbHelper.addUser(tax, incomeLimit, sqLiteDatabase, municipality);
-            dbHelper.close();
+            //dbHelper.close();
             Log.e("CallbackTag", "Jay! It worked " + tax);
         }
     }
@@ -133,7 +133,7 @@ public class Controller  {
     public void addJob(String title, float wage) {
         sqLiteDatabase = dbHelper.getWritableDatabase();
         dbHelper.addJob(title, wage, sqLiteDatabase);
-        dbHelper.close();
+       // dbHelper.close();
     }
 
     /**
@@ -143,7 +143,7 @@ public class Controller  {
     public void addOB(String jobTitle, String day, String fromTime, String toTime, Float obIndex) {
         sqLiteDatabase = dbHelper.getWritableDatabase();
         dbHelper.addOB(jobTitle, day, fromTime, toTime, obIndex, sqLiteDatabase);
-        dbHelper.close();
+       // dbHelper.close();
     }
 
     /**
@@ -153,7 +153,7 @@ public class Controller  {
     public void addShift(String jobTitle, float startTime, float endTime, float hoursWorked, int year, int month, int day , float income){
         sqLiteDatabase = dbHelper.getWritableDatabase();
         dbHelper.addShift(jobTitle, startTime, endTime, hoursWorked, year, month, day, income, sqLiteDatabase);
-        dbHelper.close();
+       // dbHelper.close();
     }
 
     /**
@@ -163,7 +163,7 @@ public class Controller  {
     public void addExpense(String name, float sum, int year, int month, int day) {
         sqLiteDatabase = dbHelper.getWritableDatabase();
         dbHelper.addExpense(name, sum, year, month, day, sqLiteDatabase);
-        dbHelper.close();
+      //  dbHelper.close();
     }
 
     /**
@@ -210,7 +210,7 @@ public class Controller  {
     public boolean isUserCreated() {
         sqLiteDatabase = dbHelper.getReadableDatabase();
         boolean userCreated = dbHelper.isUserCreated(sqLiteDatabase);
-        dbHelper.close();
+       // dbHelper.close();
         return userCreated;
     }
 
@@ -235,48 +235,48 @@ public class Controller  {
     public float getHalfYearIncome() {
         sqLiteDatabase = dbHelper.getReadableDatabase();
         float halfYearIncome = dbHelper.getHalfYearIncome(sqLiteDatabase);
-        dbHelper.close();
+      //  dbHelper.close();
         return halfYearIncome;
     }
 
     public float getThisMonthsIncome() {
         sqLiteDatabase = dbHelper.getReadableDatabase();
         float thisMonthsIncome = dbHelper.getThisMonthsIncome(sqLiteDatabase);
-        dbHelper.close();
+       // dbHelper.close();
         return thisMonthsIncome;
     }
 
     public float getThisMonthsExpenses() {
         sqLiteDatabase = dbHelper.getReadableDatabase();
         float thisMonthsExpenses = dbHelper.getThisMonthsExpenses(sqLiteDatabase);
-        dbHelper.close();
+        //dbHelper.close();
         return thisMonthsExpenses;
     }
 
     public float getIncomeLimit() {
         sqLiteDatabase = dbHelper.getReadableDatabase();
         float incomeLimit = dbHelper.getIncomeLimit(sqLiteDatabase);
-        dbHelper.close();
+      //  dbHelper.close();
         return incomeLimit;
     }
 
     public void setIncomeLimit(float limit){
         sqLiteDatabase = dbHelper.getReadableDatabase();
         dbHelper.setIncomeLimit(limit, sqLiteDatabase);
-        dbHelper.close();
+       // dbHelper.close();
     }
 
     public String[] getJobTitles(){
         sqLiteDatabase = dbHelper.getReadableDatabase();
         String[] jobTitles = dbHelper.getJobTitles(sqLiteDatabase);
-        dbHelper.close();
+       // dbHelper.close();
         return jobTitles;
     }
 
     public float getWage(String jobTitle) {
         sqLiteDatabase = dbHelper.getReadableDatabase();
         float sum = dbHelper.getWage(jobTitle, sqLiteDatabase);
-        dbHelper.close();
+       // dbHelper.close();
         return sum;
     }
 
@@ -297,7 +297,7 @@ public class Controller  {
     public float getTax() {
         sqLiteDatabase = dbHelper.getReadableDatabase();
         float sum = dbHelper.getUserTax(sqLiteDatabase);
-        dbHelper.close();
+      //  dbHelper.close();
         return sum;
     }
 
@@ -305,7 +305,7 @@ public class Controller  {
     public String getMunicipality() {
         sqLiteDatabase = dbHelper.getReadableDatabase();
         String municipality = dbHelper.getUserMunicipality(sqLiteDatabase);
-        dbHelper.close();
+      //  dbHelper.close();
         return municipality;
     }
 
@@ -313,7 +313,7 @@ public class Controller  {
 
         sqLiteDatabase = dbHelper.getWritableDatabase();
         float sum = dbHelper.getOB(jobTitle, day, sqLiteDatabase);
-        dbHelper.close();
+       // dbHelper.close();
 
         return sum;
     }
@@ -321,27 +321,27 @@ public class Controller  {
     public float getOBStart(String jobTitle, String obDay){
         sqLiteDatabase = dbHelper.getWritableDatabase();
         float sum = dbHelper.getOBStart(jobTitle, obDay, sqLiteDatabase);
-        dbHelper.close();
+      //  dbHelper.close();
         return sum;
     }
 
     public float getOBEnd(String jobTitle, String obDay){
         sqLiteDatabase = dbHelper.getWritableDatabase();
         float sum =dbHelper.getOBEnd(jobTitle, obDay, sqLiteDatabase);
-        dbHelper.close();
+       // dbHelper.close();
         return sum;
     }
 
     public void setTax(float tax){
         sqLiteDatabase = dbHelper.getWritableDatabase();
         dbHelper.setTax(tax, sqLiteDatabase );
-        dbHelper.close();
+       // dbHelper.close();
     }
 
     public void removeJob(String jobTitle){
         sqLiteDatabase = dbHelper.getWritableDatabase();
         dbHelper.deleteJob(jobTitle,sqLiteDatabase);
-        dbHelper.close();
+      //  dbHelper.close();
     }
 
     /**

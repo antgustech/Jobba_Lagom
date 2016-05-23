@@ -89,14 +89,18 @@ public class MainActivity extends Activity {
         btnBudget = (ImageButton) findViewById(R.id.btnBudget);
         btnSettings.setOnClickListener(new SettingsButtonListener());
         btnBudget.setOnClickListener(new BudgetButtonListener());
+
         floatingMenu = (FloatingActionsMenu) findViewById(R.id.floatingMenu);
+
         tvCSN = (TextView) findViewById(R.id.tvCSN);
         tvIncome = (TextView) findViewById(R.id.tvIncome);
         tvExpense = (TextView) findViewById(R.id.tvExpense);
         tvBalance = (TextView) findViewById(R.id.tvBalance);
+
         pbCSN = (ProgressBar) findViewById(R.id.pbCSN);
         pbIncome = (ProgressBar) findViewById(R.id.pbIncome);
         pbExpense = (ProgressBar) findViewById(R.id.pbExpenses);
+
         fragmentManager = getFragmentManager();
     }
 
@@ -210,6 +214,7 @@ public class MainActivity extends Activity {
         tvIncome.setText("Inkomst " + (int)thisMonthsIncome);
         tvExpense.setText("Utgifter " + (int)thisMonthsExpenses);
         tvBalance.setText((int) balance + "");
+
        /**
         if(balance < 0) {
             tvBalance.setTextColor(Color.parseColor("#F67280"));
@@ -255,7 +260,6 @@ public class MainActivity extends Activity {
     }
 
     public void startInitialFragment() {
-
         currentFragment = new InitialFragment();
         ((InitialFragment) currentFragment).setCallBack(new InitialFragmentListener());
         changeFragment(currentFragment);
@@ -393,7 +397,7 @@ public class MainActivity extends Activity {
     private class AddShiftFragmentListener implements AddShiftFragmentCallback {
         public void addShift(String jobTitle, float startTime, float endTime, float hoursWorked, int year, int month, int day, float breakMinutes) {
             //float income = 1000;
-             float income = controller.caculateShift(jobTitle, startTime, endTime, year, month, day, breakMinutes );
+            float income = controller.caculateShift(jobTitle, startTime, endTime, year, month, day, breakMinutes );
             Log.d("MainActivity", "Inkomst av shift: " + income);
             int currentMonth = Calendar.getInstance().get(Calendar.MONTH) + 1;
             int currentYear = Calendar.getInstance().get(Calendar.YEAR)%100;
