@@ -50,7 +50,7 @@ public class MainActivity extends Activity {
     private FloatingActionsMenu floatingMenu;
     private FloatingActionButton btnAddShift, btnAddExpense, btnAddJob;
     private ImageButton btnSettings, btnBudget;
-    private TextView tvCSN, tvIncome, tvExpense, tvBalance;
+    private TextView tvCSN, tvIncome, tvExpense, tvBalance, tvDate;
     private ProgressBar pbCSN, pbIncome, pbExpense;
     private float monthlyIncomeLimit, csnIncomeLimit;
     private int pbMaxProgress;
@@ -89,6 +89,7 @@ public class MainActivity extends Activity {
         tvIncome = (TextView) findViewById(R.id.tvIncome);
         tvExpense = (TextView) findViewById(R.id.tvExpense);
         tvBalance = (TextView) findViewById(R.id.tvBalance);
+        tvDate = (TextView) findViewById(R.id.tvDate);
         pbCSN = (ProgressBar) findViewById(R.id.pbCSN);
         pbIncome = (ProgressBar) findViewById(R.id.pbIncome);
         pbExpense = (ProgressBar) findViewById(R.id.pbExpenses);
@@ -198,7 +199,7 @@ public class MainActivity extends Activity {
         monthlyIncomeLimit = controller.getIncomeLimit()/6;
         csnIncomeLimit = controller.getIncomeLimit();
         pbMaxProgress = 100;
-        Log.d("MainActivity", "loadProgressBars, income limit: " + csnIncomeLimit);
+        tvDate.setText(getDate());
 
         updatePBcsn(controller.getHalfYearIncome(selectedMonth, selectedYear));
         Log.d("MainActivity", "loadProgressBars, (" + selectedYear + "." + selectedMonth + ") total half year income: " + controller.getHalfYearIncome(selectedMonth, selectedYear));
@@ -258,7 +259,7 @@ public class MainActivity extends Activity {
         float balance = monthlyIncome-monthlyExpenses;
 
         tvIncome.setText("Inkomst " + (int)monthlyIncome);
-        tvExpense.setText("Utgifter " + (int)monthlyExpenses);
+        tvExpense.setText("Utgift " + (int)monthlyExpenses);
         tvBalance.setText((int) balance + "");
     }
 
@@ -457,5 +458,50 @@ public class MainActivity extends Activity {
 
     private class BudgetFragmentListener implements BudgetFragmentCallback {
         // method to communicate with budget fragment
+    }
+
+    public String getDate() {
+
+        String month = "";
+
+        switch (selectedMonth) {
+            case 1:
+                month = "Jan";
+                break;
+            case 2:
+                month = "Feb";
+                break;
+            case 3:
+                month = "Mar";
+                break;
+            case 4:
+                month = "Apr";
+                break;
+            case 5:
+                month = "Maj";
+                break;
+            case 6:
+                month = "Jun";
+                break;
+            case 7:
+                month = "Jul";
+                break;
+            case 8:
+                month = "Aug";
+                break;
+            case 9:
+                month = "Sep";
+                break;
+            case 10:
+                month = "Okt";
+                break;
+            case 11:
+                month = "Nov";
+                break;
+            case 12:
+                month = "Dec";
+                break;
+        }
+        return month + " " + selectedYear;
     }
 }

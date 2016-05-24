@@ -69,6 +69,22 @@
         android:progressDrawable="@drawable/progressbar_income"
         android:indeterminate="false" />
 
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/left_icon"
+        android:layout_toLeftOf="@+id/pbIncome"
+        android:layout_centerVertical="true"
+        />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/right_icon"
+        android:layout_toRightOf="@+id/pbIncome"
+        android:layout_centerVertical="true"
+        />
+
     <RelativeLayout
         android:id="@+id/centerTextLayout"
         android:layout_width="wrap_content"
@@ -77,20 +93,20 @@
         android:layout_centerVertical="true">
 
         <TextView
-            android:id="@+id/tvIncome"
+            android:id="@+id/tvDate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
-            android:text="Inkomster 4500"
+            android:text="Jan 16"
             android:textAlignment="center"
             android:textColor="@color/white"
-            android:textSize="20sp" />
+            android:textSize="30sp" />
 
         <TextView
             android:id="@+id/tvBalance"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/tvIncome"
+            android:layout_below="@+id/tvDate"
             android:layout_centerHorizontal="true"
             android:text="0"
             android:textAlignment="center"
@@ -98,10 +114,20 @@
             android:textSize="50sp" />
 
         <TextView
+            android:id="@+id/tvIncome"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@+id/tvBalance"
+            android:text="Inkomst 4500"
+            android:textAlignment="center"
+            android:textColor="@color/white"
+            android:textSize="20sp" />
+        <TextView
             android:id="@+id/tvExpense"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/tvBalance"
+            android:layout_below="@+id/tvIncome"
             android:layout_centerHorizontal="true"
             android:text="Utgifter 5000"
             android:textAlignment="center"
