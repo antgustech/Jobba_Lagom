@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -21,6 +22,7 @@ public class InfoFragment extends Fragment {
     private RelativeLayout popupLayout;
     private TextView tvPopupTitle, tvPopupText;
     private Button btnExitPopup;
+    private ImageView ivSelfie;
 
     private final String TITLE_WHAT = "Vad?";
     private final String TITLE_HOW = "Hur?";
@@ -65,6 +67,7 @@ public class InfoFragment extends Fragment {
         popupLayout = (RelativeLayout) view.findViewById(R.id.popupLayout);
         tvPopupTitle = (TextView) view.findViewById(R.id.tvPopupTitle);
         tvPopupText = (TextView) view.findViewById(R.id.tvPopupText);
+        ivSelfie = (ImageView) view.findViewById(R.id.ivSelfie);
         ButtonListener btnListener = new ButtonListener();
         btnWhat.setOnClickListener(btnListener);
         btnHow.setOnClickListener(btnListener);
@@ -78,6 +81,12 @@ public class InfoFragment extends Fragment {
     public void showPopupLayout(String title, String text) {
         tvPopupTitle.setText(title);
         tvPopupText.setText(text);
+
+        if(title.equals(TITLE_WHO)) {
+            ivSelfie.setVisibility(View.VISIBLE);
+        } else {
+            ivSelfie.setVisibility(View.INVISIBLE);
+        }
         popupLayout.setVisibility(View.VISIBLE);
     }
 
