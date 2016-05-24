@@ -51,8 +51,8 @@
     <ProgressBar
         android:id="@+id/pbExpenses"
         style="?android:attr/progressBarStyleHorizontal"
-        android:layout_width="300dp"
-        android:layout_height="300dp"
+        android:layout_width="280dp"
+        android:layout_height="280dp"
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
         android:max="100"
@@ -61,8 +61,8 @@
     <ProgressBar
         android:id="@+id/pbIncome"
         style="?android:attr/progressBarStyleHorizontal"
-        android:layout_width="300dp"
-        android:layout_height="300dp"
+        android:layout_width="280dp"
+        android:layout_height="280dp"
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
         android:max="100"
@@ -72,17 +72,19 @@
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@drawable/left_icon"
-        android:layout_toLeftOf="@+id/pbIncome"
+        android:background="@drawable/left"
+        android:layout_alignParentLeft="true"
         android:layout_centerVertical="true"
+        android:layout_marginLeft="10dp"
         />
 
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@drawable/right_icon"
-        android:layout_toRightOf="@+id/pbIncome"
+        android:background="@drawable/right"
+        android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
+        android:layout_marginRight="10dp"
         />
 
     <RelativeLayout
@@ -215,7 +217,7 @@
         android:layout_alignParentBottom="true"
         android:layout_marginBottom="30dp"
         android:layout_marginLeft="30dp"
-        android:background="@drawable/settings_icon" />
+        android:background="@drawable/settings" />
 
 </RelativeLayout>
 

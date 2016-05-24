@@ -71,7 +71,7 @@
             android:background="@drawable/et_rounded_corners"
             android:drawableLeft="@drawable/calendar_icon"
             android:drawablePadding="@dimen/drawable_padding"
-            android:hint="Datum"
+            android:hint="ÅÅMMDD"
             android:inputType="number"
             android:padding="@dimen/input_text_padding_icon"
             android:textColor="@color/black"

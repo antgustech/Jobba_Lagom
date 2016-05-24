@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background1"
+    >
+
+    <RelativeLayout
+        android:id="@+id/btnLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="40dp"
+        >
+
+        <Button
+            android:id="@+id/btnWhat"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/btn_rounded_corners_blueish"
+            android:text="Vad?"
+            android:textSize="30sp"
+            android:textColor="@color/white"
+            android:layout_marginBottom="30dp"
+            android:padding="25dp"
+            />
+
+        <Button
+            android:id="@+id/btnHow"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/btn_rounded_corners_blueish"
+            android:text="Hur?"
+            android:textSize="30sp"
+            android:textColor="@color/white"
+            android:layout_marginBottom="30dp"
+            android:padding="25dp"
+            android:layout_below="@id/btnWhat"
+            />
+
+        <Button
+            android:id="@+id/btnWhy"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/btn_rounded_corners_blueish"
+            android:text="Varför?"
+            android:textSize="30sp"
+            android:textColor="@color/white"
+            android:layout_marginBottom="30dp"
+            android:padding="25dp"
+            android:layout_below="@id/btnHow"
+            />
+
+        <Button
+            android:id="@+id/btnWho"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/btn_rounded_corners_blueish"
+            android:text="Vem?"
+            android:textSize="30sp"
+            android:textColor="@color/white"
+            android:padding="25dp"
+            android:layout_below="@id/btnWhy"
+            />
+
+    </RelativeLayout>
+
+
+
+    <RelativeLayout
+        android:id="@+id/popupLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/black_trans"
+        android:padding="50dp"
+        android:clickable="true">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/popup_layout_white"
+            >
+
+            <TextView
+                android:id="@+id/tvPopupTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/fragment_sub_title_size"
+                android:textColor="@color/black"
+                android:textAlignment="center"
+                android:layout_marginTop="30dp"
+                android:layout_marginRight="30dp"
+                android:layout_marginLeft="30dp"
+                />
+
+            <View
+                android:id="@+id/line"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/black"
+                android:layout_below="@+id/tvPopupTitle"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="20dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                />
+
+            <TextView
+                android:id="@+id/tvPopupText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/input_text_size_popup"
+                android:textColor="@color/black"
+                android:layout_below="@id/line"
+                android:layout_marginRight="20dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginBottom="20dp"
+                />
+
+            <Button
+                android:id="@+id/btnExitPopup"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/exit_icon"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentRight="true"
+                android:layout_margin="10dp"
+                />
+
+        </RelativeLayout>
+
+    </RelativeLayout>
+
+</RelativeLayout>

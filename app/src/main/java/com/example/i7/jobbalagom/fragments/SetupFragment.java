@@ -2,7 +2,6 @@ package com.example.i7.jobbalagom.fragments;
 
 import android.app.Fragment;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +13,7 @@ import android.widget.EditText;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import com.example.i7.jobbalagom.R;
 import com.example.i7.jobbalagom.callback_interfaces.SetupFragmentCallback;
 import com.example.i7.jobbalagom.local.Controller;
@@ -56,21 +56,11 @@ public class SetupFragment extends Fragment {
         churchCheckboxSetup =(CheckBox) view.findViewById(R.id.churchCheckboxSetup);
         inputIncomeLimit = (EditText) view.findViewById(R.id.inputIncomeLimit);
         inputMunicipality = (AutoCompleteTextView) view.findViewById(R.id.inputMunicipality);
-        inputEmail = (EditText) view.findViewById(R.id.inputEmail);
-        inputPassword = (EditText) view.findViewById(R.id.inputPassword);
-        inputConfirm = (EditText) view.findViewById(R.id.inputConfirm);
-        btnSetup = (Button) view.findViewById(R.id.btnSetup);
-        tvBackup = (TextView) view.findViewById(R.id.tvBackup);
-        btnRegister = (Button) view.findViewById(R.id.btnRegister);
-        btnExit = (Button) view.findViewById(R.id.btnExit);
-        registerLayout = (RelativeLayout) view.findViewById(R.id.registerLayout);
-        registerLayout.setVisibility(View.INVISIBLE);
         ButtonListener btnListener = new ButtonListener();
-        BackupListener backupListener = new BackupListener();
+        btnSetup = (Button) view.findViewById(R.id.btnSetup);
         btnSetup.setOnClickListener(btnListener);
-        btnRegister.setOnClickListener(backupListener);
-        tvBackup.setOnClickListener(backupListener);
-        btnExit.setOnClickListener(new ReturnListener());
+        btnExit = (Button) view.findViewById(R.id.btnExit);
+
         controller = Singleton.controller;
         municipalities = controller.getMunicipalities();
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(view.getContext(), android.R.layout.simple_list_item_1, municipalities);
@@ -86,30 +76,8 @@ public class SetupFragment extends Fragment {
         this.callback = callback;
     }
 
-    /**
-     * Show the register layout.
-     */
-
-    public void showRegisterLayout() {
-        registerLayout.setVisibility(View.VISIBLE);
-    }
-
-    /**
-     * Hide the register layout.
-     */
-
-    public void hideRegisterLayout() {
-        inputEmail.setText("");
-        inputPassword.setText("");
-        inputConfirm.setText("");
-        registerLayout.setVisibility(View.INVISIBLE);
-    }
-
-    /**
-     * Listener for the continue button that checks for input validation.
-     */
     private class ButtonListener implements View.OnClickListener {
-        String errorMsg = "";
+
         @Override
         public void onClick(View view) {
             String municipality = inputMunicipality.getText().toString();
@@ -117,7 +85,8 @@ public class SetupFragment extends Fragment {
             if(incomeLimit.equals("")) {
                 Toast.makeText(getActivity(), "Vänligen ange hur hög inkomst du får ha detta halvåret enligt Centrala Studiestödnämnen.", Toast.LENGTH_LONG).show();
                 return;
-            }else if(Float.parseFloat(incomeLimit) <0f || Float.parseFloat(incomeLimit)>200000f){
+
+            } else if(Float.parseFloat(incomeLimit) <0f || Float.parseFloat(incomeLimit)>200000f){
                 Toast.makeText(getActivity(), "Fribeloppet måste vara mellan 0-200 000kr.", Toast.LENGTH_LONG).show();
                 return;
             } else if(municipality.equals("")) {
@@ -135,37 +104,6 @@ public class SetupFragment extends Fragment {
                 churchTax= false;
             }
             callback.addUser(municipality, Float.parseFloat(incomeLimit), churchTax);
-        }
-    }
-
-    /**
-     * Listener for the backupbutton also checks for valid input. Not currently in use.
-     */
-
-    private class BackupListener implements View.OnClickListener {
-        @Override
-        public void onClick(View v) {
-            if(v.getId() == R.id.tvBackup) {
-                showRegisterLayout();
-            } else if (v.getId() == R.id.btnRegister) {
-
-                String email = inputEmail.getText().toString();
-                String password = inputPassword.getText().toString();
-                String confirm = inputConfirm.getText().toString();
-                Log.d("SetupFragment", "Register button pressed, e-mail: " + email + ", password: " + password);
-                hideRegisterLayout();
-                Toast.makeText(getActivity(), "Din data kommer att lagras i molnet.", Toast.LENGTH_LONG).show();
-            }
-        }
-    }
-
-    /**
-     * Listener that hides the Register layout when pressed.
-     */
-    private class ReturnListener implements View.OnClickListener {
-        @Override
-        public void onClick(View v) {
-            hideRegisterLayout();
         }
     }
 }
