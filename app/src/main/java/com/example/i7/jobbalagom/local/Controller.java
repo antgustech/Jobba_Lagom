@@ -312,7 +312,7 @@ public class Controller  {
         result = ((workedPay + workedObPay) * realTax);
 
         Log.e("Calculation ", "Result after calculation: wage: " + wage + " StartTime: " + startTime + " EndTime " + endTime + " tax " + tax + " new tax " + realTax + " obIndex " + obIndex + " obStart " + obStart + " obEnd " + obEnd + " day " + dayOfWeek + " = " + dayName + " calculated ob " + workedObPay + " Result= " + result);
-        addShift(jobTitle, startTime, endTime, workedTime, year%100, month, day, result);
+        addShift(jobTitle, startTime, endTime, workedTime, year%100, month+1, day, result);
 
         return result;
     }
