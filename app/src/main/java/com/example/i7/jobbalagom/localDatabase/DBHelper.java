@@ -204,30 +204,66 @@ public class DBHelper extends SQLiteOpenHelper {
         return totalExpense;
     }
 
-    public float getHalfYearIncome(SQLiteDatabase db) {
+
+    public float getHalfYearIncome(int month, int year, SQLiteDatabase db) {
         float halfYearIncome = 0;
-        int currentMonth = Calendar.getInstance().get(Calendar.MONTH) + 1;
-        int currentYear = Calendar.getInstance().get(Calendar.YEAR)%100;
 
         //int currentYear = 20;
         //int currentMonth = 7;           // for testing different months
 
         Cursor c;
-        if(currentMonth <= 6) {
+        if(month <= 6) {
             c = db.rawQuery("SELECT SUM(" + UserContract.Shift.SHIFT_INCOME + ") FROM " + UserContract.Shift.TABLE_NAME
                     + " WHERE " + UserContract.Shift.SHIFT_MONTH + " >= 1 AND " + UserContract.Shift.SHIFT_MONTH + " <= 6"
-                    + " AND " + UserContract.Shift.SHIFT_YEAR + " = " + currentYear + ";", null);
+                    + " AND " + UserContract.Shift.SHIFT_YEAR + " = " + year + ";", null);
         } else {
             c = db.rawQuery("SELECT SUM(" + UserContract.Shift.SHIFT_INCOME + ") FROM " + UserContract.Shift.TABLE_NAME
                     + " WHERE " + UserContract.Shift.SHIFT_MONTH + " >= 7 AND " + UserContract.Shift.SHIFT_MONTH + " <= 12"
-                    + " AND " + UserContract.Shift.SHIFT_YEAR + " = " + currentYear + ";", null);
+                    + " AND " + UserContract.Shift.SHIFT_YEAR + " = " + year + ";", null);
         }
         if(c.moveToFirst()) {
             halfYearIncome = c.getFloat(0);
         }
-        Log.e("Internal DB", "Getting half year (" + currentYear + "." + currentMonth + ") income from database: " + halfYearIncome);
+        Log.e("Internal DB", "Getting half year (" + year + "." + month + ") income from database: " + halfYearIncome);
         return halfYearIncome;
     }
+
+    public float getMonthlyIncome(int month, int year, SQLiteDatabase db) {
+        float income = 0;
+
+        Cursor c = db.rawQuery("SELECT SUM(" + UserContract.Shift.SHIFT_INCOME + ") FROM " + UserContract.Shift.TABLE_NAME + " WHERE "
+                + UserContract.Shift.SHIFT_MONTH + " = " + month + " AND " + UserContract.Shift.SHIFT_YEAR + " = " + year + ";", null);
+
+
+        if(c.moveToFirst()) {
+            income = c.getFloat(0);
+        }
+        Log.e("Internal DB", "GETTING MONTHLY INCOME (" + year + "." + month + ") from database: " + income);
+        return income;
+    }
+
+    public float getMonthlyExpenses(int month, int year, SQLiteDatabase db) {
+        float expenses = 0;
+
+        Cursor c = db.rawQuery("SELECT SUM(" + UserContract.Expense.EXPENSE_AMOUNT + ") FROM " + UserContract.Expense.TABLE_NAME + " WHERE "
+                + UserContract.Expense.EXPENSE_MONTH + " = " + month + " AND " + UserContract.Expense.EXPENSE_YEAR + " = " + year + ";", null);
+
+        if(c.moveToFirst()) {
+            expenses = c.getFloat(0);
+        }
+        Log.e("Internal DB", "GETTING MONTHLY EXPENSES (" + year + "." + month + ") from database: " + expenses);
+        return expenses;
+    }
+
+
+
+
+
+
+
+
+
+    // TA BORT??
 
     public float getThisMonthsIncome(SQLiteDatabase db) {
         float thisMonthsIncome = 0;
@@ -240,6 +276,7 @@ public class DBHelper extends SQLiteOpenHelper {
                                 + " AND " + UserContract.Shift.SHIFT_YEAR + " = " + currentYear + ";", null);
         if(c.moveToFirst()) {
             thisMonthsIncome = c.getFloat(0);
+            Log.e("DBBBB", c.toString());
         }
         Log.e("Internal DB", "Getting this months (" + currentYear + "." + currentMonth + ") income from database: " + thisMonthsIncome);
         return thisMonthsIncome;

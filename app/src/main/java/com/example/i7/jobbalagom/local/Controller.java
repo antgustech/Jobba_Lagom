@@ -17,7 +17,7 @@ import java.util.Calendar;
 
 public class Controller  {
 
-    private final String IP = "192.168.1.136"; // Kajsa 192.168.0.10
+    private final String IP = "192.168.0.10"; // Kajsa 192.168.0.10
     private final int PORT = 4545;
     private float tax, result,wage,obIndex,obStart,obEnd;
     private Client client;
@@ -168,7 +168,6 @@ public class Controller  {
         dbHelper.close();
     }
 
-
     public boolean isUserCreated() {
         sqLiteDatabase = dbHelper.getReadableDatabase();
         boolean userCreated = dbHelper.isUserCreated(sqLiteDatabase);
@@ -177,42 +176,16 @@ public class Controller  {
     }
 
     /**
-     * Returns sum of all expenses as a float.
-     * Could possible be used when setting the expense bar in mainactivity.
-     */
-
-    public float getTotalExpense(){
-        sqLiteDatabase = dbHelper.getReadableDatabase();
-        float totalExpense = dbHelper.getTotalExpense(sqLiteDatabase);
-        dbHelper.close();
-        return totalExpense;
-    }
-
-    /**
      * Returns sum of all income as a float.
      * Could be used for setting income bar in mainactivity.
      * @return
      */
 
-    public float getHalfYearIncome() {
+    public float getHalfYearIncome(int month, int year) {
         sqLiteDatabase = dbHelper.getReadableDatabase();
-        float halfYearIncome = dbHelper.getHalfYearIncome(sqLiteDatabase);
+        float halfYearIncome = dbHelper.getHalfYearIncome(month, year, sqLiteDatabase);
       //  dbHelper.close();
         return halfYearIncome;
-    }
-
-    public float getThisMonthsIncome() {
-        sqLiteDatabase = dbHelper.getReadableDatabase();
-        float thisMonthsIncome = dbHelper.getThisMonthsIncome(sqLiteDatabase);
-       // dbHelper.close();
-        return thisMonthsIncome;
-    }
-
-    public float getThisMonthsExpenses() {
-        sqLiteDatabase = dbHelper.getReadableDatabase();
-        float thisMonthsExpenses = dbHelper.getThisMonthsExpenses(sqLiteDatabase);
-        //dbHelper.close();
-        return thisMonthsExpenses;
     }
 
     public float getIncomeLimit() {
@@ -248,7 +221,6 @@ public class Controller  {
       //  dbHelper.close();
         return sum;
     }
-
 
     public String getMunicipality() {
         sqLiteDatabase = dbHelper.getReadableDatabase();
@@ -297,6 +269,7 @@ public class Controller  {
      * TODO *More tests to make sure it calculates correct
      */
     public float caculateShift(String jobTitle, float startTime, float endTime, int year, int month, int day, float breakMinutes){
+
         float workedPay, workedTime,realTax, workedObPay = 0;
         int  dayOfWeek;
         String dayName;
@@ -339,9 +312,25 @@ public class Controller  {
         result = ((workedPay + workedObPay) * realTax);
 
         Log.e("Calculation ", "Result after calculation: wage: " + wage + " StartTime: " + startTime + " EndTime " + endTime + " tax " + tax + " new tax " + realTax + " obIndex " + obIndex + " obStart " + obStart + " obEnd " + obEnd + " day " + dayOfWeek + " = " + dayName + " calculated ob " + workedObPay + " Result= " + result);
-        addShift(jobTitle, startTime, endTime, workedTime, year, month, day, result);
+        addShift(jobTitle, startTime, endTime, workedTime, year%100, month, day, result);
 
         return result;
+    }
+
+    // NYYYY
+
+    public float getMonthlyIncome(int month, int year) {
+        sqLiteDatabase = dbHelper.getReadableDatabase();
+        float income = dbHelper.getMonthlyIncome(month, year, sqLiteDatabase);
+        //db.close();
+        return income;
+    }
+
+    public float getMonthlyExpenses(int month, int year) {
+        sqLiteDatabase = dbHelper.getReadableDatabase();
+        float expenses = dbHelper.getMonthlyExpenses(month, year, sqLiteDatabase);
+        //db.close();
+        return expenses;
     }
 }
 

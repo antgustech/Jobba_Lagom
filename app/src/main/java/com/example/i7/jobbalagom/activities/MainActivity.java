@@ -53,6 +53,7 @@ public class MainActivity extends Activity {
     private ProgressBar pbCSN, pbIncome, pbExpense;
     private float monthlyIncomeLimit, csnIncomeLimit;
     private int pbMaxProgress;
+    private int selectedMonth, selectedYear;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,13 +64,14 @@ public class MainActivity extends Activity {
         initComponents();
         userCheck();
     }
-
+/**
     @Override
     protected void onResume() {
         super.onResume();
         loadProgressBars();
 
     }
+**/
 
     /**
      * Initializes the components.
@@ -95,6 +97,10 @@ public class MainActivity extends Activity {
         btnAddShift.setOnClickListener(addButtonListener);
         btnAddExpense.setOnClickListener(addButtonListener);
         btnAddJob.setOnClickListener(addButtonListener);
+
+        selectedMonth = Calendar.getInstance().get(Calendar.MONTH) + 1;
+        selectedYear = Calendar.getInstance().get(Calendar.YEAR) % 100;
+
         fragmentManager = getFragmentManager();
     }
 
@@ -165,9 +171,16 @@ public class MainActivity extends Activity {
         monthlyIncomeLimit = controller.getIncomeLimit()/6;
         csnIncomeLimit = controller.getIncomeLimit();
         pbMaxProgress = 100;
-        updatePBcsn(controller.getHalfYearIncome());
-        updatePBincome(controller.getThisMonthsIncome());
-        updatePBexpense(controller.getThisMonthsExpenses());
+        Log.d("MainActivity", "loadProgressBars, income limit: " + csnIncomeLimit);
+
+        updatePBcsn(controller.getHalfYearIncome(selectedMonth, selectedYear));
+        Log.d("MainActivity", "loadProgressBars, total half year income: " + controller.getHalfYearIncome(selectedMonth, selectedYear));
+
+        updatePBincome(controller.getMonthlyIncome(selectedMonth, selectedYear));
+        Log.d("MainActivity", "loadProgressBars, this months income: " + controller.getMonthlyIncome(selectedMonth, selectedYear));
+
+        updatePBexpense(controller.getMonthlyExpenses(selectedMonth, selectedYear));
+        Log.d("MainActivity", "loadProgressBars, this months expenses: " + controller.getMonthlyExpenses(selectedMonth, selectedYear));
     }
 
     /**
@@ -176,11 +189,11 @@ public class MainActivity extends Activity {
      */
 
     public void updatePBcsn(float income) {
-        int increase = (int)(income / csnIncomeLimit *100);
-        int total = pbCSN.getProgress() + increase;
-        pbCSN.setProgress(total);
-        float totalIncome = controller.getHalfYearIncome();
-        float left = csnIncomeLimit - totalIncome;
+        int increaseProgress = (int)(income / csnIncomeLimit *100);
+        int totalProgress = pbCSN.getProgress() + increaseProgress;
+        pbCSN.setProgress(totalProgress);
+
+        float left = csnIncomeLimit - income;
         if(left < 0) {
             tvCSN.setText("Du har överskridit det av CSN erhållna fribeloppet med " + (int)left*-1 + " kr");
         } else {
@@ -194,8 +207,8 @@ public class MainActivity extends Activity {
      */
 
     public void updatePBincome(float income) {
-        int increase = (int)(income/monthlyIncomeLimit*100);
-        int totalProgress = pbIncome.getProgress() + increase;
+        int increaseProgress = (int)(income/monthlyIncomeLimit*100);
+        int totalProgress = pbIncome.getProgress() + increaseProgress;
         expandProgressBar(pbIncome, totalProgress);
     }
 
@@ -205,13 +218,14 @@ public class MainActivity extends Activity {
      */
 
     public void updatePBexpense(float expense) {
-        int increase = (int)(expense/monthlyIncomeLimit*100);
-        int totalProgress = pbExpense.getProgress() + increase;
+        int increaseProgress = (int)(expense/monthlyIncomeLimit*100);
+        int totalProgress = pbExpense.getProgress() + increaseProgress;
         expandProgressBar(pbExpense, totalProgress);
     }
 
 
     public void expandProgressBar(ProgressBar pb, int totalProgress) {
+
         if(totalProgress > pbMaxProgress) {
             pbMaxProgress = totalProgress;
             pbIncome.setMax(pbMaxProgress);
@@ -219,12 +233,18 @@ public class MainActivity extends Activity {
         }
         pb.setProgress(totalProgress);
 
-        float thisMonthsIncome = controller.getThisMonthsIncome();
-        float thisMonthsExpenses = controller.getThisMonthsExpenses();
-        float balance = thisMonthsIncome-thisMonthsExpenses;
-        tvIncome.setText("Inkomst " + (int)thisMonthsIncome);
-        tvExpense.setText("Utgifter " + (int)thisMonthsExpenses);
+        float monthlyIncome = controller.getMonthlyIncome(selectedMonth, selectedYear);
+        Log.d("MainActivity", "expandProgressBar, this months income: " + monthlyIncome);
+
+
+        float monthlyExpenses = controller.getMonthlyExpenses(selectedMonth, selectedYear);
+        Log.d("MainActivity", "expandProgressBar, this month expenses: " + monthlyExpenses);
+
+        float balance = monthlyIncome-monthlyExpenses;
+        tvIncome.setText("Inkomst " + (int)monthlyIncome);
+        tvExpense.setText("Utgifter " + (int)monthlyExpenses);
         tvBalance.setText((int) balance + "");
+
     }
 
     /**
@@ -364,6 +384,15 @@ public class MainActivity extends Activity {
     private class SetupFragmentListener implements SetupFragmentCallback {
         public void addUser(String municipality, float incomeLimit, boolean church) {
             controller.addUser(municipality, incomeLimit, church);
+
+            Log.d("MainActivity", "Add user: " + municipality + ", " + incomeLimit + ", " + church);
+
+            try {
+                Thread.sleep(2000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+
             loadProgressBars();
             removeFragment(currentFragment);
         }
@@ -388,17 +417,7 @@ public class MainActivity extends Activity {
 
     private class AddShiftFragmentListener implements AddShiftFragmentCallback {
         public void addShift(String jobTitle, float startTime, float endTime, float hoursWorked, int year, int month, int day, float breakMinutes) {
-            float income = controller.caculateShift(jobTitle, startTime, endTime, year, month, day, breakMinutes );
-            Log.d("MainActivity", "Inkomst av shift: " + income);
-            int currentMonth = Calendar.getInstance().get(Calendar.MONTH) + 1;
-            int currentYear = Calendar.getInstance().get(Calendar.YEAR)%100;
-
-            if(month == currentMonth && year == currentYear) {
-                updatePBincome(income);
-            }
-            if( ((currentMonth <= 6 && month <= 6) || (currentMonth > 6 && month > 6)) && year == currentYear) {
-                updatePBcsn(income);
-            }
+            controller.caculateShift(jobTitle, startTime, endTime, year, month, day, breakMinutes );
             loadProgressBars();
         }
     }
@@ -410,9 +429,6 @@ public class MainActivity extends Activity {
     private class AddExpenseListener implements AddExpenseFragmentCallback {
         public void addExpense(String title, float amount, int year, int month, int day) {
             controller.addExpense(title, amount, year, month, day);
-            if(month == Calendar.getInstance().get(Calendar.MONTH) + 1) {
-                updatePBexpense(amount);
-            }
             loadProgressBars();
         }
     }
