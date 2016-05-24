@@ -18,7 +18,7 @@ import java.util.Calendar;
 public class Controller  {
 
     private final String IP = "192.168.0.10"; // Kajsa 192.168.0.10
-    private final int PORT = 4545;
+    private final int PORT = 6666;
     private float tax, result,wage,obIndex,obStart,obEnd;
     private Client client;
     private final DBHelper dbHelper;

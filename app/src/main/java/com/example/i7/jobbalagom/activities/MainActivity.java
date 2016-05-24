@@ -12,7 +12,6 @@ import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.i7.jobbalagom.R;
 import com.example.i7.jobbalagom.callback_interfaces.AddExpenseFragmentCallback;
@@ -144,7 +143,7 @@ public class MainActivity extends Activity {
             float oldTax = controller.getTax();
             if(tax != oldTax){
                 controller.setTax(tax);
-                Toast.makeText(getBaseContext(), "The tax for " + municipality + " is now updated", Toast.LENGTH_LONG);
+                //Toast.makeText(getBaseContext(), "The tax for " + municipality + " is now updated", Toast.LENGTH_LONG);
             }
         }
     }
@@ -185,44 +184,37 @@ public class MainActivity extends Activity {
 
     /**
      * Updates CSN progress bar
-     * @param income - representing an income defined in kronor
      */
 
-    public void updatePBcsn(float income) {
-        int increaseProgress = (int)(income / csnIncomeLimit *100);
-        int totalProgress = pbCSN.getProgress() + increaseProgress;
+    public void updatePBcsn(float halfYearIncome) {
+        int totalProgress = (int)(halfYearIncome / csnIncomeLimit *100);
         pbCSN.setProgress(totalProgress);
+        float left = csnIncomeLimit - halfYearIncome;
 
-        float left = csnIncomeLimit - income;
         if(left < 0) {
-            tvCSN.setText("Du har överskridit det av CSN erhållna fribeloppet med " + (int)left*-1 + " kr");
+            tvCSN.setText("Du har överskridit det av CSN erhållna fribeloppet med " + (int) left * -1 + " kr");
         } else {
-            tvCSN.setText("Du kan tjäna " + (int)left + " kr innan det av CSN erhållna fribeloppet passeras");
+            tvCSN.setText("Du kan tjäna " + (int) left + " kr innan det av CSN erhållna fribeloppet passeras");
         }
     }
 
     /**
      * Updates income progress bar
-     * @param income - representing an income defined in kronor
      */
 
-    public void updatePBincome(float income) {
-        int increaseProgress = (int)(income/monthlyIncomeLimit*100);
-        int totalProgress = pbIncome.getProgress() + increaseProgress;
+    public void updatePBincome(float thisMonthsIncome) {
+        int totalProgress = (int)(thisMonthsIncome/monthlyIncomeLimit*100);
         expandProgressBar(pbIncome, totalProgress);
     }
 
     /**
      * Updates the expense progress bar
-     * @param expense - representing an expense defined in kronor
      */
 
-    public void updatePBexpense(float expense) {
-        int increaseProgress = (int)(expense/monthlyIncomeLimit*100);
-        int totalProgress = pbExpense.getProgress() + increaseProgress;
+    public void updatePBexpense(float thisMonthsExpenses) {
+        int totalProgress = (int)(thisMonthsExpenses/monthlyIncomeLimit*100);
         expandProgressBar(pbExpense, totalProgress);
     }
-
 
     public void expandProgressBar(ProgressBar pb, int totalProgress) {
 
@@ -235,7 +227,6 @@ public class MainActivity extends Activity {
 
         float monthlyIncome = controller.getMonthlyIncome(selectedMonth, selectedYear);
         Log.d("MainActivity", "expandProgressBar, this months income: " + monthlyIncome);
-
 
         float monthlyExpenses = controller.getMonthlyExpenses(selectedMonth, selectedYear);
         Log.d("MainActivity", "expandProgressBar, this month expenses: " + monthlyExpenses);
@@ -419,6 +410,7 @@ public class MainActivity extends Activity {
         public void addShift(String jobTitle, float startTime, float endTime, float hoursWorked, int year, int month, int day, float breakMinutes) {
             controller.caculateShift(jobTitle, startTime, endTime, year, month, day, breakMinutes );
             loadProgressBars();
+
         }
     }
 
