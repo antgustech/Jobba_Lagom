@@ -11,8 +11,10 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.example.i7.jobbalagom.OnSwipeTouchListener;
 import com.example.i7.jobbalagom.R;
 import com.example.i7.jobbalagom.callback_interfaces.AddExpenseFragmentCallback;
 import com.example.i7.jobbalagom.callback_interfaces.AddJobFragmentCallback;
@@ -101,6 +103,32 @@ public class MainActivity extends Activity {
         selectedYear = Calendar.getInstance().get(Calendar.YEAR) % 100;
 
         fragmentManager = getFragmentManager();
+
+        RelativeLayout mainLayout = (RelativeLayout) findViewById(R.id.mainLayout);
+        mainLayout.setOnTouchListener(new OnSwipeTouchListener(getParent()) {
+            public void onSwipeTop() {
+            }
+            public void onSwipeRight() {
+                if(selectedMonth == 1) {
+                    selectedYear--;
+                    selectedMonth = 12;
+                } else {
+                    selectedMonth--;
+                }
+                loadProgressBars();
+            }
+            public void onSwipeLeft() {
+                if(selectedMonth == 12) {
+                    selectedYear++;
+                    selectedMonth = 1;
+                } else {
+                    selectedMonth++;
+                }
+                loadProgressBars();
+            }
+            public void onSwipeBottom() {
+            }
+        });
     }
 
     /**
@@ -173,13 +201,13 @@ public class MainActivity extends Activity {
         Log.d("MainActivity", "loadProgressBars, income limit: " + csnIncomeLimit);
 
         updatePBcsn(controller.getHalfYearIncome(selectedMonth, selectedYear));
-        Log.d("MainActivity", "loadProgressBars, total half year income: " + controller.getHalfYearIncome(selectedMonth, selectedYear));
+        Log.d("MainActivity", "loadProgressBars, (" + selectedYear + "." + selectedMonth + ") total half year income: " + controller.getHalfYearIncome(selectedMonth, selectedYear));
 
         updatePBincome(controller.getMonthlyIncome(selectedMonth, selectedYear));
-        Log.d("MainActivity", "loadProgressBars, this months income: " + controller.getMonthlyIncome(selectedMonth, selectedYear));
+        Log.d("MainActivity", "loadProgressBars, (" + selectedYear + "." + selectedMonth + ") monthly income: " + controller.getMonthlyIncome(selectedMonth, selectedYear));
 
         updatePBexpense(controller.getMonthlyExpenses(selectedMonth, selectedYear));
-        Log.d("MainActivity", "loadProgressBars, this months expenses: " + controller.getMonthlyExpenses(selectedMonth, selectedYear));
+        Log.d("MainActivity", "loadProgressBars, (" + selectedYear + "." + selectedMonth + ") monthly expenses: " + controller.getMonthlyExpenses(selectedMonth, selectedYear));
     }
 
     /**
@@ -226,16 +254,12 @@ public class MainActivity extends Activity {
         pb.setProgress(totalProgress);
 
         float monthlyIncome = controller.getMonthlyIncome(selectedMonth, selectedYear);
-        Log.d("MainActivity", "expandProgressBar, this months income: " + monthlyIncome);
-
         float monthlyExpenses = controller.getMonthlyExpenses(selectedMonth, selectedYear);
-        Log.d("MainActivity", "expandProgressBar, this month expenses: " + monthlyExpenses);
-
         float balance = monthlyIncome-monthlyExpenses;
+
         tvIncome.setText("Inkomst " + (int)monthlyIncome);
         tvExpense.setText("Utgifter " + (int)monthlyExpenses);
         tvBalance.setText((int) balance + "");
-
     }
 
     /**
