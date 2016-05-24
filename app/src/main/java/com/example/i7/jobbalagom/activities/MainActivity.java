@@ -38,25 +38,19 @@ import com.getbase.floatingactionbutton.FloatingActionsMenu;
 import java.util.Calendar;
 
 /**
- * Created by Kajsa on 2016-05-09.
+ * Created by Kajsa, Anton, Morgan, Jakup och Christoffer.
  */
 
 public class MainActivity extends Activity {
-
     private Controller controller;
-
-    private final int REQUESTCODE_WORKREGISTER = 1;
-
     private Fragment currentFragment;
     private FragmentTransaction fragmentTransaction;
     private FragmentManager fragmentManager;
-
     private FloatingActionsMenu floatingMenu;
     private FloatingActionButton btnAddShift, btnAddExpense, btnAddJob;
     private ImageButton btnSettings, btnBudget;
     private TextView tvCSN, tvIncome, tvExpense, tvBalance;
     private ProgressBar pbCSN, pbIncome, pbExpense;
-
     private float monthlyIncomeLimit, csnIncomeLimit;
     private int pbMaxProgress;
 
@@ -77,32 +71,36 @@ public class MainActivity extends Activity {
 
     }
 
+    /**
+     * Initializes the components.
+     */
+
     public void initComponents() {
+        floatingMenu = (FloatingActionsMenu) findViewById(R.id.floatingMenu);
         btnAddShift = (FloatingActionButton) findViewById(R.id.action_addShift);
         btnAddExpense = (FloatingActionButton) findViewById(R.id.action_addExpense);
         btnAddJob = (FloatingActionButton) findViewById(R.id.action_addJob);
-        AddButtonListener addButtonListener = new AddButtonListener();
-        btnAddShift.setOnClickListener(addButtonListener);
-        btnAddExpense.setOnClickListener(addButtonListener);
-        btnAddJob.setOnClickListener(addButtonListener);
         btnSettings = (ImageButton) findViewById(R.id.btnSettings);
         btnBudget = (ImageButton) findViewById(R.id.btnBudget);
-        btnSettings.setOnClickListener(new SettingsButtonListener());
-        btnBudget.setOnClickListener(new BudgetButtonListener());
-
-        floatingMenu = (FloatingActionsMenu) findViewById(R.id.floatingMenu);
-
         tvCSN = (TextView) findViewById(R.id.tvCSN);
         tvIncome = (TextView) findViewById(R.id.tvIncome);
         tvExpense = (TextView) findViewById(R.id.tvExpense);
         tvBalance = (TextView) findViewById(R.id.tvBalance);
-
         pbCSN = (ProgressBar) findViewById(R.id.pbCSN);
         pbIncome = (ProgressBar) findViewById(R.id.pbIncome);
         pbExpense = (ProgressBar) findViewById(R.id.pbExpenses);
-
+        AddButtonListener addButtonListener = new AddButtonListener();
+        btnSettings.setOnClickListener(new SettingsButtonListener());
+        btnBudget.setOnClickListener(new BudgetButtonListener());
+        btnAddShift.setOnClickListener(addButtonListener);
+        btnAddExpense.setOnClickListener(addButtonListener);
+        btnAddJob.setOnClickListener(addButtonListener);
         fragmentManager = getFragmentManager();
     }
+
+    /**
+     * Check if there already is an registered user.
+     */
 
     public void userCheck() {
         if(!controller.isUserCreated()) {
@@ -112,34 +110,42 @@ public class MainActivity extends Activity {
             if(controller.checkConnection()){
                 checkForTaxUpdate();
             }
-            //Log.e("SomeTag",controller.getMunicipality());
         }
     }
 
+    /**
+     * Check if there is a new tax rate available.
+     * TODO: DEN UPPDATERAR INTE FÖR KYRKOSKATT
+     */
+
     private void checkForTaxUpdate(){
-        //TODO: DEN UPPDATERAR INTE FÖR KYRKOSKATT
         String kommun = controller.getMunicipality();
         TaxUpdateListener listener = new TaxUpdateListener(kommun);
         controller.getTax(kommun, listener);
     }
 
+    /**
+     * Listener for updating the tax.
+     */
+
     private class TaxUpdateListener implements UpdateTaxCallback {
-        String kommun;
-
+        String municipality;
         public TaxUpdateListener(String kommun){
-            this.kommun = kommun;
+            this.municipality = kommun;
         }
-
         @Override
         public void UpdateTax(float tax) {
             float oldTax = controller.getTax();
             if(tax != oldTax){
                 controller.setTax(tax);
-               // Toast.makeText(getBaseContext(), "The tax for " + kommun + " is now updated", Toast.LENGTH_LONG);
-                Log.e("CallbackTag","Jay! It works!");
+                Toast.makeText(getBaseContext(), "The tax for " + municipality + " is now updated", Toast.LENGTH_LONG);
             }
         }
     }
+
+    /**
+     * If the back button is pressed, current fragment is closed.
+     */
 
     public void onBackPressed() {
         if(currentFragment == null || currentFragment instanceof LaunchFragment || currentFragment instanceof InitialFragment) {
@@ -151,13 +157,17 @@ public class MainActivity extends Activity {
         }
     }
 
+    /**
+     * Loads all three progressbars.
+     */
+
     public void loadProgressBars() {
-        monthlyIncomeLimit = controller.getIncomeLimit()/6;    // --> 100 % av income och expense progress bar
-        csnIncomeLimit = controller.getIncomeLimit();          // --> 100 % av csn progress bar
+        monthlyIncomeLimit = controller.getIncomeLimit()/6;
+        csnIncomeLimit = controller.getIncomeLimit();
         pbMaxProgress = 100;
         updatePBcsn(controller.getHalfYearIncome());
-        updatePBincome(controller.getThisMonthsIncome());      // --> income progress bar fills up with this months income
-        updatePBexpense(controller.getThisMonthsExpenses());   // --> expense progress bar fills up with this months expenses
+        updatePBincome(controller.getThisMonthsIncome());
+        updatePBexpense(controller.getThisMonthsExpenses());
     }
 
     /**
@@ -200,6 +210,7 @@ public class MainActivity extends Activity {
         expandProgressBar(pbExpense, totalProgress);
     }
 
+
     public void expandProgressBar(ProgressBar pb, int totalProgress) {
         if(totalProgress > pbMaxProgress) {
             pbMaxProgress = totalProgress;
@@ -214,14 +225,6 @@ public class MainActivity extends Activity {
         tvIncome.setText("Inkomst " + (int)thisMonthsIncome);
         tvExpense.setText("Utgifter " + (int)thisMonthsExpenses);
         tvBalance.setText((int) balance + "");
-
-       /**
-        if(balance < 0) {
-            tvBalance.setTextColor(Color.parseColor("#F67280"));
-        } else {
-            tvBalance.setTextColor(Color.parseColor("#71B238"));
-        }
-        **/
     }
 
     /**
@@ -234,12 +237,8 @@ public class MainActivity extends Activity {
         fragmentTransaction.commit();
     }
 
-    private void changeFragmentWithFade(Fragment fragment) {
-        // something
-    }
-
     /**
-     * Removes fragments from the display
+     * Removes fragments from the view.
      */
 
     private void removeFragment(Fragment fragment) {
@@ -263,7 +262,6 @@ public class MainActivity extends Activity {
         currentFragment = new InitialFragment();
         ((InitialFragment) currentFragment).setCallBack(new InitialFragmentListener());
         changeFragment(currentFragment);
-
         new Handler().postDelayed(new Runnable() {
             public void run() {
                 startLaunchFragment();
@@ -338,20 +336,15 @@ public class MainActivity extends Activity {
     /**
      * Listener for launch fragment
      */
-
     private class LaunchFragmentListener implements LaunchFragmentCallback {
         public void navigate(String choice) {
             if(choice.equals("btnLogo")) {
-                // Something if we want, or nothing
             } else if(choice.equals("btnNew")) {
                     startSetupFragment();
             } else if(choice.equals("btnKey")) {
-                //TODO REMOVE THIS CALL WHEN APP IS FINISHED!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+                //TODO REMOVE THIS CALL WHEN APP IS FINISHED!!!!!!!!!!!!!!
                removeFragment(currentFragment);
-                Log.d("MainActivity", "Key button pressed");
             } else if(choice.equals("btnInfo")) {
-                Log.d("MainActivity", "Info button pressed");
-                //startActivity(new Intent(getApplicationContext(), AboutActivity.class));
             }
         }
         @Override
@@ -370,7 +363,6 @@ public class MainActivity extends Activity {
 
     private class SetupFragmentListener implements SetupFragmentCallback {
         public void addUser(String municipality, float incomeLimit, boolean church) {
-
             controller.addUser(municipality, incomeLimit, church);
             loadProgressBars();
             removeFragment(currentFragment);
@@ -396,7 +388,6 @@ public class MainActivity extends Activity {
 
     private class AddShiftFragmentListener implements AddShiftFragmentCallback {
         public void addShift(String jobTitle, float startTime, float endTime, float hoursWorked, int year, int month, int day, float breakMinutes) {
-            //float income = 1000;
             float income = controller.caculateShift(jobTitle, startTime, endTime, year, month, day, breakMinutes );
             Log.d("MainActivity", "Inkomst av shift: " + income);
             int currentMonth = Calendar.getInstance().get(Calendar.MONTH) + 1;
@@ -405,15 +396,11 @@ public class MainActivity extends Activity {
             if(month == currentMonth && year == currentYear) {
                 updatePBincome(income);
             }
-
             if( ((currentMonth <= 6 && month <= 6) || (currentMonth > 6 && month > 6)) && year == currentYear) {
                 updatePBcsn(income);
             }
-
             loadProgressBars();
         }
-
-
     }
 
     /**
@@ -426,7 +413,6 @@ public class MainActivity extends Activity {
             if(month == Calendar.getInstance().get(Calendar.MONTH) + 1) {
                 updatePBexpense(amount);
             }
-
             loadProgressBars();
         }
     }

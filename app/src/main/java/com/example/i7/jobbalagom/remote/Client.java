@@ -2,7 +2,6 @@ package com.example.i7.jobbalagom.remote;
 
 import android.util.Log;
 
-import com.example.i7.jobbalagom.callback_interfaces.MessageCallback;
 import com.example.i7.jobbalagom.callback_interfaces.TaxCallbacks.UpdateTaxCallback;
 import com.example.i7.jobbalagom.local.Controller;
 import com.example.i7.jobbalagom.local.Singleton;
@@ -33,15 +32,13 @@ public class Client extends Thread {
     private boolean connected = false;
     private ArrayList<String> municipalities;
     private float tax;
-    private MessageCallback messageCallback;
     private String host;
     private int port;
 
-    public Client(MessageCallback messageCallback, String host, int port){
+    public Client( String host, int port){
         controller  = Singleton.controller;
         this.host = host;
         this.port = port;
-        this.messageCallback = messageCallback;
       //  startPinger();
         if(!isAlive()) {
             start();

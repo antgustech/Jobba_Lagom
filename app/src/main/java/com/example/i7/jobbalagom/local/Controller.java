@@ -4,64 +4,31 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
-import com.example.i7.jobbalagom.callback_interfaces.MessageCallback;
 import com.example.i7.jobbalagom.callback_interfaces.TaxCallbacks.UpdateTaxCallback;
 import com.example.i7.jobbalagom.localDatabase.DBHelper;
 import com.example.i7.jobbalagom.remote.Client;
+
 import java.util.ArrayList;
 import java.util.Calendar;
 
 /**
- * Created by Strandberg95 on 2016-03-21.
- *
+ * Created by Christoffer, Kajsa, Jakup, Anton och Morgan
  */
 
 public class Controller  {
-    /**
-     * -------ÄNDRA IP VID TESTNING-----------!
-     */
-        private final String IP = "192.168.1.136"; // Kajsa 192.168.0.10
-    /**
-     * ----------------------------------------!
-     */
 
+    private final String IP = "192.168.1.136"; // Kajsa 192.168.0.10
     private final int PORT = 4545;
+    private float tax, result,wage,obIndex,obStart,obEnd;
     private Client client;
-    private MessageListener listener;
-    private  final DBHelper dbHelper;
+    private final DBHelper dbHelper;
     private SQLiteDatabase sqLiteDatabase;
 
-    private float tax, result,wage,obIndex,obStart,obEnd;
-
-
     public Controller(Context context){
-        client = new Client(listener,IP,PORT);
-        listener = new MessageListener();
+        client = new Client(IP,PORT);
         dbHelper = new DBHelper(context);
         Singleton.setDBHelper(dbHelper);
     }
-
-    private class MessageListener implements MessageCallback {
-
-        public void updateMunicipality(String municipality){
-        }
-
-        @Override
-        public void updateCities(String cities) {
-
-        }
-
-        @Override
-        public void updateTax(float tax) {
-
-        }
-    }
-
-
-
-    /**
-     *-------------- EXTERNAL DATABASE METHODS, COMMUNICATION GOES THROUGH CLIENT -----------------------
-     */
 
     public ArrayList<String> getMunicipalities() throws NullPointerException{
         return client.getMunicipalities();
@@ -86,11 +53,6 @@ public class Controller  {
     public boolean checkConnection(){
         return client.checkConnection();
     }
-
-
-    /**
-     *-------------- INTERNAL DATABASE METHODS, COMMUNICATION GOEST THROUGH DBHELPER -----------------------
-     */
 
     /**
      * Adds user to db
@@ -280,20 +242,6 @@ public class Controller  {
         return sum;
     }
 
-    public float getStartTime() {
-        sqLiteDatabase = dbHelper.getReadableDatabase();
-        float sum = dbHelper.getStartTime(sqLiteDatabase);
-        dbHelper.close();
-        return sum;
-    }
-
-    public float getEndTime() {
-        sqLiteDatabase = dbHelper.getReadableDatabase();
-        float sum = dbHelper.getEndTime(sqLiteDatabase);
-        dbHelper.close();
-        return sum;
-    }
-
     public float getTax() {
         sqLiteDatabase = dbHelper.getReadableDatabase();
         float sum = dbHelper.getUserTax(sqLiteDatabase);
@@ -353,20 +301,18 @@ public class Controller  {
         int  dayOfWeek;
         String dayName;
 
-        //Calculate which day it is.
         Calendar c = Calendar.getInstance();
         year = c.get(Calendar.YEAR)/100*100+year;
         c.set(year,month-1,day);
         dayOfWeek = c.get(Calendar.DAY_OF_WEEK) ; //Sunday = 1, Saturday = 7
         if(dayOfWeek>1 && dayOfWeek <7){
-            dayName ="Vardag";
+            dayName = "Vardag";
         }else if(dayOfWeek == 7){
-            dayName ="Lördag";
+            dayName = "Lördag";
         }else {
-            dayName ="Söndag";
+            dayName = "Söndag";
         }
 
-        //Get data from the database
         wage = getWage(jobTitle);
         tax = getTax();
         obIndex = getOB(jobTitle, dayName);
@@ -374,12 +320,10 @@ public class Controller  {
         obEnd = getOBEnd(jobTitle, dayName);
         result = 0;
 
-        //If ob is 0, it will be set to 1 so later it will just multiply with 1 instead of 0.
         if(obIndex == 0){
             obIndex++;
         }
 
-        //Check if ob hours are within working hours.
         if(obStart<endTime){
             if(endTime>obEnd){
                 workedObPay=((obEnd - obStart) * ((obIndex-1)*wage)) ;
@@ -388,15 +332,12 @@ public class Controller  {
             }
         }
 
-        //Break handling, removes the breakMinutes from the middle of the shift.
         workedTime = (((endTime-startTime)/2) - breakMinutes) + ((endTime-startTime)/2);
 
-        //Final calculation
         workedPay = workedTime * wage;
         realTax= 1 -(tax/100);
         result = ((workedPay + workedObPay) * realTax);
 
-        //Send data to database and return the result.
         Log.e("Calculation ", "Result after calculation: wage: " + wage + " StartTime: " + startTime + " EndTime " + endTime + " tax " + tax + " new tax " + realTax + " obIndex " + obIndex + " obStart " + obStart + " obEnd " + obEnd + " day " + dayOfWeek + " = " + dayName + " calculated ob " + workedObPay + " Result= " + result);
         addShift(jobTitle, startTime, endTime, workedTime, year, month, day, result);
 

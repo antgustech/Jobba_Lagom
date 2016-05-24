@@ -1,6 +1,6 @@
 package com.example.i7.jobbalagom.remote;
-/*
- * Created by Anton, Christoffer, Kajsa, Jakup, Morgan
+/**
+ * Created by Anton, Christoffer, Kajsa, Jakup och Morgan
  */
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
