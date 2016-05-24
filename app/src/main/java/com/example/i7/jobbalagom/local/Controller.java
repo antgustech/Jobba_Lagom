@@ -17,7 +17,7 @@ import java.util.Calendar;
 
 public class Controller  {
 
-    private final String IP = "192.168.0.10"; // Kajsa 192.168.0.10
+    private final String IP = "10.2.18.102"; // Kajsa 192.168.0.10
     private final int PORT = 6666;
     private float tax, result,wage,obIndex,obStart,obEnd;
     private Client client;
@@ -59,7 +59,6 @@ public class Controller  {
      */
 
     public void addUser(String municipality, float incomeLimit, boolean church) {
-
         CreateUserListener callback = new CreateUserListener(municipality,incomeLimit);
         if(church){
             client.getChurchTaxFromServer(municipality,callback);
@@ -81,7 +80,6 @@ public class Controller  {
 
         @Override
         public void UpdateTax(float tax) {
-
             sqLiteDatabase = dbHelper.getWritableDatabase();
             dbHelper.addUser(tax, incomeLimit, sqLiteDatabase, municipality);
             //dbHelper.close();
