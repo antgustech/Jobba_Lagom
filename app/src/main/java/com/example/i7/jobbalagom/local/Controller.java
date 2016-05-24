@@ -20,7 +20,7 @@ public class Controller  {
     /**
      * -------ÄNDRA IP VID TESTNING-----------!
      */
-        private final String IP = "10.2.11.91"; // Kajsa 192.168.0.10
+        private final String IP = "192.168.1.136"; // Kajsa 192.168.0.10
     /**
      * ----------------------------------------!
      */
@@ -28,7 +28,7 @@ public class Controller  {
     private final int PORT = 4545;
     private Client client;
     private MessageListener listener;
-    private DBHelper dbHelper;
+    private  final DBHelper dbHelper;
     private SQLiteDatabase sqLiteDatabase;
 
     private float tax, result,wage,obIndex,obStart,obEnd;

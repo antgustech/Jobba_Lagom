@@ -12,7 +12,6 @@ import android.widget.CheckBox;
 import android.widget.TextView;
 
 import com.example.i7.jobbalagom.R;
-import com.example.i7.jobbalagom.activities.MainActivity;
 import com.example.i7.jobbalagom.callback_interfaces.ChangeTaxFragmentCallback;
 import com.example.i7.jobbalagom.callback_interfaces.TaxCallbacks.UpdateTaxCallback;
 import com.example.i7.jobbalagom.local.Controller;
@@ -51,6 +50,7 @@ public class ChangeTaxFragment extends Fragment {
         churchCheckbox = (CheckBox)view.findViewById(R.id.churchCheckbox);
         taxTextView = (TextView)view.findViewById(R.id.taxText);
         controller  = Singleton.controller;
+
 
       //  setupChooseTax();
         setupCalculateTax();
