@@ -149,13 +149,13 @@ public class MainActivity extends Activity {
 
     /**
      * Check if there is a new tax rate available.
-     * TODO: DEN UPPDATERAR INTE FÖR KYRKOSKATT
+     * TODO: DEN UPPDATERAR INTE FÖR KYRKOSKATT. ELLER?
      */
 
     private void checkForTaxUpdate(){
-        String kommun = controller.getMunicipality();
-        TaxUpdateListener listener = new TaxUpdateListener(kommun);
-        controller.getTax(kommun, listener);
+        String municipality = controller.getMunicipality();
+        TaxUpdateListener listener = new TaxUpdateListener(municipality);
+        controller.getTax(municipality, listener);
     }
 
     /**
@@ -461,9 +461,7 @@ public class MainActivity extends Activity {
     }
 
     public String getDate() {
-
         String month = "";
-
         switch (selectedMonth) {
             case 1:
                 month = "Jan";

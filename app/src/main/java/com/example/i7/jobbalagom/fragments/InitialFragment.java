@@ -11,11 +11,10 @@ import com.example.i7.jobbalagom.R;
 import com.example.i7.jobbalagom.callback_interfaces.InitialFragmentCallback;
 
 /**
- * Created by Kajsa on 2016-05-18.
+ * Created by Kajsa, Morgan, Christoffer, Jakup och Anton.
  */
 
 public class InitialFragment extends Fragment {
-
     private RelativeLayout layout;
     private InitialFragmentCallback callback;
 
@@ -28,6 +27,11 @@ public class InitialFragment extends Fragment {
         layout = (RelativeLayout) view.findViewById(R.id.layout);
         layout.setOnClickListener(new LayoutListener());
     }
+
+    /**
+     * Sets callback.
+     * @param callback listener.
+     */
 
     public void setCallBack(InitialFragmentCallback callback){
         this.callback = callback;

@@ -31,20 +31,29 @@ public class LaunchFragment extends Fragment {
     }
 
     public void initComponents(View view) {
-        btnListener = new ButtonListener();
         btnLogo = (ImageButton) view.findViewById(R.id.btnLogo);
-        btnLogo.setOnClickListener(btnListener);
         btnNew = (ImageButton) view.findViewById(R.id.btnNew);
-        btnNew.setOnClickListener(btnListener);
         btnKey = (ImageButton) view.findViewById(R.id.btnKey);
-        btnKey.setOnClickListener(btnListener);
         btnInfo = (ImageButton) view.findViewById(R.id.btnInfo);
+        btnListener = new ButtonListener();
+        btnLogo.setOnClickListener(btnListener);
+        btnNew.setOnClickListener(btnListener);
+        btnKey.setOnClickListener(btnListener);
         btnInfo.setOnClickListener(btnListener);
     }
+
+    /**
+     * Sets callback.
+     * @param callback listener.
+     */
 
     public void setCallBack(LaunchFragmentCallback callback){
         this.callback = callback;
     }
+
+    /**
+     * Listener for the buttons. Navigates to the right fragment.
+     */
 
     private class ButtonListener implements View.OnClickListener {
 
@@ -57,8 +66,6 @@ public class LaunchFragment extends Fragment {
                     callback.navigate("btnNew");
                 }else
                  Toast.makeText(getActivity(), "Appen saknar anslutning till servern.", Toast.LENGTH_LONG).show();
-
-
             } else if(v.getId() == R.id.btnKey) {
                 callback.navigate("btnKey");
             } else if(v.getId() == R.id.btnInfo) {

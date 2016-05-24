@@ -22,15 +22,13 @@ import com.example.i7.jobbalagom.local.Controller;
 import com.example.i7.jobbalagom.local.Singleton;
 
 /**
- * Created by Kajsa on 2016-05-08
+ * Created by Kajsa, Jakup, Christoffer, Morgan och Anton.
  */
 
 public class AddShiftFragment extends Fragment {
-
     private AddShiftFragmentCallback callback;
     private Controller controller;
     private String[] jobTitles;
-
     private Spinner jobSpinner;
     private Button btnAddShift, btnAddJob;
     private ImageButton btnBreakInfo;
@@ -46,16 +44,21 @@ public class AddShiftFragment extends Fragment {
         initComponents(view);
     }
 
+    /**
+     * Initializes components.
+     * @param view this class view.
+     */
+
     public void initComponents(View view) {
         controller = Singleton.controller;
         btnAddShift = (Button) view.findViewById(R.id.btnAddShift);
         btnBreakInfo =(ImageButton) view.findViewById(R.id.btnBreakInfo);
-        btnAddShift.setOnClickListener(new ButtonAddShiftListener());
         inputStart = (EditText) view.findViewById(R.id.inputStart);
         inputEnd = (EditText) view.findViewById(R.id.inputEnd);
         inputBreak = (EditText) view.findViewById(R.id.inputBreak);
         inputDate = (EditText) view.findViewById(R.id.inputDate);
-
+        btnAddShift.setOnClickListener(new ButtonAddShiftListener());
+        btnBreakInfo.setOnClickListener(new MessageDialogListener());
         jobTitles = controller.getJobTitles();
 
         ArrayAdapter adapter = new ArrayAdapter<String>(getActivity(), R.layout.spinner_row, R.id.text, jobTitles);
@@ -67,29 +70,39 @@ public class AddShiftFragment extends Fragment {
             toast.setGravity(Gravity.CENTER_HORIZONTAL|Gravity.CENTER_VERTICAL, 0, 0);
             toast.show();
         }
-
-        btnBreakInfo.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                new AlertDialog.Builder(getActivity(), R.style.AppCompatAlertDialogStyle)
-                        .setTitle("Info")
-                        .setMessage("Rasten du lägger till kommer att dras från mitten utav ditt arbetspass.")
-                        .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int which) {
-                                // nothing
-                            }
-                        })
-                        .setIcon(android.R.drawable.ic_dialog_alert)
-                        .show();
-
-            }
-        });
-
     }
+
+    /**
+     * Listener for the DialogBox.
+     */
+
+    private class MessageDialogListener implements View.OnClickListener{
+        @Override
+        public void onClick(View v) {
+            new AlertDialog.Builder(getActivity(), R.style.AppCompatAlertDialogStyle)
+                    .setTitle("Info")
+                    .setMessage("Rasten du lägger till kommer att dras från mitten utav ditt arbetspass.")
+                    .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                        }
+                    })
+                    .setIcon(android.R.drawable.ic_dialog_alert)
+                    .show();
+        }
+    }
+
+    /**
+     * Sets the callback.
+     * @param callback Listenre for this fragment.
+     */
 
     public void setCallBack(AddShiftFragmentCallback callback) {
         this.callback = callback;
     }
+
+    /**
+     * Clears all input fields.
+     */
 
     public void clearAll() {
         inputStart.setText("");
@@ -97,23 +110,21 @@ public class AddShiftFragment extends Fragment {
         inputBreak.setText("");
     }
 
+    /**
+     * Listener for the button to add shift. It checks for valid input and
+     * converts the input to tangible datatypes for the methods it later calls.
+     */
+
     private class ButtonAddShiftListener implements View.OnClickListener {
-
         String errorMsg;
-
         @Override
         public void onClick(View v) {
-
             String jobTitle = jobSpinner.getSelectedItem().toString();
             String start = inputStart.getText().toString();
             String end = inputEnd.getText().toString();
             String breaktime = inputBreak.getText().toString();
             String date = inputDate.getText().toString();
-
-            // Check for invalid input
-
             errorMsg = "Vänligen ange";
-
             if (start.equals("") || start.length() != 5 || start.charAt(2) != ':') {
                 addError("starttid i formatet HH:MM");
             }
@@ -123,18 +134,15 @@ public class AddShiftFragment extends Fragment {
             if (breaktime.equals("") || breaktime.contains(":")) {
                 addError("rast i minuter");
             }
-
             if (date.length() != 6) {
                 Toast.makeText(getActivity(), "Du måste ange datum på formatet ÅÅMMDD", Toast.LENGTH_LONG).show();
                 return;
             }
-
             if (!errorMsg.equals("Vänligen ange")) {
                 errorMsg += ".";
                 Toast.makeText(getActivity(), errorMsg, Toast.LENGTH_LONG).show();
                 return;
             }
-
             int startHour = Integer.parseInt(start.substring(0, 2));
             int startMin = Integer.parseInt(start.substring(3));
             int endHour = Integer.parseInt(end.substring(0, 2));
@@ -147,7 +155,6 @@ public class AddShiftFragment extends Fragment {
             if (startHour > endHour || (startHour == endHour && startMin > endMin)) {
                 addError("en sluttid som är senare än starttiden");
             }
-
             if (!errorMsg.equals("Vänligen ange")) {
                 errorMsg += ".";
                 Toast.makeText(getActivity(), errorMsg, Toast.LENGTH_LONG).show();
@@ -161,7 +168,6 @@ public class AddShiftFragment extends Fragment {
             int year = Integer.parseInt(date.substring(0, 2));
             int month = Integer.parseInt(date.substring(2, 4));
             int day = Integer.parseInt(date.substring(4, 6));
-
             if (hoursWorked <= 0) {
                 Toast.makeText(getActivity(), "Tiden du har arbetat är mindre än noll, stämmer verkligen det?", Toast.LENGTH_LONG).show();
                 return;
@@ -171,7 +177,6 @@ public class AddShiftFragment extends Fragment {
             Toast.makeText(getActivity(), "Arbetspasset har registrerats.", Toast.LENGTH_LONG).show();
 
         }
-
         public void addError(String error) {
             if (errorMsg.charAt(errorMsg.length() - 1) == 'e') {
                 errorMsg = errorMsg + " " + error;

@@ -9,13 +9,19 @@ import android.view.ViewGroup;
 import com.example.i7.jobbalagom.R;
 
 /**
- * Created by Anton Gustafsson on 2016-05-13.
+ * Created by Anton, Kajsa, Jakup, Morgan, Christoffer.
  */
 public class AboutFragment extends Fragment {
 
+    /**
+     * Handles the AboutFragment.
+     * @param inflater
+     * @param container
+     * @param savedInstanceState
+     * @return
+     */
+
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-
         return inflater.inflate(R.layout.fragment_about, container, false);
-
     }
 }
