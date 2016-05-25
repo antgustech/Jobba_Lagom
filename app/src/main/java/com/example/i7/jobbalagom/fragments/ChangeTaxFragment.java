@@ -29,7 +29,7 @@ public class ChangeTaxFragment extends Fragment {
     private Controller controller;
     private View calculateTaxBtn;
     private CheckBox churchCheckbox;
-    private TextView taxTextView;
+    private TextView taxTextView, oldTaxText;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -45,10 +45,13 @@ public class ChangeTaxFragment extends Fragment {
     }
 
     private void initComponents(View v){
-        taxTextView = (TextView)v.findViewById(R.id.taxText);
+        taxTextView = (TextView)v.findViewById(R.id.newTaxText);
+        oldTaxText = (TextView)v.findViewById(R.id.oldTaxText);
         calculateTaxBtn = v.findViewById(R.id.calculateTaxBtn);
         churchCheckbox = (CheckBox)v.findViewById(R.id.churchCheckbox);
         controller  = Singleton.controller;
+        setOldTax();
+
     }
 
     /**
@@ -86,8 +89,14 @@ public class ChangeTaxFragment extends Fragment {
             @Override
             public void run() {
                 taxTextView.setText(text);
+                oldTaxText.setText(text);
             }
         });
+    }
+
+    public void setOldTax(){
+        oldTaxText.setText(String.valueOf(controller.getTax()));
+
     }
 
 

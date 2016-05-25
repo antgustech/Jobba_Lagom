@@ -35,20 +35,32 @@
         android:layout_height="wrap_content"
         android:text="Är du med i svenska kyrkan?"
         android:id="@+id/churchCheckbox"
-        android:layout_marginTop="41dp"
+        android:layout_marginTop="33dp"
         android:checked="false"
         android:layout_below="@+id/autoCompleteKommun"
-        android:layout_centerHorizontal="true" />
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Din nya skatt"
-        android:id="@+id/taxText"
-        android:layout_below="@+id/churchCheckbox"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="20dp" />
+        android:text="  "
+        android:id="@+id/newTaxText"
+        android:layout_centerVertical="true"
+        android:layout_alignRight="@+id/churchCheckbox"
+        android:layout_alignEnd="@+id/churchCheckbox" />
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Gamla"
+        android:id="@+id/oldTaxText"
+        android:layout_alignTop="@+id/newTaxText"
+        android:layout_alignRight="@+id/textView"
+        android:layout_alignEnd="@+id/textView" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -69,4 +81,24 @@
         android:layout_marginBottom="75dp"
         android:layout_above="@+id/textView13"
         android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Nuvarande skatt"
+        android:id="@+id/textView18"
+        android:layout_above="@+id/oldTaxText"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Nya skatt"
+        android:id="@+id/textView19"
+        android:layout_above="@+id/newTaxText"
+        android:layout_alignRight="@+id/churchCheckbox"
+        android:layout_alignEnd="@+id/churchCheckbox" />
 </RelativeLayout>
