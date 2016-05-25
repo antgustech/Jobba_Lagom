@@ -160,7 +160,8 @@ public class MainActivity extends Activity {
             float oldTax = controller.getTax();
             if (tax != oldTax) {
                 controller.setTax(tax);
-                //Toast.makeText(getBaseContext(), "The tax for " + municipality + " is now updated", Toast.LENGTH_LONG);
+                Log.d("MainActivity", "THIS IS THE UPDATETAX METHOD CALLED! THIS IS THE TAX HERE: " + tax);
+                        //Toast.makeText(getBaseContext(), "The tax for " + municipality + " is now updated", Toast.LENGTH_LONG);
             }
         }
     }

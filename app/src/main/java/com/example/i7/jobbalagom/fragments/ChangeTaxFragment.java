@@ -25,13 +25,11 @@ import java.util.ArrayList;
 public class ChangeTaxFragment extends Fragment {
 
     private AutoCompleteTextView textViewKommun;
-    private ArrayList<String> kommuner;
+    private ArrayList<String> municipalities;
     private Controller controller;
-    private View calculateTaxBtn, chooseTaxBtn;
+    private View calculateTaxBtn;
     private CheckBox churchCheckbox;
     private TextView taxTextView;
-    private float currentTax = 0;
-    private SetTaxListener listener;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -43,14 +41,12 @@ public class ChangeTaxFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         initComponents(view);
         setupCalculateTax();
-        setupKommunView(view);
+        setupMunicipalityView(view);
     }
 
     private void initComponents(View v){
-        SetTaxListener listener = new SetTaxListener();
         taxTextView = (TextView)v.findViewById(R.id.taxText);
         calculateTaxBtn = v.findViewById(R.id.calculateTaxBtn);
-        chooseTaxBtn = v.findViewById(R.id.chooseTaxBtn);
         churchCheckbox = (CheckBox)v.findViewById(R.id.churchCheckbox);
         controller  = Singleton.controller;
     }
@@ -76,14 +72,12 @@ public class ChangeTaxFragment extends Fragment {
         });
     }
 
-    /**
-     *
-     */
-
     private class SetTaxListener implements UpdateTaxCallback {
         @Override
         public void UpdateTax(float tax) {
-            setTaxText(tax + "");
+            setTaxText(tax + " ");
+            controller.setTax(tax);
+
         }
     }
 
@@ -98,19 +92,6 @@ public class ChangeTaxFragment extends Fragment {
 
 
     /**
-     * Listener for setTaxbutton.
-     */
-
-    public void setupChooseTax(){
-        chooseTaxBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                listener.UpdateTax(currentTax);
-            }
-        });
-    }
-
-    /**
      * Set Callback
      * @param callback
      */
@@ -119,29 +100,20 @@ public class ChangeTaxFragment extends Fragment {
     }
 
     /**
-     * Setup the textview to show kommuner.
+     * Setup the textview to show municipalities.
      */
 
-    public void setupKommunView(View view){
+    public void setupMunicipalityView(View view){
         textViewKommun = (AutoCompleteTextView) view.findViewById(R.id.autoCompleteKommun);
-        updateKommuner();
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(view.getContext(),android.R.layout.simple_list_item_1,kommuner);
-        textViewKommun.setAdapter(adapter);
-    }
-
-    /**
-     * Get's Municipalities as a list.
-     */
-
-    public void updateKommuner(){
-        kommuner = controller.getMunicipalities();
-        if(kommuner != null){
-
+        municipalities = controller.getMunicipalities();
+        if(municipalities != null){
         }else{
             textViewKommun.setEnabled(false);
             calculateTaxBtn.setEnabled(false);
-            chooseTaxBtn.setEnabled(false);
             churchCheckbox.setEnabled(false);
         }
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(view.getContext(),android.R.layout.simple_list_item_1,municipalities);
+        textViewKommun.setAdapter(adapter);
     }
+
 }

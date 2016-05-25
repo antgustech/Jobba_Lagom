@@ -13,16 +13,22 @@
         android:theme="@android:style/Theme.Black.NoTitleBar">
 
         <activity android:name=".activities.MainActivity"
-            android:screenOrientation="portrait">
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+
+
         </activity>
         
         <activity android:name=".activities.SettingsActivity"
-            android:label="Inställningar"/>
+            android:screenOrientation="portrait"
+            android:label="Inställningar"
+            android:windowSoftInputMode="adjustPan"/>
+
     </application>
 
 </manifest>

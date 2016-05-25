@@ -17,7 +17,8 @@
         android:id="@+id/autoCompleteKommun"
         android:layout_below="@+id/textView"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="33dp" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -34,21 +35,20 @@
         android:layout_height="wrap_content"
         android:text="Är du med i svenska kyrkan?"
         android:id="@+id/churchCheckbox"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="41dp"
         android:checked="false"
         android:layout_below="@+id/autoCompleteKommun"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_centerHorizontal="true" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Din skatt"
+        android:text="Din nya skatt"
         android:id="@+id/taxText"
-        android:layout_below="@+id/calculateTaxBtn"
+        android:layout_below="@+id/churchCheckbox"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="28dp" />
+        android:layout_marginTop="20dp" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -58,26 +58,15 @@
         android:id="@+id/textView13"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:layout_marginBottom="22dp" />
 
     <Button
-        android:layout_width="wrap_content"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:text="Välj denna skattesats"
-        android:id="@+id/chooseTaxBtn"
-        android:layout_below="@+id/taxText"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="27dp" />
-
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Beräkna"
+        android:text="Välj"
         android:id="@+id/calculateTaxBtn"
-        android:layout_marginTop="43dp"
-        android:layout_below="@+id/churchCheckbox"
-        android:layout_alignRight="@+id/chooseTaxBtn"
-        android:layout_alignEnd="@+id/chooseTaxBtn"
-        android:layout_alignLeft="@+id/chooseTaxBtn"
-        android:layout_alignStart="@+id/chooseTaxBtn" />
+        android:layout_marginBottom="75dp"
+        android:layout_above="@+id/textView13"
+        android:layout_centerHorizontal="true" />
 </RelativeLayout>

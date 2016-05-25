@@ -19,7 +19,7 @@ import java.util.Calendar;
 
 public class Controller  {
 
-    private final String IP = "192.168.0.10"; // Kajsa 192.168.0.10
+    private final String IP = "192.168.1.136"; // Kajsa 192.168.0.10
     private final int PORT = 4545;
     private float tax, result,wage,obIndex,obStart,obEnd;
     private Client client;
@@ -255,7 +255,6 @@ public class Controller  {
 
     public void setTax(float tax){
         sqLiteDatabase = dbHelper.getWritableDatabase();
-        dbHelper.setTax(tax, sqLiteDatabase );
        // dbHelper.close();
     }
 

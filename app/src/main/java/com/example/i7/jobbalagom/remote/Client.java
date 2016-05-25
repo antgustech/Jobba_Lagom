@@ -47,7 +47,8 @@ public class Client extends Thread {
         controller  = Singleton.controller;
         this.IP = IP;
         this.PORT = PORT;
-        startThread();
+        //startThread();
+        start();
     }
 
     /**
