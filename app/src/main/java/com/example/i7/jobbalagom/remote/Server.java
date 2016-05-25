@@ -88,7 +88,7 @@ public class Server extends Thread {
                 dos = new DataOutputStream(new BufferedOutputStream(socket.getOutputStream()));
                 oos = new ObjectOutputStream(socket.getOutputStream());
             } catch (IOException e) {
-                e.printStackTrace();
+                System.out.println("[ERROR] in stream creation");
             }
             System.out.println("Client connected to server");
         }
@@ -128,11 +128,9 @@ public class Server extends Thread {
                             dos.flush();
                             break;
                     }
-                } catch (IOException e) {
-                    System.out.println("[ERROR] File error");
+                } catch (IOException | SQLException e) {
+                    System.out.println("[ERROR] in switch");
                     connected = false;
-                } catch (SQLException e) {
-                    System.out.println("[ERROR] Network error");
                 }
             }
         }
@@ -151,7 +149,6 @@ public class Server extends Thread {
             System.out.println("Server connected to database");
         } catch (ClassNotFoundException | SQLException e1) {
             System.out.println("[ERROR] Problem with connecting to db");
-            e1.printStackTrace();
         }
     }
 
@@ -184,8 +181,8 @@ public class Server extends Thread {
                 names.add(rs.getString(1));
             }
             System.out.println("Skriver ut kommuner");
-
         } catch (SQLException e) {
+            System.out.println("[ERROR] in getMunicipalities");
         }
         return names;
     }
@@ -210,7 +207,7 @@ public class Server extends Thread {
                 }
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            System.out.println("[ERROR] in getChurchTax");
         }
         System.out.println("ChurchTax requested: " + tax);
         return tax;
@@ -236,7 +233,7 @@ public class Server extends Thread {
                 }
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            System.out.println("[ERROR] in getTax");
         }
         System.out.println("Tax requested: " + tax);
         return tax;
