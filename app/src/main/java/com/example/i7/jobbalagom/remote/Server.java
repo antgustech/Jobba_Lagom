@@ -2,6 +2,7 @@ package com.example.i7.jobbalagom.remote;
 /**
  * Created by Anton, Christoffer, Kajsa, Jakup och Morgan
  */
+
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.DataInputStream;
@@ -40,6 +41,14 @@ public class Server extends Thread {
             e.printStackTrace();
         }
         start();
+    }
+
+    /**
+     * Main method that creates an instance of server.
+     * @param args arguments from the command line.
+     */
+    public static void main(String[] args) {
+        Server server = new Server();
     }
 
 
@@ -99,7 +108,7 @@ public class Server extends Thread {
                     		break;
 
                         case GETMUNICIPALITIES:
-                          //oos.writeObject(getMunicipality());
+                            //oos.writeObject(getMunicipality());
                             oos.flush();
                             break;
 
@@ -117,10 +126,10 @@ public class Server extends Thread {
                     }
                 } catch (IOException e) {
                     System.out.println("[ERROR] File error");
-                    //connected=false;
+                    connected=false;
                 }
                 //catch (SQLException e) {
-                    System.out.println("[ERROR] Network error");
+                //    System.out.println("[ERROR] Network error");
                // }
             }
         }
@@ -158,8 +167,8 @@ public class Server extends Thread {
      * @return ArrayList contaning the distinct municipalities from the database.
      * @throws SQLException if there is a problem with the db.
      */
-/*
-    private ArrayList<String> getKommun() throws SQLException {
+    /*
+    private ArrayList<String> getMunicipality() throws SQLException {
         String kommuner ="";
         try (Statement s = (Statement) dbConnection.createStatement()) {
             try (ResultSet rs = s.executeQuery("select distinct Kommun from skatt16april order by Kommun")) {
@@ -221,13 +230,5 @@ public class Server extends Thread {
         }
         System.out.println("Tax requested: " + tax);
         return tax;
-    }
-
-    /**
-     * Main method that creates an instance of server.
-     * @param args arguments from the command line.
-     */
-    public static void main(String[] args) {
-        Server server = new Server();
     }
 }
