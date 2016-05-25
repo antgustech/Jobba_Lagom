@@ -14,7 +14,8 @@ import android.widget.TextView;
 import com.example.i7.jobbalagom.R;
 
 /**
- * Created by Kajsa on 2016-05-24.
+ * Created by Kajsa, Christoffer, Jakup, Morgan and Anton.
+ * Shows the info screen.
  */
 public class InfoFragment extends Fragment {
 

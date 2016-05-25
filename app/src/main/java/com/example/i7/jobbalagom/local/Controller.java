@@ -4,7 +4,7 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
-import com.example.i7.jobbalagom.callback_interfaces.TaxCallbacks.UpdateTaxCallback;
+import com.example.i7.jobbalagom.callbacks.UpdateTaxCallback;
 import com.example.i7.jobbalagom.localDatabase.DBHelper;
 import com.example.i7.jobbalagom.remote.Client;
 
@@ -12,7 +12,8 @@ import java.util.ArrayList;
 import java.util.Calendar;
 
 /**
- * Created by Christoffer, Kajsa, Jakup, Anton och Morgan
+ * Created by Christoffer, Kajsa, Jakup, Anton and Morgan
+ * Handles calls between the UI and Logic classes.
  */
 
 public class Controller  {
@@ -67,7 +68,7 @@ public class Controller  {
         Log.e("controller", "ChurchTAX LOGGING: " + church + " är boolean och tax är : " + tax);
     }
 
-    private class CreateUserListener implements com.example.i7.jobbalagom.callback_interfaces.TaxCallbacks.UpdateTaxCallback {
+    private class CreateUserListener implements UpdateTaxCallback {
 
         String municipality;
         float incomeLimit;

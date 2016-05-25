@@ -9,12 +9,13 @@ import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 
 import com.example.i7.jobbalagom.R;
-import com.example.i7.jobbalagom.callback_interfaces.RemoveJobFragmentCallback;
+import com.example.i7.jobbalagom.callbacks.RemoveJobFragmentCallback;
 import com.example.i7.jobbalagom.local.Controller;
 import com.example.i7.jobbalagom.local.Singleton;
 
 /**
- * Created by Anton Gustafsson on 2016-05-12.
+ * Created by Anton, Christoffer, Kajsa, Morgan and Jakup.
+ * Handles the removeJob screen.
  */
 public class RemoveJobFragment extends Fragment {
     private RemoveJobFragmentCallback callback;

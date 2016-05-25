@@ -1,6 +1,7 @@
 package com.example.i7.jobbalagom.remote;
 /**
- * Created by Anton, Christoffer, Kajsa, Jakup och Morgan
+ * Created by Anton, Christoffer, Kajsa, Jakup and Morgan
+ * Server connects to database and returns municipalitites and their taxes to the client.
  */
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;

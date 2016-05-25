@@ -2,7 +2,6 @@ package com.example.i7.jobbalagom.fragments;
 
 import android.app.Fragment;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,10 +9,11 @@ import android.widget.ImageButton;
 import android.widget.Toast;
 
 import com.example.i7.jobbalagom.R;
-import com.example.i7.jobbalagom.callback_interfaces.LaunchFragmentCallback;
+import com.example.i7.jobbalagom.callbacks.LaunchFragmentCallback;
 
 /**
- * Created by Kajsa on 2016-05-02.
+ * Created by Kajsa, Christoffer, Morgan, Anton and Jakup.
+ * Handles the Launch screen.
  */
 
 public class LaunchFragment extends Fragment {

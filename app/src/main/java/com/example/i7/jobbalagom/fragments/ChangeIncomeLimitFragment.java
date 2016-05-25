@@ -10,10 +10,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.i7.jobbalagom.R;
-import com.example.i7.jobbalagom.callback_interfaces.ChangeIncomeLimitFragmentCallback;
+import com.example.i7.jobbalagom.callbacks.ChangeIncomeLimitFragmentCallback;
 
 /**
- * Created by Anton, Christoffer, Kajsa, Jakup och Morgan.
+ * Created by Anton, Christoffer, Kajsa, Jakup and Morgan.
+ * Handles the Change income limit screen.
  */
 
 public class ChangeIncomeLimitFragment extends Fragment {

@@ -15,13 +15,14 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.i7.jobbalagom.R;
-import com.example.i7.jobbalagom.callback_interfaces.SetupFragmentCallback;
+import com.example.i7.jobbalagom.callbacks.SetupFragmentCallback;
 import com.example.i7.jobbalagom.local.Controller;
 import com.example.i7.jobbalagom.local.Singleton;
 import java.util.ArrayList;
 
 /**
- * Created by Jakup and Kajsa on 2016-04-27.
+ * Created by Jakup, Kajsa, Morgan, Anton and Christoffer.
+ * Handles the setup screen.
  */
 
 public class SetupFragment extends Fragment {

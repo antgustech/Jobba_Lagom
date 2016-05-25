@@ -2,10 +2,8 @@ package com.example.i7.jobbalagom.local;
 
 import android.app.Application;
 
-import com.example.i7.jobbalagom.localDatabase.DBHelper;
-
 /**
- * Created by Anton, Christoffer, Jakup, Kajsa och Morgan.
+ * Created by Anton, Christoffer, Jakup, Kajsa and Morgan.
  * Holds Controller reference
  */
 public class Singleton extends Application {

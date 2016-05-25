@@ -2,7 +2,6 @@ package com.example.i7.jobbalagom.fragments;
 
 import android.app.Fragment;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,15 +11,16 @@ import android.widget.CheckBox;
 import android.widget.TextView;
 
 import com.example.i7.jobbalagom.R;
-import com.example.i7.jobbalagom.callback_interfaces.ChangeTaxFragmentCallback;
-import com.example.i7.jobbalagom.callback_interfaces.TaxCallbacks.UpdateTaxCallback;
+import com.example.i7.jobbalagom.callbacks.ChangeTaxFragmentCallback;
+import com.example.i7.jobbalagom.callbacks.UpdateTaxCallback;
 import com.example.i7.jobbalagom.local.Controller;
 import com.example.i7.jobbalagom.local.Singleton;
 
 import java.util.ArrayList;
 
 /**
- * Created by Christoffer, Kajsa, Anton, Morgan och Jakup.
+ * Created by Christoffer, Kajsa, Anton, Morgan and Jakup.
+ * Handles the change tax screen.
  */
 public class ChangeTaxFragment extends Fragment {
 

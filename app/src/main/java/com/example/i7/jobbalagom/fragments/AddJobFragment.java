@@ -13,12 +13,13 @@ import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.example.i7.jobbalagom.R;
-import com.example.i7.jobbalagom.callback_interfaces.AddJobFragmentCallback;
+import com.example.i7.jobbalagom.callbacks.AddJobFragmentCallback;
 
 import java.util.LinkedList;
 
 /**
- * Created by Kajsa on 2016-05-04.
+ * Created by Kajsa, Anton, Christoffer, Jakup and Morgan.
+ * Handles the add job screen.
  */
 
 public class AddJobFragment extends Fragment {

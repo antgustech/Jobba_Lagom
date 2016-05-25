@@ -19,14 +19,14 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.i7.jobbalagom.R;
-import com.example.i7.jobbalagom.callback_interfaces.AddExpenseFragmentCallback;
-import com.example.i7.jobbalagom.callback_interfaces.AddJobFragmentCallback;
-import com.example.i7.jobbalagom.callback_interfaces.AddShiftFragmentCallback;
-import com.example.i7.jobbalagom.callback_interfaces.BudgetFragmentCallback;
-import com.example.i7.jobbalagom.callback_interfaces.InitialFragmentCallback;
-import com.example.i7.jobbalagom.callback_interfaces.LaunchFragmentCallback;
-import com.example.i7.jobbalagom.callback_interfaces.SetupFragmentCallback;
-import com.example.i7.jobbalagom.callback_interfaces.TaxCallbacks.UpdateTaxCallback;
+import com.example.i7.jobbalagom.callbacks.AddExpenseFragmentCallback;
+import com.example.i7.jobbalagom.callbacks.AddJobFragmentCallback;
+import com.example.i7.jobbalagom.callbacks.AddShiftFragmentCallback;
+import com.example.i7.jobbalagom.callbacks.BudgetFragmentCallback;
+import com.example.i7.jobbalagom.callbacks.InitialFragmentCallback;
+import com.example.i7.jobbalagom.callbacks.LaunchFragmentCallback;
+import com.example.i7.jobbalagom.callbacks.SetupFragmentCallback;
+import com.example.i7.jobbalagom.callbacks.UpdateTaxCallback;
 import com.example.i7.jobbalagom.fragments.AddExpenseFragment;
 import com.example.i7.jobbalagom.fragments.AddJobFragment;
 import com.example.i7.jobbalagom.fragments.AddShiftFragment;
@@ -43,7 +43,8 @@ import com.getbase.floatingactionbutton.FloatingActionsMenu;
 import java.util.Calendar;
 
 /**
- * Created by Kajsa, Anton, Morgan, Jakup och Christoffer.
+ * Created by Kajsa, Anton, Morgan, Jakup and Christoffer.
+ * Handles the main functionality of the applikation. Responsible for changing fragments, and setting graphs.
  */
 
 public class MainActivity extends Activity {

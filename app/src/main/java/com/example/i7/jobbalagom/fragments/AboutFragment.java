@@ -9,7 +9,8 @@ import android.view.ViewGroup;
 import com.example.i7.jobbalagom.R;
 
 /**
- * Created by Anton, Kajsa, Jakup, Morgan, Christoffer.
+ * Created by Anton, Kajsa, Christoffer, Jakup and Morgan.
+ * Handles the about screen.
  */
 public class AboutFragment extends Fragment {
 

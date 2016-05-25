@@ -1,8 +1,8 @@
 package com.example.i7.jobbalagom.localDatabase;
 
 /**
- * Created by Strandberg95 on 2016-05-01.
- * Each inner abstract class represent a table in the database.
+ * Created by Christoffer, Anton, Kajsa, Jakup and Morgan.
+ * Holds String variables for the interal database colums.
  */
 public class UserContract {
 

@@ -1,9 +1,8 @@
 package com.example.i7.jobbalagom.remote;
 
 import android.util.Log;
-import android.widget.Toast;
 
-import com.example.i7.jobbalagom.callback_interfaces.TaxCallbacks.UpdateTaxCallback;
+import com.example.i7.jobbalagom.callbacks.UpdateTaxCallback;
 import com.example.i7.jobbalagom.local.Controller;
 import com.example.i7.jobbalagom.local.Singleton;
 
@@ -18,7 +17,8 @@ import java.sql.Connection;
 import java.util.ArrayList;
 
 /**
- * Created by Anton Gustafsson on 2016-04-19.
+ * Created by Anton, Christoffer, Jakup, Morgan and Christoffer.
+ * Client handles connection to the servern.
  */
 
 public class Client extends Thread {

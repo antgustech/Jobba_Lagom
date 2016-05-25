@@ -6,10 +6,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import com.example.i7.jobbalagom.R;
-import com.example.i7.jobbalagom.callback_interfaces.BudgetFragmentCallback;
+import com.example.i7.jobbalagom.callbacks.BudgetFragmentCallback;
 
 /**
- * Created by Kajsa, Anton, Morgan, Jakup och Christoffer.
+ * Created by Kajsa, Anton, Morgan, Jakup and Christoffer.
+ * Handles the Budget screen.
  * TODO: Class not yet finished.
  */
 

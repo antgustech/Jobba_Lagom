@@ -8,10 +8,11 @@ import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 
 import com.example.i7.jobbalagom.R;
-import com.example.i7.jobbalagom.callback_interfaces.InitialFragmentCallback;
+import com.example.i7.jobbalagom.callbacks.InitialFragmentCallback;
 
 /**
- * Created by Kajsa, Morgan, Christoffer, Jakup och Anton.
+ * Created by Kajsa, Morgan, Christoffer, Jakup and Anton.
+ * Handles the intial screen.
  */
 
 public class InitialFragment extends Fragment {

@@ -11,7 +11,8 @@ import java.util.ArrayList;
 import java.util.Calendar;
 
 /**
- * Created by Anton, Kajsa, Christoffer, Morgan, Jakup
+ * Created by Anton, Kajsa, Christoffer, Morgan and Jakup
+ * Contains methods for setting and getting data in the internal database.
  */
 
 public class DBHelper extends SQLiteOpenHelper {

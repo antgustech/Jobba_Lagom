@@ -10,7 +10,12 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.i7.jobbalagom.R;
-import com.example.i7.jobbalagom.callback_interfaces.AddExpenseFragmentCallback;
+import com.example.i7.jobbalagom.callbacks.AddExpenseFragmentCallback;
+
+/**
+ * Created by Kajsa, Anton, Christoffer, Jakup and Morgan.
+ * Handles the add expense screen.
+ */
 
 public class AddExpenseFragment extends Fragment {
     private EditText inputTitle;

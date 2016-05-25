@@ -1,7 +1,8 @@
 package com.example.i7.jobbalagom.activities;
 
 /**
- * Created by Anton, Jakup, Morgan, kajsa, Christoffer.
+ * Created by Anton, Jakup, Morgan, Kajsa and Christoffer.
+ * Handles the fragment changing of the settings screen.
  */
 
 import android.app.Activity;
@@ -16,10 +17,10 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.example.i7.jobbalagom.R;
-import com.example.i7.jobbalagom.callback_interfaces.AddJobFragmentCallback;
-import com.example.i7.jobbalagom.callback_interfaces.ChangeTaxFragmentCallback;
-import com.example.i7.jobbalagom.callback_interfaces.ChangeIncomeLimitFragmentCallback;
-import com.example.i7.jobbalagom.callback_interfaces.RemoveJobFragmentCallback;
+import com.example.i7.jobbalagom.callbacks.AddJobFragmentCallback;
+import com.example.i7.jobbalagom.callbacks.ChangeTaxFragmentCallback;
+import com.example.i7.jobbalagom.callbacks.ChangeIncomeLimitFragmentCallback;
+import com.example.i7.jobbalagom.callbacks.RemoveJobFragmentCallback;
 import com.example.i7.jobbalagom.fragments.AboutFragment;
 import com.example.i7.jobbalagom.fragments.AddJobFragment;
 import com.example.i7.jobbalagom.fragments.ChangeTaxFragment;
