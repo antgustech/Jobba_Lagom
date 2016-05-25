@@ -71,7 +71,6 @@ public class MainActivity extends Activity {
         setContentView(R.layout.activity_main);
         initComponents();
         userCheck();
-        taxCheck();
     }
 
     @Override
@@ -124,6 +123,7 @@ public class MainActivity extends Activity {
             startLaunchFragment(true);
         } else {
             loadProgressBars();
+            taxCheck();
         }
     }
 
@@ -321,7 +321,7 @@ public class MainActivity extends Activity {
                         public void run() {
                             removeFragment(initialFragment);
                         }
-                    }, 5000);
+                    }, 4000);
         }
     }
 

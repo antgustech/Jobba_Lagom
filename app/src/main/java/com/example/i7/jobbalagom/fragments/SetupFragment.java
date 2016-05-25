@@ -105,6 +105,7 @@ public class SetupFragment extends Fragment {
                 churchTax= false;
             }
             callback.addUser(municipality, Float.parseFloat(incomeLimit), churchTax);
+            Toast.makeText(getActivity(), "Applikationen är redo att användas!", Toast.LENGTH_LONG).show();
         }
     }
 }
