@@ -153,7 +153,7 @@ public class DBHelper extends SQLiteOpenHelper {
         contentValues.put(UserContract.Shift.SHIFT_DAY, day);
         contentValues.put(UserContract.Shift.SHIFT_INCOME, income);
         db.insert(UserContract.Shift.TABLE_NAME, null, contentValues);
-        Log.e("Internal DB", "New shift: " + startTime + " - " + endTime + ", " + hoursWorked + " hours work on job " + jobTitle + ", date " + year+""+month+""+day + ", inkomst " + income + " kr");
+        Log.e("Internal DB", "New shift: ");
     }
 
     /**
@@ -206,7 +206,7 @@ public class DBHelper extends SQLiteOpenHelper {
 
     public void setTax(float currentTax, SQLiteDatabase db){
         db.execSQL("UPDATE " + UserContract.User.TABLE_NAME + " SET " + UserContract.User.USER_TAX + "='"+ currentTax + "';");
-        Log.e("Internal DB", "Setting tax in database");
+        Log.e("Internal DB", "Setting tax in database to : " + currentTax);
     }
 
     /**
@@ -478,7 +478,7 @@ public class DBHelper extends SQLiteOpenHelper {
         if (c.moveToFirst()) {
             sum = c.getFloat(c.getColumnIndex(UserContract.User.USER_TAX));
         }
-        Log.e("Internal DB", "Getting user tax from database" );
+        Log.e("Internal DB", "Getting user tax from database " + sum  );
         return sum;
 
     }

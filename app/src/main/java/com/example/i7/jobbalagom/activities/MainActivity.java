@@ -44,7 +44,7 @@ import java.util.Calendar;
 
 /**
  * Created by Kajsa, Anton, Morgan, Jakup and Christoffer.
- * Handles the main functionality of the applikation. Responsible for changing fragments, and setting graphs.
+ * Handles the main functionality of the application. Responsible for changing fragments, and setting graphs.
  */
 
 public class MainActivity extends Activity {
@@ -155,7 +155,7 @@ public class MainActivity extends Activity {
             float oldTax = controller.getTax();
             if(tax != oldTax){
                 controller.setTax(tax);
-                //Toast.makeText(getBaseContext(), "The tax for " + municipality + " is now updated", Toast.LENGTH_LONG);
+                Toast.makeText(getBaseContext(), "The tax for " + municipality + " is now updated", Toast.LENGTH_LONG);
             }
         }
     }

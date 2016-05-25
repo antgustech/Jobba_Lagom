@@ -31,6 +31,7 @@ public class ChangeTaxFragment extends Fragment {
     private CheckBox churchCheckbox;
     private TextView taxTextView;
     private float currentTax = 0;
+    private SetTaxListener listener;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -46,6 +47,7 @@ public class ChangeTaxFragment extends Fragment {
     }
 
     private void initComponents(View v){
+        SetTaxListener listener = new SetTaxListener();
         taxTextView = (TextView)v.findViewById(R.id.taxText);
         calculateTaxBtn = v.findViewById(R.id.calculateTaxBtn);
         chooseTaxBtn = v.findViewById(R.id.chooseTaxBtn);
@@ -103,7 +105,7 @@ public class ChangeTaxFragment extends Fragment {
         chooseTaxBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //taxCallback.updateTax(Float.parseFloat(tax.getText().toString()));
+                listener.UpdateTax(currentTax);
             }
         });
     }

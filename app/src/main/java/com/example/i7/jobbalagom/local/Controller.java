@@ -8,6 +8,7 @@ import com.example.i7.jobbalagom.callbacks.UpdateTaxCallback;
 import com.example.i7.jobbalagom.localDatabase.DBHelper;
 import com.example.i7.jobbalagom.remote.Client;
 
+import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 
@@ -216,6 +217,8 @@ public class Controller  {
     public float getTax() {
         sqLiteDatabase = dbHelper.getReadableDatabase();
         float sum = dbHelper.getUserTax(sqLiteDatabase);
+
+
       //  dbHelper.close();
         return sum;
     }
@@ -262,6 +265,8 @@ public class Controller  {
       //  dbHelper.close();
     }
 
+
+
     /**
      * When user have pressed addShift this method is called to calculate the shift and then call addShift method to add the result.
      * TODO *More tests to make sure it calculates correct
@@ -302,11 +307,14 @@ public class Controller  {
                 workedObPay= ((endTime-obStart)* ((obIndex-1)*wage));
             }
         }
-
         workedTime = (((endTime-startTime)/2) - breakMinutes) + ((endTime-startTime)/2);
 
         workedPay = workedTime * wage;
         realTax= 1 -(tax/100);
+        NumberFormat nf = NumberFormat.getNumberInstance();
+        nf.setMaximumFractionDigits(4);
+        nf.setMinimumFractionDigits(0);
+        nf.format(realTax);
         result = ((workedPay + workedObPay) * realTax);
 
         Log.e("Calculation ", "Result after calculation: wage: " + wage + " StartTime: " + startTime + " EndTime " + endTime + " tax " + tax + " new tax " + realTax + " obIndex " + obIndex + " obStart " + obStart + " obEnd " + obEnd + " day " + dayOfWeek + " = " + dayName + " calculated ob " + workedObPay + " Result= " + result);
@@ -314,8 +322,6 @@ public class Controller  {
 
         return result;
     }
-
-    // NYYYY
 
     public float getMonthlyIncome(int month, int year) {
         sqLiteDatabase = dbHelper.getReadableDatabase();
