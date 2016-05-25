@@ -25,6 +25,7 @@ import com.example.i7.jobbalagom.fragments.AboutFragment;
 import com.example.i7.jobbalagom.fragments.AddJobFragment;
 import com.example.i7.jobbalagom.fragments.ChangeTaxFragment;
 import com.example.i7.jobbalagom.fragments.ChangeIncomeLimitFragment;
+import com.example.i7.jobbalagom.fragments.InfoFragment;
 import com.example.i7.jobbalagom.fragments.RemoveJobFragment;
 import com.example.i7.jobbalagom.local.Controller;
 import com.example.i7.jobbalagom.local.Singleton;
@@ -50,7 +51,7 @@ public class SettingsActivity extends Activity {
 
     private void initComponents(){
         myList = (ListView)findViewById(R.id.settingListView);
-        String[] values = new String[] { "Allmänt", "Ändra skattesats","Ändra fribelopp", "Lägg till jobb", "Ta bort jobb", "Om" };
+        String[] values = new String[] {  "Ändra skattesats","Ändra fribelopp", "Ta bort jobb", "Om" };
         list = new ArrayList<String>();
         Collections.addAll(list, values);
         adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, values);
@@ -69,7 +70,7 @@ public class SettingsActivity extends Activity {
             int itemPosition = position;
             String itemValue = (String) myList.getItemAtPosition(position);
             if (itemValue == "Allmänt") {
-                Toast.makeText(getApplicationContext(), "Nothing here yet :)", Toast.LENGTH_LONG).show();
+                //Toast.makeText(getApplicationContext(), "Nothing here yet :)", Toast.LENGTH_LONG).show();
             }else if(itemValue =="Ändra skattesats"){
                 if (checkConnection()) {
                     startChangeTaxFragment();
@@ -77,11 +78,11 @@ public class SettingsActivity extends Activity {
                     Toast.makeText(getBaseContext(), "Appen saknar anslutning till servern.", Toast.LENGTH_LONG).show();
                 }
             }else if(itemValue == "Lägg till jobb"){
-                startAddJobFragment();
+               // startAddJobFragment();
             }else if(itemValue == "Ta bort jobb"){
                 startRemoveJobFragment();
             }else if(itemValue == "Om"){
-                startAboutFragment();
+                startInfoFragment();
             }else if(itemValue == "Ändra fribelopp"){
                 startChangeIncomeLimit();
             }
@@ -285,6 +286,12 @@ public class SettingsActivity extends Activity {
             connection = true;
         }
         return connection;
+    }
+
+
+    public void startInfoFragment() {
+        currentFragment = new InfoFragment();
+        changeFragment(currentFragment);
     }
 }
 

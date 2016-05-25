@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".fragments.ChangeTaxFragment"
     android:background="@color/bgBlueish"
     android:paddingTop="@dimen/layout_padding_height"
     android:paddingBottom="@dimen/layout_padding_height"
@@ -56,7 +54,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Gamla"
+        android:text="  "
         android:id="@+id/oldTaxText"
         android:layout_alignTop="@+id/newTaxText"
         android:layout_alignRight="@+id/textView"
