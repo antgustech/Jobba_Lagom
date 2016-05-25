@@ -1,8 +1,9 @@
 package com.example.i7.jobbalagom.callbacks;
 
 /**
- * Created by Anton Gustafsson on 2016-05-12.
+ * Created by Kajsa, Anton, Morgan, Jakup and Christoffer.
  */
+
 public interface RemoveJobFragmentCallback {
     void removeJob(String string);
 }

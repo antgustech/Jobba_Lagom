@@ -1,8 +1,9 @@
 package com.example.i7.jobbalagom.callbacks;
 
 /**
- * Created by Strandberg95 on 2016-05-20.
+ * Created by Kajsa, Anton, Morgan, Jakup and Christoffer.
  */
+
 public interface UpdateTaxCallback {
     public void UpdateTax(float tax);
 }

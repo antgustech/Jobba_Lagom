@@ -1,7 +1,7 @@
 package com.example.i7.jobbalagom.callbacks;
 
 /**
- * Created by Kajsa on 2016-04-27.
+ * Created by Kajsa, Anton, Morgan, Jakup and Christoffer.
  */
 
 public interface AddExpenseFragmentCallback {
