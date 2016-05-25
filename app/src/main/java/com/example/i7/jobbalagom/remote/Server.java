@@ -31,6 +31,7 @@ public class Server extends Thread {
     /**
      * Connects to database and starts a thread to start the connection
      */
+
     public Server() {
         System.out.println("Server waiting to establish connection");
         connectDB();
@@ -47,14 +48,15 @@ public class Server extends Thread {
      * Main method that creates an instance of server.
      * @param args arguments from the command line.
      */
+
     public static void main(String[] args) {
         Server server = new Server();
     }
 
-
     /**
      * Thread responsible for establishing connection to the client.
      */
+
     public void run() {
         while (true) {
             Socket socket;
@@ -71,6 +73,7 @@ public class Server extends Thread {
     /**
      * Clienthandler is used for handling multiple clients at the same time.
      */
+
     private class ClientHandeler extends Thread {
         private Socket socket;
         private DataInputStream dis;
@@ -94,6 +97,7 @@ public class Server extends Thread {
          * This thread is started for each client and waits for an integer so choose which operation to execute.
          * @throws IOException if there is a problem reading from streams.
          */
+
         public void run() {
             while (connected) {
                 try {
@@ -139,6 +143,7 @@ public class Server extends Thread {
      * @throws ClassNotFoundException if jdbc cannot be found
      * @throws SQLException if there is a problem with the db.
      */
+
     private void connectDB() {
         try {
             Class.forName("com.mysql.jdbc.Driver");
@@ -154,6 +159,7 @@ public class Server extends Thread {
      * Disconnects from database
      * @throws SQLException if there is a problem connecting to database.
      */
+
     private void disconnectDB() {
         try {
             dbConnection.close();
@@ -169,10 +175,9 @@ public class Server extends Thread {
      */
 
     private ArrayList<String> getMunicipality() throws SQLException {
-        String kommuner = "";
         ArrayList<String> names = new ArrayList<String>();;
         try {
-            Statement s = (Statement) dbConnection.createStatement();
+            Statement s =  dbConnection.createStatement();
             ResultSet rs = s.executeQuery("select distinct Kommun from skatt16april order by Kommun");
             names = new ArrayList<String>();
             while (rs.next()) {
@@ -185,19 +190,17 @@ public class Server extends Thread {
         return names;
     }
 
-
-
-
     /**
      * Retrives the average churchTax from server.
      * @param municipalities The municipality choosen by the user.
      * @return float containing the average churchTax from the choosen municipality.
      * @throws SQLException if there is a problem with the db.
      */
+
     private float getChurchTax(String municipalities) {
         float tax = 0f;
         try {
-            Statement s = (Statement) dbConnection.createStatement();
+            Statement s = dbConnection.createStatement();
             ResultSet rs = s.executeQuery("select AVG(SummaInkluderatKyrkan) FROM skatt16april WHERE kommun='" + municipalities + "';");
             int columnCount = rs.getMetaData().getColumnCount();
             while (rs.next()) {
@@ -219,10 +222,11 @@ public class Server extends Thread {
      * @return float containing the average Tax from the choosen municipality.
      * @throws SQLException if there is a problem with the db.
      */
+
     private float getTax(String choosenKommun) {
         float tax = 0f;
         try {
-            Statement s = (Statement) dbConnection.createStatement();
+            Statement s = dbConnection.createStatement();
             ResultSet rs = s.executeQuery("select AVG(SummanExkluderatKyrkan) FROM skatt16april WHERE kommun='" + choosenKommun + "';");
             int columnCount = rs.getMetaData().getColumnCount();
             while (rs.next()) {
