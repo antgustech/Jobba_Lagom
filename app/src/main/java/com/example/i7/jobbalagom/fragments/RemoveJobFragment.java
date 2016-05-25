@@ -18,14 +18,10 @@ import com.example.i7.jobbalagom.local.Singleton;
  */
 public class RemoveJobFragment extends Fragment {
     private RemoveJobFragmentCallback callback;
-
     private Controller controller;
     private String[] jobTitles;
     private Spinner jobSpinner;
     private View btnRemoveJob;
-
-
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_removejob, container, false);
@@ -33,45 +29,38 @@ public class RemoveJobFragment extends Fragment {
 
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        initComponents(view);
+    }
 
+    private void initComponents( View v){
         controller = Singleton.controller;
-        btnRemoveJob = view.findViewById(R.id.btnRemoveJob);
-        initSpinner(view);
-        setupBtnRemoveJob();
-    }
-
-
-
-
-    private void initSpinner(View view){
-
+        btnRemoveJob = v.findViewById(R.id.btnRemoveJob);
+        btnRemoveJob.setOnClickListener(new ButtonListner());
         jobTitles = controller.getJobTitles();
+
         ArrayAdapter adapter = new ArrayAdapter<String>(getActivity(), R.layout.spinner_row, R.id.text, jobTitles);
-        jobSpinner = (Spinner) view.findViewById(R.id.jobSpinner);
+        jobSpinner = (Spinner) v.findViewById(R.id.jobSpinner);
         jobSpinner.setAdapter(adapter);
-
-
-
-
-
     }
 
-    private void setupBtnRemoveJob(){
+    /**
+     * Listener for the remove job button.
+     */
 
-        btnRemoveJob.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                final String jobTitle = jobSpinner.getSelectedItem().toString();
-                callback.removeJob(jobTitle);
-
-            }
-        });
-
+    private class ButtonListner implements View.OnClickListener{
+        @Override
+        public void onClick(View v) {
+            final String jobTitle = jobSpinner.getSelectedItem().toString();
+            callback.removeJob(jobTitle);
+        }
     }
 
+    /**
+     * Sets the callback.
+     * @param callback listener.
+     */
 
     public void setCallBack(RemoveJobFragmentCallback callback){
         this.callback=callback;
-
     }
 }

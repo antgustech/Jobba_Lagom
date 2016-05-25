@@ -9,7 +9,8 @@ import com.example.i7.jobbalagom.R;
 import com.example.i7.jobbalagom.callback_interfaces.BudgetFragmentCallback;
 
 /**
- * Created by Kajsa on 2016-05-18.
+ * Created by Kajsa, Anton, Morgan, Jakup och Christoffer.
+ * TODO: Class not yet finished.
  */
 
 public class BudgetFragment extends Fragment {
@@ -26,9 +27,17 @@ public class BudgetFragment extends Fragment {
         initComponents(view);
     }
 
+    /**
+     * Initializes components.
+     */
+
     public void initComponents(View view) {
-        // relevant components should be instantiated here
     }
+
+    /**
+     * Sets Callback
+     * @param callback listener for this class.
+     */
 
     public void setCallBack(BudgetFragmentCallback callback) {
         this.callback = callback;

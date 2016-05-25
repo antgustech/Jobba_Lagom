@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:fab="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/mainLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/grey"
@@ -49,8 +51,8 @@
     <ProgressBar
         android:id="@+id/pbExpenses"
         style="?android:attr/progressBarStyleHorizontal"
-        android:layout_width="300dp"
-        android:layout_height="300dp"
+        android:layout_width="280dp"
+        android:layout_height="280dp"
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
         android:max="100"
@@ -59,13 +61,31 @@
     <ProgressBar
         android:id="@+id/pbIncome"
         style="?android:attr/progressBarStyleHorizontal"
-        android:layout_width="300dp"
-        android:layout_height="300dp"
+        android:layout_width="280dp"
+        android:layout_height="280dp"
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
         android:max="100"
         android:progressDrawable="@drawable/progressbar_income"
         android:indeterminate="false" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/left"
+        android:layout_alignParentLeft="true"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="10dp"
+        />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/right"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="10dp"
+        />
 
     <RelativeLayout
         android:id="@+id/centerTextLayout"
@@ -75,20 +95,20 @@
         android:layout_centerVertical="true">
 
         <TextView
-            android:id="@+id/tvIncome"
+            android:id="@+id/tvDate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
-            android:text="Inkomster 4500"
+            android:text="Jan 16"
             android:textAlignment="center"
             android:textColor="@color/white"
-            android:textSize="20sp" />
+            android:textSize="30sp" />
 
         <TextView
             android:id="@+id/tvBalance"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/tvIncome"
+            android:layout_below="@+id/tvDate"
             android:layout_centerHorizontal="true"
             android:text="0"
             android:textAlignment="center"
@@ -96,10 +116,20 @@
             android:textSize="50sp" />
 
         <TextView
+            android:id="@+id/tvIncome"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@+id/tvBalance"
+            android:text="Inkomst 4500"
+            android:textAlignment="center"
+            android:textColor="@color/white"
+            android:textSize="20sp" />
+        <TextView
             android:id="@+id/tvExpense"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/tvBalance"
+            android:layout_below="@+id/tvIncome"
             android:layout_centerHorizontal="true"
             android:text="Utgifter 5000"
             android:textAlignment="center"
@@ -187,7 +217,7 @@
         android:layout_alignParentBottom="true"
         android:layout_marginBottom="30dp"
         android:layout_marginLeft="30dp"
-        android:background="@drawable/settings_icon" />
+        android:background="@drawable/settings" />
 
 </RelativeLayout>
 

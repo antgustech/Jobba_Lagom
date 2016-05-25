@@ -20,21 +20,17 @@ import com.example.i7.jobbalagom.local.Singleton;
 import java.util.ArrayList;
 
 /**
- * Created by Strandberg95 on 2016-05-12.
+ * Created by Christoffer, Kajsa, Anton, Morgan och Jakup.
  */
 public class ChangeTaxFragment extends Fragment {
 
     private AutoCompleteTextView textViewKommun;
     private ArrayList<String> kommuner;
     private Controller controller;
-    private View calculateTaxBtn;
-    private View chooseTaxBtn;
+    private View calculateTaxBtn, chooseTaxBtn;
     private CheckBox churchCheckbox;
     private TextView taxTextView;
-
     private float currentTax = 0;
-
-    //private ChangeTaxFragmentCallback taxCallback;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -44,23 +40,23 @@ public class ChangeTaxFragment extends Fragment {
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
-        calculateTaxBtn = view.findViewById(R.id.calculateTaxBtn);
-        chooseTaxBtn = view.findViewById(R.id.chooseTaxBtn);
-        churchCheckbox = (CheckBox)view.findViewById(R.id.churchCheckbox);
-        taxTextView = (TextView)view.findViewById(R.id.taxText);
-        controller  = Singleton.controller;
-
-
-      //  setupChooseTax();
+        initComponents(view);
         setupCalculateTax();
         setupKommunView(view);
+    }
 
+    private void initComponents(View v){
+        taxTextView = (TextView)v.findViewById(R.id.taxText);
+        calculateTaxBtn = v.findViewById(R.id.calculateTaxBtn);
+        chooseTaxBtn = v.findViewById(R.id.chooseTaxBtn);
+        churchCheckbox = (CheckBox)v.findViewById(R.id.churchCheckbox);
+        controller  = Singleton.controller;
     }
 
     /**
-     * Listener for calculateTax
+     * Listener for calculateTax button
      */
+
     public void setupCalculateTax(){
         calculateTaxBtn.setOnClickListener(new View.OnClickListener()  {
             @Override
@@ -78,12 +74,14 @@ public class ChangeTaxFragment extends Fragment {
         });
     }
 
-    private class SetTaxListener implements UpdateTaxCallback {
+    /**
+     *
+     */
 
+    private class SetTaxListener implements UpdateTaxCallback {
         @Override
         public void UpdateTax(float tax) {
             setTaxText(tax + "");
-            Log.e("CallbackTag", "Cool: " + tax);
         }
     }
 
@@ -100,6 +98,7 @@ public class ChangeTaxFragment extends Fragment {
     /**
      * Listener for setTaxbutton.
      */
+
     public void setupChooseTax(){
         chooseTaxBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -113,13 +112,14 @@ public class ChangeTaxFragment extends Fragment {
      * Set Callback
      * @param callback
      */
+
     public void setCallBack(ChangeTaxFragmentCallback callback){
-       // taxCallback = callback;
     }
 
     /**
      * Setup the textview to show kommuner.
      */
+
     public void setupKommunView(View view){
         textViewKommun = (AutoCompleteTextView) view.findViewById(R.id.autoCompleteKommun);
         updateKommuner();
@@ -130,11 +130,10 @@ public class ChangeTaxFragment extends Fragment {
     /**
      * Get's Municipalities as a list.
      */
+
     public void updateKommuner(){
-
-            kommuner = controller.getMunicipalities();
+        kommuner = controller.getMunicipalities();
         if(kommuner != null){
-
 
         }else{
             textViewKommun.setEnabled(false);

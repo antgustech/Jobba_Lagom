@@ -138,7 +138,6 @@
                 android:id="@+id/tvTitleDayAndTime"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/obHeader"
                 android:background="@color/grey_trans"
                 android:padding="@dimen/text_padding"
                 android:text="Ange dag och tid"

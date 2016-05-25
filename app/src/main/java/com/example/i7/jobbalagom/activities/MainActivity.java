@@ -4,13 +4,17 @@ import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
+import android.view.GestureDetector;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -27,6 +31,7 @@ import com.example.i7.jobbalagom.fragments.AddExpenseFragment;
 import com.example.i7.jobbalagom.fragments.AddJobFragment;
 import com.example.i7.jobbalagom.fragments.AddShiftFragment;
 import com.example.i7.jobbalagom.fragments.BudgetFragment;
+import com.example.i7.jobbalagom.fragments.InfoFragment;
 import com.example.i7.jobbalagom.fragments.InitialFragment;
 import com.example.i7.jobbalagom.fragments.LaunchFragment;
 import com.example.i7.jobbalagom.fragments.SetupFragment;
@@ -49,10 +54,11 @@ public class MainActivity extends Activity {
     private FloatingActionsMenu floatingMenu;
     private FloatingActionButton btnAddShift, btnAddExpense, btnAddJob;
     private ImageButton btnSettings, btnBudget;
-    private TextView tvCSN, tvIncome, tvExpense, tvBalance;
+    private TextView tvCSN, tvIncome, tvExpense, tvBalance, tvDate;
     private ProgressBar pbCSN, pbIncome, pbExpense;
     private float monthlyIncomeLimit, csnIncomeLimit;
     private int pbMaxProgress;
+    private int selectedMonth, selectedYear;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,13 +68,13 @@ public class MainActivity extends Activity {
         setContentView(R.layout.activity_main);
         initComponents();
         userCheck();
+        taxCheck();
     }
 
     @Override
     protected void onResume() {
         super.onResume();
         loadProgressBars();
-
     }
 
     /**
@@ -86,6 +92,7 @@ public class MainActivity extends Activity {
         tvIncome = (TextView) findViewById(R.id.tvIncome);
         tvExpense = (TextView) findViewById(R.id.tvExpense);
         tvBalance = (TextView) findViewById(R.id.tvBalance);
+        tvDate = (TextView) findViewById(R.id.tvDate);
         pbCSN = (ProgressBar) findViewById(R.id.pbCSN);
         pbIncome = (ProgressBar) findViewById(R.id.pbIncome);
         pbExpense = (ProgressBar) findViewById(R.id.pbExpenses);
@@ -95,6 +102,12 @@ public class MainActivity extends Activity {
         btnAddShift.setOnClickListener(addButtonListener);
         btnAddExpense.setOnClickListener(addButtonListener);
         btnAddJob.setOnClickListener(addButtonListener);
+        RelativeLayout mainLayout = (RelativeLayout) findViewById(R.id.mainLayout);
+        mainLayout.setOnTouchListener(new OnSwipeTouchListener(getParent()));
+
+        selectedMonth = Calendar.getInstance().get(Calendar.MONTH) + 1;
+        selectedYear = Calendar.getInstance().get(Calendar.YEAR) % 100;
+
         fragmentManager = getFragmentManager();
     }
 
@@ -107,21 +120,24 @@ public class MainActivity extends Activity {
             startInitialFragment();
         } else {
             loadProgressBars();
-            if(controller.checkConnection()){
-                checkForTaxUpdate();
-            }
+        }
+    }
+
+    public void taxCheck() {
+        if(controller.checkConnection()){
+            checkForTaxUpdate();
         }
     }
 
     /**
      * Check if there is a new tax rate available.
-     * TODO: DEN UPPDATERAR INTE FÖR KYRKOSKATT
+     * TODO: DEN UPPDATERAR INTE FÖR KYRKOSKATT. ELLER?
      */
 
     private void checkForTaxUpdate(){
-        String kommun = controller.getMunicipality();
-        TaxUpdateListener listener = new TaxUpdateListener(kommun);
-        controller.getTax(kommun, listener);
+        String municipality = controller.getMunicipality();
+        TaxUpdateListener listener = new TaxUpdateListener(municipality);
+        controller.getTax(municipality, listener);
     }
 
     /**
@@ -138,7 +154,7 @@ public class MainActivity extends Activity {
             float oldTax = controller.getTax();
             if(tax != oldTax){
                 controller.setTax(tax);
-                Toast.makeText(getBaseContext(), "The tax for " + municipality + " is now updated", Toast.LENGTH_LONG);
+                //Toast.makeText(getBaseContext(), "The tax for " + municipality + " is now updated", Toast.LENGTH_LONG);
             }
         }
     }
@@ -150,10 +166,10 @@ public class MainActivity extends Activity {
     public void onBackPressed() {
         if(currentFragment == null || currentFragment instanceof LaunchFragment || currentFragment instanceof InitialFragment) {
             super.onBackPressed();
-        } else if(currentFragment instanceof SetupFragment) {
+        } else if(currentFragment instanceof SetupFragment || currentFragment instanceof InfoFragment) {
             startLaunchFragment();
         } else {
-            removeFragment(currentFragment);
+                removeFragment(currentFragment);
         }
     }
 
@@ -165,53 +181,54 @@ public class MainActivity extends Activity {
         monthlyIncomeLimit = controller.getIncomeLimit()/6;
         csnIncomeLimit = controller.getIncomeLimit();
         pbMaxProgress = 100;
-        updatePBcsn(controller.getHalfYearIncome());
-        updatePBincome(controller.getThisMonthsIncome());
-        updatePBexpense(controller.getThisMonthsExpenses());
+        tvDate.setText(getDate());
+
+        updatePBcsn(controller.getHalfYearIncome(selectedMonth, selectedYear));
+        Log.d("MainActivity", "loadProgressBars, (" + selectedYear + "." + selectedMonth + ") total half year income: " + controller.getHalfYearIncome(selectedMonth, selectedYear));
+
+        updatePBincome(controller.getMonthlyIncome(selectedMonth, selectedYear));
+        Log.d("MainActivity", "loadProgressBars, (" + selectedYear + "." + selectedMonth + ") monthly income: " + controller.getMonthlyIncome(selectedMonth, selectedYear));
+
+        updatePBexpense(controller.getMonthlyExpenses(selectedMonth, selectedYear));
+        Log.d("MainActivity", "loadProgressBars, (" + selectedYear + "." + selectedMonth + ") monthly expenses: " + controller.getMonthlyExpenses(selectedMonth, selectedYear));
     }
 
     /**
      * Updates CSN progress bar
-     * @param income - representing an income defined in kronor
      */
 
-    public void updatePBcsn(float income) {
-        int increase = (int)(income / csnIncomeLimit *100);
-        int total = pbCSN.getProgress() + increase;
-        pbCSN.setProgress(total);
-        float totalIncome = controller.getHalfYearIncome();
-        float left = csnIncomeLimit - totalIncome;
+    public void updatePBcsn(float halfYearIncome) {
+        int totalProgress = (int)(halfYearIncome / csnIncomeLimit *100);
+        pbCSN.setProgress(totalProgress);
+        float left = csnIncomeLimit - halfYearIncome;
+
         if(left < 0) {
-            tvCSN.setText("Du har överskridit det av CSN erhållna fribeloppet med " + (int)left*-1 + " kr");
+            tvCSN.setText("Du har överskridit det av CSN erhållna fribeloppet med " + (int) left * -1 + " kr");
         } else {
-            tvCSN.setText("Du kan tjäna " + (int)left + " kr innan det av CSN erhållna fribeloppet passeras");
+            tvCSN.setText("Du kan tjäna " + (int) left + " kr innan det av CSN erhållna fribeloppet passeras");
         }
     }
 
     /**
      * Updates income progress bar
-     * @param income - representing an income defined in kronor
      */
 
-    public void updatePBincome(float income) {
-        int increase = (int)(income/monthlyIncomeLimit*100);
-        int totalProgress = pbIncome.getProgress() + increase;
+    public void updatePBincome(float thisMonthsIncome) {
+        int totalProgress = (int)(thisMonthsIncome/monthlyIncomeLimit*100);
         expandProgressBar(pbIncome, totalProgress);
     }
 
     /**
      * Updates the expense progress bar
-     * @param expense - representing an expense defined in kronor
      */
 
-    public void updatePBexpense(float expense) {
-        int increase = (int)(expense/monthlyIncomeLimit*100);
-        int totalProgress = pbExpense.getProgress() + increase;
+    public void updatePBexpense(float thisMonthsExpenses) {
+        int totalProgress = (int)(thisMonthsExpenses/monthlyIncomeLimit*100);
         expandProgressBar(pbExpense, totalProgress);
     }
 
-
     public void expandProgressBar(ProgressBar pb, int totalProgress) {
+
         if(totalProgress > pbMaxProgress) {
             pbMaxProgress = totalProgress;
             pbIncome.setMax(pbMaxProgress);
@@ -219,11 +236,12 @@ public class MainActivity extends Activity {
         }
         pb.setProgress(totalProgress);
 
-        float thisMonthsIncome = controller.getThisMonthsIncome();
-        float thisMonthsExpenses = controller.getThisMonthsExpenses();
-        float balance = thisMonthsIncome-thisMonthsExpenses;
-        tvIncome.setText("Inkomst " + (int)thisMonthsIncome);
-        tvExpense.setText("Utgifter " + (int)thisMonthsExpenses);
+        float monthlyIncome = controller.getMonthlyIncome(selectedMonth, selectedYear);
+        float monthlyExpenses = controller.getMonthlyExpenses(selectedMonth, selectedYear);
+        float balance = monthlyIncome-monthlyExpenses;
+
+        tvIncome.setText("Inkomst " + (int)monthlyIncome);
+        tvExpense.setText("Utgift " + (int)monthlyExpenses);
         tvBalance.setText((int) balance + "");
     }
 
@@ -293,6 +311,11 @@ public class MainActivity extends Activity {
         changeFragment(currentFragment);
     }
 
+    public void startInfoFragment() {
+        currentFragment = new InfoFragment();
+        changeFragment(currentFragment);
+    }
+
     /**
      * Listens to the settings icon in the main layout
      */
@@ -338,13 +361,10 @@ public class MainActivity extends Activity {
      */
     private class LaunchFragmentListener implements LaunchFragmentCallback {
         public void navigate(String choice) {
-            if(choice.equals("btnLogo")) {
-            } else if(choice.equals("btnNew")) {
-                    startSetupFragment();
-            } else if(choice.equals("btnKey")) {
-                //TODO REMOVE THIS CALL WHEN APP IS FINISHED!!!!!!!!!!!!!!
-               removeFragment(currentFragment);
+            if(choice.equals("btnNew")) {
+                startSetupFragment();
             } else if(choice.equals("btnInfo")) {
+                startInfoFragment();
             }
         }
         @Override
@@ -364,9 +384,18 @@ public class MainActivity extends Activity {
     private class SetupFragmentListener implements SetupFragmentCallback {
         public void addUser(String municipality, float incomeLimit, boolean church) {
             controller.addUser(municipality, incomeLimit, church);
+
+            Log.d("MainActivity", "Add user: " + municipality + ", " + incomeLimit + ", " + church);
+
+            try {
+                Thread.sleep(2000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+
             loadProgressBars();
             removeFragment(currentFragment);
-        }
+            Toast.makeText(getBaseContext(), "Appen är redo att börja användas.", Toast.LENGTH_LONG);        }
     }
 
     /**
@@ -376,6 +405,7 @@ public class MainActivity extends Activity {
     private class AddJobFragmentListener implements AddJobFragmentCallback {
         public void addJob(String title, Float wage) {
             controller.addJob(title, wage);
+            removeFragment(currentFragment);
         }
         public void addOB(String jobTitle, String day, String fromTime, String toTime, float obIndex) {
             controller.addOB(jobTitle, day, fromTime, toTime, obIndex);
@@ -388,17 +418,7 @@ public class MainActivity extends Activity {
 
     private class AddShiftFragmentListener implements AddShiftFragmentCallback {
         public void addShift(String jobTitle, float startTime, float endTime, float hoursWorked, int year, int month, int day, float breakMinutes) {
-            float income = controller.caculateShift(jobTitle, startTime, endTime, year, month, day, breakMinutes );
-            Log.d("MainActivity", "Inkomst av shift: " + income);
-            int currentMonth = Calendar.getInstance().get(Calendar.MONTH) + 1;
-            int currentYear = Calendar.getInstance().get(Calendar.YEAR)%100;
-
-            if(month == currentMonth && year == currentYear) {
-                updatePBincome(income);
-            }
-            if( ((currentMonth <= 6 && month <= 6) || (currentMonth > 6 && month > 6)) && year == currentYear) {
-                updatePBcsn(income);
-            }
+            controller.caculateShift(jobTitle, startTime, endTime, year, month, day, breakMinutes );
             loadProgressBars();
         }
     }
@@ -410,9 +430,6 @@ public class MainActivity extends Activity {
     private class AddExpenseListener implements AddExpenseFragmentCallback {
         public void addExpense(String title, float amount, int year, int month, int day) {
             controller.addExpense(title, amount, year, month, day);
-            if(month == Calendar.getInstance().get(Calendar.MONTH) + 1) {
-                updatePBexpense(amount);
-            }
             loadProgressBars();
         }
     }
@@ -425,5 +442,132 @@ public class MainActivity extends Activity {
 
     private class BudgetFragmentListener implements BudgetFragmentCallback {
         // method to communicate with budget fragment
+    }
+
+    public String getDate() {
+        String month = "";
+        switch (selectedMonth) {
+            case 1:
+                month = "Jan";
+                break;
+            case 2:
+                month = "Feb";
+                break;
+            case 3:
+                month = "Mar";
+                break;
+            case 4:
+                month = "Apr";
+                break;
+            case 5:
+                month = "Maj";
+                break;
+            case 6:
+                month = "Jun";
+                break;
+            case 7:
+                month = "Jul";
+                break;
+            case 8:
+                month = "Aug";
+                break;
+            case 9:
+                month = "Sep";
+                break;
+            case 10:
+                month = "Okt";
+                break;
+            case 11:
+                month = "Nov";
+                break;
+            case 12:
+                month = "Dec";
+                break;
+        }
+        return month + " " + selectedYear;
+    }
+
+    private class OnSwipeTouchListener implements View.OnTouchListener {
+
+        private final GestureDetector gestureDetector;
+
+        public OnSwipeTouchListener (Context ctx){
+            gestureDetector = new GestureDetector(ctx, new GestureListener());
+        }
+
+        @Override
+        public boolean onTouch(View v, MotionEvent event) {
+            return gestureDetector.onTouchEvent(event);
+        }
+
+        private final class GestureListener extends GestureDetector.SimpleOnGestureListener {
+
+            private static final int SWIPE_THRESHOLD = 100;
+            private static final int SWIPE_VELOCITY_THRESHOLD = 100;
+
+            @Override
+            public boolean onDown(MotionEvent e) {
+                return true;
+            }
+
+            @Override
+            public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
+                boolean result = false;
+                try {
+                    float diffY = e2.getY() - e1.getY();
+                    float diffX = e2.getX() - e1.getX();
+                    if (Math.abs(diffX) > Math.abs(diffY)) {
+                        if (Math.abs(diffX) > SWIPE_THRESHOLD && Math.abs(velocityX) > SWIPE_VELOCITY_THRESHOLD) {
+                            if (diffX > 0) {
+                                onSwipeRight();
+                            } else {
+                                onSwipeLeft();
+                            }
+                        }
+                        result = true;
+                    }
+                    else if (Math.abs(diffY) > SWIPE_THRESHOLD && Math.abs(velocityY) > SWIPE_VELOCITY_THRESHOLD) {
+                        if (diffY > 0) {
+                            onSwipeBottom();
+                        } else {
+                            onSwipeTop();
+                        }
+                    }
+                    result = true;
+
+                } catch (Exception exception) {
+                    exception.printStackTrace();
+                }
+                return result;
+            }
+        }
+
+        public void onSwipeRight() {
+            if(selectedMonth == 1) {
+                selectedYear--;
+                selectedMonth = 12;
+                Toast.makeText(getParent(), "Notera att fribeloppet som nu visas representerar perioden Jul-Dec " + selectedYear + ".", Toast.LENGTH_LONG);
+            } else {
+                selectedMonth--;
+            }
+            loadProgressBars();
+        }
+
+        public void onSwipeLeft() {
+            if(selectedMonth == 12) {
+                selectedYear++;
+                selectedMonth = 1;
+                Toast.makeText(getParent(), "Notera att fribeloppet som nu visas representerar perioden Jan-Jun " + selectedYear + ".", Toast.LENGTH_LONG);
+            } else {
+                selectedMonth++;
+            }
+            loadProgressBars();
+        }
+
+        public void onSwipeTop() {
+        }
+
+        public void onSwipeBottom() {
+        }
     }
 }

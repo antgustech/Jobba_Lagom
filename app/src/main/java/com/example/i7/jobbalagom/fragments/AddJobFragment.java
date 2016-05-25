@@ -22,18 +22,11 @@ import java.util.LinkedList;
  */
 
 public class AddJobFragment extends Fragment {
-
     private AddJobFragmentCallback callback;
-    private EditText inputTitle;
-    private EditText inputWage;
-    private Button inputCreateOB;
-    private Button btnAddJob;
+    private Button inputCreateOB, btnAddJob;
     private RelativeLayout obLayout;
-    private EditText inputFromTime;
-    private EditText inputToTime;
-    private EditText inputOB;
-    private RadioButton rbWorkday, rbSaturday, rbSunday;
-    private RadioButton rbPercent, rbKronor;
+    private EditText inputFromTime, inputToTime, inputOB, inputTitle, inputWage;
+    private RadioButton rbWorkday, rbSaturday, rbSunday, rbPercent, rbKronor;
     private RadioGroup rgDay, rgType;
     private Button btnAddOB, btnExit;
     private LinkedList<String> obRates;
@@ -48,15 +41,18 @@ public class AddJobFragment extends Fragment {
         initComponents(view);
     }
 
+    /**
+     * Initialzes componenets.
+     * @param view the view this class has.
+     */
+
     public void initComponents(View view) {
+
+
+        obLayout = (RelativeLayout) view.findViewById(R.id.obLayout);
         inputTitle = (EditText) view.findViewById(R.id.inputTitle);
         inputWage = (EditText) view.findViewById(R.id.inputWage);
         btnAddJob = (Button) view.findViewById(R.id.btnAddShift);
-        btnAddJob.setOnClickListener(new BtnAddJobListener());
-        inputCreateOB = (Button) view.findViewById(R.id.btnCreateOB);
-        inputCreateOB.setOnClickListener(new BtnCreateOBListener());
-        obLayout = (RelativeLayout) view.findViewById(R.id.obLayout);
-        obLayout.setVisibility(View.INVISIBLE);
         inputFromTime = (EditText) view.findViewById(R.id.inputFromTime);
         inputToTime = (EditText) view.findViewById(R.id.inputToTime);
         inputOB = (EditText) view.findViewById(R.id.inputOB);
@@ -67,29 +63,29 @@ public class AddJobFragment extends Fragment {
         rbKronor = (RadioButton) view.findViewById(R.id.rbKronor);
         rgDay = (RadioGroup) view.findViewById(R.id.rgDay);
         rgType = (RadioGroup) view.findViewById(R.id.rgType);
+        inputCreateOB = (Button) view.findViewById(R.id.btnCreateOB);
         btnAddOB = (Button) view.findViewById(R.id.btnAddOB);
-        btnAddOB.setOnClickListener(new BtnAddOBListener());
         btnExit = (Button) view.findViewById(R.id.btnExit);
-        btnExit.setOnClickListener(new ReturnListener());
         obRates = new LinkedList<String>();
+        obLayout.setVisibility(View.INVISIBLE);
+        inputCreateOB.setOnClickListener(new BtnCreateOBListener());
+        btnExit.setOnClickListener(new ReturnListener());
+        btnAddJob.setOnClickListener(new BtnAddJobListener());
+        btnAddOB.setOnClickListener(new BtnAddOBListener());
     }
 
     /**
-     * MY OLD SET JOB ONCLICK METHOD!
-     *
-     *  public void onClick(View v) {
-     Log.d("AddJobFragment", "Button pressed");
-     controller.addJob(inputTitle.toString(), Float.parseFloat(inputWage.getText().toString()),3.55f);
-     Toast.makeText(getContext(), "Jobb tillagt", Toast.LENGTH_LONG).show();
-
-     }
-     * @param callback
+     * Sets callback for this class
+     * @param callback a new AddJobFragmentListener.
      */
-
 
     public void setCallBack(AddJobFragmentCallback callback){
         this.callback = callback;
     }
+
+    /**
+     * Clears all inputfields.
+     */
 
     public void clearAll() {
         inputTitle.setText("");
@@ -97,9 +93,17 @@ public class AddJobFragment extends Fragment {
         obRates.clear();
     }
 
+    /**
+     * Shows the OB view.
+     */
+
     public void showOBLayout() {
         obLayout.setVisibility(View.VISIBLE);
     }
+
+    /**
+     * Hides the OB view.
+     */
 
     public void hideOBLayout() {
         obLayout.setVisibility(View.INVISIBLE);
@@ -110,13 +114,14 @@ public class AddJobFragment extends Fragment {
         rgType.clearCheck();
     }
 
+    /**
+     * Adds buttonlistener for the ob buttons and also checks if input is valid.
+     */
+
     private class BtnAddOBListener implements View.OnClickListener {
-        CharSequence emptyInputMsg;
-        CharSequence invalidInputMsg;
-
+        String emptyInputMsg;
+        String invalidInputMsg;
         public void onClick(View v) {
-
-            // Check for empty input fields
 
             emptyInputMsg = "Vänta lite, du glömde fylla i";
 
@@ -130,14 +135,10 @@ public class AddJobFragment extends Fragment {
                 addError("OB");
             }
             emptyInputMsg = emptyInputMsg + ".";
-
             if(!emptyInputMsg.equals("Vänta lite, du glömde fylla i.")) {
                 Toast.makeText(getActivity(), emptyInputMsg, Toast.LENGTH_LONG).show();
                 return;
             }
-
-            // Gather input values and check for invalid input
-
             String fromTime = inputFromTime.getText().toString();
             String toTime = inputToTime.getText().toString();
 
@@ -177,24 +178,16 @@ public class AddJobFragment extends Fragment {
             RadioButton rb = (RadioButton) rgDay.findViewById(id);
             String day = rb.getText().toString();
 
-
             int id2 = rgType.getCheckedRadioButtonId();
             RadioButton rb2 = (RadioButton) rgType.findViewById(id2);
             String type = rb2.getText().toString();
             String ob = inputOB.getText().toString();
-
-
-
-
-
 
             String obRate = day + "," + fromTime + "," + toTime + "," + ob + "," + type;
             obRates.add(obRate);
             hideOBLayout();
             Toast.makeText(getActivity(), "OB har registrerats: " + ob + " " + type + " tillägg, " + day + ", från " + fromTime
                     + " till " + toTime, Toast.LENGTH_LONG).show();
-
-            //Deactivates radiobuttons for days that already have been used
             if(day.equals("Vardag")) {
                 rbWorkday.setEnabled(false);
                 rbWorkday.setTextColor(getResources().getColor(R.color.grey));
@@ -207,7 +200,10 @@ public class AddJobFragment extends Fragment {
             }
         }
 
-
+        /**
+         * Sets the error message.
+         * @param error the string containing the error message.
+         */
 
         public void addError(String error) {
             if(emptyInputMsg.charAt(emptyInputMsg.length()-1) == 'i') {
@@ -216,8 +212,6 @@ public class AddJobFragment extends Fragment {
                 emptyInputMsg = emptyInputMsg + ", " + error;
             }
         }
-
-
     }
 
     /**
@@ -247,13 +241,11 @@ public class AddJobFragment extends Fragment {
      */
 
     private class BtnAddJobListener implements View.OnClickListener {
-
         @Override
         public void onClick(View v) {
             CharSequence emptyInputMsg = null;
             String jobTitle = inputTitle.getText().toString();
             String wage = inputWage.getText().toString();
-
             if(jobTitle.equals("")) {
                 emptyInputMsg = "Vänta lite, du glömde fylla i jobbtitel.";
             }
@@ -268,9 +260,7 @@ public class AddJobFragment extends Fragment {
                 Toast.makeText(getActivity(), emptyInputMsg, Toast.LENGTH_LONG).show();
                 return;
             }
-
             callback.addJob(jobTitle, Float.parseFloat(wage));
-
             for(String obRate : obRates) {
                 String[] parts = obRate.split(",");
                 String day = parts[0];

@@ -30,7 +30,6 @@
         android:paddingRight="@dimen/setup_fragment_padding"
         android:layout_below="@+id/tvTitle">
 
-
         <EditText
             android:id="@+id/inputIncomeLimit"
             android:layout_width="match_parent"
@@ -47,6 +46,7 @@
             />
 
         <AutoCompleteTextView
+            style="@style/drop_down_style"
             android:id="@+id/inputMunicipality"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -63,7 +63,6 @@
             android:layout_marginTop="@dimen/input_margin"
             android:inputType="text"
             android:dropDownWidth="wrap_content"
-            style="@style/drop_down_style"
             />
 
         <CheckBox
@@ -71,7 +70,7 @@
             android:layout_height="wrap_content"
             android:text="Är du med i svenska kyrkan?"
             android:id="@+id/churchCheckboxSetup"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="@dimen/input_margin"
             android:checked="false"
             android:layout_below="@+id/inputMunicipality"
             android:layout_alignParentLeft="true"
@@ -87,113 +86,9 @@
             android:textColor="@color/btn_text_color"
             android:textSize="@dimen/btn_text_size"
             android:layout_below="@+id/churchCheckboxSetup"
+            android:layout_marginTop="@dimen/input_margin"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true" />
-    </RelativeLayout>
-
-
-    <TextView
-        android:id="@+id/tvBackup"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Vill du lagra information\n i molnet som backup?"
-        android:textSize="@dimen/sub_text_size"
-        android:textColor="@color/white"
-        android:textAlignment="center"
-        android:layout_gravity="center"
-        android:layout_below="@+id/inputLayout"
-        android:paddingRight="@dimen/setup_fragment_padding"
-        android:paddingLeft="@dimen/setup_fragment_padding"
-        />
-
-    <RelativeLayout
-        android:id="@+id/registerLayout"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:background="@color/black_trans"
-        android:clickable="true"
-        >
-
-        <Button
-            android:id="@+id/btnExit"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@drawable/exit_icon"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentRight="true"
-            android:layout_margin="@dimen/icon_margin"
-            />
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/popup_layout_grey"
-            android:padding="@dimen/setup_fragment_padding"
-            android:layout_margin="@dimen/setup_fragment_padding"
-            android:layout_centerVertical="true"
-            android:clickable="true">
-
-            <EditText
-                android:id="@+id/inputEmail"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@drawable/et_rounded_corners"
-                android:padding="@dimen/input_text_padding_icon"
-                android:drawableLeft="@drawable/email_icon"
-                android:drawablePadding="@dimen/drawable_padding"
-                android:hint="Email"
-                android:textColorHint="@color/grey_dark"
-                android:textSize="@dimen/input_text_size_popup"
-                android:textColor="@color/black"
-                android:inputType="textWebEmailAddress"
-                />
-            <EditText
-                android:id="@+id/inputPassword"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@drawable/et_rounded_corners"
-                android:padding="@dimen/input_text_padding_icon"
-                android:drawableLeft="@drawable/password_icon"
-                android:drawablePadding="@dimen/drawable_padding"
-                android:hint="Password"
-                android:textColorHint="@color/grey_dark"
-                android:textSize="@dimen/input_text_size_popup"
-                android:textColor="@color/black"
-                android:inputType="textWebPassword"
-                android:layout_below="@+id/inputEmail"
-                android:layout_marginTop="@dimen/input_margin"
-                />
-            <EditText
-                android:id="@+id/inputConfirm"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@drawable/et_rounded_corners"
-                android:padding="@dimen/input_text_padding_icon"
-                android:drawableLeft="@drawable/password_icon"
-                android:drawablePadding="@dimen/drawable_padding"
-                android:hint="Confirm"
-                android:textColorHint="@color/grey_dark"
-                android:textSize="@dimen/input_text_size_popup"
-                android:textColor="@color/black"
-                android:inputType="textWebPassword"
-                android:layout_below="@+id/inputPassword"
-                android:layout_marginTop="@dimen/input_margin"
-                />
-            <Button
-                android:id="@+id/btnRegister"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@drawable/btn_rounded_corners_blueish"
-                android:padding="@dimen/btn_text_padding"
-                android:text="Registrera"
-                android:textColor="@color/btn_text_color"
-                android:textSize="@dimen/btn_text_size"
-                android:layout_below="@+id/inputConfirm"
-                android:layout_marginTop="@dimen/input_margin"
-                />
-
-        </RelativeLayout>
-
     </RelativeLayout>
 
 </RelativeLayout>

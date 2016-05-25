@@ -5,19 +5,18 @@ import android.app.Application;
 import com.example.i7.jobbalagom.localDatabase.DBHelper;
 
 /**
- * Created by Anton Gustafsson on 2016-05-04.
+ * Created by Anton, Christoffer, Jakup, Kajsa och Morgan.
  * Holds Controller reference
- * TODO Fix it
  */
 public class Singleton extends Application {
     public static Controller controller;
-    public static DBHelper dbhelper;
+
+    /**
+     * Sets the controller variable.
+     * @param controller the controller reference.
+     */
 
     public static void setController(Controller controller) {
         Singleton.controller = controller;
-    }
-
-    public static void setDBHelper(DBHelper helper){
-        Singleton.dbhelper = helper;
     }
 }

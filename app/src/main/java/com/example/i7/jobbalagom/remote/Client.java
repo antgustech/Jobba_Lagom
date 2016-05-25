@@ -1,6 +1,7 @@
 package com.example.i7.jobbalagom.remote;
 
 import android.util.Log;
+import android.widget.Toast;
 
 import com.example.i7.jobbalagom.callback_interfaces.TaxCallbacks.UpdateTaxCallback;
 import com.example.i7.jobbalagom.local.Controller;
@@ -32,39 +33,66 @@ public class Client extends Thread {
     private boolean connected = false;
     private ArrayList<String> municipalities;
     private float tax;
-    private String host;
-    private int port;
+    private Thread thread;
+    private String IP;
+    private int PORT;
 
-    public Client( String host, int port){
+    /**
+     * Initializes ip, port and controller also starts a thread.
+     * @param IP to connect to.
+     * @param PORT port to connect to.
+     */
+
+    public Client( String IP, int PORT){
         controller  = Singleton.controller;
-        this.host = host;
-        this.port = port;
-      //  startPinger();
-        if(!isAlive()) {
-            start();
+        this.IP = IP;
+        this.PORT = PORT;
+        startThread();
+    }
+
+    /**
+     * Starts the thread.
+     */
+
+    private void startThread(){
+        if (thread == null){
+            thread = new Thread();
         }
     }
+
+    /**
+     * Check whenever we are connected the the server or not.
+     * @return true if we have a connection.
+     */
 
     public boolean checkConnection(){
         Pinger pinger = new Pinger();
         pinger.start();
-        while(pinger.isAlive()){
-
-        }
+        while(pinger.isAlive()){}
         return connected;
     }
+
+    /**
+     * Closes the connection to the server.
+     */
 
     public void closeConnection(){
         try {
             connected = false;
             socket.close();
             clientThread = null;
-        } catch(IOException e){}
+        } catch(IOException e){
+            e.printStackTrace();
+        }
     }
+
+    /**
+     * Thread that
+     */
 
     public void run(){
         try {
-            socket = new Socket(host, port);
+            socket = new Socket(IP, PORT);
             dis = new DataInputStream(new BufferedInputStream(socket.getInputStream()));
             dos = new DataOutputStream(new BufferedOutputStream(socket.getOutputStream()));
             ois = new ObjectInputStream((socket.getInputStream()));
@@ -103,9 +131,10 @@ public class Client extends Thread {
     }
 
 
-
     /**
-     * Returns the related tax including church tax as a float
+     * Gets the churchTax from the server
+     * @param municipality the choosen municipality from the user.
+     * @return the average churchtax for the choosen municipality.
      */
 
     public float getChurchTaxFromServer(final String municipality){
@@ -129,8 +158,9 @@ public class Client extends Thread {
             Log.e("ThreadTag","tax not changed");
         }
         return tax;
-
     }
+
+
 
     public void getChurchTaxFromServer(final String municipality, final UpdateTaxCallback callback){
         tax = 0;
@@ -210,11 +240,10 @@ public class Client extends Thread {
         public void run(){
             try {
                 Log.e("PingTag","Trying to connect");
-                newSocket = new Socket(host, port);
+                newSocket = new Socket(IP, PORT);
                 newDis = new DataInputStream(new BufferedInputStream(newSocket.getInputStream()));
                 newDos = new DataOutputStream(new BufferedOutputStream(newSocket.getOutputStream()));
                 newOis = new ObjectInputStream((newSocket.getInputStream()));
-
                 newDos.writeInt(0);
                 newDos.flush();
 
@@ -227,21 +256,15 @@ public class Client extends Thread {
                 if(municipalities == null){
                     municipalities = getMunicipalitiesFromServer();
                 }
-
                 dis = newDis;
                 dos = newDos;
                 ois = newOis;
                 if(connected == false){
                     connected = true;
-                   // Toast.makeText(null,"Now connected to server", Toast.LENGTH_SHORT);
                     Log.e("PingTag", "new Connected!");
-
                 }
-
-
             }catch(IOException e){
                 connected = false;
-                //Toast.makeText(null,"Server still down",Toast.LENGTH_SHORT);
                 Log.e("PingTag","Server still down");
             }
         }
@@ -280,7 +303,6 @@ public class Client extends Thread {
             }
             return tax;
         }
-
     }
 }
 

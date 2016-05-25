@@ -2,7 +2,6 @@ package com.example.i7.jobbalagom.remote;
 /**
  * Created by Anton, Christoffer, Kajsa, Jakup och Morgan
  */
-
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.DataInputStream;
@@ -16,6 +15,7 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 
 public class Server extends Thread {
 
@@ -26,7 +26,7 @@ public class Server extends Thread {
     private final int GETMUNICIPALITIES = 1;
     private final int GETCHURCHTAX = 2;
     private final int GETTAX = 3;
-    private final int PORT = 4545;
+    private final int PORT = 6666;
 
     /**
      * Connects to database and starts a thread to start the connection
@@ -87,7 +87,7 @@ public class Server extends Thread {
             } catch (IOException e) {
                 e.printStackTrace();
             }
-            System.out.println("Client connected to server" );
+            System.out.println("Client connected to server");
         }
 
         /**
@@ -101,20 +101,20 @@ public class Server extends Thread {
                     int intOperation = dis.readInt();
                     System.out.println(intOperation + " Operation");
                     switch (intOperation) {
-                    	case PING:
-                    		dos.writeInt(1);
-                    		dos.flush();
+                        case PING:
+                            dos.writeInt(1);
+                            dos.flush();
                             System.out.println("Server pinged");
-                    		break;
+                            break;
 
                         case GETMUNICIPALITIES:
-                            //oos.writeObject(getMunicipality());
+                            oos.writeObject(getMunicipality());
                             oos.flush();
                             break;
 
                         case GETCHURCHTAX:
-                        	String municipality = dis.readUTF();
-                        	float tax = getChurchTax(municipality);
+                            String municipality = dis.readUTF();
+                            float tax = getChurchTax(municipality);
                             dos.writeFloat(tax);
                             dos.flush();
                             break;
@@ -126,11 +126,10 @@ public class Server extends Thread {
                     }
                 } catch (IOException e) {
                     System.out.println("[ERROR] File error");
-                    connected=false;
+                    connected = false;
+                } catch (SQLException e) {
+                    System.out.println("[ERROR] Network error");
                 }
-                //catch (SQLException e) {
-                //    System.out.println("[ERROR] Network error");
-               // }
             }
         }
     }
@@ -147,6 +146,7 @@ public class Server extends Thread {
             System.out.println("Server connected to database");
         } catch (ClassNotFoundException | SQLException e1) {
             System.out.println("[ERROR] Problem with connecting to db");
+            e1.printStackTrace();
         }
     }
 
@@ -167,20 +167,26 @@ public class Server extends Thread {
      * @return ArrayList contaning the distinct municipalities from the database.
      * @throws SQLException if there is a problem with the db.
      */
-    /*
+
     private ArrayList<String> getMunicipality() throws SQLException {
-        String kommuner ="";
-        try (Statement s = (Statement) dbConnection.createStatement()) {
-            try (ResultSet rs = s.executeQuery("select distinct Kommun from skatt16april order by Kommun")) {
-                ArrayList<String> names = new ArrayList<String>();
-                while (rs.next()) {
-                    names.add( rs.getString(1));
-                }System.out.println("Skriver ut kommuner");
-                return names;
+        String kommuner = "";
+        ArrayList<String> names = new ArrayList<String>();;
+        try {
+            Statement s = (Statement) dbConnection.createStatement();
+            ResultSet rs = s.executeQuery("select distinct Kommun from skatt16april order by Kommun");
+            names = new ArrayList<String>();
+            while (rs.next()) {
+                names.add(rs.getString(1));
             }
+            System.out.println("Skriver ut kommuner");
+
+        } catch (SQLException e) {
         }
+        return names;
     }
-    */
+
+
+
 
     /**
      * Retrives the average churchTax from server.
