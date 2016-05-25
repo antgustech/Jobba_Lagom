@@ -52,7 +52,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/et_rounded_corners"
-            android:drawableLeft="@drawable/exp_icon"
+            android:drawableLeft="@drawable/expense_icon"
             android:drawablePadding="@dimen/drawable_padding"
             android:hint="Belopp"
             android:inputType="number"

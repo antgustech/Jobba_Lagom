@@ -5,6 +5,8 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.RelativeLayout;
 
 import com.example.i7.jobbalagom.R;
@@ -16,7 +18,7 @@ import com.example.i7.jobbalagom.callbacks.InitialFragmentCallback;
  */
 
 public class InitialFragment extends Fragment {
-    private RelativeLayout layout;
+    private RelativeLayout welcomeLayout;
     private InitialFragmentCallback callback;
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -25,23 +27,13 @@ public class InitialFragment extends Fragment {
 
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        layout = (RelativeLayout) view.findViewById(R.id.layout);
-        layout.setOnClickListener(new LayoutListener());
+        welcomeLayout = (RelativeLayout) view.findViewById(R.id.welcomeLayout);
+        fadeWelcomeLayout();
     }
 
-    /**
-     * Sets callback.
-     * @param callback listener.
-     */
-
-    public void setCallBack(InitialFragmentCallback callback){
-        this.callback = callback;
-    }
-
-    private class LayoutListener implements View.OnClickListener {
-        @Override
-        public void onClick(View v) {
-            callback.showLaunchFragment();
-        }
+    public void fadeWelcomeLayout() {
+        Animation fadeInAnimation = AnimationUtils.loadAnimation(getActivity(), R.anim.fade_slow);
+        welcomeLayout.startAnimation(fadeInAnimation);
+        welcomeLayout.setVisibility(View.INVISIBLE);
     }
 }

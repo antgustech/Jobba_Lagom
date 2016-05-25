@@ -19,8 +19,8 @@ import java.util.Calendar;
 
 public class Controller  {
 
-    private final String IP = "192.168.1.136"; // Kajsa 192.168.0.10
-    private final int PORT = 6666;
+    private final String IP = "192.168.0.10"; // Kajsa 192.168.0.10
+    private final int PORT = 4545;
     private float tax, result,wage,obIndex,obStart,obEnd;
     private Client client;
     private final DBHelper dbHelper;
@@ -335,6 +335,49 @@ public class Controller  {
         float expenses = dbHelper.getMonthlyExpenses(month, year, sqLiteDatabase);
         //db.close();
         return expenses;
+    }
+
+    public String getDate(int selectedMonth, int selectedYear) {
+        String month = "";
+        switch (selectedMonth) {
+            case 1:
+                month = "Jan";
+                break;
+            case 2:
+                month = "Feb";
+                break;
+            case 3:
+                month = "Mar";
+                break;
+            case 4:
+                month = "Apr";
+                break;
+            case 5:
+                month = "Maj";
+                break;
+            case 6:
+                month = "Jun";
+                break;
+            case 7:
+                month = "Jul";
+                break;
+            case 8:
+                month = "Aug";
+                break;
+            case 9:
+                month = "Sep";
+                break;
+            case 10:
+                month = "Okt";
+                break;
+            case 11:
+                month = "Nov";
+                break;
+            case 12:
+                month = "Dec";
+                break;
+        }
+        return month + "\n" + Calendar.getInstance().get(Calendar.YEAR) / 100 + "" +  selectedYear;
     }
 }
 
