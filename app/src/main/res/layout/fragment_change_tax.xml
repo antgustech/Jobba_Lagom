@@ -140,7 +140,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceSmall"
-        android:text="Skattesatsen är ett beräknat genomsnitt\növer alla församlingar i vald kommun"
+        android:text="Skattesatsen är ett beräknat genomsnitt\növer alla församlingar i vald kommun."
         android:textSize="16sp"
         android:textColor="@color/white"
         android:textAlignment="center"

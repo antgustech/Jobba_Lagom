@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -20,7 +21,7 @@ import com.example.i7.jobbalagom.callbacks.ChangeIncomeLimitFragmentCallback;
 public class ChangeIncomeLimitFragment extends Fragment {
     private ChangeIncomeLimitFragmentCallback callback;
     private TextView currentIncomeLimitText;
-    private View btnChangeIncomeLimit;
+    private Button btnChangeIncomeLimit;
     private EditText newIncomeLimitField;
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -41,7 +42,7 @@ public class ChangeIncomeLimitFragment extends Fragment {
 
     public void initComponents(View view) {
         currentIncomeLimitText = (TextView) view.findViewById(R.id.currentIncomeLimitText);
-        btnChangeIncomeLimit = (View) view.findViewById(R.id.btnChangeIncomeLimit);
+        btnChangeIncomeLimit = (Button) view.findViewById(R.id.btnChangeIncomeLimit);
         newIncomeLimitField = (EditText) view.findViewById(R.id.newIncomeLimitField);
         btnChangeIncomeLimit.setOnClickListener(new IncomeLimitListener());
     }
@@ -57,7 +58,7 @@ public class ChangeIncomeLimitFragment extends Fragment {
             if(newLimit >0f && newLimit<200000f) {
                 callback.setIncomeLimit(newLimit);
                 setTextEditTax();
-                Toast.makeText(getActivity(), "Fribeloppet ändrat", Toast.LENGTH_LONG).show();
+                Toast.makeText(getActivity(), "Fribeloppet är ändrat!", Toast.LENGTH_LONG).show();
             }
             else{
                 Toast.makeText(getActivity(), "Fribeloppet måste vara mellan 0-200 000kr.", Toast.LENGTH_LONG).show();
