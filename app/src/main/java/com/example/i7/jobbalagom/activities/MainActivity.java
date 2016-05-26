@@ -59,6 +59,7 @@ public class MainActivity extends Activity {
     private ImageView ivSwipe;
     private TextView tvCSN, tvIncome, tvExpense, tvBalance, tvDate;
     private ProgressBar pbCSN, pbIncome, pbExpense;
+    private ImageView leftIcon, rightIcon;
     private float monthlyIncomeLimit, csnIncomeLimit;
     private int pbMaxProgress;
     private int selectedMonth, selectedYear;
@@ -98,6 +99,8 @@ public class MainActivity extends Activity {
         pbCSN = (ProgressBar) findViewById(R.id.pbCSN);
         pbIncome = (ProgressBar) findViewById(R.id.pbIncome);
         pbExpense = (ProgressBar) findViewById(R.id.pbExpenses);
+        leftIcon = (ImageView) findViewById(R.id.left_icon);
+        rightIcon = (ImageView) findViewById(R.id.right_icon);
         ButtonListener btnListener = new ButtonListener();
         btnSettings.setOnClickListener(btnListener);
         btnAddShift.setOnClickListener(btnListener);
@@ -105,6 +108,8 @@ public class MainActivity extends Activity {
         btnAddJob.setOnClickListener(btnListener);
         tvBalance.setOnClickListener(btnListener);
         tvDate.setOnClickListener(btnListener);
+        leftIcon.setOnClickListener(btnListener);
+        rightIcon.setOnClickListener(btnListener);
         RelativeLayout mainLayout = (RelativeLayout) findViewById(R.id.mainLayout);
         mainLayout.setOnTouchListener(new OnSwipeTouchListener(getParent()));
 
@@ -361,6 +366,10 @@ public class MainActivity extends Activity {
             } else if (v.getId() == R.id.tvBalance) {
                 showSwipeHint();
             } else if(v.getId() == R.id.tvDate) {
+                showSwipeHint();
+            } else if(v.getId() == R.id.left_icon) {
+                showSwipeHint();
+            } else if(v.getId() == R.id.right_icon) {
                 showSwipeHint();
             }
         }
