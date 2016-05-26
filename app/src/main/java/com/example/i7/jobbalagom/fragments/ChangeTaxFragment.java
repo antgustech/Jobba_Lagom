@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.TextView;
 
@@ -27,9 +28,9 @@ public class ChangeTaxFragment extends Fragment {
     private AutoCompleteTextView textViewKommun;
     private ArrayList<String> municipalities;
     private Controller controller;
-    private View calculateTaxBtn;
+    private Button calculateTaxBtn;
     private CheckBox churchCheckbox;
-    private TextView taxTextView, oldTaxText;
+    private TextView newTaxText, oldTaxText;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -45,13 +46,12 @@ public class ChangeTaxFragment extends Fragment {
     }
 
     private void initComponents(View v){
-        taxTextView = (TextView)v.findViewById(R.id.newTaxText);
+        newTaxText = (TextView)v.findViewById(R.id.newTaxText);
         oldTaxText = (TextView)v.findViewById(R.id.oldTaxText);
-        calculateTaxBtn = v.findViewById(R.id.calculateTaxBtn);
+        calculateTaxBtn = (Button)v.findViewById(R.id.calculateTaxBtn);
         churchCheckbox = (CheckBox)v.findViewById(R.id.churchCheckbox);
         controller  = Singleton.controller;
         setOldTax();
-
     }
 
     /**
@@ -80,7 +80,6 @@ public class ChangeTaxFragment extends Fragment {
         public void UpdateTax(float tax) {
             setTaxText(tax + " ");
             controller.setTax(tax);
-
         }
     }
 
@@ -88,7 +87,7 @@ public class ChangeTaxFragment extends Fragment {
         getActivity().runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                taxTextView.setText(text);
+                newTaxText.setText(text);
                 oldTaxText.setText(text);
             }
         });
@@ -96,7 +95,6 @@ public class ChangeTaxFragment extends Fragment {
 
     public void setOldTax(){
         oldTaxText.setText(String.valueOf(controller.getTax()));
-
     }
 
 
