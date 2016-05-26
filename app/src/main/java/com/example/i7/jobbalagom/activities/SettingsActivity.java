@@ -185,7 +185,8 @@ public class SettingsActivity extends Activity {
         @Override
         public void removeJob(String jobTitle) {
             controller.removeJob(jobTitle);
-            Toast.makeText(getApplicationContext(), jobTitle+"removed", Toast.LENGTH_LONG).show();
+            Toast.makeText(getApplicationContext(), "Jobbet " + jobTitle +" har tagits bort!", Toast.LENGTH_LONG).show();
+            removeFragment(currentFragment);
         }
     }
 

@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.Spinner;
 
 import com.example.i7.jobbalagom.R;
@@ -22,7 +23,7 @@ public class RemoveJobFragment extends Fragment {
     private Controller controller;
     private String[] jobTitles;
     private Spinner jobSpinner;
-    private View btnRemoveJob;
+    private Button btnRemoveJob;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_removejob, container, false);
@@ -35,7 +36,7 @@ public class RemoveJobFragment extends Fragment {
 
     private void initComponents( View v){
         controller = Singleton.controller;
-        btnRemoveJob = v.findViewById(R.id.btnRemoveJob);
+        btnRemoveJob = (Button)v.findViewById(R.id.btnRemoveJob);
         btnRemoveJob.setOnClickListener(new ButtonListner());
         jobTitles = controller.getJobTitles();
 

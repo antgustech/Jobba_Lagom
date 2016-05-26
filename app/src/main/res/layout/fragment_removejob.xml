@@ -1,13 +1,83 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/bgBlueish"
-    android:paddingTop="@dimen/layout_padding_height"
-    android:paddingBottom="@dimen/layout_padding_height"
-    android:paddingLeft="@dimen/layout_padding_width"
-    android:paddingRight="@dimen/layout_padding_width"
-    android:clickable="true">
+    android:clickable="true"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/tvTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="@dimen/layout_padding_height"
+        android:layout_marginTop="@dimen/layout_padding_height"
+        android:text="Ta bort jobb"
+        android:textAlignment="center"
+        android:textColor="@color/white"
+        android:textSize="@dimen/fragment_title_size" />
+
+    <View
+        android:id="@+id/header_line"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_below="@+id/tvTitle"
+        android:background="@color/white" />
+
+    <RelativeLayout
+        android:id="@+id/spinnerLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/header_line"
+        android:background="@drawable/et_rounded_corners"
+        android:layout_margin="40dp"
+        >
+
+        <ImageView
+            android:id="@+id/scroll_icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="5dp"
+            android:background="@drawable/scroll_icon" />
+
+        <Spinner
+            android:id="@+id/jobSpinner"
+            android:layout_width="wrap_content"
+            android:layout_height="60dp"
+            android:layout_alignParentRight="true"
+            android:layout_toRightOf="@+id/scroll_icon"
+            android:background="@color/invisible"
+            android:textColorHint="@color/grey_dark" />
+    </RelativeLayout>
+
+    <View
+        android:id="@+id/footer_line"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_below="@+id/spinnerLayout"
+        android:background="@color/white" />
+
+    <Button
+        android:id="@+id/btnRemoveJob"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/footer_line"
+        android:background="@drawable/btn_rounded_corners_blueish"
+        android:text="Ta bort"
+        android:textSize="@dimen/btn_text_size"
+        android:textColor="@color/white"
+        android:padding="@dimen/btn_text_padding"
+        android:layout_margin="40dp"
+        />
+
+
+
+    <!--
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -20,41 +90,41 @@
             android:id="@+id/scroll_icon"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@drawable/scroll_icon"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="5dp"
             android:layout_alignParentLeft="true"
             android:layout_centerVertical="true"
-            />
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="5dp"
+            android:background="@drawable/scroll_icon" />
 
         <Spinner
             android:id="@+id/jobSpinner"
             android:layout_width="wrap_content"
             android:layout_height="60dp"
-            android:textColorHint="@color/grey_dark"
-            android:background="@color/invisible"
-            android:layout_toRightOf="@+id/scroll_icon"
             android:layout_alignParentRight="true"
-            />
+            android:layout_toRightOf="@+id/scroll_icon"
+            android:background="@color/invisible"
+            android:textColorHint="@color/grey_dark" />
     </RelativeLayout>
 
     <ImageButton
+        android:id="@+id/btnRemoveJob"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/btnRemoveJob"
-        android:background="@drawable/go_icon"
         android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:background="@drawable/go_icon" />
 
     <TextView
+        android:id="@+id/jobHeader"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Ta bort jobb"
-        android:id="@+id/jobHeader"
-        android:textColor="@color/white"
-        android:textSize="30sp"
         android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:text="Ta bort jobb"
+        android:textColor="@color/white"
+        android:textSize="30sp" />
+
+        -->
 
 
 </RelativeLayout>
