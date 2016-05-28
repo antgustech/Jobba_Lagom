@@ -194,53 +194,6 @@
                 android:layout_toEndOf="@+id/layoutDay"
                 android:layout_toRightOf="@+id/layoutDay">
 
-                <TextView
-                    android:id="@+id/tvFromTime"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_toLeftOf="@+id/inputFromTime"
-                    android:padding="@dimen/text_padding"
-                    android:text="Från"
-                    android:textColor="@color/black"
-                    android:textSize="18sp" />
-
-                <EditText
-                    android:id="@+id/inputFromTime"
-                    android:layout_width="70dp"
-                    android:layout_height="wrap_content"
-                    android:layout_alignBottom="@+id/tvFromTime"
-                    android:layout_alignParentRight="true"
-                    android:hint="TT:MM"
-                    android:inputType="time"
-                    android:textAlignment="center"
-                    android:textColor="@color/black"
-                    android:textColorHint="@color/grey"
-                    android:textSize="16sp" />
-
-                <TextView
-                    android:id="@+id/tvToTime"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/tvFromTime"
-                    android:layout_toLeftOf="@+id/inputToTime"
-                    android:padding="@dimen/text_padding"
-                    android:text="Till"
-                    android:textColor="@color/black"
-                    android:textSize="18sp" />
-
-                <EditText
-                    android:id="@+id/inputToTime"
-                    android:layout_width="70dp"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:layout_below="@+id/inputFromTime"
-                    android:hint="TT:MM"
-                    android:inputType="time"
-                    android:textAlignment="center"
-                    android:textColor="@color/black"
-                    android:textColorHint="@color/grey"
-                    android:textSize="16sp" />
-
             </RelativeLayout>
 
             <TextView
@@ -314,6 +267,33 @@
                 android:text="OK"
                 android:textColor="@color/btn_text_color"
                 android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/inputToTime"
+                android:layout_width="70dp"
+                android:layout_height="wrap_content"
+                android:hint="Till"
+                android:inputType="time"
+                android:textAlignment="center"
+                android:textColor="@color/black"
+                android:textSize="30sp"
+                android:layout_marginBottom="25dp"
+                android:layout_alignBottom="@+id/layoutDay"
+                android:layout_toRightOf="@+id/inputOB"
+                android:layout_toEndOf="@+id/inputOB" />
+
+            <TextView
+                android:id="@+id/inputFromTime"
+                android:layout_width="70dp"
+                android:layout_height="wrap_content"
+                android:hint="Från"
+                android:inputType="time"
+                android:textAlignment="center"
+                android:textColor="@color/black"
+                android:textSize="30sp"
+                android:layout_alignTop="@+id/layoutTime"
+                android:layout_toRightOf="@+id/inputOB"
+                android:layout_toEndOf="@+id/inputOB" />
 
 
         </RelativeLayout>

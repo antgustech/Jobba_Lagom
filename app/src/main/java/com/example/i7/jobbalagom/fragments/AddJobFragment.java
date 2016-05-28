@@ -1,7 +1,9 @@
 package com.example.i7.jobbalagom.fragments;
 
 import android.app.Fragment;
+import android.content.Context;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,11 +12,15 @@ import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.i7.jobbalagom.R;
 import com.example.i7.jobbalagom.callbacks.AddJobFragmentCallback;
+import com.wdullaer.materialdatetimepicker.time.RadialPickerLayout;
+import com.wdullaer.materialdatetimepicker.time.TimePickerDialog;
 
+import java.util.Calendar;
 import java.util.LinkedList;
 
 /**
@@ -25,7 +31,8 @@ import java.util.LinkedList;
 public class AddJobFragment extends Fragment {
     private AddJobFragmentCallback callback;
     private RelativeLayout obLayout;
-    private EditText inputFromTime, inputToTime, inputOB, inputTitle, inputWage;
+    private EditText inputOB, inputTitle, inputWage;
+    private TextView inputFromTime, inputToTime;
     private RadioButton rbWorkday, rbSaturday, rbSunday;
     private RadioGroup rgDay, rgType;
     private LinkedList<String> obRates;
@@ -69,8 +76,8 @@ public class AddJobFragment extends Fragment {
         inputTitle = (EditText) v.findViewById(R.id.inputTitle);
         inputWage = (EditText) v.findViewById(R.id.inputWage);
         Button btnAddJob = (Button) v.findViewById(R.id.btnAddShift);
-        inputFromTime = (EditText) v.findViewById(R.id.inputFromTime);
-        inputToTime = (EditText) v.findViewById(R.id.inputToTime);
+        inputFromTime = (TextView) v.findViewById(R.id.inputFromTime);
+        inputToTime = (TextView) v.findViewById(R.id.inputToTime);
         inputOB = (EditText) v.findViewById(R.id.inputOB);
         rbWorkday = (RadioButton) v.findViewById(R.id.rbWorkday);
         rbSaturday = (RadioButton) v.findViewById(R.id.rbSaturday);
@@ -86,6 +93,10 @@ public class AddJobFragment extends Fragment {
         btnExit.setOnClickListener(new ReturnListener());
         btnAddJob.setOnClickListener(new BtnAddJobListener());
         btnAddOB.setOnClickListener(new BtnAddOBListener());
+        inputFromTime.setOnClickListener(new SetTime(inputFromTime, getActivity()));
+        inputToTime.setOnClickListener(new SetTime(inputToTime, getActivity()));
+
+
     }
 
     /**
@@ -314,5 +325,76 @@ public class AddJobFragment extends Fragment {
             clearAll();
             Toast.makeText(getActivity(), jobTitle + " är tillagt som ett nytt jobb.", Toast.LENGTH_LONG).show();
         }
+    }
+
+
+    /**
+     * Listener for when pressing the time field.
+     */
+
+    class SetTime implements View.OnClickListener, TimePickerDialog.OnTimeSetListener {
+
+        private TextView v;
+        private Calendar myCalendar;
+        private Context ctx;
+
+        /**
+         * Initialize this class.
+         *
+         * @param v   The textView to change.
+         * @param ctx context of this fragment.
+         */
+
+        public SetTime(TextView v, Context ctx) {
+            this.v = v;
+            this.v.setOnClickListener(this);
+            this.myCalendar = Calendar.getInstance();
+            this.ctx = ctx;
+        }
+
+        /**
+         * When clicked, show the time picker dialog.
+         *
+         * @param v the view to show the dialog in.
+         */
+        @Override
+        public void onClick(View v) {
+            int sec = myCalendar.get(Calendar.SECOND);
+            int min = myCalendar.get(Calendar.MINUTE);
+            int hour = myCalendar.get(Calendar.HOUR_OF_DAY);
+            TimePickerDialog dpd = TimePickerDialog.newInstance(this, hour, min, sec, true);
+            dpd.show(getFragmentManager(), "Timepickerdialog");
+        }
+
+
+        /**
+         * When time is choosen check for errors.
+         *
+         * @param view      the datepicker itself.
+         * @param hourOfDay choosen hour.
+         * @param minute    choosen minute.
+         * @param second    choosen second.
+         */
+        @Override
+        public void onTimeSet(RadialPickerLayout view, int hourOfDay, int minute, int second) {
+            String sHour = "";
+            if (hourOfDay < 10) {
+                sHour = "0" + String.valueOf(hourOfDay);
+            } else {
+                sHour = String.valueOf(hourOfDay);
+            }
+
+            String sMin = "";
+            if (minute < 10) {
+                sMin = "0" + String.valueOf(minute);
+            } else {
+                sMin = String.valueOf(minute);
+            }
+            String time = sHour + ":" + sMin;
+            v.setText(time);
+            Log.e("TP", "Time: " + time);
+        }
+
+
     }
 }

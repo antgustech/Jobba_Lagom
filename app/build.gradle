@@ -34,4 +34,6 @@ dependencies {
     compile 'com.github.PhilJay:MPAndroidChart:v2.1.6'
     compile 'com.android.support:support-v4:23.3.0'
     compile 'com.numetriclabz.numandroidcharts:numandroidcharts:1.0.13'
+    compile 'com.wdullaer:materialdatetimepicker:2.3.0'
+
 }

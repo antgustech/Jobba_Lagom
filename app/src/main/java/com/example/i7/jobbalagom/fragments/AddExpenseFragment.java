@@ -1,16 +1,22 @@
 package com.example.i7.jobbalagom.fragments;
 
 import android.app.Fragment;
+import android.content.Context;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.i7.jobbalagom.R;
 import com.example.i7.jobbalagom.callbacks.AddExpenseFragmentCallback;
+import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
+
+import java.util.Calendar;
 
 /**
  * Created by Kajsa, Anton, Christoffer, Jakup and Morgan.
@@ -18,9 +24,8 @@ import com.example.i7.jobbalagom.callbacks.AddExpenseFragmentCallback;
  */
 
 public class AddExpenseFragment extends Fragment {
-    private EditText inputTitle;
-    private EditText inputExpense;
-    private EditText inputDate;
+    private EditText inputTitle, inputExpense;
+    private TextView inputDate;
     private AddExpenseFragmentCallback callback;
 
     /**
@@ -56,9 +61,10 @@ public class AddExpenseFragment extends Fragment {
     private void initComponents(View v){
         inputTitle = (EditText) v.findViewById(R.id.inputTitle);
         inputExpense = (EditText) v.findViewById(R.id.inputExpense);
-        inputDate = (EditText) v.findViewById(R.id.inputDate);
+        inputDate = (TextView) v.findViewById(R.id.inputDate);
         Button btnAddExpense = (Button) v.findViewById(R.id.btnAddExpense);
         btnAddExpense.setOnClickListener(new ButtonListener());
+        inputDate.setOnClickListener(new SetDate(inputDate, getActivity()));
     }
 
     /**
@@ -104,13 +110,9 @@ public class AddExpenseFragment extends Fragment {
                 Toast.makeText(getActivity(), emptyInputMsg, Toast.LENGTH_LONG).show();
                 return;
             }
-            if(date.length() != 6){
-                Toast.makeText(getActivity(), "Du måste ange datum på formatet ÅÅMMDD", Toast.LENGTH_LONG).show();
-                return;
-            }
             int year = Integer.parseInt(date.substring(0, 2));
-            int month = Integer.parseInt(date.substring(2, 4));
-            int day = Integer.parseInt(date.substring(4, 6));
+            int month = Integer.parseInt(date.substring(4, 5));
+            int day = Integer.parseInt(date.substring(6, 8));
             Toast.makeText(getActivity(), "Utgiften " + title + " är tillagd", Toast.LENGTH_LONG).show();
             callback.addExpense(title, Float.parseFloat(expense), year, month, day);
             try {
@@ -130,5 +132,71 @@ public class AddExpenseFragment extends Fragment {
         inputTitle.setText("");
         inputExpense.setText("");
         inputDate.setText("");
+    }
+
+    /**
+     * Listener for the Date field.
+     */
+    class SetDate implements View.OnClickListener, DatePickerDialog.OnDateSetListener {
+
+        private TextView v;
+        private Calendar myCalendar;
+        private Context ctx;
+
+        /**
+         * Initialize this class.
+         *
+         * @param v   The textView to change.
+         * @param ctx context of this fragment.
+         */
+
+        public SetDate(TextView v, Context ctx) {
+            this.v = v;
+            this.v.setOnClickListener(this);
+            this.myCalendar = Calendar.getInstance();
+            this.ctx = ctx;
+        }
+
+        /**
+         * When clicked, show the date picker dialog.
+         *
+         * @param v the view to show the dialog in.
+         */
+        @Override
+        public void onClick(View v) {
+            int day = myCalendar.get(Calendar.DAY_OF_MONTH);
+            int month = myCalendar.get(Calendar.MONTH);
+            int year = myCalendar.get(Calendar.YEAR);
+            DatePickerDialog dpd = DatePickerDialog.newInstance(this, year, month, day);
+            dpd.show(getFragmentManager(), "Datepickerdialog");
+        }
+
+        /**
+         * When date is choosen check for errors.
+         *
+         * @param view        the datepicker itself.
+         * @param year        choosen year.
+         * @param monthOfYear choosen month.
+         * @param dayOfMonth  choosen day.
+         */
+        @Override
+        public void onDateSet(DatePickerDialog view, int year, int monthOfYear, int dayOfMonth) {
+            monthOfYear++;
+            String sMonth = "";
+            if (monthOfYear < 10) {
+                sMonth = "0" + String.valueOf(monthOfYear);
+            } else {
+                sMonth = String.valueOf(monthOfYear);
+            }
+            String date = String.valueOf(year).substring(2, 4) + "/" + sMonth + "/" + String.valueOf(dayOfMonth);
+            int nyear = Integer.parseInt(date.substring(0, 2));
+            int nmonth = Integer.parseInt(date.substring(4, 5));
+            int nday = Integer.parseInt(date.substring(6, 8));
+            Log.e("new date substring", "new date substring 8:" + nyear + nmonth + nday);
+            Log.e("new date substring", "new date substring 8:" + " Year:" + nyear + " month: " + nmonth + " day: " + nday);
+            v.setText(date);
+        }
+
+
     }
 }

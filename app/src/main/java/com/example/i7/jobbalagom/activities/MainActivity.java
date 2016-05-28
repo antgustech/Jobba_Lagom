@@ -58,6 +58,7 @@ public class MainActivity extends Activity {
     private ProgressBar pbCSN, pbIncome, pbExpense;
     private float monthlyIncomeLimit, csnIncomeLimit;
     private int pbMaxProgress, selectedMonth, selectedYear;
+    private Context context;
 
     /**
      * Initializes this activity. Sets layout.
@@ -73,6 +74,8 @@ public class MainActivity extends Activity {
         setContentView(R.layout.activity_main);
         initComponents();
         userCheck();
+
+
     }
 
     /**

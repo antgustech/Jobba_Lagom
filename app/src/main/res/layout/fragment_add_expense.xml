@@ -63,7 +63,7 @@
             android:textColorHint="@color/grey_dark"
             android:textSize="@dimen/input_text_size" />
 
-        <EditText
+        <TextView
             android:id="@+id/inputDate"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -72,7 +72,7 @@
             android:background="@drawable/et_rounded_corners"
             android:drawableLeft="@drawable/calendar_icon"
             android:drawablePadding="@dimen/drawable_padding"
-            android:hint="ÅÅMMDD"
+            android:hint="Datum"
             android:inputType="number"
             android:padding="@dimen/input_text_padding_icon"
             android:textColor="@color/black"
