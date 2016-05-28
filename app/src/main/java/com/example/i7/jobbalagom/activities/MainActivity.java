@@ -141,9 +141,9 @@ public class MainActivity extends Activity {
 
     private void checkForTaxUpdate() {
         if (controller.checkConnection()) {
-            String municipality = controller.getMunicipality();
+            String municipality = controller.getUserMunicipality();
             TaxUpdateListener listener = new TaxUpdateListener(municipality);
-            controller.getTax(municipality, listener);
+            controller.getUserTax(municipality, listener);
         }
     }
 
@@ -382,7 +382,7 @@ public class MainActivity extends Activity {
          */
         @Override
         public void UpdateTax(float tax) {
-            float oldTax = controller.getTax();
+            float oldTax = controller.getUserTax();
             if (tax != oldTax) {
                 controller.setTax(tax);
             }

@@ -17,41 +17,63 @@ import java.util.Calendar;
  * Handles calls between the UI and Logic classes.
  */
 
-public class Controller  {
+public class Controller {
 
-    private final String IP = "192.168.1.136";
-    private final int PORT = 4545;
-    private float tax, result,wage,obIndex,obStart,obEnd;
-    private Client client;
+    private final Client client;
     private final DBHelper dbHelper;
+    private float tax;
     private SQLiteDatabase sqLiteDatabase;
 
-    public Controller(Context context){
-        client = new Client(IP,PORT);
+    /**
+     * Instantiates a new Client and DBHelper at given context.
+     *
+     * @param context the current state of the application
+     */
+
+    public Controller(Context context) {
+        int PORT = 4545;
+        String IP = "192.168.1.136";
+        client = new Client(IP, PORT);
         dbHelper = new DBHelper(context);
     }
 
-    public ArrayList<String> getMunicipalities() throws NullPointerException{
+    /**
+     * Gets all municipalities.
+     *
+     * @return ArrayList of all municipalities in Strings.
+     */
+
+    public ArrayList<String> getMunicipalities() {
         return client.getMunicipalities();
     }
 
-    public float getChurchTax(String municipality) {
-        return client.getChurchTaxFromServer(municipality);
-    }
 
-    public float getTax(String municipality){
-        return client.getTaxFromServer(municipality);
-    }
-
+    /**
+     * Gets church tax rate.
+     *
+     * @param municipality the choosen municipality.
+     */
     public void getChurchTax(String municipality, UpdateTaxCallback callback) {
-        client.getChurchTaxFromServer(municipality,callback);
+        client.getChurchTaxFromServer(municipality, callback);
     }
 
-    public void getTax(String municipality, UpdateTaxCallback callback){
-        client.getTaxFromServer(municipality,callback);
+    /**
+     * Gets tax rate.
+     *
+     * @param municipality the choosen municipality.
+     */
+
+    public void getUserTax(String municipality, UpdateTaxCallback callback) {
+        client.getTaxFromServer(municipality, callback);
     }
 
-    public boolean checkConnection(){
+    /**
+     * Checks whenever the app has connection to servern
+     *
+     * @return true if there is a connection.
+     */
+
+    public boolean checkConnection() {
         return client.checkConnection();
     }
 
@@ -60,282 +82,360 @@ public class Controller  {
      */
 
     public void addUser(String municipality, float incomeLimit, boolean church) {
-        CreateUserListener callback = new CreateUserListener(municipality,incomeLimit);
-        if(church){
-            client.getChurchTaxFromServer(municipality,callback);
-        }else{
-            client.getTaxFromServer(municipality,callback);
+        CreateUserListener callback = new CreateUserListener(municipality, incomeLimit);
+        if (church) {
+            client.getChurchTaxFromServer(municipality, callback);
+        } else {
+            client.getTaxFromServer(municipality, callback);
         }
         Log.e("controller", "ChurchTAX LOGGING: " + church + " är boolean och tax är : " + tax);
     }
 
-    private class CreateUserListener implements UpdateTaxCallback {
-
-        String municipality;
-        float incomeLimit;
-
-        public CreateUserListener(String municipality, float incomeLimit){
-            this.municipality = municipality;
-            this.incomeLimit = incomeLimit;
-        }
-
-        @Override
-        public void UpdateTax(float tax) {
-            sqLiteDatabase = dbHelper.getWritableDatabase();
-            dbHelper.addUser(tax, incomeLimit, sqLiteDatabase, municipality);
-            //dbHelper.close();
-            Log.e("CallbackTag", "Jay! It worked " + tax);
-        }
-    }
     /**
-     * Adds job to db
+     * Adds a new job to the database.
+     *
+     * @param title name of the job.
+     * @param wage  the hourly wage of the job.
      */
 
     public void addJob(String title, float wage) {
         sqLiteDatabase = dbHelper.getWritableDatabase();
         dbHelper.addJob(title, wage, sqLiteDatabase);
-       // dbHelper.close();
     }
 
     /**
-     * Adds OB to db
+     * Adds a new obRate for the addedJob.
+     *
+     * @param jobTitle the name of the job.
+     * @param day      the day the ob rate is valid.
+     * @param endTime  the time the ob rate ends.
+     * @param obIndex  the actual ob rate.
      */
 
-    public void addOB(String jobTitle, String day, String fromTime, String toTime, Float obIndex) {
+    public void addOB(String jobTitle, String day, String startTime, String endTime, Float obIndex) {
         sqLiteDatabase = dbHelper.getWritableDatabase();
-        dbHelper.addOB(jobTitle, day, fromTime, toTime, obIndex, sqLiteDatabase);
-       // dbHelper.close();
+        dbHelper.addOB(jobTitle, day, startTime, endTime, obIndex, sqLiteDatabase);
     }
 
     /**
-     * Adds shift to db
+     * Adds a new shift to the database.
+     *
+     * @param jobTitle    name of the job.
+     * @param startTime   the time the shift starts.
+     * @param endTime     the time the shift ends.
+     * @param hoursWorked endTime-startTime.
+     * @param year        the year the shift was done.
+     * @param month       the month the shift was done.
+     * @param day         the day the shift was done.
      */
 
-    public void addShift(String jobTitle, float startTime, float endTime, float hoursWorked, int year, int month, int day , float income){
+    private void addShift(String jobTitle, float startTime, float endTime, float hoursWorked, int year, int month, int day, float income) {
         sqLiteDatabase = dbHelper.getWritableDatabase();
         dbHelper.addShift(jobTitle, startTime, endTime, hoursWorked, year, month, day, income, sqLiteDatabase);
-       // dbHelper.close();
     }
 
     /**
-     * Adds expense to db
+     * Adds an expense to the database.
+     *
+     * @param name  name of the expense.
+     * @param sum   of the expense.
+     * @param year  the year the expense was done.
+     * @param month the month the expense was done.
+     * @param day   the day the expense was done.
      */
 
     public void addExpense(String name, float sum, int year, int month, int day) {
         sqLiteDatabase = dbHelper.getWritableDatabase();
         dbHelper.addExpense(name, sum, year, month, day, sqLiteDatabase);
-      //  dbHelper.close();
     }
 
     /**
-     * Delete User from table where String = userName
+     * Delete User from db.
+     *
+     * @param name of the user.
      */
 
-    public void deleteUser(String name ) {
+    public void deleteUser(String name) {
         sqLiteDatabase = dbHelper.getWritableDatabase();
         dbHelper.deleteUser(sqLiteDatabase);
-        dbHelper.close();
     }
 
     /**
-     * Delete Job from table where String=jobTitle
+     * Delete Job from db.
+     *
+     * @param name of the job.
      */
 
-    public void deleteJob(String name ) {
+    public void deleteJob(String name) {
         sqLiteDatabase = dbHelper.getWritableDatabase();
         dbHelper.deleteJob(name, sqLiteDatabase);
-        dbHelper.close();
     }
 
     /**
-     * Delete Shift from table where id=shiftID
+     * Delete Shift from db.
+     *
+     * @param id of shift.
      */
 
-    public void deleteShift(int id ) {
+    public void deleteShift(int id) {
         sqLiteDatabase = dbHelper.getWritableDatabase();
         dbHelper.deleteShift(id, sqLiteDatabase);
-        dbHelper.close();
     }
 
     /**
-     * Delete Expense from table where String=expenseName
+     * Delete Expense from db.
+     *
+     * @param name of the expense.
      */
 
-    public void deleteExpense(String name ) {
+    public void deleteExpense(String name) {
         sqLiteDatabase = dbHelper.getWritableDatabase();
         dbHelper.deleteExpense(name, sqLiteDatabase);
         dbHelper.close();
     }
 
+    /**
+     * Check if already is an registered user.
+     *
+     * @return true if there is.
+     */
     public boolean isUserCreated() {
         sqLiteDatabase = dbHelper.getReadableDatabase();
-        boolean userCreated = dbHelper.isUserCreated(sqLiteDatabase);
-       // dbHelper.close();
-        return userCreated;
+        return dbHelper.isUserCreated(sqLiteDatabase);
     }
 
     /**
-     * Returns sum of all income as a float.
-     * Could be used for setting income bar in mainactivity.
-     * @return
+     * Get 6 months sum of income.
+     *
+     * @param month the selected month.
+     * @param year  the selected year.
+     * @return sum of all income as a float.
      */
 
     public float getHalfYearIncome(int month, int year) {
         sqLiteDatabase = dbHelper.getReadableDatabase();
-        float halfYearIncome = dbHelper.getHalfYearIncome(month, year, sqLiteDatabase);
-      //  dbHelper.close();
-        return halfYearIncome;
+        return dbHelper.getHalfYearIncome(month, year, sqLiteDatabase);
     }
+
+    /**
+     * Gets income limit.
+     *
+     * @return the income limit as a float.
+     */
 
     public float getIncomeLimit() {
         sqLiteDatabase = dbHelper.getReadableDatabase();
-        float incomeLimit = dbHelper.getIncomeLimit(sqLiteDatabase);
-      //  dbHelper.close();
-        return incomeLimit;
+        return dbHelper.getIncomeLimit(sqLiteDatabase);
     }
-
-    public void setIncomeLimit(float limit){
-        sqLiteDatabase = dbHelper.getReadableDatabase();
-        dbHelper.setIncomeLimit(limit, sqLiteDatabase);
-       // dbHelper.close();
-    }
-
-    public String[] getJobTitles(){
-        sqLiteDatabase = dbHelper.getReadableDatabase();
-        String[] jobTitles = dbHelper.getJobTitles(sqLiteDatabase);
-       // dbHelper.close();
-        return jobTitles;
-    }
-
-    public float getWage(String jobTitle) {
-        sqLiteDatabase = dbHelper.getReadableDatabase();
-        float sum = dbHelper.getWage(jobTitle, sqLiteDatabase);
-       // dbHelper.close();
-        return sum;
-    }
-
-    public float getTax() {
-        sqLiteDatabase = dbHelper.getReadableDatabase();
-        float sum = dbHelper.getUserTax(sqLiteDatabase);
-
-
-      //  dbHelper.close();
-        return sum;
-    }
-
-    public String getMunicipality() {
-        sqLiteDatabase = dbHelper.getReadableDatabase();
-        String municipality = dbHelper.getUserMunicipality(sqLiteDatabase);
-      //  dbHelper.close();
-        return municipality;
-    }
-
-    public float getOB( String jobTitle, String day){
-
-        sqLiteDatabase = dbHelper.getWritableDatabase();
-        float sum = dbHelper.getOB(jobTitle, day, sqLiteDatabase);
-       // dbHelper.close();
-
-        return sum;
-    }
-
-    public float getOBStart(String jobTitle, String obDay){
-        sqLiteDatabase = dbHelper.getWritableDatabase();
-        float sum = dbHelper.getOBStart(jobTitle, obDay, sqLiteDatabase);
-      //  dbHelper.close();
-        return sum;
-    }
-
-    public float getOBEnd(String jobTitle, String obDay){
-        sqLiteDatabase = dbHelper.getWritableDatabase();
-        float sum =dbHelper.getOBEnd(jobTitle, obDay, sqLiteDatabase);
-       // dbHelper.close();
-        return sum;
-    }
-
-    public void setTax(float tax){
-        sqLiteDatabase = dbHelper.getWritableDatabase();
-        dbHelper.setTax(tax, sqLiteDatabase);
-       // dbHelper.close();
-    }
-
-    public void removeJob(String jobTitle){
-        sqLiteDatabase = dbHelper.getWritableDatabase();
-        dbHelper.deleteJob(jobTitle,sqLiteDatabase);
-      //  dbHelper.close();
-    }
-
-
 
     /**
-     * When user have pressed addShift this method is called to calculate the shift and then call addShift method to add the result.
-     * TODO *More tests to make sure it calculates correct
+     * Set a new income limit.
+     *
+     * @param limit the new limit.
      */
-    public float caculateShift(String jobTitle, float startTime, float endTime, int year, int month, int day, float breakMinutes){
 
-        float workedPay, workedTime,realTax, workedObPay = 0;
-        int  dayOfWeek;
+    public void setIncomeLimit(float limit) {
+        sqLiteDatabase = dbHelper.getReadableDatabase();
+        dbHelper.setIncomeLimit(limit, sqLiteDatabase);
+    }
+
+    /**
+     * Get all the job names.
+     *
+     * @return job names as a String[].
+     */
+
+    public String[] getJobTitles() {
+        sqLiteDatabase = dbHelper.getReadableDatabase();
+        return dbHelper.getJobTitles(sqLiteDatabase);
+    }
+
+    /**
+     * Get wage for select job.
+     *
+     * @param jobTitle the name of the choosen name.
+     * @return the hourly wage for select job.
+     */
+
+    private float getWage(String jobTitle) {
+        sqLiteDatabase = dbHelper.getReadableDatabase();
+        return dbHelper.getWage(jobTitle, sqLiteDatabase);
+    }
+
+    /**
+     * Get tax rate for the user.
+     *
+     * @return the currently stored tax rate as a float.
+     */
+
+    public float getUserTax() {
+        sqLiteDatabase = dbHelper.getReadableDatabase();
+        return dbHelper.getUserTax(sqLiteDatabase);
+    }
+
+    /**
+     * Get the muncipality for the user.
+     *
+     * @return the currently stored municipality as a String.
+     */
+
+    public String getUserMunicipality() {
+        sqLiteDatabase = dbHelper.getReadableDatabase();
+        return dbHelper.getUserMunicipality(sqLiteDatabase);
+    }
+
+    /**
+     * Get the ob rate.
+     *
+     * @param jobTitle the name of the job.
+     * @param day      the day the ob rate is valid.
+     * @return the ob rate for the selected job and day as a float.
+     */
+
+    private float getOB(String jobTitle, String day) {
+        sqLiteDatabase = dbHelper.getWritableDatabase();
+        return dbHelper.getOB(jobTitle, day, sqLiteDatabase);
+    }
+
+    /**
+     * Get the start time for the ob rate.
+     *
+     * @param jobTitle the name of the job
+     * @param day      the day the ob rate is valid.
+     * @return the start time for the ob rate.
+     */
+
+    private float getOBStart(String jobTitle, String day) {
+        sqLiteDatabase = dbHelper.getWritableDatabase();
+        return dbHelper.getOBStart(jobTitle, day, sqLiteDatabase);
+    }
+
+    /**
+     * Get the end time for the ob rate.
+     *
+     * @param jobTitle the name of the job
+     * @param day      the day the ob rate is valid.
+     * @return the end time for the ob rate.
+     */
+
+    private float getOBEnd(String jobTitle, String day) {
+        sqLiteDatabase = dbHelper.getWritableDatabase();
+        return dbHelper.getOBEnd(jobTitle, day, sqLiteDatabase);
+    }
+
+    /**
+     * Set tax for user.
+     *
+     * @param tax the new tax.
+     */
+
+
+    public void setTax(float tax) {
+        sqLiteDatabase = dbHelper.getWritableDatabase();
+        dbHelper.setTax(tax, sqLiteDatabase);
+    }
+
+    /**
+     * Remove job from db.
+     *
+     * @param jobTitle the name of the job to be removed.
+     */
+
+    public void removeJob(String jobTitle) {
+        sqLiteDatabase = dbHelper.getWritableDatabase();
+        dbHelper.deleteJob(jobTitle, sqLiteDatabase);
+    }
+
+    /**
+     * Calculates the given shift with tax, ob rates and break.
+     *
+     * @param jobTitle     the name of the job
+     * @param startTime    start time of shift.
+     * @param endTime      end time of shift.
+     * @param year         the year the shift was completed on.
+     * @param month        the month the shift was completed on.
+     * @param day          the day the shift was completed on.
+     * @param breakMinutes the number of minutes the break lasted in the shift.
+     * @return the final income for the shift as a float.
+     */
+    public float caculateShift(String jobTitle, float startTime, float endTime, int year, int month, int day, float breakMinutes) {
+
+        float workedPay, workedTime, realTax, workedObPay = 0;
+        int dayOfWeek;
         String dayName;
-
         Calendar c = Calendar.getInstance();
-        year = c.get(Calendar.YEAR)/100*100+year;
-        c.set(year,month-1,day);
-        dayOfWeek = c.get(Calendar.DAY_OF_WEEK) ; //Sunday = 1, Saturday = 7
-        if(dayOfWeek>1 && dayOfWeek <7){
+        year = c.get(Calendar.YEAR) / 100 * 100 + year;
+        c.set(year, month - 1, day);
+        dayOfWeek = c.get(Calendar.DAY_OF_WEEK);
+        if (dayOfWeek > 1 && dayOfWeek < 7) {
             dayName = "Vardag";
-        }else if(dayOfWeek == 7){
+        } else if (dayOfWeek == 7) {
             dayName = "Lördag";
-        }else {
+        } else {
             dayName = "Söndag";
         }
-
-        wage = getWage(jobTitle);
-        tax = getTax();
-        obIndex = getOB(jobTitle, dayName);
-        obStart= getOBStart(jobTitle, dayName);
-        obEnd = getOBEnd(jobTitle, dayName);
-        result = 0;
-
-        if(obIndex == 0){
+        float wage = getWage(jobTitle);
+        tax = getUserTax();
+        float obIndex = getOB(jobTitle, dayName);
+        float obStart = getOBStart(jobTitle, dayName);
+        float obEnd = getOBEnd(jobTitle, dayName);
+        float result = 0;
+        if (obIndex == 0) {
             obIndex++;
         }
-
-        if(obStart<endTime){
-            if(endTime>obEnd){
-                workedObPay=((obEnd - obStart) * ((obIndex-1)*wage)) ;
-            }else if(endTime<=obEnd){
-                workedObPay= ((endTime-obStart)* ((obIndex-1)*wage));
+        if (obStart < endTime) {
+            if (endTime > obEnd) {
+                workedObPay = ((obEnd - obStart) * ((obIndex - 1) * wage));
+            } else if (endTime <= obEnd) {
+                workedObPay = ((endTime - obStart) * ((obIndex - 1) * wage));
             }
         }
-        workedTime = (((endTime-startTime)/2) - breakMinutes) + ((endTime-startTime)/2);
-
+        workedTime = (((endTime - startTime) / 2) - breakMinutes) + ((endTime - startTime) / 2);
         workedPay = workedTime * wage;
-        realTax= 1 -(tax/100);
+        realTax = 1 - (tax / 100);
         NumberFormat nf = NumberFormat.getNumberInstance();
         nf.setMaximumFractionDigits(4);
         nf.setMinimumFractionDigits(0);
         nf.format(realTax);
         result = ((workedPay + workedObPay) * realTax);
-
         Log.e("Calculation ", "Result after calculation: wage: " + wage + " StartTime: " + startTime + " EndTime " + endTime + " tax " + tax + " new tax " + realTax + " obIndex " + obIndex + " obStart " + obStart + " obEnd " + obEnd + " day " + dayOfWeek + " = " + dayName + " calculated ob " + workedObPay + " Result= " + result);
-        addShift(jobTitle, startTime, endTime, workedTime, year%100, month+1, day, result);
-
+        addShift(jobTitle, startTime, endTime, workedTime, year % 100, month + 1, day, result);
         return result;
     }
 
+    /**
+     * Get the income for the month.
+     *
+     * @param month select month.
+     * @param year  selected year.
+     * @return the monthly income as a float.
+     */
+
     public float getMonthlyIncome(int month, int year) {
         sqLiteDatabase = dbHelper.getReadableDatabase();
-        float income = dbHelper.getMonthlyIncome(month, year, sqLiteDatabase);
-        //db.close();
-        return income;
+        return dbHelper.getMonthlyIncome(month, year, sqLiteDatabase);
     }
+
+    /**
+     * Get the expense for the month.
+     *
+     * @param month select month.
+     * @param year  selected year.
+     * @return the monthly income as a float.
+     */
 
     public float getMonthlyExpenses(int month, int year) {
         sqLiteDatabase = dbHelper.getReadableDatabase();
-        float expenses = dbHelper.getMonthlyExpenses(month, year, sqLiteDatabase);
-        //db.close();
-        return expenses;
+        return dbHelper.getMonthlyExpenses(month, year, sqLiteDatabase);
     }
+
+    /**
+     * Get the date.
+     *
+     * @param selectedMonth the selected month.
+     * @param selectedYear  the selected year.
+     * @return The month and year as a String.
+     */
 
     public String getDate(int selectedMonth, int selectedYear) {
         String month = "";
@@ -377,7 +477,40 @@ public class Controller  {
                 month = "Dec";
                 break;
         }
-        return month + "\n" + Calendar.getInstance().get(Calendar.YEAR) / 100 + "" +  selectedYear;
+        return month + "\n" + Calendar.getInstance().get(Calendar.YEAR) / 100 + "" + selectedYear;
+    }
+
+    /**
+     * Listener for when user is created.
+     */
+    private class CreateUserListener implements UpdateTaxCallback {
+
+        final String municipality;
+        final float incomeLimit;
+
+        /**
+         * Sets parameters.
+         *
+         * @param municipality choosen municipality.
+         * @param incomeLimit  choosen income limit.
+         */
+
+        public CreateUserListener(String municipality, float incomeLimit) {
+            this.municipality = municipality;
+            this.incomeLimit = incomeLimit;
+        }
+
+        /**
+         * Sets the tax in the database
+         *
+         * @param tax the new tax rate as a float.
+         */
+
+        @Override
+        public void UpdateTax(float tax) {
+            sqLiteDatabase = dbHelper.getWritableDatabase();
+            dbHelper.addUser(tax, incomeLimit, sqLiteDatabase, municipality);
+        }
     }
 }
 

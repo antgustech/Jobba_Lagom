@@ -234,7 +234,7 @@ public class Server extends Thread {
                 }
             }
         } catch (SQLException e) {
-            System.out.println("[ERROR] in getTax");
+            System.out.println("[ERROR] in getUserTax");
         }
         System.out.println("Tax requested: " + tax);
         return tax;

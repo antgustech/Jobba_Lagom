@@ -89,7 +89,7 @@ public class ChangeTaxFragment extends Fragment {
                     if (churchCheckbox.isChecked()) {
                         controller.getChurchTax(textViewKommun.getText() + "", callback);
                     } else {
-                        controller.getTax(textViewKommun.getText() + "", callback);
+                        controller.getUserTax(textViewKommun.getText() + "", callback);
                     }
                 }
             }
@@ -107,7 +107,7 @@ public class ChangeTaxFragment extends Fragment {
     }
 
     public void setOldTax() {
-        oldTaxText.setText(String.valueOf(controller.getTax()));
+        oldTaxText.setText(String.valueOf(controller.getUserTax()));
     }
 
     /**
