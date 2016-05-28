@@ -8,7 +8,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
-import android.util.Log;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
@@ -45,7 +44,7 @@ import java.util.Calendar;
 
 /**
  * Created by Kajsa, Anton, Morgan, Jakup and Christoffer.
- * Handles the main functionality of the application. Responsible for changing fragments, and setting graphs.
+ * Responsible for changing fragments, and setting graphs at the main screen-
  */
 
 public class MainActivity extends Activity {
@@ -61,8 +60,12 @@ public class MainActivity extends Activity {
     private ProgressBar pbCSN, pbIncome, pbExpense;
     private ImageView leftIcon, rightIcon;
     private float monthlyIncomeLimit, csnIncomeLimit;
-    private int pbMaxProgress;
-    private int selectedMonth, selectedYear;
+    private int pbMaxProgress, selectedMonth, selectedYear;
+
+    /**
+     * Initializes this activity. Sets layout an
+     * @param savedInstanceState used for saving non persistent data that get's restored if the mainActivity needs to be recreated.
+     */
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,6 +76,10 @@ public class MainActivity extends Activity {
         initComponents();
         userCheck();
     }
+
+    /**
+     * Called when the user is interacting with the activity to load the progressbars.
+     */
 
     @Override
     protected void onResume() {
@@ -112,10 +119,8 @@ public class MainActivity extends Activity {
         rightIcon.setOnClickListener(btnListener);
         RelativeLayout mainLayout = (RelativeLayout) findViewById(R.id.mainLayout);
         mainLayout.setOnTouchListener(new OnSwipeTouchListener(getParent()));
-
         selectedMonth = Calendar.getInstance().get(Calendar.MONTH) + 1;
         selectedYear = Calendar.getInstance().get(Calendar.YEAR) % 100;
-
         fragmentManager = getFragmentManager();
     }
 
@@ -128,45 +133,41 @@ public class MainActivity extends Activity {
             startLaunchFragment(true);
         } else {
             loadProgressBars();
-            taxCheck();
-        }
-    }
-
-    public void taxCheck() {
-        if (controller.checkConnection()) {
             checkForTaxUpdate();
         }
     }
 
     /**
      * Check if there is a new tax rate available.
-     * TODO: DEN UPPDATERAR INTE FÖR KYRKOSKATT. ELLER?
      */
 
     private void checkForTaxUpdate() {
-        String municipality = controller.getMunicipality();
-        TaxUpdateListener listener = new TaxUpdateListener(municipality);
-        controller.getTax(municipality, listener);
+        if (controller.checkConnection()) {
+            String municipality = controller.getMunicipality();
+            TaxUpdateListener listener = new TaxUpdateListener(municipality);
+            controller.getTax(municipality, listener);
+        }
     }
 
     /**
-     * Listener for updating the tax.
+     * Listener for updating the tax rate.
      */
 
     private class TaxUpdateListener implements UpdateTaxCallback {
         String municipality;
-
-        public TaxUpdateListener(String kommun) {
-            this.municipality = kommun;
+        public TaxUpdateListener(String municipality) {
+            this.municipality = municipality;
         }
 
+        /**
+         * Implemented method checks for tax rate version.
+         * @param tax the new tax rate.
+         */
         @Override
         public void UpdateTax(float tax) {
             float oldTax = controller.getTax();
             if (tax != oldTax) {
                 controller.setTax(tax);
-                Log.d("MainActivity", "THIS IS THE UPDATETAX METHOD CALLED! THIS IS THE TAX HERE: " + tax);
-                        //Toast.makeText(getBaseContext(), "The tax for " + municipality + " is now updated", Toast.LENGTH_LONG);
             }
         }
     }
@@ -186,7 +187,7 @@ public class MainActivity extends Activity {
     }
 
     /**
-     * Loads all three progressbars.
+     * Load and update all three progressbars.
      */
 
     public void loadProgressBars() {
@@ -194,13 +195,9 @@ public class MainActivity extends Activity {
         csnIncomeLimit = controller.getIncomeLimit();
         pbMaxProgress = 100;
         tvDate.setText(controller.getDate(selectedMonth, selectedYear));
-
         updatePBcsn(controller.getHalfYearIncome(selectedMonth, selectedYear));
-        Log.d("MainActivity", "loadProgressBars, (" + selectedYear + "." + selectedMonth + ") total half year income: " + controller.getHalfYearIncome(selectedMonth, selectedYear));
         updatePBincome(controller.getMonthlyIncome(selectedMonth, selectedYear));
-        Log.d("MainActivity", "loadProgressBars, (" + selectedYear + "." + selectedMonth + ") monthly income: " + controller.getMonthlyIncome(selectedMonth, selectedYear));
         updatePBexpense(controller.getMonthlyExpenses(selectedMonth, selectedYear));
-        Log.d("MainActivity", "loadProgressBars, (" + selectedYear + "." + selectedMonth + ") monthly expenses: " + controller.getMonthlyExpenses(selectedMonth, selectedYear));
     }
 
     /**
@@ -211,7 +208,6 @@ public class MainActivity extends Activity {
         int totalProgress = (int) (halfYearIncome / csnIncomeLimit * 100);
         pbCSN.setProgress(totalProgress);
         float left = csnIncomeLimit - halfYearIncome;
-
         if (left < 0) {
             tvCSN.setText("Du har överskridit fribeloppet med " + (int) left * -1 + " kr.");
         } else {
@@ -237,6 +233,12 @@ public class MainActivity extends Activity {
         expandProgressBar(pbExpense, totalProgress);
     }
 
+    /**
+     * Increases the max limit of the progressbars when higher sums are used.
+     * @param pb the progressbar to expand.
+     * @param totalProgress the current progressbars max value.
+     */
+
     public void expandProgressBar(ProgressBar pb, int totalProgress) {
 
         if (totalProgress > pbMaxProgress) {
@@ -255,6 +257,10 @@ public class MainActivity extends Activity {
         tvBalance.setText((int) balance + "");
     }
 
+    /**
+     * Shows the swipe image when pressing arrow buttons.
+     */
+
     public void showSwipeHint() {
         Animation fadeInAnimation = AnimationUtils.loadAnimation(this, R.anim.fade_fast);
         ivSwipe.startAnimation(fadeInAnimation);
@@ -262,7 +268,7 @@ public class MainActivity extends Activity {
     }
 
     /**
-     * Replaces fragments on the display
+     * Replaces fragments on the view.
      */
 
     private void changeFragment(Fragment fragment) {
@@ -273,8 +279,7 @@ public class MainActivity extends Activity {
 
     /**
      * Adds a fragment on top of the stack of fragments
-     *
-     * @param fragment
+     * @param fragment the fragment to add.
      */
 
     private void addFragment(Fragment fragment) {
@@ -285,6 +290,7 @@ public class MainActivity extends Activity {
 
     /**
      * Removes fragments from the view.
+     *@param  fragment to remove.
      */
 
     private void removeFragment(Fragment fragment) {
@@ -294,11 +300,19 @@ public class MainActivity extends Activity {
         }
     }
 
+    /**
+     * Launches AddExpenseFragment.
+     */
+
     public void startAddExpenseFragment() {
         currentFragment = new AddExpenseFragment();
         ((AddExpenseFragment) currentFragment).setCallBack(new AddExpenseListener());
         changeFragment(currentFragment);
     }
+
+    /**
+     * Launches AddJobFragment.
+     */
 
     public void startAddJobFragment() {
         currentFragment = new AddJobFragment();
@@ -306,11 +320,20 @@ public class MainActivity extends Activity {
         changeFragment(currentFragment);
     }
 
+    /**
+     * Launches SetupFragment.
+     */
+
     public void startSetupFragment() {
         currentFragment = new SetupFragment();
         ((SetupFragment) currentFragment).setCallBack(new SetupFragmentListener());
         changeFragment(currentFragment);
     }
+
+    /**
+     * Launches LaunchFragment.
+     * @param firstTime boolean that checks if this is a first time launch.
+     */
 
     public void startLaunchFragment(boolean firstTime) {
         currentFragment = new LaunchFragment();
@@ -330,11 +353,20 @@ public class MainActivity extends Activity {
         }
     }
 
+    /**
+     * Launches AddShiftFragment.
+     */
+
     public void startAddShiftFragment() {
         currentFragment = new AddShiftFragment();
         ((AddShiftFragment) currentFragment).setCallBack(new AddShiftFragmentListener());
         changeFragment(currentFragment);
     }
+
+    /**
+     * Launches BudgetFragment.
+     * TODO: Currently not used.
+     */
 
     public void startBudgetFragment() {
         currentFragment = new BudgetFragment();
@@ -342,13 +374,17 @@ public class MainActivity extends Activity {
         changeFragment(currentFragment);
     }
 
+    /**
+     * Launches InfoFragment.
+     */
+
     public void startInfoFragment() {
         currentFragment = new InfoFragment();
         changeFragment(currentFragment);
     }
 
     /**
-     * Listens to icons in the main layout
+     * Listener for all buttons in the main view.
      */
 
     private class ButtonListener implements View.OnClickListener {
@@ -376,9 +412,16 @@ public class MainActivity extends Activity {
     }
 
     /**
-     * Listener for launch fragment
+     * Listener for launchFragment
      */
+
     private class LaunchFragmentListener implements LaunchFragmentCallback {
+
+        /**
+         * Checks which fragment to start.
+         * @param choice the pressed button.
+         */
+
         public void navigate(String choice) {
             if (choice.equals("btnNew")) {
                 startSetupFragment();
@@ -387,6 +430,10 @@ public class MainActivity extends Activity {
             }
         }
 
+        /**
+         * Checks if the app has connection to server or not.
+         * @return true if there is a connection.
+         */
         @Override
         public boolean checkConnection() {
             boolean connection = false;
@@ -398,10 +445,18 @@ public class MainActivity extends Activity {
     }
 
     /**
-     * Listener for setup fragment
+     * Listener for setupFragment
      */
 
     private class SetupFragmentListener implements SetupFragmentCallback {
+
+        /**
+         * Adds a new user to the database in the initial fragment.
+         * @param municipality choosen municipality.
+         * @param incomeLimit choosen incomeLimit.
+         * @param church returns true if in the swedish church.
+         */
+
         public void addUser(String municipality, float incomeLimit, boolean church) {
             controller.addUser(municipality, incomeLimit, church);
             try {
@@ -415,24 +470,54 @@ public class MainActivity extends Activity {
     }
 
     /**
-     * Listener for add job fragment
+     * Listener for add jobFragment
      */
 
     private class AddJobFragmentListener implements AddJobFragmentCallback {
+
+        /**
+         * Adds a new job to the database.
+         * @param title name of the job.
+         * @param wage the hourly wage of the job.
+         */
+
         public void addJob(String title, Float wage) {
             controller.addJob(title, wage);
             removeFragment(currentFragment);
         }
-        public void addOB(String jobTitle, String day, String fromTime, String toTime, float obIndex) {
-            controller.addOB(jobTitle, day, fromTime, toTime, obIndex);
+
+        /**
+         * Adds a new obRate for the addedJob.
+         * @param jobTitle the name of the job.
+         * @param day the day the ob rate is valid.
+         * @param startTime the time the ob rate starts.
+         * @param endTime the time the ob rate ends.
+         * @param obIndex the actual ob rate.
+         */
+
+        public void addOB(String jobTitle, String day, String startTime, String endTime, float obIndex) {
+            controller.addOB(jobTitle, day, startTime, endTime, obIndex);
         }
     }
 
     /**
-     * Listener for add shift fragment
+     * Listener for add shiftFragment
      */
 
     private class AddShiftFragmentListener implements AddShiftFragmentCallback {
+
+        /**
+         * Adds a new shift to the database.
+         * @param jobTitle name of the job.
+         * @param startTime the time the shift starts.
+         * @param endTime the time the shift ends.
+         * @param hoursWorked endTime-startTime.
+         * @param year the year the shift was done.
+         * @param month the month the shift was done.
+         * @param day the day the shift was done.
+         * @param breakMinutes the break in minutes that the user had during the shift.
+         */
+
         public void addShift(String jobTitle, float startTime, float endTime, float hoursWorked, int year, int month, int day, float breakMinutes) {
             controller.caculateShift(jobTitle, startTime, endTime, year, month, day, breakMinutes);
             loadProgressBars();
@@ -440,42 +525,91 @@ public class MainActivity extends Activity {
     }
 
     /**
-     * Listener for add expense fragment
+     * Listener for add expenseFragment
      */
 
     private class AddExpenseListener implements AddExpenseFragmentCallback {
+
+        /**
+         * Adds an expense to the database.
+         * @param title name of the expense.
+         * @param amount sum of the expense.
+         * @param year the year the expense was done.
+         * @param month the month the expense was done.
+         * @param day the day the expense was done.
+         */
+
         public void addExpense(String title, float amount, int year, int month, int day) {
             controller.addExpense(title, amount, year, month, day);
             loadProgressBars();
         }
     }
 
+    /**
+     * Listener for budgetFragment.
+     * TODO: Currently not used.
+     */
+
     private class BudgetFragmentListener implements BudgetFragmentCallback {
-        // method to communicate with budget fragment
     }
 
-    private class OnSwipeTouchListener implements View.OnTouchListener {
+    /**
+     * Listener for touch motions on the main graph view.
+     */
 
+    private class OnSwipeTouchListener implements View.OnTouchListener {
         private final GestureDetector gestureDetector;
+
+        /**
+         *Creates a new GestureDetector in the given context.
+         * @param ctx
+         */
 
         public OnSwipeTouchListener(Context ctx) {
             gestureDetector = new GestureDetector(ctx, new GestureListener());
         }
+
+
+        /**
+         * Listener for event.
+         * @param v the view the even occurred in.
+         * @param event the kind of event.
+         * @return true if a touchevent happend.
+         */
 
         @Override
         public boolean onTouch(View v, MotionEvent event) {
             return gestureDetector.onTouchEvent(event);
         }
 
+        /**
+         * Listener for swipe motions on the main graph view.
+         */
+
         private final class GestureListener extends GestureDetector.SimpleOnGestureListener {
 
             private static final int SWIPE_THRESHOLD = 100;
             private static final int SWIPE_VELOCITY_THRESHOLD = 100;
 
+            /**
+             * If you swipe down, nothing happends.
+             * @param e where the swipe ocurred.
+             * @return true if there was a swipe going downwards.
+             */
+
             @Override
             public boolean onDown(MotionEvent e) {
                 return true;
             }
+
+            /**
+             * Checks if the swipe is valid and which direction it happend.
+             * @param e1 where the swipe started.
+             * @param e2 where the swipe ended.
+             * @param velocityX the speed of the swipe motion on the x axis.
+             * @param velocityY the speed of the swipe motion on the y axis.
+             * @return true of the swipe was valid.
+             */
 
             @Override
             public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
@@ -508,6 +642,10 @@ public class MainActivity extends Activity {
             }
         }
 
+        /**
+         * Shows new data if the swipe went right.
+         */
+
         public void onSwipeRight() {
             if (selectedMonth == 1) {
                 selectedYear--;
@@ -517,6 +655,10 @@ public class MainActivity extends Activity {
             }
             loadProgressBars();
         }
+
+        /**
+         * Shows new data if the swipe went left.
+         */
 
         public void onSwipeLeft() {
             if (selectedMonth == 12) {
@@ -528,8 +670,16 @@ public class MainActivity extends Activity {
             loadProgressBars();
         }
 
+        /**
+         * On swipeTop, do nothing.
+         */
+
         public void onSwipeTop() {
         }
+
+        /**
+         * On swipeBotton, do nothing.
+         */
 
         public void onSwipeBottom() {
         }
