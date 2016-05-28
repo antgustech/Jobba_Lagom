@@ -192,7 +192,7 @@ public class AddShiftFragment extends Fragment {
             int month = Integer.parseInt(date.substring(4, 5));
             int day = Integer.parseInt(date.substring(6, 8));
 
-            Log.e("new date substring", "new date substring:" + date + year + month + year);
+            Log.e("new date substring", "new date substring:" + date + " Here are the subs: " + year + month + day );
 
             if (hoursWorked <= 0) {
                 Toast.makeText(getActivity(), "Tiden du har arbetat är mindre än noll, stämmer verkligen det?", Toast.LENGTH_LONG).show();
@@ -267,13 +267,24 @@ public class AddShiftFragment extends Fragment {
         @Override
         public void onDateSet(DatePickerDialog view, int year, int monthOfYear, int dayOfMonth) {
             monthOfYear++;
+
+
+            String sDay = "";
+            if (dayOfMonth < 10) {
+                sDay = "0" + String.valueOf(dayOfMonth);
+            } else {
+                sDay = String.valueOf(dayOfMonth);
+            }
+
+
             String sMonth = "";
             if (monthOfYear < 10) {
                 sMonth = "0" + String.valueOf(monthOfYear);
             } else {
                 sMonth = String.valueOf(monthOfYear);
             }
-            String date = String.valueOf(year).substring(2, 4) + "/" + sMonth + "/" + String.valueOf(dayOfMonth);
+
+            String date = String.valueOf(year).substring(2, 4) + "/" + sMonth + "/" + sDay;
             int nyear = Integer.parseInt(date.substring(0, 2));
             int nmonth = Integer.parseInt(date.substring(4, 5));
             int nday = Integer.parseInt(date.substring(6, 8));
