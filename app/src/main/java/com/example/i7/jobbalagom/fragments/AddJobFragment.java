@@ -37,7 +37,7 @@ public class AddJobFragment extends Fragment {
      * @param inflater           layout object that is used to show the layout of fragment.
      * @param container          the parent view this fragment is added to.
      * @param savedInstanceState used for saving non persistent data that get's restored if the fragment needs to be recreated.
-     * @return view hierarchu associated with fragment.
+     * @return view hierarchy associated with fragment.
      */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {

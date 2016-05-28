@@ -20,17 +20,15 @@ import com.example.i7.jobbalagom.local.Singleton;
  */
 public class RemoveJobFragment extends Fragment {
     private RemoveJobFragmentCallback callback;
-    private Controller controller;
-    private String[] jobTitles;
     private Spinner jobSpinner;
-    private Button btnRemoveJob;
 
     /**
      * Initializes fragment.
-     * @param inflater layout object that is used to show the layout of fragment.
-     * @param container the parent view this fragment is added to.
+     *
+     * @param inflater           layout object that is used to show the layout of fragment.
+     * @param container          the parent view this fragment is added to.
      * @param savedInstanceState used for saving non persistent data that get's restored if the fragment needs to be recreated.
-     * @return view hierarchu associated with fragment.
+     * @return view hierarchy associated with fragment.
      */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -39,9 +37,9 @@ public class RemoveJobFragment extends Fragment {
 
     /**
      * Called after the onCreateView has executed makes final UI initializations.
-     * @param  view  this fragment view.
+     *
+     * @param view               this fragment view.
      * @param savedInstanceState used for saving non persistent data that get's restored if the fragment needs to be recreated.
-     * @return view hierarchu associated with fragment.
      */
 
     public void onViewCreated(View view, Bundle savedInstanceState) {
@@ -51,38 +49,45 @@ public class RemoveJobFragment extends Fragment {
 
     /**
      * Initializes components.
-     * @param  v  this fragment v.
+     *
+     * @param v this fragment view.
      */
 
-    private void initComponents( View v){
-        controller = Singleton.controller;
-        btnRemoveJob = (Button)v.findViewById(R.id.btnRemoveJob);
+    private void initComponents(View v) {
+        Controller controller = Singleton.controller;
+        Button btnRemoveJob = (Button) v.findViewById(R.id.btnRemoveJob);
         btnRemoveJob.setOnClickListener(new ButtonListner());
-        jobTitles = controller.getJobTitles();
+        String[] jobTitles = controller.getJobTitles();
 
-        ArrayAdapter adapter = new ArrayAdapter<String>(getActivity(), R.layout.spinner_row, R.id.text, jobTitles);
+        ArrayAdapter adapter = new ArrayAdapter<>(getActivity(), R.layout.spinner_row, R.id.text, jobTitles);
         jobSpinner = (Spinner) v.findViewById(R.id.jobSpinner);
         jobSpinner.setAdapter(adapter);
+    }
+
+    /**
+     * Sets the callback.
+     *
+     * @param callback listener.
+     */
+
+    public void setCallBack(RemoveJobFragmentCallback callback) {
+        this.callback = callback;
     }
 
     /**
      * Listener for the remove job button.
      */
 
-    private class ButtonListner implements View.OnClickListener{
+    private class ButtonListner implements View.OnClickListener {
+        /**
+         * Sends the selected job to be removed via callback to SettingsActivity.
+         *
+         * @param v this fragment view.
+         */
         @Override
         public void onClick(View v) {
             final String jobTitle = jobSpinner.getSelectedItem().toString();
             callback.removeJob(jobTitle);
         }
-    }
-
-    /**
-     * Sets the callback.
-     * @param callback listener.
-     */
-
-    public void setCallBack(RemoveJobFragmentCallback callback){
-        this.callback=callback;
     }
 }

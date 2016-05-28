@@ -19,15 +19,14 @@ import com.example.i7.jobbalagom.callbacks.LaunchFragmentCallback;
 public class LaunchFragment extends Fragment {
 
     private LaunchFragmentCallback callback;
-    private ButtonListener btnListener;
-    private ImageButton btnNew, btnInfo;
 
     /**
      * Initializes fragment.
-     * @param inflater layout object that is used to show the layout of fragment.
-     * @param container the parent view this fragment is added to.
+     *
+     * @param inflater           layout object that is used to show the layout of fragment.
+     * @param container          the parent view this fragment is added to.
      * @param savedInstanceState used for saving non persistent data that get's restored if the fragment needs to be recreated.
-     * @return view hierarchu associated with fragment.
+     * @return view hierarchy associated with fragment.
      */
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -36,9 +35,9 @@ public class LaunchFragment extends Fragment {
 
     /**
      * Called after the onCreateView has executed makes final UI initializations.
-     * @param  view  this fragment view.
+     *
+     * @param view               this fragment view.
      * @param savedInstanceState used for saving non persistent data that get's restored if the fragment needs to be recreated.
-     * @return view hierarchu associated with fragment.
      */
 
     public void onViewCreated(View view, Bundle savedInstanceState) {
@@ -48,42 +47,50 @@ public class LaunchFragment extends Fragment {
 
     /**
      * Initializes components.
-     * @param  v  this fragment v.
+     *
+     * @param v this fragment view.
      */
 
     public void initComponents(View v) {
-        btnNew = (ImageButton) v.findViewById(R.id.btnNew);
-        btnInfo = (ImageButton) v.findViewById(R.id.btnInfo);
-        btnListener = new ButtonListener();
+        ImageButton btnNew = (ImageButton) v.findViewById(R.id.btnNew);
+        ImageButton btnInfo = (ImageButton) v.findViewById(R.id.btnInfo);
+        ButtonListener btnListener = new ButtonListener();
         btnNew.setOnClickListener(btnListener);
         btnInfo.setOnClickListener(btnListener);
     }
 
     /**
      * Sets callback.
+     *
      * @param callback listener.
      */
 
-    public void setCallBack(LaunchFragmentCallback callback){
+    public void setCallBack(LaunchFragmentCallback callback) {
         this.callback = callback;
     }
 
     /**
-     * Listener for the buttons. Navigates to the right fragment.
+     * Listener for the buttons.
      */
 
     private class ButtonListener implements View.OnClickListener {
 
+        /**
+         * Checks which buttons was pressed.
+         *
+         * @param v this fragment view.
+         */
+
         @Override
         public void onClick(View v) {
-            if(v.getId() == R.id.btnNew) {
-                if(callback.checkConnection()) {
+            if (v.getId() == R.id.btnNew) {
+                if (callback.checkConnection()) {
                     callback.navigate("btnNew");
                 } else {
                     Toast.makeText(getActivity(), "Appen saknar anslutning till servern.", Toast.LENGTH_LONG).show();
                 }
             }
-            if(v.getId() == R.id.btnInfo) {
+            if (v.getId() == R.id.btnInfo) {
                 callback.navigate("btnInfo");
             }
         }

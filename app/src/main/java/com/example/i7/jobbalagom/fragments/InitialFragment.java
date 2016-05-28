@@ -23,10 +23,11 @@ public class InitialFragment extends Fragment {
 
     /**
      * Initializes fragment.
-     * @param inflater layout object that is used to show the layout of fragment.
-     * @param container the parent view this fragment is added to.
+     *
+     * @param inflater           layout object that is used to show the layout of fragment.
+     * @param container          the parent view this fragment is added to.
      * @param savedInstanceState used for saving non persistent data that get's restored if the fragment needs to be recreated.
-     * @return view hierarchu associated with fragment.
+     * @return view hierarchy associated with fragment.
      */
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -36,9 +37,9 @@ public class InitialFragment extends Fragment {
 
     /**
      * Called after the onCreateView has executed makes final UI initializations.
-     * @param  view  this fragment view.
+     *
+     * @param view               this fragment view.
      * @param savedInstanceState used for saving non persistent data that get's restored if the fragment needs to be recreated.
-     * @return view hierarchu associated with fragment.
      */
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
@@ -46,7 +47,11 @@ public class InitialFragment extends Fragment {
         fadeWelcomeLayout();
     }
 
-    public void fadeWelcomeLayout() {
+    /**
+     * Fades the Welcome screen fragment.
+     */
+
+    private void fadeWelcomeLayout() {
         Animation fadeInAnimation = AnimationUtils.loadAnimation(getActivity(), R.anim.fade_slow);
         welcomeLayout.startAnimation(fadeInAnimation);
         welcomeLayout.setVisibility(View.INVISIBLE);

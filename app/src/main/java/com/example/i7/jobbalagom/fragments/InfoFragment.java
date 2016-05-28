@@ -19,19 +19,18 @@ import com.example.i7.jobbalagom.R;
  */
 public class InfoFragment extends Fragment {
 
+    private final String TITLE_WHO = "Vem?";
     private RelativeLayout popupLayout;
     private TextView tvPopupTitle, tvPopupText;
     private ImageView ivSelfie;
 
-    private final String TITLE_WHO = "Vem?";
-
-
     /**
      * Initializes fragment.
-     * @param inflater layout object that is used to show the layout of fragment.
-     * @param container the parent view this fragment is added to.
+     *
+     * @param inflater           layout object that is used to show the layout of fragment.
+     * @param container          the parent view this fragment is added to.
      * @param savedInstanceState used for saving non persistent data that get's restored if the fragment needs to be recreated.
-     * @return view hierarchu associated with fragment.
+     * @return view hierarchy associated with fragment.
      */
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_info, container, false);
@@ -39,7 +38,8 @@ public class InfoFragment extends Fragment {
 
     /**
      * Called after the onCreateView has executed makes final UI initializations.
-     * @param  view  this fragment view.
+     *
+     * @param view               this fragment view.
      * @param savedInstanceState used for saving non persistent data that get's restored if the fragment needs to be recreated.
      */
     public void onViewCreated(View view, Bundle savedInstanceState) {
@@ -49,7 +49,8 @@ public class InfoFragment extends Fragment {
 
     /**
      * Initializes components.
-     * @param  v  this fragment view.
+     *
+     * @param v this fragment view.
      */
 
     private void initComponents(View v) {
@@ -74,6 +75,7 @@ public class InfoFragment extends Fragment {
 
     /**
      * Shows message dialog..
+     *
      * @param title string of the title of the window.
      * @param text  string of the name of the button clicked.
      */
@@ -82,7 +84,7 @@ public class InfoFragment extends Fragment {
         tvPopupTitle.setText(title);
         tvPopupText.setText(text);
 
-        if(title.equals(TITLE_WHO)) {
+        if (title.equals(TITLE_WHO)) {
             ivSelfie.setVisibility(View.VISIBLE);
         } else {
             ivSelfie.setVisibility(View.INVISIBLE);
@@ -106,12 +108,13 @@ public class InfoFragment extends Fragment {
 
         /**
          * Decides what message dialog to show.
-         * @param  v  this fragment view.
+         *
+         * @param v this fragment view.
          */
 
         @Override
         public void onClick(View v) {
-            if(v.getId() == R.id.btnWhat) {
+            if (v.getId() == R.id.btnWhat) {
                 Log.d("InfoFragment", "what button pressed");
                 String TEXT_WHAT = "Jobba Lagom är en applikation för dig som arbetande student med stöd från Centrala "
                         + "Studiestödsnämnden. \n \nDen hjälper dig att jobba lagom mycket, med andra ord hjälper "
@@ -120,7 +123,7 @@ public class InfoFragment extends Fragment {
                         + "du passerar det av CSN erhållna fribeloppet.";
                 String TITLE_WHAT = "Vad?";
                 showPopupLayout(TITLE_WHAT, TEXT_WHAT);
-            } else if(v.getId() == R.id.btnHow) {
+            } else if (v.getId() == R.id.btnHow) {
                 Log.d("InfoFragment", "how button pressed");
                 String TEXT_HOW = "All information du skriver in i applikationen lagras i din egen telefon eller surfplatta, och "
                         + "är därför oåtkomlig för obehöriga.\n\nGenom att lagra hela rikets skattetabell i en "
@@ -129,20 +132,20 @@ public class InfoFragment extends Fragment {
                         + "operativ-\nsystem Android (Java).";
                 String TITLE_HOW = "Hur?";
                 showPopupLayout(TITLE_HOW, TEXT_HOW);
-            } else if(v.getId() == R.id.btnWhy) {
+            } else if (v.getId() == R.id.btnWhy) {
                 Log.d("InfoFragment", "why button pressed");
                 String TEXT_WHY = "Jobba Lagom har utvecklats som en del av kursen Systemutveckling och Projekt l (DA336A) på Malmö "
                         + "Högskola.\n\nSyftet med kursen är att ge studenterna en introduktion till projektarbete som "
                         + "arbetssätt - skapande, deltagande och koordinering av projekt inom datavetenskap & tillämpad IT.";
                 String TITLE_WHY = "Varför?";
                 showPopupLayout(TITLE_WHY, TEXT_WHY);
-            } else if(v.getId() == R.id.btnWho) {
+            } else if (v.getId() == R.id.btnWho) {
                 Log.d("InfoFragment", "who button pressed");
                 String TEXT_WHO = "Bakom skärmen gömmer sig studenter från System-\nutvecklarprogrammet på Malmö Högskola.\n\n"
                         + "Närmare bestämt Anton Gustafsson, Christoffer Strandberg, Jakup Güven, Kajsa Ornstein "
                         + "och Morgan Hedström.";
                 showPopupLayout(TITLE_WHO, TEXT_WHO);
-            } else if(v.getId() == R.id.btnExitPopup) {
+            } else if (v.getId() == R.id.btnExitPopup) {
                 hidePopupLayout();
             }
         }
