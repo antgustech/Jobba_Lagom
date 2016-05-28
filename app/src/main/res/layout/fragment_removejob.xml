@@ -31,9 +31,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/header_line"
-        android:background="@drawable/et_rounded_corners"
         android:layout_margin="40dp"
-        >
+        android:background="@drawable/et_rounded_corners">
 
         <ImageView
             android:id="@+id/scroll_icon"
@@ -67,14 +66,12 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/footer_line"
-        android:background="@drawable/btn_rounded_corners_blueish"
-        android:text="Ta bort"
-        android:textSize="@dimen/btn_text_size"
-        android:textColor="@color/white"
-        android:padding="@dimen/btn_text_padding"
         android:layout_margin="40dp"
-        />
-
+        android:background="@drawable/btn_rounded_corners_blueish"
+        android:padding="@dimen/btn_text_padding"
+        android:text="Ta bort"
+        android:textColor="@color/white"
+        android:textSize="@dimen/btn_text_size" />
 
 
     <!--

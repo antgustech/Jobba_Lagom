@@ -34,41 +34,39 @@
         android:padding="40dp">
 
         <TextView
+            android:id="@+id/textView5"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="Ditt nuvarande fribelopp"
-            android:textSize="@dimen/input_text_size"
-            android:id="@+id/textView5"
             android:layout_centerHorizontal="true"
-            />
+            android:text="Ditt nuvarande fribelopp"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textSize="@dimen/input_text_size" />
 
         <TextView
+            android:id="@+id/currentIncomeLimitText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="0000"
-            android:textSize="@dimen/input_text_size"
-            android:id="@+id/currentIncomeLimitText"
             android:layout_below="@+id/textView5"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="34dp" />
+            android:layout_marginTop="34dp"
+            android:text="0000"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textSize="@dimen/input_text_size" />
 
         <EditText
             android:id="@+id/newIncomeLimitField"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/et_rounded_corners"
             android:layout_below="@+id/currentIncomeLimitText"
             android:layout_marginTop="34dp"
-            android:inputType="number"
-            android:hint="Nytt fribelopp"
-            android:textColorHint="@color/grey_dark"
-            android:textSize="@dimen/input_text_size"
+            android:background="@drawable/et_rounded_corners"
             android:drawableLeft="@drawable/csn_icon"
             android:drawablePadding="7dp"
+            android:hint="Nytt fribelopp"
+            android:inputType="number"
             android:padding="@dimen/input_text_padding_icon"
-            />
+            android:textColorHint="@color/grey_dark"
+            android:textSize="@dimen/input_text_size" />
 
     </RelativeLayout>
 
@@ -80,16 +78,15 @@
         android:background="@color/white" />
 
     <Button
+        android:id="@+id/btnChangeIncomeLimit"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/btnChangeIncomeLimit"
-        android:background="@drawable/btn_rounded_corners_blueish"
         android:layout_below="@+id/footer_line"
+        android:layout_margin="40dp"
+        android:background="@drawable/btn_rounded_corners_blueish"
+        android:padding="@dimen/btn_text_padding"
         android:text="Fortsätt"
         android:textColor="@color/btn_text_color"
-        android:textSize="@dimen/btn_text_size"
-        android:padding="@dimen/btn_text_padding"
-        android:layout_margin="40dp"
-        />
+        android:textSize="@dimen/btn_text_size" />
 
 </RelativeLayout>

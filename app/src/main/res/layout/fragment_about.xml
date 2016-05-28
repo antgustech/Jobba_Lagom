@@ -1,140 +1,141 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/bgBlueish">
+    android:background="@color/bgBlueish"
+    android:orientation="vertical">
 
 
     <TextView
+        android:id="@+id/textView3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="@string/action_about_disclaimer"
-        android:id="@+id/textView3"
-        android:textColor="#cdcdcd"
-        android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginLeft="10dp"
         android:layout_marginTop="29dp"
-        android:layout_marginLeft="10dp" />
+        android:text="@string/action_about_disclaimer"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textColor="#cdcdcd" />
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="250dp"
-        android:layout_marginTop="230dp"
-        android:layout_below="@+id/textView3"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true">
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/textView3"
+        android:layout_marginTop="230dp">
 
 
         <TextView
+            android:id="@+id/textView6"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceSmall"
-            android:text="Anton Gustafsson"
-            android:id="@+id/textView6"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
             android:layout_marginLeft="65dp"
             android:layout_marginStart="65dp"
             android:layout_marginTop="40dp"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true" />
+            android:text="@string/anton_gustafsson"
+            android:textAppearance="?android:attr/textAppearanceSmall" />
 
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceSmall"
-            android:text="@string/aboutAnton"
             android:id="@+id/textView8"
-            android:autoLink="email"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_alignTop="@+id/textView6"
-            android:layout_toRightOf="@+id/textView6"
-            android:layout_toEndOf="@+id/textView6"
             android:layout_marginLeft="37dp"
-            android:layout_marginStart="37dp" />
+            android:layout_marginStart="37dp"
+            android:layout_toEndOf="@+id/textView6"
+            android:layout_toRightOf="@+id/textView6"
+            android:autoLink="email"
+            android:text="@string/aboutAnton"
+            android:textAppearance="?android:attr/textAppearanceSmall" />
 
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceSmall"
-            android:text="Christoffer Strandberg"
             android:id="@+id/textView9"
-            android:layout_below="@+id/textView6"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_alignLeft="@+id/textView6"
-            android:layout_alignStart="@+id/textView6" />
+            android:layout_alignStart="@+id/textView6"
+            android:layout_below="@+id/textView6"
+            android:text="Christoffer Strandberg"
+            android:textAppearance="?android:attr/textAppearanceSmall" />
 
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceSmall"
-            android:text="@string/aboutChristoffer"
-            android:autoLink="email"
             android:id="@+id/textView10"
-            android:layout_below="@+id/textView8"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_alignLeft="@+id/textView8"
-            android:layout_alignStart="@+id/textView8" />
+            android:layout_alignStart="@+id/textView8"
+            android:layout_below="@+id/textView8"
+            android:autoLink="email"
+            android:text="@string/aboutChristoffer"
+            android:textAppearance="?android:attr/textAppearanceSmall" />
 
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceSmall"
-            android:text="Kajsa Ornstein"
             android:id="@+id/textView11"
-            android:layout_below="@+id/textView9"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_alignLeft="@+id/textView9"
-            android:layout_alignStart="@+id/textView9" />
+            android:layout_alignStart="@+id/textView9"
+            android:layout_below="@+id/textView9"
+            android:text="Kajsa Ornstein"
+            android:textAppearance="?android:attr/textAppearanceSmall" />
 
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceSmall"
-            android:text="@string/aboutKajsa"
-            android:autoLink="email"
             android:id="@+id/textView12"
-            android:layout_alignTop="@+id/textView11"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_alignLeft="@+id/textView10"
-            android:layout_alignStart="@+id/textView10" />
+            android:layout_alignStart="@+id/textView10"
+            android:layout_alignTop="@+id/textView11"
+            android:autoLink="email"
+            android:text="@string/aboutKajsa"
+            android:textAppearance="?android:attr/textAppearanceSmall" />
 
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceSmall"
-            android:text="Morgan Hedström"
             android:id="@+id/textView14"
-            android:layout_below="@+id/textView11"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_alignLeft="@+id/textView11"
-            android:layout_alignStart="@+id/textView11" />
+            android:layout_alignStart="@+id/textView11"
+            android:layout_below="@+id/textView11"
+            android:text="Morgan Hedström"
+            android:textAppearance="?android:attr/textAppearanceSmall" />
 
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceSmall"
-            android:text="@string/aboutMorgan"
-            android:autoLink="email"
             android:id="@+id/textView15"
-            android:layout_alignTop="@+id/textView14"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_alignLeft="@+id/textView12"
-            android:layout_alignStart="@+id/textView12" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceSmall"
-            android:text="Jakup Guven"
-            android:id="@+id/textView16"
-            android:layout_below="@+id/textView14"
-            android:layout_alignLeft="@+id/textView14"
-            android:layout_alignStart="@+id/textView14" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceSmall"
-            android:text="@string/aboutJakup"
+            android:layout_alignStart="@+id/textView12"
+            android:layout_alignTop="@+id/textView14"
             android:autoLink="email"
+            android:text="@string/aboutMorgan"
+            android:textAppearance="?android:attr/textAppearanceSmall" />
+
+        <TextView
+            android:id="@+id/textView16"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/textView14"
+            android:layout_alignStart="@+id/textView14"
+            android:layout_below="@+id/textView14"
+            android:text="Jakup Guven"
+            android:textAppearance="?android:attr/textAppearanceSmall" />
+
+        <TextView
             android:id="@+id/textView17"
-            android:layout_alignTop="@+id/textView16"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_alignLeft="@+id/textView15"
-            android:layout_alignStart="@+id/textView15" />
+            android:layout_alignStart="@+id/textView15"
+            android:layout_alignTop="@+id/textView16"
+            android:autoLink="email"
+            android:text="@string/aboutJakup"
+            android:textAppearance="?android:attr/textAppearanceSmall" />
 
     </RelativeLayout>
 

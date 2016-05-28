@@ -80,7 +80,6 @@
             android:textSize="@dimen/input_text_size" />
 
 
-
         <EditText
             android:id="@+id/inputDate"
             android:layout_width="match_parent"
@@ -108,22 +107,20 @@
                 android:id="@+id/scroll_icon"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@drawable/scroll_icon"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="5dp"
                 android:layout_alignParentLeft="true"
                 android:layout_centerVertical="true"
-                />
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="5dp"
+                android:background="@drawable/scroll_icon" />
 
             <Spinner
                 android:id="@+id/jobSpinner"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColorHint="@color/grey_dark"
-                android:background="@color/invisible"
-                android:layout_toRightOf="@+id/scroll_icon"
                 android:layout_alignParentRight="true"
-                />
+                android:layout_toRightOf="@+id/scroll_icon"
+                android:background="@color/invisible"
+                android:textColorHint="@color/grey_dark" />
         </RelativeLayout>
 
 
@@ -146,8 +143,7 @@
         android:padding="@dimen/btn_text_padding"
         android:text="Lägg till"
         android:textColor="@color/btn_text_color"
-        android:textSize="@dimen/btn_text_size"
-        />
+        android:textSize="@dimen/btn_text_size" />
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -156,14 +152,14 @@
 
 
         <ImageButton
+            android:id="@+id/btnBreakInfo"
             android:layout_width="35dp"
             android:layout_height="35dp"
-            android:id="@+id/btnBreakInfo"
-            android:background="@drawable/ic_report_black_24dp"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentRight="true"
             android:layout_alignParentEnd="true"
-            android:layout_marginTop="254dp" />
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="254dp"
+            android:background="@drawable/ic_report_black_24dp" />
     </RelativeLayout>
 
 </RelativeLayout>

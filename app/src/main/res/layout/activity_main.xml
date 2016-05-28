@@ -143,12 +143,12 @@
         android:layout_alignParentRight="true"
         android:layout_marginBottom="20dp"
         android:layout_marginRight="35dp"
+        android:layout_toEndOf="@+id/btnSettings"
+        android:layout_toRightOf="@+id/btnSettings"
         fab:fab_addButtonColorNormal="@color/green_soft"
         fab:fab_addButtonColorPressed="@color/half_black"
         fab:fab_addButtonPlusIconColor="@color/white"
-        fab:fab_labelStyle="@style/menu_labels_style"
-        android:layout_toRightOf="@+id/btnSettings"
-        android:layout_toEndOf="@+id/btnSettings">
+        fab:fab_labelStyle="@style/menu_labels_style">
 
         <com.getbase.floatingactionbutton.FloatingActionButton
             android:id="@+id/action_addJob"
@@ -158,8 +158,7 @@
             fab:fab_colorNormal="@color/green_soft"
             fab:fab_colorPressed="@color/white_pressed"
             fab:fab_icon="@drawable/job_icon"
-            fab:fab_title="Lägg till jobb"
-            />
+            fab:fab_title="Lägg till jobb" />
 
         <com.getbase.floatingactionbutton.FloatingActionButton
             android:id="@+id/action_addExpense"
@@ -209,10 +208,9 @@
         android:id="@+id/ivSwipe"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@drawable/swipe_icon"
         android:layout_centerInParent="true"
-        android:visibility="invisible"
-        />
+        android:background="@drawable/swipe_icon"
+        android:visibility="invisible" />
 
 </RelativeLayout>
 

@@ -29,11 +29,12 @@ public class Server extends Thread {
     private final int GETTAX = 3;
     private final int PORT = 6666;
 
+
     /**
      * Connects to database and starts a thread to start the connection
      */
 
-    public Server() {
+    private Server() {
         System.out.println("Server waiting to establish connection");
         connectDB();
         try {
@@ -59,15 +60,17 @@ public class Server extends Thread {
      */
 
     public void run() {
+
+        try {
+
         while (true) {
             Socket socket;
-            try {
                 socket = serverSocket.accept();
                 System.out.println("Sever is running.");
                 new ClientHandeler(socket).start();
-            } catch (IOException e) {
-                e.printStackTrace();
             }
+        }catch (IOException e) {
+            e.printStackTrace();
         }
     }
 
@@ -76,10 +79,15 @@ public class Server extends Thread {
      */
 
     private class ClientHandeler extends Thread {
-        private Socket socket;
+        private final Socket socket;
         private DataInputStream dis;
         private DataOutputStream dos;
         private ObjectOutputStream oos;
+
+        /**
+         * Tries to create new streams.
+         * @param socket the socket to which open a connection
+         */
 
         public ClientHandeler(Socket socket) {
             connected = true;
@@ -109,7 +117,6 @@ public class Server extends Thread {
                         case PING:
                             dos.writeInt(1);
                             dos.flush();
-                            System.out.println("Server pinged");
                             break;
 
                         case GETMUNICIPALITIES:
@@ -129,7 +136,7 @@ public class Server extends Thread {
                             dos.flush();
                             break;
                     }
-                } catch (IOException | SQLException e) {
+                } catch (IOException  e) {
                     System.out.println("[ERROR] in switch");
                     connected = false;
                 }
@@ -154,30 +161,17 @@ public class Server extends Thread {
     }
 
     /**
-     * Disconnects from database
-     * @throws SQLException if there is a problem connecting to database.
-     */
-
-    private void disconnectDB() {
-        try {
-            dbConnection.close();
-        } catch (SQLException e) {
-            System.out.println("[ERROR] Problem with disconnecting db");
-        }
-    }
-
-    /**
      * Retrives municipalities and sends them to the client.
      * @return ArrayList contaning the distinct municipalities from the database.
      * @throws SQLException if there is a problem with the db.
      */
 
-    private ArrayList<String> getMunicipality() throws SQLException {
-        ArrayList<String> names = new ArrayList<String>();;
+    private ArrayList<String> getMunicipality() {
+        ArrayList<String> names = new ArrayList<>();
         try {
             Statement s =  dbConnection.createStatement();
             ResultSet rs = s.executeQuery("select distinct Kommun from skatt16april order by Kommun");
-            names = new ArrayList<String>();
+            names = new ArrayList<>();
             while (rs.next()) {
                 names.add(rs.getString(1));
             }
@@ -216,16 +210,16 @@ public class Server extends Thread {
 
     /**
      * Retrives the average Tax from server.
-     * @param choosenKommun The municipality choosen by the user.
+     * @param choosenMunicipality The municipality choosen by the user.
      * @return float containing the average Tax from the choosen municipality.
      * @throws SQLException if there is a problem with the db.
      */
 
-    private float getTax(String choosenKommun) {
+    private float getTax(String choosenMunicipality) {
         float tax = 0f;
         try {
             Statement s = dbConnection.createStatement();
-            ResultSet rs = s.executeQuery("select AVG(SummanExkluderatKyrkan) FROM skatt16april WHERE kommun='" + choosenKommun + "';");
+            ResultSet rs = s.executeQuery("select AVG(SummanExkluderatKyrkan) FROM skatt16april WHERE kommun='" + choosenMunicipality + "';");
             int columnCount = rs.getMetaData().getColumnCount();
             while (rs.next()) {
                 for (int i=0; i <columnCount ; i++)

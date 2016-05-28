@@ -1,94 +1,89 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/setupLayout"
-    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/blueellowbg"
     android:clickable="true"
     android:gravity="center"
-    >
+    android:orientation="vertical">
 
     <TextView
         android:id="@+id/tvTitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Ett sätt att nå \n balans mellan arbete \n och studier"
-        android:textSize="@dimen/fragment_sub_title_size"
-        android:textColor="@color/white"
-        android:textAlignment="center"
         android:padding="@dimen/setup_fragment_padding"
-        />
+        android:text="@string/ett_s_tt_att_n_n_balans_mellan_arbete_n_och_studier"
+        android:textAlignment="center"
+        android:textColor="@color/white"
+        android:textSize="@dimen/fragment_sub_title_size" />
 
     <RelativeLayout
         android:id="@+id/inputLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_below="@+id/tvTitle"
         android:paddingBottom="@dimen/setup_fragment_padding"
         android:paddingLeft="@dimen/setup_fragment_padding"
-        android:paddingRight="@dimen/setup_fragment_padding"
-        android:layout_below="@+id/tvTitle">
+        android:paddingRight="@dimen/setup_fragment_padding">
 
         <EditText
             android:id="@+id/inputIncomeLimit"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/et_rounded_corners"
-            android:padding="@dimen/input_text_padding_icon"
             android:drawableLeft="@drawable/csn_icon"
             android:drawablePadding="@dimen/drawable_padding"
             android:hint="Fribelopp"
-            android:textColorHint="@color/grey_dark"
-            android:textSize="@dimen/input_text_size"
-            android:textColor="@color/black"
             android:inputType="number"
-            />
+            android:padding="@dimen/input_text_padding_icon"
+            android:textColor="@color/black"
+            android:textColorHint="@color/grey_dark"
+            android:textSize="@dimen/input_text_size" />
 
         <AutoCompleteTextView
-            style="@style/drop_down_style"
             android:id="@+id/inputMunicipality"
+            style="@style/drop_down_style"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/et_rounded_corners"
-            android:backgroundTint="@color/grey"
-            android:padding="@dimen/input_text_padding_icon"
-            android:drawableLeft="@drawable/municipality_icon"
-            android:drawablePadding="@dimen/drawable_padding"
-            android:hint="Kommun"
-            android:textSize="@dimen/input_text_size"
-            android:textColor="@color/black"
-            android:textColorHint="@color/grey_dark"
             android:layout_below="@+id/inputIncomeLimit"
             android:layout_marginTop="@dimen/input_margin"
-            android:inputType="text"
+            android:background="@drawable/et_rounded_corners"
+            android:backgroundTint="@color/grey"
+            android:drawableLeft="@drawable/municipality_icon"
+            android:drawablePadding="@dimen/drawable_padding"
             android:dropDownWidth="wrap_content"
-            />
+            android:hint="Kommun"
+            android:inputType="text"
+            android:padding="@dimen/input_text_padding_icon"
+            android:textColor="@color/black"
+            android:textColorHint="@color/grey_dark"
+            android:textSize="@dimen/input_text_size" />
 
         <CheckBox
+            android:id="@+id/churchCheckboxSetup"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Är du med i svenska kyrkan?"
-            android:id="@+id/churchCheckboxSetup"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/inputMunicipality"
             android:layout_marginTop="@dimen/input_margin"
             android:checked="false"
-            android:layout_below="@+id/inputMunicipality"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true" />
+            android:text="Är du med i svenska kyrkan?" />
 
         <Button
             android:id="@+id/btnSetup"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/churchCheckboxSetup"
+            android:layout_marginTop="@dimen/input_margin"
             android:background="@drawable/btn_rounded_corners_blueish"
             android:padding="@dimen/btn_text_padding"
             android:text="Fortsätt"
             android:textColor="@color/btn_text_color"
-            android:textSize="@dimen/btn_text_size"
-            android:layout_below="@+id/churchCheckboxSetup"
-            android:layout_marginTop="@dimen/input_margin"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true" />
+            android:textSize="@dimen/btn_text_size" />
     </RelativeLayout>
 
 </RelativeLayout>
