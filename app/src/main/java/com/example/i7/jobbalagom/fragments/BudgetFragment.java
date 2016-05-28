@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
 import com.example.i7.jobbalagom.R;
 import com.example.i7.jobbalagom.callbacks.BudgetFragmentCallback;
 
@@ -16,13 +17,12 @@ import com.example.i7.jobbalagom.callbacks.BudgetFragmentCallback;
 
 public class BudgetFragment extends Fragment {
 
-    private BudgetFragmentCallback callback;
-
 
     /**
      * Initializes fragment.
-     * @param inflater layout object that is used to show the layout of fragment.
-     * @param container the parent view this fragment is added to.
+     *
+     * @param inflater           layout object that is used to show the layout of fragment.
+     * @param container          the parent view this fragment is added to.
      * @param savedInstanceState used for saving non persistent data that get's restored if the fragment needs to be recreated.
      * @return view hierarchu associated with fragment.
      */
@@ -35,9 +35,9 @@ public class BudgetFragment extends Fragment {
 
     /**
      * Called after the onCreateView has executed makes final UI initializations.
-     * @param  view  this fragment view.
+     *
+     * @param view               this fragment view.
      * @param savedInstanceState used for saving non persistent data that get's restored if the fragment needs to be recreated.
-     * @return view hierarchu associated with fragment.
      */
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
@@ -46,18 +46,20 @@ public class BudgetFragment extends Fragment {
 
     /**
      * Initializes components.
-     * @param  v  this fragment view.
+     *
+     * @param v this fragment view.
      */
 
-    public void initComponents(View v) {
+    private void initComponents(View v) {
     }
 
     /**
      * Sets Callback
+     *
      * @param callback listener for this class.
      */
 
     public void setCallBack(BudgetFragmentCallback callback) {
-        this.callback = callback;
+        BudgetFragmentCallback callback1 = callback;
     }
 }

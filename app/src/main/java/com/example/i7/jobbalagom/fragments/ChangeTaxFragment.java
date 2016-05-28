@@ -35,8 +35,9 @@ public class ChangeTaxFragment extends Fragment {
 
     /**
      * Initializes fragment.
-     * @param inflater layout object that is used to show the layout of fragment.
-     * @param container the parent view this fragment is added to.
+     *
+     * @param inflater           layout object that is used to show the layout of fragment.
+     * @param container          the parent view this fragment is added to.
      * @param savedInstanceState used for saving non persistent data that get's restored if the fragment needs to be recreated.
      * @return view hierarchu associated with fragment.
      */
@@ -48,7 +49,8 @@ public class ChangeTaxFragment extends Fragment {
 
     /**
      * Called after the onCreateView has executed makes final UI initializations.
-     * @param  view  this fragment view.
+     *
+     * @param view               this fragment view.
      * @param savedInstanceState used for saving non persistent data that get's restored if the fragment needs to be recreated.
      * @return view hierarchu associated with fragment.
      */
@@ -63,14 +65,15 @@ public class ChangeTaxFragment extends Fragment {
 
     /**
      * Initializes components.
-     * @param  v  this fragment v.
+     *
+     * @param v this fragment v.
      */
-    private void initComponents(View v){
-        newTaxText = (TextView)v.findViewById(R.id.newTaxText);
-        oldTaxText = (TextView)v.findViewById(R.id.oldTaxText);
-        calculateTaxBtn = (Button)v.findViewById(R.id.calculateTaxBtn);
-        churchCheckbox = (CheckBox)v.findViewById(R.id.churchCheckbox);
-        controller  = Singleton.controller;
+    private void initComponents(View v) {
+        newTaxText = (TextView) v.findViewById(R.id.newTaxText);
+        oldTaxText = (TextView) v.findViewById(R.id.oldTaxText);
+        calculateTaxBtn = (Button) v.findViewById(R.id.calculateTaxBtn);
+        churchCheckbox = (CheckBox) v.findViewById(R.id.churchCheckbox);
+        controller = Singleton.controller;
         setOldTax();
     }
 
@@ -78,16 +81,15 @@ public class ChangeTaxFragment extends Fragment {
      * Listener for calculateTax button
      */
 
-    public void setupCalculateTax(){
-        calculateTaxBtn.setOnClickListener(new View.OnClickListener()  {
+    public void setupCalculateTax() {
+        calculateTaxBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 SetTaxListener callback = new SetTaxListener();
-                if(v == v.findViewById(R.id.calculateTaxBtn)){
-                    if(churchCheckbox.isChecked()) {
+                if (v == v.findViewById(R.id.calculateTaxBtn)) {
+                    if (churchCheckbox.isChecked()) {
                         controller.getChurchTax(textViewKommun.getText() + "", callback);
-                    }
-                    else {
+                    } else {
                         controller.getTax(textViewKommun.getText() + "", callback);
                     }
                 }
@@ -95,15 +97,7 @@ public class ChangeTaxFragment extends Fragment {
         });
     }
 
-    private class SetTaxListener implements UpdateTaxCallback {
-        @Override
-        public void UpdateTax(float tax) {
-            setTaxText(tax + " ");
-            controller.setTax(tax);
-        }
-    }
-
-    public void setTaxText(final String text){
+    public void setTaxText(final String text) {
         getActivity().runOnUiThread(new Runnable() {
             @Override
             public void run() {
@@ -113,34 +107,51 @@ public class ChangeTaxFragment extends Fragment {
         });
     }
 
-    public void setOldTax(){
+    public void setOldTax() {
         oldTaxText.setText(String.valueOf(controller.getTax()));
     }
 
-
     /**
      * Set Callback
+     *
      * @param callback
      */
 
-    public void setCallBack(ChangeTaxFragmentCallback callback){
+    public void setCallBack(ChangeTaxFragmentCallback callback) {
     }
 
     /**
      * Setup the textview to show municipalities.
      */
 
-    public void setupMunicipalityView(View view){
+    public void setupMunicipalityView(View view) {
         textViewKommun = (AutoCompleteTextView) view.findViewById(R.id.autoCompleteKommun);
         municipalities = controller.getMunicipalities();
-        if(municipalities != null){
-        }else{
+        if (municipalities != null) {
+        } else {
             textViewKommun.setEnabled(false);
             calculateTaxBtn.setEnabled(false);
             churchCheckbox.setEnabled(false);
         }
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(view.getContext(),android.R.layout.simple_list_item_1,municipalities);
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(view.getContext(), android.R.layout.simple_list_item_1, municipalities);
         textViewKommun.setAdapter(adapter);
+    }
+
+    /**
+     * Listener fir setting the tax rate.
+     */
+    private class SetTaxListener implements UpdateTaxCallback {
+
+        /**
+         * Updates the tax rate text view and sets the tax in teh database.
+         *
+         * @param tax the new tax rate as a float.
+         */
+        @Override
+        public void UpdateTax(float tax) {
+            setTaxText(tax + " ");
+            controller.setTax(tax);
+        }
     }
 
 }

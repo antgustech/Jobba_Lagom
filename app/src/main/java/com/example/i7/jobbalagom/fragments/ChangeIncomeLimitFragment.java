@@ -15,13 +15,12 @@ import com.example.i7.jobbalagom.callbacks.ChangeIncomeLimitFragmentCallback;
 
 /**
  * Created by Anton, Christoffer, Kajsa, Jakup and Morgan.
- * Handles the Change income limit screen.
+ * Handles the change income limit screen.
  */
 
 public class ChangeIncomeLimitFragment extends Fragment {
     private ChangeIncomeLimitFragmentCallback callback;
     private TextView currentIncomeLimitText;
-    private Button btnChangeIncomeLimit;
     private EditText newIncomeLimitField;
 
 
@@ -43,7 +42,6 @@ public class ChangeIncomeLimitFragment extends Fragment {
      * Called after the onCreateView has executed makes final UI initializations.
      * @param  view  this fragment view.
      * @param savedInstanceState used for saving non persistent data that get's restored if the fragment needs to be recreated.
-     * @return view hierarchu associated with fragment.
      */
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
@@ -53,21 +51,26 @@ public class ChangeIncomeLimitFragment extends Fragment {
 
     /**
      * Initializes components.
-     * @param  v  this fragment v.
+     * @param  v  this fragment view.
      */
 
-    public void initComponents(View v) {
+    private void initComponents(View v) {
         currentIncomeLimitText = (TextView) v.findViewById(R.id.currentIncomeLimitText);
-        btnChangeIncomeLimit = (Button) v.findViewById(R.id.btnChangeIncomeLimit);
+        Button btnChangeIncomeLimit = (Button) v.findViewById(R.id.btnChangeIncomeLimit);
         newIncomeLimitField = (EditText) v.findViewById(R.id.newIncomeLimitField);
         btnChangeIncomeLimit.setOnClickListener(new IncomeLimitListener());
     }
 
     /**
-     * Listener for chaning the incomeLimit.
+     * Listener for changing the incomeLimit.
      */
 
     private class IncomeLimitListener implements View.OnClickListener{
+
+        /**
+         * Check for valid input displays error message if it isn't Sends data via cllback to SettingsActivity.
+         * @param  v  this fragment view.
+         */
         @Override
         public void onClick(View v) {
             float newLimit = Float.parseFloat(newIncomeLimitField.getText().toString());
@@ -92,7 +95,7 @@ public class ChangeIncomeLimitFragment extends Fragment {
     }
 
     /**
-     * Sets the current income limit to the income limit retrived from the internal database.
+     * Sets the current income limit to the income limit retrieved from the internal database.
      */
 
     private void setTextEditTax(){

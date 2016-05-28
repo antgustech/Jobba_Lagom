@@ -77,7 +77,7 @@ public class AddShiftFragment extends Fragment {
         btnBreakInfo.setOnClickListener(new MessageDialogListener());
         jobTitles = controller.getJobTitles();
 
-        ArrayAdapter adapter = new ArrayAdapter<String>(getActivity(), R.layout.spinner_row, R.id.text, jobTitles);
+        ArrayAdapter adapter = new ArrayAdapter<>(getActivity(), R.layout.spinner_row, R.id.text, jobTitles);
         jobSpinner = (Spinner) v.findViewById(R.id.jobSpinner);
         jobSpinner.setAdapter(adapter);
 
