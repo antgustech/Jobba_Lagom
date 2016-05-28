@@ -2,20 +2,10 @@
     <!-- Default screen margins, per the Android Design guidelines. -->
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
-    <dimen name="layout_padding_width">50dp</dimen>
     <dimen name="layout_padding_height">30dp</dimen>
-    <dimen name="fragment_padding_width">30dp</dimen>
-    <dimen name="fragment_padding_height">20dp</dimen>
-    <dimen name="fragment_tv_text_size">20sp</dimen>
-    <dimen name="fragment_et_text_size">20sp</dimen>
-    <dimen name="title_margin">20dp</dimen>
-    <dimen name="text_margin">15dp</dimen>
     <dimen name="text_padding">10dp</dimen>
     <dimen name="icon_margin">10dp</dimen>
     <dimen name="popup_margin">50dp</dimen>
-    <dimen name="popup_padding">20dp</dimen>
-    <dimen name="tv_time_size">100dp</dimen>
-
 
 
     <dimen name="main_activity_padding">30dp</dimen>
@@ -25,7 +15,6 @@
     <dimen name="fragment_title_size">32sp</dimen>
     <dimen name="fragment_sub_title_size">28sp</dimen>
 
-    <dimen name="input_text_padding">10dp</dimen>
     <dimen name="input_text_padding_icon">5dp</dimen>
     <dimen name="input_text_size">22sp</dimen>
     <dimen name="input_text_size_popup">16sp</dimen>
@@ -33,7 +22,6 @@
 
     <dimen name="btn_text_size">25sp</dimen>
     <dimen name="btn_text_padding">10dp</dimen>
-    <dimen name="sub_text_size">17sp</dimen>
     <dimen name="drawable_padding">7dp</dimen>
 
 </resources>

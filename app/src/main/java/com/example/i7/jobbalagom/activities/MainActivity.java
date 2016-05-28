@@ -64,6 +64,7 @@ public class MainActivity extends Activity {
 
     /**
      * Initializes this activity. Sets layout an
+     *
      * @param savedInstanceState used for saving non persistent data that get's restored if the mainActivity needs to be recreated.
      */
 
@@ -91,7 +92,7 @@ public class MainActivity extends Activity {
      * Initializes the components.
      */
 
-    public void initComponents() {
+    private void initComponents() {
         floatingMenu = (FloatingActionsMenu) findViewById(R.id.floatingMenu);
         btnAddShift = (FloatingActionButton) findViewById(R.id.action_addShift);
         btnAddExpense = (FloatingActionButton) findViewById(R.id.action_addExpense);
@@ -128,7 +129,7 @@ public class MainActivity extends Activity {
      * Check if there already is an registered user.
      */
 
-    public void userCheck() {
+    private void userCheck() {
         if (!controller.isUserCreated()) {
             startLaunchFragment(true);
         } else {
@@ -150,29 +151,6 @@ public class MainActivity extends Activity {
     }
 
     /**
-     * Listener for updating the tax rate.
-     */
-
-    private class TaxUpdateListener implements UpdateTaxCallback {
-        String municipality;
-        public TaxUpdateListener(String municipality) {
-            this.municipality = municipality;
-        }
-
-        /**
-         * Implemented method checks for tax rate version.
-         * @param tax the new tax rate.
-         */
-        @Override
-        public void UpdateTax(float tax) {
-            float oldTax = controller.getTax();
-            if (tax != oldTax) {
-                controller.setTax(tax);
-            }
-        }
-    }
-
-    /**
      * If the back button is pressed, current fragment is closed.
      */
 
@@ -190,7 +168,7 @@ public class MainActivity extends Activity {
      * Load and update all three progressbars.
      */
 
-    public void loadProgressBars() {
+    private void loadProgressBars() {
         monthlyIncomeLimit = controller.getIncomeLimit() / 6;
         csnIncomeLimit = controller.getIncomeLimit();
         pbMaxProgress = 100;
@@ -204,7 +182,7 @@ public class MainActivity extends Activity {
      * Updates CSN progress bar
      */
 
-    public void updatePBcsn(float halfYearIncome) {
+    private void updatePBcsn(float halfYearIncome) {
         int totalProgress = (int) (halfYearIncome / csnIncomeLimit * 100);
         pbCSN.setProgress(totalProgress);
         float left = csnIncomeLimit - halfYearIncome;
@@ -219,7 +197,7 @@ public class MainActivity extends Activity {
      * Updates income progress bar
      */
 
-    public void updatePBincome(float thisMonthsIncome) {
+    private void updatePBincome(float thisMonthsIncome) {
         int totalProgress = (int) (thisMonthsIncome / monthlyIncomeLimit * 100);
         expandProgressBar(pbIncome, totalProgress);
     }
@@ -228,18 +206,19 @@ public class MainActivity extends Activity {
      * Updates the expense progress bar
      */
 
-    public void updatePBexpense(float thisMonthsExpenses) {
+    private void updatePBexpense(float thisMonthsExpenses) {
         int totalProgress = (int) (thisMonthsExpenses / monthlyIncomeLimit * 100);
         expandProgressBar(pbExpense, totalProgress);
     }
 
     /**
      * Increases the max limit of the progressbars when higher sums are used.
-     * @param pb the progressbar to expand.
+     *
+     * @param pb            the progressbar to expand.
      * @param totalProgress the current progressbars max value.
      */
 
-    public void expandProgressBar(ProgressBar pb, int totalProgress) {
+    private void expandProgressBar(ProgressBar pb, int totalProgress) {
 
         if (totalProgress > pbMaxProgress) {
             pbMaxProgress = totalProgress;
@@ -261,7 +240,7 @@ public class MainActivity extends Activity {
      * Shows the swipe image when pressing arrow buttons.
      */
 
-    public void showSwipeHint() {
+    private void showSwipeHint() {
         Animation fadeInAnimation = AnimationUtils.loadAnimation(this, R.anim.fade_fast);
         ivSwipe.startAnimation(fadeInAnimation);
         ivSwipe.setVisibility(View.INVISIBLE);
@@ -279,6 +258,7 @@ public class MainActivity extends Activity {
 
     /**
      * Adds a fragment on top of the stack of fragments
+     *
      * @param fragment the fragment to add.
      */
 
@@ -290,7 +270,8 @@ public class MainActivity extends Activity {
 
     /**
      * Removes fragments from the view.
-     *@param  fragment to remove.
+     *
+     * @param fragment to remove.
      */
 
     private void removeFragment(Fragment fragment) {
@@ -304,7 +285,7 @@ public class MainActivity extends Activity {
      * Launches AddExpenseFragment.
      */
 
-    public void startAddExpenseFragment() {
+    private void startAddExpenseFragment() {
         currentFragment = new AddExpenseFragment();
         ((AddExpenseFragment) currentFragment).setCallBack(new AddExpenseListener());
         changeFragment(currentFragment);
@@ -314,7 +295,7 @@ public class MainActivity extends Activity {
      * Launches AddJobFragment.
      */
 
-    public void startAddJobFragment() {
+    private void startAddJobFragment() {
         currentFragment = new AddJobFragment();
         ((AddJobFragment) currentFragment).setCallBack(new AddJobFragmentListener());
         changeFragment(currentFragment);
@@ -324,7 +305,7 @@ public class MainActivity extends Activity {
      * Launches SetupFragment.
      */
 
-    public void startSetupFragment() {
+    private void startSetupFragment() {
         currentFragment = new SetupFragment();
         ((SetupFragment) currentFragment).setCallBack(new SetupFragmentListener());
         changeFragment(currentFragment);
@@ -332,10 +313,11 @@ public class MainActivity extends Activity {
 
     /**
      * Launches LaunchFragment.
+     *
      * @param firstTime boolean that checks if this is a first time launch.
      */
 
-    public void startLaunchFragment(boolean firstTime) {
+    private void startLaunchFragment(boolean firstTime) {
         currentFragment = new LaunchFragment();
         ((LaunchFragment) currentFragment).setCallBack(new LaunchFragmentListener());
         changeFragment(currentFragment);
@@ -357,7 +339,7 @@ public class MainActivity extends Activity {
      * Launches AddShiftFragment.
      */
 
-    public void startAddShiftFragment() {
+    private void startAddShiftFragment() {
         currentFragment = new AddShiftFragment();
         ((AddShiftFragment) currentFragment).setCallBack(new AddShiftFragmentListener());
         changeFragment(currentFragment);
@@ -378,9 +360,34 @@ public class MainActivity extends Activity {
      * Launches InfoFragment.
      */
 
-    public void startInfoFragment() {
+    private void startInfoFragment() {
         currentFragment = new InfoFragment();
         changeFragment(currentFragment);
+    }
+
+    /**
+     * Listener for updating the tax rate.
+     */
+
+    private class TaxUpdateListener implements UpdateTaxCallback {
+        final String municipality;
+
+        public TaxUpdateListener(String municipality) {
+            this.municipality = municipality;
+        }
+
+        /**
+         * Implemented method checks for tax rate version.
+         *
+         * @param tax the new tax rate.
+         */
+        @Override
+        public void UpdateTax(float tax) {
+            float oldTax = controller.getTax();
+            if (tax != oldTax) {
+                controller.setTax(tax);
+            }
+        }
     }
 
     /**
@@ -401,11 +408,11 @@ public class MainActivity extends Activity {
                 startActivity(new Intent(getApplicationContext(), SettingsActivity.class));
             } else if (v.getId() == R.id.tvBalance) {
                 showSwipeHint();
-            } else if(v.getId() == R.id.tvDate) {
+            } else if (v.getId() == R.id.tvDate) {
                 showSwipeHint();
-            } else if(v.getId() == R.id.left_icon) {
+            } else if (v.getId() == R.id.left_icon) {
                 showSwipeHint();
-            } else if(v.getId() == R.id.right_icon) {
+            } else if (v.getId() == R.id.right_icon) {
                 showSwipeHint();
             }
         }
@@ -419,6 +426,7 @@ public class MainActivity extends Activity {
 
         /**
          * Checks which fragment to start.
+         *
          * @param choice the pressed button.
          */
 
@@ -432,6 +440,7 @@ public class MainActivity extends Activity {
 
         /**
          * Checks if the app has connection to server or not.
+         *
          * @return true if there is a connection.
          */
         @Override
@@ -452,9 +461,10 @@ public class MainActivity extends Activity {
 
         /**
          * Adds a new user to the database in the initial fragment.
+         *
          * @param municipality choosen municipality.
-         * @param incomeLimit choosen incomeLimit.
-         * @param church returns true if in the swedish church.
+         * @param incomeLimit  choosen incomeLimit.
+         * @param church       returns true if in the swedish church.
          */
 
         public void addUser(String municipality, float incomeLimit, boolean church) {
@@ -477,8 +487,9 @@ public class MainActivity extends Activity {
 
         /**
          * Adds a new job to the database.
+         *
          * @param title name of the job.
-         * @param wage the hourly wage of the job.
+         * @param wage  the hourly wage of the job.
          */
 
         public void addJob(String title, Float wage) {
@@ -488,11 +499,12 @@ public class MainActivity extends Activity {
 
         /**
          * Adds a new obRate for the addedJob.
-         * @param jobTitle the name of the job.
-         * @param day the day the ob rate is valid.
+         *
+         * @param jobTitle  the name of the job.
+         * @param day       the day the ob rate is valid.
          * @param startTime the time the ob rate starts.
-         * @param endTime the time the ob rate ends.
-         * @param obIndex the actual ob rate.
+         * @param endTime   the time the ob rate ends.
+         * @param obIndex   the actual ob rate.
          */
 
         public void addOB(String jobTitle, String day, String startTime, String endTime, float obIndex) {
@@ -508,13 +520,14 @@ public class MainActivity extends Activity {
 
         /**
          * Adds a new shift to the database.
-         * @param jobTitle name of the job.
-         * @param startTime the time the shift starts.
-         * @param endTime the time the shift ends.
-         * @param hoursWorked endTime-startTime.
-         * @param year the year the shift was done.
-         * @param month the month the shift was done.
-         * @param day the day the shift was done.
+         *
+         * @param jobTitle     name of the job.
+         * @param startTime    the time the shift starts.
+         * @param endTime      the time the shift ends.
+         * @param hoursWorked  endTime-startTime.
+         * @param year         the year the shift was done.
+         * @param month        the month the shift was done.
+         * @param day          the day the shift was done.
          * @param breakMinutes the break in minutes that the user had during the shift.
          */
 
@@ -532,11 +545,12 @@ public class MainActivity extends Activity {
 
         /**
          * Adds an expense to the database.
-         * @param title name of the expense.
+         *
+         * @param title  name of the expense.
          * @param amount sum of the expense.
-         * @param year the year the expense was done.
-         * @param month the month the expense was done.
-         * @param day the day the expense was done.
+         * @param year   the year the expense was done.
+         * @param month  the month the expense was done.
+         * @param day    the day the expense was done.
          */
 
         public void addExpense(String title, float amount, int year, int month, int day) {
@@ -561,8 +575,9 @@ public class MainActivity extends Activity {
         private final GestureDetector gestureDetector;
 
         /**
-         *Creates a new GestureDetector in the given context.
-         * @param ctx
+         * Creates a new GestureDetector in the given context.
+         *
+         * @param ctx the current context.
          */
 
         public OnSwipeTouchListener(Context ctx) {
@@ -572,7 +587,8 @@ public class MainActivity extends Activity {
 
         /**
          * Listener for event.
-         * @param v the view the even occurred in.
+         *
+         * @param v     the view the even occurred in.
          * @param event the kind of event.
          * @return true if a touchevent happend.
          */
@@ -580,66 +596,6 @@ public class MainActivity extends Activity {
         @Override
         public boolean onTouch(View v, MotionEvent event) {
             return gestureDetector.onTouchEvent(event);
-        }
-
-        /**
-         * Listener for swipe motions on the main graph view.
-         */
-
-        private final class GestureListener extends GestureDetector.SimpleOnGestureListener {
-
-            private static final int SWIPE_THRESHOLD = 100;
-            private static final int SWIPE_VELOCITY_THRESHOLD = 100;
-
-            /**
-             * If you swipe down, nothing happends.
-             * @param e where the swipe ocurred.
-             * @return true if there was a swipe going downwards.
-             */
-
-            @Override
-            public boolean onDown(MotionEvent e) {
-                return true;
-            }
-
-            /**
-             * Checks if the swipe is valid and which direction it happend.
-             * @param e1 where the swipe started.
-             * @param e2 where the swipe ended.
-             * @param velocityX the speed of the swipe motion on the x axis.
-             * @param velocityY the speed of the swipe motion on the y axis.
-             * @return true of the swipe was valid.
-             */
-
-            @Override
-            public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
-                boolean result = false;
-                try {
-                    float diffY = e2.getY() - e1.getY();
-                    float diffX = e2.getX() - e1.getX();
-                    if (Math.abs(diffX) > Math.abs(diffY)) {
-                        if (Math.abs(diffX) > SWIPE_THRESHOLD && Math.abs(velocityX) > SWIPE_VELOCITY_THRESHOLD) {
-                            if (diffX > 0) {
-                                onSwipeRight();
-                            } else {
-                                onSwipeLeft();
-                            }
-                        }
-                        result = true;
-                    } else if (Math.abs(diffY) > SWIPE_THRESHOLD && Math.abs(velocityY) > SWIPE_VELOCITY_THRESHOLD) {
-                        if (diffY > 0) {
-                            onSwipeBottom();
-                        } else {
-                            onSwipeTop();
-                        }
-                    }
-                    result = true;
-
-                } catch (Exception exception) {
-                    exception.printStackTrace();
-                }
-                return result;
-            }
         }
 
         /**
@@ -682,6 +638,68 @@ public class MainActivity extends Activity {
          */
 
         public void onSwipeBottom() {
+        }
+
+        /**
+         * Listener for swipe motions on the main graph view.
+         */
+
+        private final class GestureListener extends GestureDetector.SimpleOnGestureListener {
+
+            private static final int SWIPE_THRESHOLD = 100;
+            private static final int SWIPE_VELOCITY_THRESHOLD = 100;
+
+            /**
+             * If you swipe down, nothing happends.
+             *
+             * @param e where the swipe ocurred.
+             * @return true if there was a swipe going downwards.
+             */
+
+            @Override
+            public boolean onDown(MotionEvent e) {
+                return true;
+            }
+
+            /**
+             * Checks if the swipe is valid and which direction it happend.
+             *
+             * @param e1        where the swipe started.
+             * @param e2        where the swipe ended.
+             * @param velocityX the speed of the swipe motion on the x axis.
+             * @param velocityY the speed of the swipe motion on the y axis.
+             * @return true of the swipe was valid.
+             */
+
+            @Override
+            public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
+                boolean result = false;
+                try {
+                    float diffY = e2.getY() - e1.getY();
+                    float diffX = e2.getX() - e1.getX();
+                    if (Math.abs(diffX) > Math.abs(diffY)) {
+                        if (Math.abs(diffX) > SWIPE_THRESHOLD && Math.abs(velocityX) > SWIPE_VELOCITY_THRESHOLD) {
+                            if (diffX > 0) {
+                                onSwipeRight();
+                            } else {
+                                onSwipeLeft();
+                            }
+                        }
+                        result = true;
+                    } else if (Math.abs(diffY) > SWIPE_THRESHOLD && Math.abs(velocityY) > SWIPE_VELOCITY_THRESHOLD) {
+                        if (diffY > 0) {
+                            onSwipeBottom();
+                        } else {
+                            onSwipeTop();
+                        }
+                    }
+                    result = true;
+
+                } catch (Exception exception) {
+                    exception.printStackTrace();
+                }
+                return result;
+            }
         }
     }
 }
