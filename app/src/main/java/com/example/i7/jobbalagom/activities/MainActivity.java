@@ -63,7 +63,7 @@ public class MainActivity extends Activity {
     private int pbMaxProgress, selectedMonth, selectedYear;
 
     /**
-     * Initializes this activity. Sets layout an
+     * Initializes this activity. Sets layout.
      *
      * @param savedInstanceState used for saving non persistent data that get's restored if the mainActivity needs to be recreated.
      */
@@ -248,6 +248,8 @@ public class MainActivity extends Activity {
 
     /**
      * Replaces fragments on the view.
+     *
+     * @param  fragment the new fragment to change to.
      */
 
     private void changeFragment(Fragment fragment) {
