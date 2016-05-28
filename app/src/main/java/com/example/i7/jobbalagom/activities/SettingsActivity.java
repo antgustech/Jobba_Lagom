@@ -31,11 +31,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 public class SettingsActivity extends Activity {
-    private ArrayList<String> list;
-    private ArrayAdapter<String> adapter;
     private ListView myList;
     private Fragment currentFragment;
-    private FragmentTransaction fragmentTransaction;
     private FragmentManager fragmentManager;
     private Controller controller;
 
@@ -59,9 +56,9 @@ public class SettingsActivity extends Activity {
     private void initComponents() {
         myList = (ListView) findViewById(R.id.settingListView);
         String[] values = new String[]{"Ändra skattesats", "Ändra fribelopp", "Ta bort jobb", "Om"};
-        list = new ArrayList<>();
+        ArrayList<String> list = new ArrayList<>();
         Collections.addAll(list, values);
-        adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, values);
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, values);
         myList.setAdapter(adapter);
         myList.setOnItemClickListener(new ListListener());
         controller = Singleton.controller;
@@ -86,7 +83,7 @@ public class SettingsActivity extends Activity {
      */
 
     private void changeFragment(Fragment fragment) {
-        fragmentTransaction = fragmentManager.beginTransaction();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.replace(android.R.id.content, fragment);
         fragmentTransaction.commit();
     }

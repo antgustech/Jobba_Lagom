@@ -24,11 +24,27 @@ public class ChangeIncomeLimitFragment extends Fragment {
     private Button btnChangeIncomeLimit;
     private EditText newIncomeLimitField;
 
+
+    /**
+     * Initializes fragment.
+     * @param inflater layout object that is used to show the layout of fragment.
+     * @param container the parent view this fragment is added to.
+     * @param savedInstanceState used for saving non persistent data that get's restored if the fragment needs to be recreated.
+     * @return view hierarchu associated with fragment.
+     */
+
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         return inflater.inflate(R.layout.fragment_income_limit, container, false);
     }
 
+
+    /**
+     * Called after the onCreateView has executed makes final UI initializations.
+     * @param  view  this fragment view.
+     * @param savedInstanceState used for saving non persistent data that get's restored if the fragment needs to be recreated.
+     * @return view hierarchu associated with fragment.
+     */
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         initComponents(view);
@@ -37,13 +53,13 @@ public class ChangeIncomeLimitFragment extends Fragment {
 
     /**
      * Initializes components.
-     * @param view the view that this class has.
+     * @param  v  this fragment v.
      */
 
-    public void initComponents(View view) {
-        currentIncomeLimitText = (TextView) view.findViewById(R.id.currentIncomeLimitText);
-        btnChangeIncomeLimit = (Button) view.findViewById(R.id.btnChangeIncomeLimit);
-        newIncomeLimitField = (EditText) view.findViewById(R.id.newIncomeLimitField);
+    public void initComponents(View v) {
+        currentIncomeLimitText = (TextView) v.findViewById(R.id.currentIncomeLimitText);
+        btnChangeIncomeLimit = (Button) v.findViewById(R.id.btnChangeIncomeLimit);
+        newIncomeLimitField = (EditText) v.findViewById(R.id.newIncomeLimitField);
         btnChangeIncomeLimit.setOnClickListener(new IncomeLimitListener());
     }
 

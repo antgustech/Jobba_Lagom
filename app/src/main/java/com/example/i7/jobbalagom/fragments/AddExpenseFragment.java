@@ -21,15 +21,14 @@ public class AddExpenseFragment extends Fragment {
     private EditText inputTitle;
     private EditText inputExpense;
     private EditText inputDate;
-    private Button btnAddExpense;
     private AddExpenseFragmentCallback callback;
 
     /**
-     *
-     * @param inflater
-     * @param container
-     * @param savedInstanceState
-     * @return
+     * Initializes fragment.
+     * @param inflater layout object that is used to show the layout of fragment.
+     * @param container the parent view this fragment is added to.
+     * @param savedInstanceState used for saving non persistent data that get's restored if the fragment needs to be recreated.
+     * @return view hierarchu associated with fragment.
      */
 
     @Override
@@ -38,6 +37,12 @@ public class AddExpenseFragment extends Fragment {
 
     }
 
+    /**
+     * Called after the onCreateView has executed makes final UI initializations.
+     * @param  view  this fragment view.
+     * @param savedInstanceState used for saving non persistent data that get's restored if the fragment needs to be recreated.
+     */
+
     public void onViewCreated(View view, Bundle savedInstanceState) {
         initComponents(view);
         super.onViewCreated(view, savedInstanceState);
@@ -45,14 +50,14 @@ public class AddExpenseFragment extends Fragment {
 
     /**
      * Initializes components.
-     * @param v the view this class has.
+     * @param  v  this fragment view.
      */
 
     private void initComponents(View v){
         inputTitle = (EditText) v.findViewById(R.id.inputTitle);
         inputExpense = (EditText) v.findViewById(R.id.inputExpense);
         inputDate = (EditText) v.findViewById(R.id.inputDate);
-        btnAddExpense = (Button) v.findViewById(R.id.btnAddExpense);
+        Button btnAddExpense = (Button) v.findViewById(R.id.btnAddExpense);
         btnAddExpense.setOnClickListener(new ButtonListener());
     }
 
@@ -66,10 +71,15 @@ public class AddExpenseFragment extends Fragment {
     }
 
     /**
-     * Listens for button clicks, and check for valid input.
+     * Listener for buttons.
      */
 
     private class ButtonListener implements View.OnClickListener {
+
+        /**
+         * Checks for valid input and displays error messages if it's not.
+         * @param  v  this fragment view.
+         */
         @Override
         public void onClick(View v) {
             CharSequence emptyInputMsg = null;
@@ -116,7 +126,7 @@ public class AddExpenseFragment extends Fragment {
      * Clears all inputfields.
      */
 
-    public void clearAll(){
+    private void clearAll(){
         inputTitle.setText("");
         inputExpense.setText("");
         inputDate.setText("");

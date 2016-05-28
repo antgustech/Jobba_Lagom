@@ -53,12 +53,9 @@ public class MainActivity extends Activity {
     private FragmentTransaction fragmentTransaction;
     private FragmentManager fragmentManager;
     private FloatingActionsMenu floatingMenu;
-    private FloatingActionButton btnAddShift, btnAddExpense, btnAddJob;
-    private ImageButton btnSettings;
     private ImageView ivSwipe;
     private TextView tvCSN, tvIncome, tvExpense, tvBalance, tvDate;
     private ProgressBar pbCSN, pbIncome, pbExpense;
-    private ImageView leftIcon, rightIcon;
     private float monthlyIncomeLimit, csnIncomeLimit;
     private int pbMaxProgress, selectedMonth, selectedYear;
 
@@ -94,10 +91,10 @@ public class MainActivity extends Activity {
 
     private void initComponents() {
         floatingMenu = (FloatingActionsMenu) findViewById(R.id.floatingMenu);
-        btnAddShift = (FloatingActionButton) findViewById(R.id.action_addShift);
-        btnAddExpense = (FloatingActionButton) findViewById(R.id.action_addExpense);
-        btnAddJob = (FloatingActionButton) findViewById(R.id.action_addJob);
-        btnSettings = (ImageButton) findViewById(R.id.btnSettings);
+        FloatingActionButton btnAddShift = (FloatingActionButton) findViewById(R.id.action_addShift);
+        FloatingActionButton btnAddExpense = (FloatingActionButton) findViewById(R.id.action_addExpense);
+        FloatingActionButton btnAddJob = (FloatingActionButton) findViewById(R.id.action_addJob);
+        ImageButton btnSettings = (ImageButton) findViewById(R.id.btnSettings);
         tvCSN = (TextView) findViewById(R.id.tvCSN);
         tvIncome = (TextView) findViewById(R.id.tvIncome);
         tvExpense = (TextView) findViewById(R.id.tvExpense);
@@ -107,8 +104,8 @@ public class MainActivity extends Activity {
         pbCSN = (ProgressBar) findViewById(R.id.pbCSN);
         pbIncome = (ProgressBar) findViewById(R.id.pbIncome);
         pbExpense = (ProgressBar) findViewById(R.id.pbExpenses);
-        leftIcon = (ImageView) findViewById(R.id.left_icon);
-        rightIcon = (ImageView) findViewById(R.id.right_icon);
+        ImageView leftIcon = (ImageView) findViewById(R.id.left_icon);
+        ImageView rightIcon = (ImageView) findViewById(R.id.right_icon);
         ButtonListener btnListener = new ButtonListener();
         btnSettings.setOnClickListener(btnListener);
         btnAddShift.setOnClickListener(btnListener);

@@ -24,19 +24,33 @@ import java.util.LinkedList;
 
 public class AddJobFragment extends Fragment {
     private AddJobFragmentCallback callback;
-    private Button inputCreateOB, btnAddJob;
     private RelativeLayout obLayout;
     private EditText inputFromTime, inputToTime, inputOB, inputTitle, inputWage;
-    private RadioButton rbWorkday, rbSaturday, rbSunday, rbPercent, rbKronor;
+    private RadioButton rbWorkday, rbSaturday, rbSunday;
     private RadioGroup rgDay, rgType;
-    private Button btnAddOB, btnExit;
     private LinkedList<String> obRates;
 
+
+    /**
+     * Initializes fragment.
+     *
+     * @param inflater           layout object that is used to show the layout of fragment.
+     * @param container          the parent view this fragment is added to.
+     * @param savedInstanceState used for saving non persistent data that get's restored if the fragment needs to be recreated.
+     * @return view hierarchu associated with fragment.
+     */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_addjob, container, false);
     }
 
+
+    /**
+     * Called after the onCreateView has executed makes final UI initializations.
+     *
+     * @param view               this fragment view.
+     * @param savedInstanceState used for saving non persistent data that get's restored if the fragment needs to be recreated.
+     */
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         initComponents(view);
@@ -44,30 +58,29 @@ public class AddJobFragment extends Fragment {
 
     /**
      * Initialzes componenets.
-     * @param view the view this class has.
+     *
+     * @param v this fragment v.
      */
 
-    public void initComponents(View view) {
+    public void initComponents(View v) {
 
 
-        obLayout = (RelativeLayout) view.findViewById(R.id.obLayout);
-        inputTitle = (EditText) view.findViewById(R.id.inputTitle);
-        inputWage = (EditText) view.findViewById(R.id.inputWage);
-        btnAddJob = (Button) view.findViewById(R.id.btnAddShift);
-        inputFromTime = (EditText) view.findViewById(R.id.inputFromTime);
-        inputToTime = (EditText) view.findViewById(R.id.inputToTime);
-        inputOB = (EditText) view.findViewById(R.id.inputOB);
-        rbWorkday = (RadioButton) view.findViewById(R.id.rbWorkday);
-        rbSaturday = (RadioButton) view.findViewById(R.id.rbSaturday);
-        rbSunday = (RadioButton) view.findViewById(R.id.rbSunday);
-        rbPercent = (RadioButton) view.findViewById(R.id.rbPercent);
-        rbKronor = (RadioButton) view.findViewById(R.id.rbKronor);
-        rgDay = (RadioGroup) view.findViewById(R.id.rgDay);
-        rgType = (RadioGroup) view.findViewById(R.id.rgType);
-        inputCreateOB = (Button) view.findViewById(R.id.btnCreateOB);
-        btnAddOB = (Button) view.findViewById(R.id.btnAddOB);
-        btnExit = (Button) view.findViewById(R.id.btnExit);
-        obRates = new LinkedList<String>();
+        obLayout = (RelativeLayout) v.findViewById(R.id.obLayout);
+        inputTitle = (EditText) v.findViewById(R.id.inputTitle);
+        inputWage = (EditText) v.findViewById(R.id.inputWage);
+        Button btnAddJob = (Button) v.findViewById(R.id.btnAddShift);
+        inputFromTime = (EditText) v.findViewById(R.id.inputFromTime);
+        inputToTime = (EditText) v.findViewById(R.id.inputToTime);
+        inputOB = (EditText) v.findViewById(R.id.inputOB);
+        rbWorkday = (RadioButton) v.findViewById(R.id.rbWorkday);
+        rbSaturday = (RadioButton) v.findViewById(R.id.rbSaturday);
+        rbSunday = (RadioButton) v.findViewById(R.id.rbSunday);
+        rgDay = (RadioGroup) v.findViewById(R.id.rgDay);
+        rgType = (RadioGroup) v.findViewById(R.id.rgType);
+        Button inputCreateOB = (Button) v.findViewById(R.id.btnCreateOB);
+        Button btnAddOB = (Button) v.findViewById(R.id.btnAddOB);
+        Button btnExit = (Button) v.findViewById(R.id.btnExit);
+        obRates = new LinkedList<>();
         obLayout.setVisibility(View.INVISIBLE);
         inputCreateOB.setOnClickListener(new BtnCreateOBListener());
         btnExit.setOnClickListener(new ReturnListener());
@@ -77,10 +90,11 @@ public class AddJobFragment extends Fragment {
 
     /**
      * Sets callback for this class
+     *
      * @param callback a new AddJobFragmentListener.
      */
 
-    public void setCallBack(AddJobFragmentCallback callback){
+    public void setCallBack(AddJobFragmentCallback callback) {
         this.callback = callback;
     }
 
@@ -119,9 +133,11 @@ public class AddJobFragment extends Fragment {
      * Adds buttonlistener for the ob buttons and also checks if input is valid.
      */
 
+    @SuppressWarnings("deprecation")
     private class BtnAddOBListener implements View.OnClickListener {
         String emptyInputMsg;
         String invalidInputMsg;
+
         public void onClick(View v) {
 
             emptyInputMsg = "Vänta lite, du glömde fylla i";
@@ -136,40 +152,40 @@ public class AddJobFragment extends Fragment {
                 addError("OB");
             }
             emptyInputMsg = emptyInputMsg + ".";
-            if(!emptyInputMsg.equals("Vänta lite, du glömde fylla i.")) {
+            if (!emptyInputMsg.equals("Vänta lite, du glömde fylla i.")) {
                 Toast.makeText(getActivity(), emptyInputMsg, Toast.LENGTH_LONG).show();
                 return;
             }
             String fromTime = inputFromTime.getText().toString();
             String toTime = inputToTime.getText().toString();
 
-            if(fromTime.length() != 5 || toTime.length() != 5) {
+            if (fromTime.length() != 5 || toTime.length() != 5) {
                 invalidInputMsg = "Vänligen ange tid i formatet HH:MM";
                 Toast.makeText(getActivity(), invalidInputMsg, Toast.LENGTH_LONG).show();
                 return;
             }
-            if(fromTime.charAt(2) != ':' || toTime.charAt(2) != ':') {
+            if (fromTime.charAt(2) != ':' || toTime.charAt(2) != ':') {
                 invalidInputMsg = "Vänligen ange tid i formatet HH:MM.";
                 Toast.makeText(getActivity(), invalidInputMsg, Toast.LENGTH_LONG).show();
                 return;
             }
-            if(fromTime.equals(toTime)) {
+            if (fromTime.equals(toTime)) {
                 invalidInputMsg = "De angivna tiderna stämmer inte.";
                 Toast.makeText(getActivity(), invalidInputMsg, Toast.LENGTH_LONG).show();
                 return;
             }
 
-            int fromTimeHour = Integer.parseInt(fromTime.substring(0,2));
+            int fromTimeHour = Integer.parseInt(fromTime.substring(0, 2));
             int fromTimeMin = Integer.parseInt(fromTime.substring(3));
-            int toTimeHour = Integer.parseInt(toTime.substring(0,2));
+            int toTimeHour = Integer.parseInt(toTime.substring(0, 2));
             int toTimeMin = Integer.parseInt(toTime.substring(3));
 
-            if(fromTimeHour > 24 || fromTimeMin > 59 || toTimeHour > 24 || toTimeMin > 59) {
+            if (fromTimeHour > 24 || fromTimeMin > 59 || toTimeHour > 24 || toTimeMin > 59) {
                 invalidInputMsg = "Tiden som angetts är inte en giltig tid.";
                 Toast.makeText(getActivity(), invalidInputMsg, Toast.LENGTH_LONG).show();
                 return;
             }
-            if(fromTimeHour > toTimeHour || (fromTimeHour == toTimeHour && fromTimeMin > toTimeMin)) {
+            if (fromTimeHour > toTimeHour || (fromTimeHour == toTimeHour && fromTimeMin > toTimeMin)) {
                 invalidInputMsg = "De angivna tiderna stämmer inte.";
                 Toast.makeText(getActivity(), invalidInputMsg, Toast.LENGTH_LONG).show();
                 return;
@@ -189,13 +205,13 @@ public class AddJobFragment extends Fragment {
             hideOBLayout();
             Toast.makeText(getActivity(), "OB har registrerats: " + ob + " " + type + " tillägg, " + day + ", från " + fromTime
                     + " till " + toTime, Toast.LENGTH_LONG).show();
-            if(day.equals("Vardag")) {
+            if (day.equals("Vardag")) {
                 rbWorkday.setEnabled(false);
                 rbWorkday.setTextColor(getResources().getColor(R.color.grey));
             } else if (day.equals("Lördag")) {
                 rbSaturday.setEnabled(false);
                 rbWorkday.setTextColor(getResources().getColor(R.color.grey));
-            }else if(day.equals("Söndag")) {
+            } else if (day.equals("Söndag")) {
                 rbSunday.setEnabled(false);
                 rbWorkday.setTextColor(getResources().getColor(R.color.grey));
             }
@@ -203,11 +219,12 @@ public class AddJobFragment extends Fragment {
 
         /**
          * Sets the error message.
+         *
          * @param error the string containing the error message.
          */
 
         public void addError(String error) {
-            if(emptyInputMsg.charAt(emptyInputMsg.length()-1) == 'i') {
+            if (emptyInputMsg.charAt(emptyInputMsg.length() - 1) == 'i') {
                 emptyInputMsg = emptyInputMsg + " " + error;
             } else {
                 emptyInputMsg = emptyInputMsg + ", " + error;
@@ -216,10 +233,15 @@ public class AddJobFragment extends Fragment {
     }
 
     /**
-     * Displays a gui where the user can provide information about the OB of the new job
+     * Listener for adding ob.
      */
 
     private class BtnCreateOBListener implements View.OnClickListener {
+        /**
+         * Show OB layout if clicked.
+         *
+         * @param v this fragment v.
+         */
         @Override
         public void onClick(View v) {
             showOBLayout();
@@ -227,10 +249,15 @@ public class AddJobFragment extends Fragment {
     }
 
     /**
-     * Enables the user to press outside of the OB layout box to return to the main AddJobFragment
+     * Listener for abortiing adding ob.
      */
 
     private class ReturnListener implements View.OnClickListener {
+        /**
+         * If the user clicks x button, hide ob layout.
+         *
+         * @param v this fragment v.
+         */
         @Override
         public void onClick(View v) {
             hideOBLayout();
@@ -238,16 +265,22 @@ public class AddJobFragment extends Fragment {
     }
 
     /**
-     * Gathers input information and sends to MainActivity via callback
+     * listener for the add job button.
      */
 
     private class BtnAddJobListener implements View.OnClickListener {
+
+        /**
+         * Checks for valid input and displays errors messages if it's not. Then sends data via callback to MainActivity.
+         *
+         * @param v this fragment v.
+         */
         @Override
         public void onClick(View v) {
             CharSequence emptyInputMsg = null;
             String jobTitle = inputTitle.getText().toString();
             String wage = inputWage.getText().toString();
-            if(jobTitle.equals("")) {
+            if (jobTitle.equals("")) {
                 emptyInputMsg = "Vänta lite, du glömde fylla i jobbtitel.";
             }
             if (wage.equals("")) {
@@ -257,12 +290,12 @@ public class AddJobFragment extends Fragment {
                 emptyInputMsg = "Vänta lite, du glömde fylla i jobbtitel och timlön.";
             }
 
-            if(emptyInputMsg != null) {
+            if (emptyInputMsg != null) {
                 Toast.makeText(getActivity(), emptyInputMsg, Toast.LENGTH_LONG).show();
                 return;
             }
             callback.addJob(jobTitle, Float.parseFloat(wage));
-            for(String obRate : obRates) {
+            for (String obRate : obRates) {
                 String[] parts = obRate.split(",");
                 String day = parts[0];
                 String fromTime = parts[1];
@@ -271,10 +304,10 @@ public class AddJobFragment extends Fragment {
                 String type = parts[4];
                 float obIndex = 0;
 
-                if(type.equals("Kronor")) {
-                    obIndex = 1 + Float.parseFloat(ob)/Float.parseFloat(wage);
-                } else if(type.equals("Procent")) {
-                    obIndex = 1 + Float.parseFloat(ob)/100;
+                if (type.equals("Kronor")) {
+                    obIndex = 1 + Float.parseFloat(ob) / Float.parseFloat(wage);
+                } else if (type.equals("Procent")) {
+                    obIndex = 1 + Float.parseFloat(ob) / 100;
                 }
                 callback.addOB(jobTitle, day, fromTime, toTime, obIndex);
             }

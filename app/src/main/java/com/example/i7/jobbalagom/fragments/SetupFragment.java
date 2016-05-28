@@ -39,10 +39,25 @@ public class SetupFragment extends Fragment {
     private SetupFragmentCallback callback;
     private ArrayList<String> municipalities;
 
+
+    /**
+     * Initializes fragment.
+     * @param inflater layout object that is used to show the layout of fragment.
+     * @param container the parent view this fragment is added to.
+     * @param savedInstanceState used for saving non persistent data that get's restored if the fragment needs to be recreated.
+     * @return view hierarchu associated with fragment.
+     */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_setup, container, false);
     }
+
+    /**
+     * Called after the onCreateView has executed makes final UI initializations.
+     * @param  view  this fragment view.
+     * @param savedInstanceState used for saving non persistent data that get's restored if the fragment needs to be recreated.
+     * @return view hierarchu associated with fragment.
+     */
 
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);

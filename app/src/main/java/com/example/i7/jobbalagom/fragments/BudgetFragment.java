@@ -18,11 +18,27 @@ public class BudgetFragment extends Fragment {
 
     private BudgetFragmentCallback callback;
 
+
+    /**
+     * Initializes fragment.
+     * @param inflater layout object that is used to show the layout of fragment.
+     * @param container the parent view this fragment is added to.
+     * @param savedInstanceState used for saving non persistent data that get's restored if the fragment needs to be recreated.
+     * @return view hierarchu associated with fragment.
+     */
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_budget, container, false);
     }
 
+
+    /**
+     * Called after the onCreateView has executed makes final UI initializations.
+     * @param  view  this fragment view.
+     * @param savedInstanceState used for saving non persistent data that get's restored if the fragment needs to be recreated.
+     * @return view hierarchu associated with fragment.
+     */
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         initComponents(view);
@@ -30,9 +46,10 @@ public class BudgetFragment extends Fragment {
 
     /**
      * Initializes components.
+     * @param  v  this fragment view.
      */
 
-    public void initComponents(View view) {
+    public void initComponents(View v) {
     }
 
     /**

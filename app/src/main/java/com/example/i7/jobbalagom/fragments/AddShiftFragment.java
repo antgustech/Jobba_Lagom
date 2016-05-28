@@ -34,10 +34,26 @@ public class AddShiftFragment extends Fragment {
     private ImageButton btnBreakInfo;
     private EditText inputStart, inputEnd, inputBreak, inputDate;
 
+
+    /**
+     * Initializes fragment.
+     * @param inflater layout object that is used to show the layout of fragment.
+     * @param container the parent view this fragment is added to.
+     * @param savedInstanceState used for saving non persistent data that get's restored if the fragment needs to be recreated.
+     * @return view hierarchu associated with fragment.
+     */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_addshift, container, false);
     }
+
+
+    /**
+     * Called after the onCreateView has executed makes final UI initializations.
+     * @param  view  this fragment view.
+     * @param savedInstanceState used for saving non persistent data that get's restored if the fragment needs to be recreated.
+     * @return view hierarchu associated with fragment.
+     */
 
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
@@ -46,23 +62,23 @@ public class AddShiftFragment extends Fragment {
 
     /**
      * Initializes components.
-     * @param view this class view.
+     * @param  v  this fragment v.
      */
 
-    public void initComponents(View view) {
+    public void initComponents(View v) {
         controller = Singleton.controller;
-        btnAddShift = (Button) view.findViewById(R.id.btnAddShift);
-        btnBreakInfo =(ImageButton) view.findViewById(R.id.btnBreakInfo);
-        inputStart = (EditText) view.findViewById(R.id.inputStart);
-        inputEnd = (EditText) view.findViewById(R.id.inputEnd);
-        inputBreak = (EditText) view.findViewById(R.id.inputBreak);
-        inputDate = (EditText) view.findViewById(R.id.inputDate);
+        btnAddShift = (Button) v.findViewById(R.id.btnAddShift);
+        btnBreakInfo =(ImageButton) v.findViewById(R.id.btnBreakInfo);
+        inputStart = (EditText) v.findViewById(R.id.inputStart);
+        inputEnd = (EditText) v.findViewById(R.id.inputEnd);
+        inputBreak = (EditText) v.findViewById(R.id.inputBreak);
+        inputDate = (EditText) v.findViewById(R.id.inputDate);
         btnAddShift.setOnClickListener(new ButtonAddShiftListener());
         btnBreakInfo.setOnClickListener(new MessageDialogListener());
         jobTitles = controller.getJobTitles();
 
         ArrayAdapter adapter = new ArrayAdapter<String>(getActivity(), R.layout.spinner_row, R.id.text, jobTitles);
-        jobSpinner = (Spinner) view.findViewById(R.id.jobSpinner);
+        jobSpinner = (Spinner) v.findViewById(R.id.jobSpinner);
         jobSpinner.setAdapter(adapter);
 
         if (jobTitles.length == 0) {

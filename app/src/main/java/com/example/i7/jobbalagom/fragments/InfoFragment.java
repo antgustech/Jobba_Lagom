@@ -50,25 +50,44 @@ public class InfoFragment extends Fragment {
                                     + "Närmare bestämt Anton Gustafsson, Christoffer Strandberg, Jakup Güven, Kajsa Ornstein "
                                     + "och Morgan Hedström.";
 
+
+    /**
+     * Initializes fragment.
+     * @param inflater layout object that is used to show the layout of fragment.
+     * @param container the parent view this fragment is added to.
+     * @param savedInstanceState used for saving non persistent data that get's restored if the fragment needs to be recreated.
+     * @return view hierarchu associated with fragment.
+     */
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_info, container, false);
     }
 
+    /**
+     * Called after the onCreateView has executed makes final UI initializations.
+     * @param  view  this fragment view.
+     * @param savedInstanceState used for saving non persistent data that get's restored if the fragment needs to be recreated.
+     * @return view hierarchu associated with fragment.
+     */
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         initComponents(view);
     }
 
-    public void initComponents(View view) {
-        btnWhat = (Button) view.findViewById(R.id.btnWhat);
-        btnHow = (Button) view.findViewById(R.id.btnHow);
-        btnWhy = (Button) view.findViewById(R.id.btnWhy);
-        btnWho = (Button) view.findViewById(R.id.btnWho);
-        btnExitPopup = (Button) view.findViewById(R.id.btnExitPopup);
-        popupLayout = (RelativeLayout) view.findViewById(R.id.popupLayout);
-        tvPopupTitle = (TextView) view.findViewById(R.id.tvPopupTitle);
-        tvPopupText = (TextView) view.findViewById(R.id.tvPopupText);
-        ivSelfie = (ImageView) view.findViewById(R.id.ivSelfie);
+    /**
+     * Initializes components.
+     * @param  v  this fragment v.
+     */
+
+    public void initComponents(View v) {
+        btnWhat = (Button) v.findViewById(R.id.btnWhat);
+        btnHow = (Button) v.findViewById(R.id.btnHow);
+        btnWhy = (Button) v.findViewById(R.id.btnWhy);
+        btnWho = (Button) v.findViewById(R.id.btnWho);
+        btnExitPopup = (Button) v.findViewById(R.id.btnExitPopup);
+        popupLayout = (RelativeLayout) v.findViewById(R.id.popupLayout);
+        tvPopupTitle = (TextView) v.findViewById(R.id.tvPopupTitle);
+        tvPopupText = (TextView) v.findViewById(R.id.tvPopupText);
+        ivSelfie = (ImageView) v.findViewById(R.id.ivSelfie);
         ButtonListener btnListener = new ButtonListener();
         btnWhat.setOnClickListener(btnListener);
         btnHow.setOnClickListener(btnListener);
