@@ -32,7 +32,7 @@ public class Controller {
 
     public Controller(Context context) {
         int PORT = 4545;
-        String IP = "192.168.1.136";
+        String IP = "192.168.8.105";
         client = new Client(IP, PORT);
         dbHelper = new DBHelper(context);
     }

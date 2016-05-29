@@ -73,6 +73,11 @@ public class ChangeIncomeLimitFragment extends Fragment {
          */
         @Override
         public void onClick(View v) {
+
+            if(newIncomeLimitField.getText().toString().equals("")) {
+                Toast.makeText(getActivity(), "Du glömde fylla i fribelopp!", Toast.LENGTH_LONG).show();
+                return;
+            }
             float newLimit = Float.parseFloat(newIncomeLimitField.getText().toString());
             if(newLimit >0f && newLimit<200000f) {
                 callback.setIncomeLimit(newLimit);

@@ -10,6 +10,7 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.i7.jobbalagom.R;
 import com.example.i7.jobbalagom.callbacks.ChangeTaxFragmentCallback;
@@ -86,6 +87,11 @@ public class ChangeTaxFragment extends Fragment {
             public void onClick(View v) {
                 SetTaxListener callback = new SetTaxListener();
                 if (v == v.findViewById(R.id.calculateTaxBtn)) {
+
+                    if(textViewKommun.getText().toString().equals("")) {
+                        Toast.makeText(getActivity(), "Du glömde fylla i kommun!", Toast.LENGTH_LONG).show();
+                        return;
+                    }
                     if (churchCheckbox.isChecked()) {
                         controller.getChurchTax(textViewKommun.getText() + "", callback);
                     } else {
@@ -102,6 +108,7 @@ public class ChangeTaxFragment extends Fragment {
             public void run() {
                 newTaxText.setText(text);
                 oldTaxText.setText(text);
+                Toast.makeText(getActivity(), "Skatten är ändrad!", Toast.LENGTH_LONG).show();
             }
         });
     }
