@@ -129,9 +129,9 @@ public class Controller {
      * @param day         the day the shift was done.
      */
 
-    private void addShift(String jobTitle, float startTime, float endTime, float hoursWorked, int year, int month, int day, float income) {
+    private void addShift(String jobTitle, float startTime, float endTime, float hoursWorked, int year, int month, int day, float taxIncome, float noTaxIncome) {
         sqLiteDatabase = dbHelper.getWritableDatabase();
-        dbHelper.addShift(jobTitle, startTime, endTime, hoursWorked, year, month, day, income, sqLiteDatabase);
+        dbHelper.addShift(jobTitle, startTime, endTime, hoursWorked, year, month, day, taxIncome, noTaxIncome, sqLiteDatabase);
     }
 
     /**
@@ -379,7 +379,8 @@ public class Controller {
         float obIndex = getOB(jobTitle, dayName);
         float obStart = getOBStart(jobTitle, dayName);
         float obEnd = getOBEnd(jobTitle, dayName);
-        float result = 0;
+        float taxIncome = 0;
+        float noTaxIncome=0;
         if (obIndex == 0) {
             obIndex++;
         }
@@ -397,10 +398,14 @@ public class Controller {
         nf.setMaximumFractionDigits(4);
         nf.setMinimumFractionDigits(0);
         nf.format(realTax);
-        result = ((workedPay + workedObPay) * realTax);
-        Log.e("Calculation ", "Result after calculation: wage: " + wage + " StartTime: " + startTime + " EndTime " + endTime + " tax " + tax + " new tax " + realTax + " obIndex " + obIndex + " obStart " + obStart + " obEnd " + obEnd + " day " + dayOfWeek + " = " + dayName + " calculated ob " + workedObPay + " Result= " + result);
-        addShift(jobTitle, startTime, endTime, workedTime, year % 100, month + 1, day, result);
-        return result;
+        noTaxIncome = (workedPay + workedObPay);
+        taxIncome = (noTaxIncome * realTax);
+
+
+
+        Log.e("Calculation ", "Result after calculation: wage: " + wage + " StartTime: " + startTime + " EndTime " + endTime + " tax " + tax + " new tax " + realTax + " obIndex " + obIndex + " obStart " + obStart + " obEnd " + obEnd + " day " + dayOfWeek + " = " + dayName + " calculated ob " + workedObPay + " TaxIncome= " + taxIncome + "no Tax income: " + noTaxIncome);
+        addShift(jobTitle, startTime, endTime, workedTime, year % 100, month + 1, day, taxIncome, noTaxIncome);
+        return taxIncome;
     }
 
     /**

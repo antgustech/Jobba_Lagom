@@ -31,7 +31,8 @@ public class UserContract {
         public static final String SHIFT_YEAR = "year";
         public static final String SHIFT_MONTH = "month";
         public static final String SHIFT_DAY = "day";
-        public static final String SHIFT_INCOME = "income";
+        public static final String SHIFT_TAX_INCOME = "taxIncome";
+        public static final String SHIFT_NO_TAX_INCOME = "noTaxIncome";
     }
 
     public static abstract class Expense {

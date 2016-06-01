@@ -40,7 +40,8 @@ public class DBHelper extends SQLiteOpenHelper {
                     + UserContract.Shift.SHIFT_YEAR + " INTEGER, "
                     + UserContract.Shift.SHIFT_MONTH + " INTEGER, "
                     + UserContract.Shift.SHIFT_DAY + " INTEGER, "
-                    + UserContract.Shift.SHIFT_INCOME + " FLOAT, "
+                    + UserContract.Shift.SHIFT_TAX_INCOME + " FLOAT, "
+                    + UserContract.Shift.SHIFT_NO_TAX_INCOME + " FLOAT, "
                     + UserContract.Shift.SHIFT_HOURS_WORKED + " FLOAT);";
 
     private static final String CREATE_EXPENSE_QUERY =
@@ -146,11 +147,11 @@ public class DBHelper extends SQLiteOpenHelper {
      * @param year        the registered year
      * @param month       the registered month
      * @param day         the registered day
-     * @param income      the registered complete income for the shift.
+     * @param taxIncome      the registered complete income for the shift.
      * @param db          reference to class that contains db methods.
      */
 
-    public void addShift(String jobTitle, float startTime, float endTime, float hoursWorked, int year, int month, int day, float income, SQLiteDatabase db) {
+    public void addShift(String jobTitle, float startTime, float endTime, float hoursWorked, int year, int month, int day, float taxIncome,float noTaxIncome, SQLiteDatabase db) {
         ContentValues contentValues = new ContentValues();
         contentValues.put(UserContract.Shift.SHIFT_JOB_TITLE, jobTitle);
         contentValues.put(UserContract.Shift.SHIFT_START_TIME, startTime);
@@ -159,7 +160,8 @@ public class DBHelper extends SQLiteOpenHelper {
         contentValues.put(UserContract.Shift.SHIFT_YEAR, year);
         contentValues.put(UserContract.Shift.SHIFT_MONTH, month);
         contentValues.put(UserContract.Shift.SHIFT_DAY, day);
-        contentValues.put(UserContract.Shift.SHIFT_INCOME, income);
+        contentValues.put(UserContract.Shift.SHIFT_TAX_INCOME, taxIncome);
+        contentValues.put(UserContract.Shift.SHIFT_NO_TAX_INCOME, noTaxIncome);
         db.insert(UserContract.Shift.TABLE_NAME, null, contentValues);
     }
 
@@ -285,11 +287,11 @@ public class DBHelper extends SQLiteOpenHelper {
         float halfYearIncome = 0;
         Cursor c;
         if (month <= 6) {
-            c = db.rawQuery("SELECT SUM(" + UserContract.Shift.SHIFT_INCOME + ") FROM " + UserContract.Shift.TABLE_NAME
+            c = db.rawQuery("SELECT SUM(" + UserContract.Shift.SHIFT_NO_TAX_INCOME + ") FROM " + UserContract.Shift.TABLE_NAME
                     + " WHERE " + UserContract.Shift.SHIFT_MONTH + " >= 1 AND " + UserContract.Shift.SHIFT_MONTH + " <= 6"
                     + " AND " + UserContract.Shift.SHIFT_YEAR + " = " + year + ";", null);
         } else {
-            c = db.rawQuery("SELECT SUM(" + UserContract.Shift.SHIFT_INCOME + ") FROM " + UserContract.Shift.TABLE_NAME
+            c = db.rawQuery("SELECT SUM(" + UserContract.Shift.SHIFT_NO_TAX_INCOME+ ") FROM " + UserContract.Shift.TABLE_NAME
                     + " WHERE " + UserContract.Shift.SHIFT_MONTH + " >= 7 AND " + UserContract.Shift.SHIFT_MONTH + " <= 12"
                     + " AND " + UserContract.Shift.SHIFT_YEAR + " = " + year + ";", null);
         }
@@ -312,7 +314,7 @@ public class DBHelper extends SQLiteOpenHelper {
     public float getMonthlyIncome(int month, int year, SQLiteDatabase db) {
         float income = 0;
 
-        Cursor c = db.rawQuery("SELECT SUM(" + UserContract.Shift.SHIFT_INCOME + ") FROM " + UserContract.Shift.TABLE_NAME + " WHERE "
+        Cursor c = db.rawQuery("SELECT SUM(" + UserContract.Shift.SHIFT_TAX_INCOME + ") FROM " + UserContract.Shift.TABLE_NAME + " WHERE "
                 + UserContract.Shift.SHIFT_MONTH + " = " + month + " AND " + UserContract.Shift.SHIFT_YEAR + " = " + year + ";", null);
         if (c.moveToFirst()) {
             income = c.getFloat(0);
@@ -508,7 +510,7 @@ public class DBHelper extends SQLiteOpenHelper {
     }
 
     public  String[] getExpenses( int month, SQLiteDatabase db) {
-        Log.e("getExpenses", "START" );
+   //     Log.e("getExpenses", "START" );
         ArrayList<String> expenses = new ArrayList<>();
         Cursor c = db.rawQuery("SELECT " + UserContract.Expense.EXPENSE_NAME + ", "+ UserContract.Expense.EXPENSE_AMOUNT +", "+UserContract.Expense.EXPENSE_DAY + ", " + UserContract.Expense.EXPENSE_ID+ " FROM "
                 + UserContract.Expense.TABLE_NAME + " WHERE month=" + month + ";", null);
@@ -523,16 +525,16 @@ public class DBHelper extends SQLiteOpenHelper {
 
 
             newString = newExpenseName +", "+newExpenseAmount+", "+newExpenseDay+", "+newExpenseID;
-            Log.e("getExpenses", "While c move to next" + newString );
+          //  Log.e("getExpenses", "While c move to next" + newString );
             expenses.add(newString);
         }
         String[] finalExpenses = expenses.toArray(new String[expenses.size()]);
 
-        for(int i = 0; i<finalExpenses.length;i++){
-            Log.e("getExpenses", "After all is done loop array " + finalExpenses[i] );
-        }
+      //  for(int i = 0; i<finalExpenses.length;i++){
+      //      Log.e("getExpenses", "After all is done loop array " + finalExpenses[i] );
+      //  }
         c.close();
-        Log.e("getExpenses", "END" );
+      //  Log.e("getExpenses", "END" );
         return finalExpenses;
     }
 
@@ -540,28 +542,28 @@ public class DBHelper extends SQLiteOpenHelper {
     public  String[]  getIncomes(int month, SQLiteDatabase db) {
         Log.e("getIncomes", "START" );
         ArrayList<String> incomes = new ArrayList<>();
-        Cursor c = db.rawQuery("SELECT " + UserContract.Shift.SHIFT_JOB_TITLE + ", "+ UserContract.Shift.SHIFT_INCOME +", "+UserContract.Shift.SHIFT_DAY + ", " + UserContract.Shift.SHIFT_ID+ " FROM "
+        Cursor c = db.rawQuery("SELECT " + UserContract.Shift.SHIFT_JOB_TITLE + ", "+ UserContract.Shift.SHIFT_TAX_INCOME +", "+UserContract.Shift.SHIFT_DAY + ", " + UserContract.Shift.SHIFT_ID+ " FROM "
                 + UserContract.Shift.TABLE_NAME+ " WHERE month=" + month + ";", null);
         String newString ="";
         while (c.moveToNext()) {
             newString ="";
             String newIncomeName = c.getString(c.getColumnIndex(UserContract.Shift.SHIFT_JOB_TITLE ));
-            String newIncomeIncome = c.getString(c.getColumnIndex(UserContract.Shift.SHIFT_INCOME));
+            String newIncomeIncome = c.getString(c.getColumnIndex(UserContract.Shift.SHIFT_TAX_INCOME));
             String newIncomeDay = c.getString(c.getColumnIndex(UserContract.Shift.SHIFT_DAY));
             String newIncomeID = c.getString(c.getColumnIndex(UserContract.Shift.SHIFT_ID));
 
 
             newString = newIncomeName +", "+newIncomeIncome+", "+newIncomeDay+", "+newIncomeID;
-            Log.e("getIncomes", "While c move to next" + newString );
+         //   Log.e("getIncomes", "While c move to next" + newString );
             incomes.add(newString);
         }
         String[] finalIncomes = incomes.toArray(new String[incomes.size()]);
 
-        for(int i = 0; i<finalIncomes.length;i++){
-            Log.e("getIncomes", "After all is done loop array " + finalIncomes[i] );
-        }
+        //for(int i = 0; i<finalIncomes.length;i++){
+           // Log.e("getIncomes", "After all is done loop array " + finalIncomes[i] );
+       // }
         c.close();
-        Log.e("getIncomes", "END" );
+        //Log.e("getIncomes", "END" );
         return finalIncomes;
     }
 

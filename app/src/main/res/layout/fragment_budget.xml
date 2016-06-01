@@ -5,7 +5,7 @@
     android:background="@color/grey"
     android:clickable="true"
     android:orientation="vertical"
-    android:padding="5dp"
+    android:padding="6dp"
     android:id="@+id/budgetLayout">
 
     <ListView
@@ -22,9 +22,8 @@
         android:layout_width="150dp"
         android:layout_height="wrap_content"
         android:id="@+id/listIncomes"
-        android:layout_alignBottom="@+id/listExpenses"
-        android:layout_toRightOf="@+id/listExpenses"
         android:layout_alignTop="@+id/listExpenses"
+        android:layout_toRightOf="@+id/listExpenses"
         android:layout_toLeftOf="@+id/imageView2"
         android:layout_toStartOf="@+id/imageView2" />
 
@@ -82,8 +81,8 @@
         android:layout_height="wrap_content"
         android:background="@drawable/right_icon"
         android:layout_alignTop="@+id/imageView"
-        android:layout_alignRight="@+id/textView7"
-        android:layout_alignEnd="@+id/textView7" />
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
 
 
 </RelativeLayout>

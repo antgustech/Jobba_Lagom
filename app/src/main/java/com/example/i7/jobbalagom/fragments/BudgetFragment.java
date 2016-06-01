@@ -86,6 +86,9 @@ public class BudgetFragment extends Fragment {
         initListIncome(selectedMonth);
         initListExpense(selectedMonth);
 
+        listExpenses.setOnItemClickListener(new ExpenseListener());
+        listIncomes.setOnItemClickListener(new IncomeListener());
+
     }
 
     private void initListExpense(int month){
@@ -95,17 +98,21 @@ public class BudgetFragment extends Fragment {
         Collections.addAll(expenseList, arrayExpenses);
         ArrayAdapter<String> adapterExpense = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, arrayExpenses);
         listExpenses.setAdapter(adapterExpense);
-        listExpenses.setOnItemClickListener(new ExpenseListener());
     }
 
     private void initListIncome(int month){
 
         String[] arrayIncomes = callback.getIncomes(month);
+      //  String[] arrayIncomes = {"öpö","lol"};
+
         ArrayList<String> incomeList = new ArrayList<>();
         Collections.addAll(incomeList, arrayIncomes);
         ArrayAdapter<String> adapterIncome = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, arrayIncomes);
         listIncomes.setAdapter(adapterIncome);
-        listIncomes.setOnItemClickListener(new IncomeListener());
+
+        for(int i = 0; i<arrayIncomes.length;i++){
+          //  Log.e("initListIncome", "After all is done loop array " + arrayIncomes[i] );
+        }
     }
 
     /**
@@ -131,7 +138,7 @@ public class BudgetFragment extends Fragment {
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
             String itemValue = (String) listExpenses.getItemAtPosition(position);
             String[] splitSelected = itemValue.split(",");
-            final int itemID = Integer.parseInt(splitSelected[2].substring(1));
+            final int itemID = Integer.parseInt(splitSelected[3].substring(1));
 
             new AlertDialog.Builder(getActivity(), R.style.AppCompatAlertDialogStyle)
                     .setTitle("Radera Utgift")
@@ -139,6 +146,8 @@ public class BudgetFragment extends Fragment {
                     .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int which) {
                             callback.removeExpense(itemID);
+                            loadList();
+
                         }
                     })
                     .setIcon(android.R.drawable.ic_dialog_alert)
@@ -160,7 +169,7 @@ public class BudgetFragment extends Fragment {
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
             String itemValue = (String) listExpenses.getItemAtPosition(position);
             String[] splitSelected = itemValue.split(",");
-            final int itemID = Integer.parseInt(splitSelected[2].substring(1));
+            final int itemID = Integer.parseInt(splitSelected[3].substring(1));
 
             new AlertDialog.Builder(getActivity(), R.style.AppCompatAlertDialogStyle)
                     .setTitle("Radera Inkomst")
@@ -168,6 +177,7 @@ public class BudgetFragment extends Fragment {
                     .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int which) {
                             callback.removeIncome(itemID);
+
                         }
                     })
                     .setIcon(android.R.drawable.ic_dialog_alert)
