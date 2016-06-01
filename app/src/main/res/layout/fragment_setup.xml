@@ -25,7 +25,8 @@
         android:layout_below="@+id/tvTitle"
         android:paddingBottom="@dimen/setup_fragment_padding"
         android:paddingLeft="@dimen/setup_fragment_padding"
-        android:paddingRight="@dimen/setup_fragment_padding">
+        android:paddingRight="@dimen/setup_fragment_padding"
+        android:layout_alignParentBottom="true">
 
         <EditText
             android:id="@+id/inputIncomeLimit"
@@ -84,6 +85,17 @@
             android:text="Fortsätt"
             android:textColor="@color/btn_text_color"
             android:textSize="@dimen/btn_text_size" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:text="@string/hitta_ditt_fribelopp_p_csn_hemsida"
+            android:id="@+id/csnURL"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:textColor="#ffffff" />
     </RelativeLayout>
 
 </RelativeLayout>

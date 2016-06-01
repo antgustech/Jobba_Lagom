@@ -1,6 +1,8 @@
 package com.example.i7.jobbalagom.fragments;
 
 import android.app.Fragment;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,6 +12,7 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.i7.jobbalagom.R;
@@ -29,6 +32,7 @@ public class SetupFragment extends Fragment {
     private EditText inputIncomeLimit;
     private AutoCompleteTextView inputMunicipality;
     private CheckBox churchCheckboxSetup;
+    private TextView csnURL;
 
     private SetupFragmentCallback callback;
 
@@ -68,9 +72,12 @@ public class SetupFragment extends Fragment {
         churchCheckboxSetup = (CheckBox) v.findViewById(R.id.churchCheckboxSetup);
         inputIncomeLimit = (EditText) v.findViewById(R.id.inputIncomeLimit);
         inputMunicipality = (AutoCompleteTextView) v.findViewById(R.id.inputMunicipality);
+        csnURL = (TextView) v.findViewById(R.id.csnURL);
+
         ButtonListener btnListener = new ButtonListener();
         Button btnSetup = (Button) v.findViewById(R.id.btnSetup);
         btnSetup.setOnClickListener(btnListener);
+        csnURL.setOnClickListener(btnListener);
         Button btnExit = (Button) v.findViewById(R.id.btnExit);
 
         Controller controller = Singleton.controller;
@@ -105,6 +112,12 @@ public class SetupFragment extends Fragment {
         public void onClick(View v) {
             String municipality = inputMunicipality.getText().toString();
             String incomeLimit = inputIncomeLimit.getText().toString();
+            if(v.getId() == R.id.csnURL){
+                Uri uri = Uri.parse("http://www.csn.se/hogskola/hur-mycket-kan-du-fa/inkomst-fribelopp/1.2568");
+                Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+                startActivity(intent);
+            }
+
             if (incomeLimit.equals("")) {
                 Toast.makeText(getActivity(), "Vänligen ange hur hög inkomst du får ha detta halvåret enligt Centrala Studiestödnämnen.", Toast.LENGTH_LONG).show();
                 return;

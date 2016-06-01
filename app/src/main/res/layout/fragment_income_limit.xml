@@ -89,4 +89,16 @@
         android:textColor="@color/btn_text_color"
         android:textSize="@dimen/btn_text_size" />
 
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="@string/hitta_ditt_fribelopp_p_csn_hemsida"
+        android:id="@+id/csnURLChange"
+        android:textColor="#ffffff"
+        android:layout_below="@+id/btnChangeIncomeLimit"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="30dp" />
+
 </RelativeLayout>

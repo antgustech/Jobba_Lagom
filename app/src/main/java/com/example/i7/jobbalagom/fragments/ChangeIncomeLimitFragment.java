@@ -1,6 +1,8 @@
 package com.example.i7.jobbalagom.fragments;
 
 import android.app.Fragment;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,7 +22,7 @@ import com.example.i7.jobbalagom.callbacks.ChangeIncomeLimitFragmentCallback;
 
 public class ChangeIncomeLimitFragment extends Fragment {
     private ChangeIncomeLimitFragmentCallback callback;
-    private TextView currentIncomeLimitText;
+    private TextView currentIncomeLimitText, csnURLChange;
     private EditText newIncomeLimitField;
 
 
@@ -55,10 +57,13 @@ public class ChangeIncomeLimitFragment extends Fragment {
      */
 
     private void initComponents(View v) {
+
+        csnURLChange = (TextView) v.findViewById(R.id.csnURLChange);
         currentIncomeLimitText = (TextView) v.findViewById(R.id.currentIncomeLimitText);
         Button btnChangeIncomeLimit = (Button) v.findViewById(R.id.btnChangeIncomeLimit);
         newIncomeLimitField = (EditText) v.findViewById(R.id.newIncomeLimitField);
         btnChangeIncomeLimit.setOnClickListener(new IncomeLimitListener());
+        csnURLChange.setOnClickListener(new IncomeLimitListener());
     }
 
     /**
@@ -74,6 +79,12 @@ public class ChangeIncomeLimitFragment extends Fragment {
         @Override
         public void onClick(View v) {
 
+            if(v.getId() == R.id.csnURLChange){
+                Uri uri = Uri.parse("http://www.csn.se/hogskola/hur-mycket-kan-du-fa/inkomst-fribelopp/1.2568");
+                Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+                startActivity(intent);
+            }
+
             if(newIncomeLimitField.getText().toString().equals("")) {
                 Toast.makeText(getActivity(), "Du glömde fylla i fribelopp!", Toast.LENGTH_LONG).show();
                 return;
@@ -87,6 +98,9 @@ public class ChangeIncomeLimitFragment extends Fragment {
             else{
                 Toast.makeText(getActivity(), "Fribeloppet måste vara mellan 0-200 000kr.", Toast.LENGTH_LONG).show();
             }
+
+
+
         }
     }
 
