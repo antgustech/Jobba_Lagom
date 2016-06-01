@@ -97,6 +97,7 @@ public class MainActivity extends Activity {
         FloatingActionButton btnAddShift = (FloatingActionButton) findViewById(R.id.action_addShift);
         FloatingActionButton btnAddExpense = (FloatingActionButton) findViewById(R.id.action_addExpense);
         FloatingActionButton btnAddJob = (FloatingActionButton) findViewById(R.id.action_addJob);
+        FloatingActionButton btnBudget = (FloatingActionButton) findViewById(R.id.action_budget);
         ImageButton btnSettings = (ImageButton) findViewById(R.id.btnSettings);
         tvCSN = (TextView) findViewById(R.id.tvCSN);
         tvIncome = (TextView) findViewById(R.id.tvIncome);
@@ -114,6 +115,7 @@ public class MainActivity extends Activity {
         btnAddShift.setOnClickListener(btnListener);
         btnAddExpense.setOnClickListener(btnListener);
         btnAddJob.setOnClickListener(btnListener);
+        btnBudget.setOnClickListener(btnListener);
         tvBalance.setOnClickListener(btnListener);
         tvDate.setOnClickListener(btnListener);
         leftIcon.setOnClickListener(btnListener);
@@ -124,6 +126,8 @@ public class MainActivity extends Activity {
         selectedYear = Calendar.getInstance().get(Calendar.YEAR) % 100;
         fragmentManager = getFragmentManager();
     }
+
+
 
     /**
      * Check if there already is an registered user.
@@ -406,6 +410,8 @@ public class MainActivity extends Activity {
                 startAddExpenseFragment();
             } else if (v.getId() == R.id.action_addJob) {
                 startAddJobFragment();
+            } else if (v.getId() == R.id.action_budget){
+                startBudgetFragment();
             } else if (v.getId() == R.id.btnSettings) {
                 startActivity(new Intent(getApplicationContext(), SettingsActivity.class));
             } else if (v.getId() == R.id.tvBalance) {
@@ -567,6 +573,32 @@ public class MainActivity extends Activity {
      */
 
     private class BudgetFragmentListener implements BudgetFragmentCallback {
+        @Override
+        public  String[] getExpenses(int month) {
+          return  controller.getExpenses( month);
+        }
+
+        @Override
+        public  String[]  getIncomes(int month) {
+        return            controller.getIncomes( month);
+        }
+
+        @Override
+        public void removeExpense(int id) {
+            controller.removeExpense(id);
+        }
+
+        @Override
+        public void removeIncome(int id) {
+            controller.removeIncome(id);
+        }
+
+        @Override
+        public String getDate(int selectedMonth, int selectedYear) {
+           return controller.getDate(selectedMonth, selectedYear);
+        }
+
+
     }
 
     /**
@@ -642,6 +674,8 @@ public class MainActivity extends Activity {
         public void onSwipeBottom() {
         }
 
+
+
         /**
          * Listener for swipe motions on the main graph view.
          */
@@ -704,4 +738,6 @@ public class MainActivity extends Activity {
             }
         }
     }
+
+
 }

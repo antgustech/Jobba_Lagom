@@ -32,7 +32,7 @@ public class Controller {
 
     public Controller(Context context) {
         int PORT = 4545;
-        String IP = "192.168.8.105";
+        String IP = "192.168.1.136";
         client = new Client(IP, PORT);
         dbHelper = new DBHelper(context);
     }
@@ -511,6 +511,27 @@ public class Controller {
             sqLiteDatabase = dbHelper.getWritableDatabase();
             dbHelper.addUser(tax, incomeLimit, sqLiteDatabase, municipality);
         }
+    }
+
+
+
+    public  String[] getExpenses( int month) {
+        sqLiteDatabase = dbHelper.getWritableDatabase();
+       return dbHelper.getExpenses(month, sqLiteDatabase);
+    }
+
+    public String[]  getIncomes(int month) {
+        sqLiteDatabase = dbHelper.getWritableDatabase();
+      return  dbHelper.getIncomes( month , sqLiteDatabase);
+    }
+
+    public void removeExpense(int id){
+        sqLiteDatabase = dbHelper.getWritableDatabase();
+        dbHelper.removeExpense( id , sqLiteDatabase);
+    }
+    public void removeIncome(int id){
+        sqLiteDatabase = dbHelper.getWritableDatabase();
+        dbHelper.removeIncome( id , sqLiteDatabase);
     }
 }
 

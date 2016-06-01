@@ -506,4 +506,69 @@ public class DBHelper extends SQLiteOpenHelper {
         return true;
 
     }
+
+    public  String[] getExpenses( int month, SQLiteDatabase db) {
+        Log.e("getExpenses", "START" );
+        ArrayList<String> expenses = new ArrayList<>();
+        Cursor c = db.rawQuery("SELECT " + UserContract.Expense.EXPENSE_NAME + ", "+ UserContract.Expense.EXPENSE_AMOUNT +", "+UserContract.Expense.EXPENSE_DAY + ", " + UserContract.Expense.EXPENSE_ID+ " FROM "
+                + UserContract.Expense.TABLE_NAME + " WHERE month=" + month + ";", null);
+        String newString ="";
+        while (c.moveToNext()) {
+            newString ="";
+
+            String newExpenseName = c.getString(c.getColumnIndex(UserContract.Expense.EXPENSE_NAME));
+            String newExpenseAmount = c.getString(c.getColumnIndex(UserContract.Expense.EXPENSE_AMOUNT));
+            String newExpenseDay = c.getString(c.getColumnIndex(UserContract.Expense.EXPENSE_DAY));
+            String newExpenseID = c.getString(c.getColumnIndex(UserContract.Expense.EXPENSE_ID));
+
+
+            newString = newExpenseName +", "+newExpenseAmount+", "+newExpenseDay+", "+newExpenseID;
+            Log.e("getExpenses", "While c move to next" + newString );
+            expenses.add(newString);
+        }
+        String[] finalExpenses = expenses.toArray(new String[expenses.size()]);
+
+        for(int i = 0; i<finalExpenses.length;i++){
+            Log.e("getExpenses", "After all is done loop array " + finalExpenses[i] );
+        }
+        c.close();
+        Log.e("getExpenses", "END" );
+        return finalExpenses;
+    }
+
+
+    public  String[]  getIncomes(int month, SQLiteDatabase db) {
+        Log.e("getIncomes", "START" );
+        ArrayList<String> incomes = new ArrayList<>();
+        Cursor c = db.rawQuery("SELECT " + UserContract.Shift.SHIFT_JOB_TITLE + ", "+ UserContract.Shift.SHIFT_INCOME +", "+UserContract.Shift.SHIFT_DAY + ", " + UserContract.Shift.SHIFT_ID+ " FROM "
+                + UserContract.Shift.TABLE_NAME+ " WHERE month=" + month + ";", null);
+        String newString ="";
+        while (c.moveToNext()) {
+            newString ="";
+            String newIncomeName = c.getString(c.getColumnIndex(UserContract.Shift.SHIFT_JOB_TITLE ));
+            String newIncomeIncome = c.getString(c.getColumnIndex(UserContract.Shift.SHIFT_INCOME));
+            String newIncomeDay = c.getString(c.getColumnIndex(UserContract.Shift.SHIFT_DAY));
+            String newIncomeID = c.getString(c.getColumnIndex(UserContract.Shift.SHIFT_ID));
+
+
+            newString = newIncomeName +", "+newIncomeIncome+", "+newIncomeDay+", "+newIncomeID;
+            Log.e("getIncomes", "While c move to next" + newString );
+            incomes.add(newString);
+        }
+        String[] finalIncomes = incomes.toArray(new String[incomes.size()]);
+
+        for(int i = 0; i<finalIncomes.length;i++){
+            Log.e("getIncomes", "After all is done loop array " + finalIncomes[i] );
+        }
+        c.close();
+        Log.e("getIncomes", "END" );
+        return finalIncomes;
+    }
+
+    public void removeExpense(int id, SQLiteDatabase db){
+        db.execSQL("DELETE FROM " + UserContract.Expense.TABLE_NAME + " WHERE " + UserContract.Expense.EXPENSE_ID + " = '" + id + "';");
+    }
+    public void removeIncome(int id, SQLiteDatabase db){
+        db.execSQL("DELETE FROM " + UserContract.Shift.TABLE_NAME+ " WHERE " + UserContract.Shift.SHIFT_ID + " = '" + id + "';");
+    }
 }
